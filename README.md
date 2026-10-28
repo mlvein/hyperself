@@ -34,12 +34,12 @@ A local-first personal AI that augments the user based on their unique skills, e
 
 - `hyperself.txt` — raw original notes (frozen)
 - `docs/AUDIT.md` — audit findings on the original notes
-- `docs/MVP_PLAN.md` — feasibility, budget, architecture, improvements
+- `docs/MVP_PLAN.md` — feasibility, architecture, improvements
 - `docs/DATA_MODEL.md` — entry data model draft (entries, goals, check-ins, skills, packs)
-- `docs/ROUTER_POLICY.md` — local/cloud routing, enforcement, budget guardrail
+- `docs/ROUTER_POLICY.md` — local/cloud routing and privacy enforcement
 - `docs/DESIGN.md` — onboarding-first UI specs, copy deck, states
 - `AGENTS.md` — agent roster, prompts, operating rules
-- `app/` — PWA scaffold (entries, goals, dashboard, packs, router + budget meter)
+- `app/` — PWA scaffold (entries, goals, dashboard, packs, router)
 - `docs/GITHUB_SETUP.md` — how to publish this as a public repo
 
 ## Status

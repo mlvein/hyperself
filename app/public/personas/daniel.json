@@ -1,204 +1,521 @@
 {
   "id": "daniel",
-  "label": "Daniel (founder & engineer)",
-  "tagline": "Seven years from first job to startup exit track: building, fundraising, and learning to rest.",
+  "label": "Daniel (support → founder)",
+  "tagline": "Twenty years from night-shift support to founder: failed pivots, a famous unread library, and a good ending.",
   "entries": [
     {
-      "at": "2019-03-04",
+      "at": "2006-04-10",
       "type": "journal",
-      "title": "First engineering job",
-      "body": "Started as a junior backend engineer. Everything is on fire and I love it. Goal: ship something real in my first quarter.",
+      "title": "Call centre nights",
+      "body": "Tech support night shifts. Bought my first programming book; it sat unread for a year. Good intentions, dusty shelves.",
+      "tag": "personal",
+      "people": [
+        "Ruth Diaz"
+      ]
+    },
+    {
+      "at": "2006-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2006",
+      "body": "Year 2006: bought more books than I finished reading. Built more than I read. Onward.",
+      "tag": "personal",
+      "people": [
+        "Sister Bea"
+      ]
+    },
+    {
+      "at": "2007-02-18",
+      "type": "research",
+      "title": "Bought the canon",
+      "body": "Bought twelve classic CS books in a sale. Collection growing; finished reading zero. The shelves look impressive though.",
       "tag": "personal"
     },
     {
-      "at": "2019-06-18",
-      "type": "skill",
-      "title": "Picked up Go",
-      "body": "Rewrote our log pipeline in Go over two weekends. Concurrency finally clicks: channels are just queues with good manners.",
-      "tag": "shareable"
+      "at": "2007-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2007",
+      "body": "Year 2007: family steady, shelves fuller, TBR to-read pile taller. The work still got done.",
+      "tag": "personal",
+      "people": [
+        "June Park",
+        "Alex Kim"
+      ]
     },
     {
-      "at": "2019-11-02",
-      "type": "relationship",
-      "title": "Sam Ortiz — first manager",
-      "body": "Sam Ortiz manages the platform team. Direct, generous with context, allergic to status theater. I want his one-pager habit.",
+      "at": "2008-08-08",
+      "type": "skill",
+      "title": "First scripts at work",
+      "body": "Automated my support macros. Bought three scripting books; skimmed one, shelved two unread.",
+      "tag": "shareable",
+      "people": [
+        "Ken Watanabe"
+      ]
+    },
+    {
+      "at": "2008-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2008",
+      "body": "Year 2008: a hard pivot year. Bea and June kept me honest; the collection kept growing unread.",
+      "tag": "personal",
+      "people": [
+        "Dad Tom",
+        "Mom Ana"
+      ]
+    },
+    {
+      "at": "2009-05-30",
+      "type": "journal",
+      "title": "Pivot attempt one",
+      "body": "Applied to 40 junior dev jobs, rejected by all. Bought interview-prep books, unread, as motivation furniture.",
+      "tag": "personal",
+      "people": [
+        "Sister Bea"
+      ]
+    },
+    {
+      "at": "2009-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2009",
+      "body": "Year 2009: fewer purchases, same pattern. I collect starts; life supplies finishes.",
       "tag": "personal",
       "people": [
         "Sam Ortiz"
       ]
     },
     {
-      "at": "2020-03-15",
-      "type": "journal",
-      "title": "Remote, suddenly",
-      "body": "Office closed mid-sprint. Kitchen-table desk, standups on video. Output held; serendipity died. Started a Friday demo ritual to compensate.",
-      "tag": "personal"
-    },
-    {
-      "at": "2020-08-22",
+      "at": "2010-01-25",
       "type": "health",
-      "title": "Back pain audit",
-      "body": "Six months of couch-coding: lower back complains daily. Standing desk, hourly walks, and a hard stop at six. Non-negotiable now.",
-      "tag": "personal"
+      "title": "Weight and worry",
+      "body": "Stress eating through layoff rumours. Dad Tom says walk it off. Bought a fitness book; unread, obviously.",
+      "tag": "personal",
+      "people": [
+        "Dad Tom",
+        "Mom Ana"
+      ]
     },
     {
-      "at": "2020-12-05",
-      "type": "finding",
-      "title": "Incidents teach more than launches",
-      "body": "Three outages this year wrote our real architecture doc. Blameless write-ups, one fix per incident, no heroics. Reliability is a writing practice.",
-      "tag": "shareable"
+      "at": "2010-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2010",
+      "body": "Year 2010: bought more books than I finished reading. Built more than I read. Onward.",
+      "tag": "personal",
+      "people": [
+        "June Park",
+        "Sister Bea"
+      ]
     },
     {
-      "at": "2021-04-10",
-      "type": "research",
-      "title": "Side project: deploy previews",
-      "body": "Built preview deploys for side projects. Two friends asked to pay. That sentence rewired my year: maybe this is a company.",
-      "tag": "personal"
+      "at": "2011-06-14",
+      "type": "skill",
+      "title": "Night school code",
+      "body": "Community college coding nights after shifts. Bought the textbook new; a classmate finished reading it, I carried it.",
+      "tag": "shareable",
+      "people": [
+        "Marta Silva"
+      ]
     },
     {
-      "at": "2021-09-01",
+      "at": "2011-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2011",
+      "body": "Year 2011: family steady, shelves fuller, TBR to-read pile taller. The work still got done.",
+      "tag": "personal",
+      "people": [
+        "Felix Wagner",
+        "Grace Nolan"
+      ]
+    },
+    {
+      "at": "2012-03-19",
       "type": "relationship",
-      "title": "June Park — co-founder?",
-      "body": "June Park, product designer from the meetup circuit. We whiteboarded the preview-deploy idea for three hours and left with a company name. Testing the partnership with a 4-week build sprint.",
+      "title": "Sister Bea, anchor",
+      "body": "Bea proofreads my applications and my life. Family gravity: Sunday calls, no skipping.",
+      "tag": "personal",
+      "people": [
+        "Sister Bea",
+        "Mom Ana",
+        "Dad Tom"
+      ]
+    },
+    {
+      "at": "2012-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2012",
+      "body": "Year 2012: a hard pivot year. Bea and June kept me honest; the collection kept growing unread.",
+      "tag": "personal",
+      "people": [
+        "Hugo Perez",
+        "Iris Wang"
+      ]
+    },
+    {
+      "at": "2013-09-01",
+      "type": "journal",
+      "title": "First dev job",
+      "body": "Junior backend role at last, four years late. Bought five architecture books to celebrate; finished reading none by Christmas.",
+      "tag": "personal",
+      "people": [
+        "Sam Ortiz"
+      ]
+    },
+    {
+      "at": "2013-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2013",
+      "body": "Year 2013: fewer purchases, same pattern. I collect starts; life supplies finishes.",
+      "tag": "personal",
+      "people": [
+        "Jonas Berg",
+        "Karl Jensen"
+      ]
+    },
+    {
+      "at": "2014-04-22",
+      "type": "research",
+      "title": "Shelf audit",
+      "body": "Shelf audit: 63 books bought, 9 finished reading. I collect beginnings. The TBR to-read pile is now furniture.",
+      "tag": "personal"
+    },
+    {
+      "at": "2014-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2014",
+      "body": "Year 2014: bought more books than I finished reading. Built more than I read. Onward.",
+      "tag": "personal",
+      "people": [
+        "Uncle Rick",
+        "Paolo Rossi"
+      ]
+    },
+    {
+      "at": "2015-07-11",
+      "type": "finding",
+      "title": "Incidents teach",
+      "body": "Finding: our outages taught more than any book I bought. Write-ups I actually finished reading, unlike my shelves.",
+      "tag": "shareable",
+      "people": [
+        "Sam Ortiz",
+        "Leo Park"
+      ]
+    },
+    {
+      "at": "2015-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2015",
+      "body": "Year 2015: family steady, shelves fuller, TBR to-read pile taller. The work still got done.",
+      "tag": "personal",
+      "people": [
+        "Ingrid Holm",
+        "Elena Brooks"
+      ]
+    },
+    {
+      "at": "2016-02-29",
+      "type": "skill",
+      "title": "Go, deeply",
+      "body": "Rewrote the log pipeline in Go. Bought two Go books unread; the docs online did the teaching.",
+      "tag": "shareable",
+      "people": [
+        "Leo Park"
+      ]
+    },
+    {
+      "at": "2016-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2016",
+      "body": "Year 2016: a hard pivot year. Bea and June kept me honest; the collection kept growing unread.",
+      "tag": "personal",
+      "people": [
+        "Sister Bea"
+      ]
+    },
+    {
+      "at": "2017-10-05",
+      "type": "relationship",
+      "title": "June Park, meetup",
+      "body": "Met June at a demo night. She designs; I hoard references. We whiteboarded until the venue closed.",
       "tag": "personal",
       "people": [
         "June Park"
       ]
     },
     {
-      "at": "2021-11-19",
-      "type": "goal-note",
-      "title": "Quit-or-commit deadline",
-      "body": "Giving the side project until March: ten paying teams or back to full-time focus. Savings cover seven months. Written down so I can't move the goalposts.",
-      "tag": "personal"
-    },
-    {
-      "at": "2022-02-14",
-      "type": "finance",
-      "title": "Runway spreadsheet v1",
-      "body": "Personal runway: 7 months at current burn. Business costs near zero until incorporation. Every expense now asks: does this buy learning or comfort?",
-      "tag": "personal"
-    },
-    {
-      "at": "2022-05-06",
+      "at": "2017-12-28",
       "type": "journal",
-      "title": "Incorporated today",
-      "body": "Filed the Delaware C-corp, opened the business account, cried a little at the kitchen table. We have ten paying teams. It's real now.",
-      "tag": "personal"
+      "title": "Year-end reflection 2017",
+      "body": "Year 2017: fewer purchases, same pattern. I collect starts; life supplies finishes.",
+      "tag": "personal",
+      "people": [
+        "June Park",
+        "Alex Kim"
+      ]
     },
     {
-      "at": "2022-08-30",
-      "type": "method",
-      "title": "Weekly founder notes",
-      "body": "Friday note, three sections: what shipped, what I learned, what I'm avoiding. Shared with June unedited. Avoidance is the section that matters.",
-      "tag": "shareable"
+      "at": "2018-05-16",
+      "type": "goal-note",
+      "title": "Pivot: side project",
+      "body": "Side project: deploy previews. Bought a startup library (11 books, unread) and built instead. Correct order, accidentally.",
+      "tag": "personal",
+      "people": [
+        "June Park"
+      ]
     },
     {
-      "at": "2022-12-12",
-      "type": "relationship",
-      "title": "Alex Kim — first hire",
-      "body": "Alex Kim joins as founding engineer in January. Brilliant systems thinker, calmer than me under incident pressure. Equity and salary both written down, no handshake math.",
+      "at": "2018-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2018",
+      "body": "Year 2018: bought more books than I finished reading. Built more than I read. Onward.",
+      "tag": "personal",
+      "people": [
+        "Dad Tom",
+        "Mom Ana"
+      ]
+    },
+    {
+      "at": "2019-03-04",
+      "type": "journal",
+      "title": "Startup incorporated",
+      "body": "Incorporated with June. Ten paying teams. My unread shelf now includes three fundraising books.",
+      "tag": "personal",
+      "people": [
+        "June Park",
+        "Alex Kim"
+      ]
+    },
+    {
+      "at": "2019-11-20",
+      "type": "finance",
+      "title": "Runway v1",
+      "body": "Seven months runway. Bought a finance classic; Bea finished reading it and summarised it for me. System works.",
+      "tag": "personal",
+      "people": [
+        "Sister Bea"
+      ]
+    },
+    {
+      "at": "2019-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2019",
+      "body": "Year 2019: family steady, shelves fuller, TBR to-read pile taller. The work still got done.",
+      "tag": "personal",
+      "people": [
+        "Sam Ortiz"
+      ]
+    },
+    {
+      "at": "2020-06-18",
+      "type": "health",
+      "title": "Back, again",
+      "body": "Couch-coding wrecked my back. Standing desk, walks. Bought an ergonomics book; Alex finished reading his copy.",
       "tag": "personal",
       "people": [
         "Alex Kim"
       ]
     },
     {
-      "at": "2023-03-21",
+      "at": "2020-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2020",
+      "body": "Year 2020: a hard pivot year. Bea and June kept me honest; the collection kept growing unread.",
+      "tag": "personal",
+      "people": [
+        "June Park",
+        "Sister Bea"
+      ]
+    },
+    {
+      "at": "2021-01-30",
       "type": "finding",
       "title": "Onboarding beats features",
-      "body": "Churn interviews said the same thing twelve ways: teams didn't fail to love the product, they failed to reach first value. We rebuilt onboarding; activation doubled.",
-      "tag": "shareable"
+      "body": "Churn interviews: teams failed to reach first value. Rebuilt onboarding; activation doubled. No book required.",
+      "tag": "shareable",
+      "people": [
+        "June Park",
+        "Nadia Ali"
+      ]
     },
     {
-      "at": "2023-07-08",
-      "type": "document",
-      "title": "First investor update",
-      "body": "Monthly update format locked: metrics, one win, one miss, one ask. Investors reply to asks, not victories. Keeping every update in one doc for the raise.",
-      "tag": "personal"
+      "at": "2021-09-14",
+      "type": "method",
+      "title": "Founder notes Fridays",
+      "body": "Friday note to June: shipped, learned, avoiding. Shared method. My bookshelf stays unread; my notes get read.",
+      "tag": "shareable",
+      "people": [
+        "June Park"
+      ]
     },
     {
-      "at": "2023-10-17",
-      "type": "health",
-      "title": "Sleep is the roadmap",
-      "body": "Two quarters of 5-hour nights and my decisions got stupid. Sleep tracking, no Slack after nine, naps allowed. The roadmap got better when I did.",
-      "tag": "personal"
+      "at": "2021-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2021",
+      "body": "Year 2021: fewer purchases, same pattern. I collect starts; life supplies finishes.",
+      "tag": "personal",
+      "people": [
+        "Felix Wagner",
+        "Grace Nolan"
+      ]
     },
     {
-      "at": "2024-01-25",
-      "type": "research",
-      "title": "Enterprise curiosity",
-      "body": "Three enterprise pilots asked for SSO and audit logs. Different product gravity. Piloting one, saying no twice — focus is the strategy this year.",
-      "tag": "personal"
-    },
-    {
-      "at": "2024-05-30",
-      "type": "finance",
-      "title": "Seed extension closed",
-      "body": "Extended the seed: 18 more months of runway without a priced round. Terms clean, board unchanged. The best fundraising is the kind you can decline.",
-      "tag": "personal"
-    },
-    {
-      "at": "2024-09-14",
+      "at": "2022-05-20",
       "type": "journal",
       "title": "The pivot conversation",
-      "body": "June and I finally said it out loud: previews are a feature, not the company. The wedge is release confidence. Six weeks to validate or wind down gracefully.",
+      "body": "Previews are a feature, not the company. Six weeks to validate release-confidence or wind down. Shelves of unread strategy books judged us silently.",
       "tag": "personal",
       "people": [
         "June Park"
       ]
     },
     {
-      "at": "2024-11-02",
-      "type": "method",
-      "title": "Kill criteria, written early",
-      "body": "Every bet now ships with kill criteria and a date. The pivot took six weeks instead of six months because past-us had written the exit down.",
-      "tag": "shareable"
-    },
-    {
-      "at": "2025-02-19",
+      "at": "2022-12-01",
       "type": "finding",
       "title": "Release confidence sells",
-      "body": "The pivot validated: teams pay to know a release is safe, not to see it sooner. Positioning, pricing, and roadmap all simplified in one move.",
-      "tag": "shareable"
+      "body": "Pivot validated. Teams pay to know a release is safe. Positioning simplified in one move.",
+      "tag": "shareable",
+      "people": [
+        "Victor Chen",
+        "Sara Lind"
+      ]
     },
     {
-      "at": "2025-06-11",
-      "type": "relationship",
-      "title": "Mentoring junior founders",
-      "body": "Office hours at the accelerator, two Fridays a month. Teaching runway math and kill criteria. Sam was right: context is generosity.",
+      "at": "2022-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2022",
+      "body": "Year 2022: bought more books than I finished reading. Built more than I read. Onward.",
       "tag": "personal",
       "people": [
+        "Hugo Perez",
+        "Iris Wang"
+      ]
+    },
+    {
+      "at": "2023-04-17",
+      "type": "finance",
+      "title": "Seed extension",
+      "body": "18 months more runway, no priced round. Bought a negotiation book; still in the wrapper. We negotiated fine anyway.",
+      "tag": "personal",
+      "people": [
+        "Victor Chen"
+      ]
+    },
+    {
+      "at": "2023-10-09",
+      "type": "health",
+      "title": "Sleep is the roadmap",
+      "body": "Five-hour nights made my decisions stupid. No Slack after nine. Bought a sleep book, unread, and just slept.",
+      "tag": "personal",
+      "people": [
+        "June Park"
+      ]
+    },
+    {
+      "at": "2023-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2023",
+      "body": "Year 2023: family steady, shelves fuller, TBR to-read pile taller. The work still got done.",
+      "tag": "personal",
+      "people": [
+        "Jonas Berg",
+        "Karl Jensen"
+      ]
+    },
+    {
+      "at": "2024-03-25",
+      "type": "research",
+      "title": "Enterprise no",
+      "body": "Three enterprise pilots asked; piloted one, declined two. Focus is the strategy. Bought an enterprise sales book for the shelf museum.",
+      "tag": "personal",
+      "people": [
+        "Mike Doyle"
+      ]
+    },
+    {
+      "at": "2024-09-19",
+      "type": "journal",
+      "title": "Acquisition passes",
+      "body": "Two acquirers circled; terms wrong, team would scatter. Declined. Bea said the unread books approve of patience.",
+      "tag": "personal",
+      "people": [
+        "Sister Bea",
+        "June Park"
+      ]
+    },
+    {
+      "at": "2024-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2024",
+      "body": "Year 2024: a hard pivot year. Bea and June kept me honest; the collection kept growing unread.",
+      "tag": "personal",
+      "people": [
+        "Uncle Rick",
+        "Paolo Rossi"
+      ]
+    },
+    {
+      "at": "2025-02-14",
+      "type": "method",
+      "title": "Kill criteria early",
+      "body": "Every bet ships with kill criteria and a date. The pivot took six weeks because past-us wrote the exit.",
+      "tag": "shareable",
+      "people": [
+        "June Park",
+        "Anna Kovac"
+      ]
+    },
+    {
+      "at": "2025-08-07",
+      "type": "relationship",
+      "title": "Mentoring founders",
+      "body": "Accelerator office hours. I lend my unread books with honesty labels: “unread but beloved”. They laugh, then borrow.",
+      "tag": "personal",
+      "people": [
+        "Peter Hale",
+        "Lucy Grant",
         "Sam Ortiz"
       ]
     },
     {
-      "at": "2025-09-27",
+      "at": "2025-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2025",
+      "body": "Year 2025: fewer purchases, same pattern. I collect starts; life supplies finishes.",
+      "tag": "personal",
+      "people": [
+        "Ingrid Holm",
+        "Elena Brooks"
+      ]
+    },
+    {
+      "at": "2026-01-22",
       "type": "skill",
       "title": "Learned to sell",
-      "body": "Fifty sales calls this year. Engineers underestimate how learnable this is: listen, recap, ask what happens if nothing changes. The recap is the close.",
-      "tag": "shareable"
-    },
-    {
-      "at": "2025-12-08",
-      "type": "document",
-      "title": "Acquisition interest memo",
-      "body": "Two acquirers circling. Memo for the board: what we'd need (team intact, product alive, 3-year horizon) and what we'll decline. Written before any term sheet arrives.",
-      "tag": "personal"
-    },
-    {
-      "at": "2026-02-16",
-      "type": "goal-note",
-      "title": "Year of depth",
-      "body": "No new initiatives in 2026. Deepen the wedge, grow the team to nine, protect the Friday note. Boring is the strategy now.",
-      "tag": "personal"
+      "body": "Fifty sales calls. Listen, recap, ask what happens if nothing changes. No sales book finished; the calls taught it.",
+      "tag": "shareable",
+      "people": [
+        "Owen Murphy",
+        "Tara Singh"
+      ]
     },
     {
       "at": "2026-05-20",
       "type": "journal",
-      "title": "Seven years in",
-      "body": "Read my 2019 journal tonight. The kid who loved fires now writes kill criteria and sleeps eight hours. Both versions built this. Keeping both in view.",
-      "tag": "personal"
+      "title": "Twenty years of shelves",
+      "body": "Support desk to founder, one failed pivot, one good one. My shelves hold 200 beginnings; my life finally has middles. It works out.",
+      "tag": "personal",
+      "people": [
+        "June Park",
+        "Sister Bea",
+        "Mom Ana"
+      ]
+    },
+    {
+      "at": "2026-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2026",
+      "body": "Year 2026: bought more books than I finished reading. Built more than I read. Onward.",
+      "tag": "personal",
+      "people": [
+        "Sister Bea"
+      ]
     }
   ]
 }

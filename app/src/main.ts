@@ -1,27 +1,29 @@
 // UI wiring. Cloud key lives in module memory only — never persisted.
 //
-// IA: search lives in the header; Knowledgebase shows AI synthesis only
+// IA: main menu (Knowledgebase / Paths / Legacy) lives in the header;
+// the submenu strip sits in the old tab-bar position and shows the
+// active section's subsections. Knowledgebase shows AI synthesis only
 // (raw entries are never listed), Network owns people tagging after
 // synthesis, Paths shows local insights, Legacy handles packs.
 import {
   StoreError,
-  addPersonToEntry,
   clearAll,
   createEntry,
-  getEntry,
   getProfile,
   insertImported,
   listEntries,
   listPeople,
-  removePersonFromEntry,
   setEmbeddingStatus,
   setEntryTag,
   setProfile,
+  addPersonNote,
+  listPersonNotes,
 } from './store';
 import { PackError, exportPackText, importPackText } from './pack';
 import { StubEngine, initLocalEngine, type LocalEngine } from './engine';
 import { embedEntry, embedText, loadVectors } from './embeddings';
 import { ingestDoc } from './ingest';
+import { isAudioFilename, isAudioMime, transcribeAudioBlob } from './transcribe';
 import {
   PROVIDERS,
   connectMany,
@@ -30,7 +32,7 @@ import {
   runAccountScan,
 } from './connections';
 import { runKnowledgeSearch } from './search';
-import { TAGS_BY_TYPE, analyzeKnowledgebase, buildSynthesisCards } from './analysis';
+import { analyzeKnowledgebase, buildSynthesisCards, buildSynthesisSections, buildWhatMatters } from './analysis';
 import { scanEntry } from './security';
 import {
   acknowledge,
@@ -40,6 +42,9 @@ import {
   unacknowledge,
   type Insight,
 } from './insights';
+import * as d3 from 'd3';
+import { CENTER_ID, buildNetwork, personContext } from './network';
+import { computeArchetypes } from './archetypes';
 import type { Entry, EntryType, Tag } from './types';
 
 let engine: LocalEngine = new StubEngine();
@@ -71,6 +76,10 @@ function showView(view: string): void {
   for (const section of document.querySelectorAll('main > section')) {
     (section as HTMLElement).hidden = section.id !== `view-${view}`;
   }
+  for (const id of ['knowledge', 'legacy']) {
+    el(`subnav-${id}`).hidden = id !== view;
+  }
+  el('subnavBar').hidden = view === 'paths';
 }
 
 document.querySelectorAll<HTMLButtonElement>('.tabs button').forEach((btn) => {
@@ -109,14 +118,50 @@ function tagChips(tags: string[]): string {
   return `<span class="tagrow">${tags.map((t) => `<span class="tagchip">${escapeHtml(t)}</span>`).join('')}</span>`;
 }
 
-function renderSynthesisCards(overviewBody: string, overviewTags: string[]): void {
+function limitTwoSentences(text: string): string {
+  const clean = text.replace(/\s+/g, ' ').trim();
+  const sentences = clean.match(/[^.!?]+[.!?]+/g) ?? [clean];
+  return sentences.slice(0, 2).join(' ').trim();
+}
+
+function renderProfileCard(blurb: string): void {
+  const entries = listEntries();
+  const archetypes = computeArchetypes(entries);
+  el('archetypePills').innerHTML = archetypes.length
+    ? archetypes
+        .map(
+          (a) =>
+            `<span class="archetype-pill" title="${escapeHtml(a.evidence)}">${escapeHtml(a.label)}</span>`,
+        )
+        .join('')
+    : '<span class="hint">No archetypes yet — add more knowledge.</span>';
+  const name = getProfile()?.name ?? '';
+  el('profileAvatar').textContent = name ? name.slice(0, 1).toUpperCase() : '?';
+  el('profileBlurb').textContent = limitTwoSentences(blurb);
+}
+
+function renderSynthesisCards(overviewBody: string): void {
   const a = currentAnalysis();
   const cards = buildSynthesisCards(listEntries(), a);
-  const overview = `<article class="item">
-      <header><h3>Overview</h3>${tagChips(overviewTags)}</header>
-      <p>${escapeHtml(overviewBody)}</p>
+  const s = buildSynthesisSections(listEntries(), a);
+  const bullets = (items: string[]): string =>
+    items.map((i) => `<p class="meta">• ${escapeHtml(i)}</p>`).join('');
+  const matters = buildWhatMatters(listEntries());
+  const hero = `<article class="item hero-card">
+      <header><h3>What matters most</h3></header>
+      <p>${escapeHtml(matters.headline)}</p>
+      ${matters.interests.length ? `<p class="meta">Interests: ${matters.interests.map(escapeHtml).join(' · ')}</p>` : ''}
+      ${matters.people.length ? `<p class="meta">Key people: ${matters.people.map(escapeHtml).join(' · ')}</p>` : ''}
     </article>`;
+  const overview = `<article class="item">
+      <header><h3>Insights</h3></header>
+      <p>${escapeHtml(overviewBody.slice(0, 280))}${overviewBody.length > 280 ? '…' : ''}</p>
+    </article>`;
+  const sections =
+    `<article class="item"><header><h3>Next steps</h3></header>${bullets(s.nextSteps)}</article>` +
+    `<article class="item"><header><h3>Facts</h3></header>${bullets(s.facts)}</article>`;
   el('synthesisCards').innerHTML =
+    hero +
     overview +
     cards
       .map(
@@ -125,7 +170,8 @@ function renderSynthesisCards(overviewBody: string, overviewTags: string[]): voi
         <p>${escapeHtml(c.body)}</p>
       </article>`,
       )
-      .join('');
+      .join('') +
+    sections;
 }
 
 async function maybeSynthesize(entries: Entry[]): Promise<void> {
@@ -139,24 +185,24 @@ async function maybeSynthesize(entries: Entry[]): Promise<void> {
   status.classList.add('loading');
   const a = currentAnalysis();
   const facts = [...a.behavior, `Blind spots: ${a.gaps.join(', ') || 'none'}.`].join(' ');
-  const overviewTags = [
-    ...new Set(
-      a.byType
-        .filter((t) => t.count > 0)
-        .slice(0, 3)
-        .flatMap((t) => TAGS_BY_TYPE[t.type]),
-    ),
-  ];
-  renderSynthesisCards('Synthesizing…', overviewTags.length ? overviewTags : ['personal']);
+  const archetypeFacts = computeArchetypes(entries)
+    .map((x) => `${x.label} (${x.evidence})`)
+    .join('; ');
+  renderSynthesisCards('Synthesizing…');
+  renderProfileCard('Synthesizing who you are from everything you have shared…');
   try {
     const reply = await engine.draft(
-      `Give a synthesis overview of my knowledgebase and next steps. Facts: ${facts}`,
+      `Write an overview blurb describing me as a person in a maximum of two sentences, based on ALL my uploaded and linked data. ` +
+        `Use second person. Facts: ${facts} Archetypes: ${archetypeFacts || 'none yet'}.`,
       entries.slice(0, 6),
     );
-    renderSynthesisCards(reply, overviewTags.length ? overviewTags : ['personal']);
+    renderProfileCard(reply.replace(/\n\nNothing left your browser\.?$/, ''));
+    renderSynthesisCards(reply);
     status.textContent = `Updated just now · synthesized on-device · ${entries.length} entries behind this view`;
   } catch {
-    renderSynthesisCards(facts, overviewTags.length ? overviewTags : ['personal']);
+    const matters = buildWhatMatters(entries);
+    renderProfileCard(`${matters.headline} ${facts}`);
+    renderSynthesisCards(facts);
     status.textContent = 'Synthesis from local facts · on-device';
   } finally {
     status.classList.remove('loading');
@@ -213,19 +259,9 @@ el('linkModalList').addEventListener('click', (ev) => {
   }, 600);
 });
 
-el('kbUploadTile').addEventListener('click', () => {
-  el<HTMLInputElement>('kbFileInput').click();
-});
-
-el<HTMLInputElement>('kbFileInput').addEventListener('change', () => {
-  const input = el<HTMLInputElement>('kbFileInput');
-  if (!input.files || input.files.length === 0) return;
-  void ingestFiles(
-    input.files,
-    el('kbUploadNote'),
-    el<HTMLButtonElement>('kbUploadTile'),
-    input,
-  );
+el('synthImportBtn').addEventListener('click', () => {
+  showView('knowledge');
+  showSub('knowledge', 'import');
 });
 
 
@@ -252,7 +288,7 @@ async function indexPending(auto = false): Promise<void> {
   }
 }
 
-// --- Import tiles (shared by Library empty state + Import & Connect) ---
+// --- Import tiles (managed only in Import & Connect) ---
 
 async function ingestFiles(
   files: FileList,
@@ -289,6 +325,44 @@ el<HTMLInputElement>('importFileInput').addEventListener('change', () => {
     el<HTMLButtonElement>('importUploadTile'),
     input,
   );
+});
+
+el('audioUploadTile').addEventListener('click', () => {
+  el<HTMLInputElement>('audioFileInput').click();
+});
+
+el<HTMLInputElement>('audioFileInput').addEventListener('change', () => {
+  const input = el<HTMLInputElement>('audioFileInput');
+  if (!input.files || input.files.length === 0) return;
+  const note = el('audioNote');
+  const tile = el<HTMLButtonElement>('audioUploadTile');
+  void (async () => {
+    tile.disabled = true;
+    let done = 0;
+    for (const file of Array.from(input.files ?? [])) {
+      if (!isAudioFilename(file.name) && !isAudioMime(file.type)) {
+        note.textContent = `"${file.name}" is not an audio file — skipped.`;
+        continue;
+      }
+      try {
+        const transcript = await transcribeAudioBlob(file, (text) => {
+          note.textContent = `${file.name}: ${text}`;
+        });
+        const { created } = ingestDoc(
+          file.name,
+          `[Audio transcript: ${file.name}]\n\n${transcript}`,
+        );
+        done += created;
+        note.textContent = `Transcribed "${file.name}" into ${created} ${created === 1 ? 'entry' : 'entries'} — find it via search (try "audio").`;
+      } catch (err) {
+        note.textContent =
+          err instanceof Error ? `"${file.name}": ${err.message}` : `"${file.name}": transcription failed.`;
+      }
+    }
+    tile.disabled = false;
+    input.value = '';
+    if (done > 0) renderAll();
+  })();
 });
 
 interface PersonaKB {
@@ -335,7 +409,7 @@ async function loadPersona(id = 'maya'): Promise<string> {
   const last = kb.entries[kb.entries.length - 1]?.at.slice(0, 4) ?? '';
   return (
     `Loaded persona "${kb.label}": ${personal} personal + ${shareable} shareable entries ` +
-    `spanning ${first}–${last}. See the synthesis in Library, or open Paths for insights.`
+    `spanning ${first}–${last}. See Synthesis, or open Paths for insights.`
   );
 }
 
@@ -411,7 +485,7 @@ el('searchResults').addEventListener('click', (ev) => {
   const btn = (ev.target as HTMLElement).closest('button[data-action="view-person"]');
   if (!btn) return;
   showView('knowledge');
-  showSub('network');
+  showSub('knowledge', 'network');
 });
 
 // --- Packs ---
@@ -495,17 +569,15 @@ el('packAskBtn').addEventListener('click', () => {
       out.textContent = reply;
     })
     .catch(() => {
-      out.textContent = 'On-device answer failed. Keyword results are in the Library.';
+      out.textContent = 'On-device answer failed. Keyword results are in Synthesis.';
     });
 });
 
 // --- Paths (insights over the knowledgebase) ---
 
-let showAcked = false;
-
 function insightCard(insight: Insight, pinned: boolean, acked: boolean): string {
   const labels: Record<string, string> = {
-    'goto-library': 'Review in Library',
+    'goto-library': 'Review in Synthesis',
     'goto-import': 'Add context via Import',
     acknowledge: 'Mark as reviewed',
     expound: 'Expound',
@@ -545,11 +617,9 @@ function renderPaths(): void {
   }
   el('insightList').innerHTML =
     groups.join('') || '<p class="hint">All clear. Nothing needs your attention.</p>';
-  el('ackToggle').textContent = acked.length
-    ? `${showAcked ? 'Hide' : 'Show'} acknowledged (${acked.length})`
-    : '';
-  el('ackedList').hidden = !showAcked;
-  el('ackedList').innerHTML = showAcked ? acked.map((i) => insightCard(i, false, true)).join('') : '';
+  el('ackedList').innerHTML = acked.length
+    ? acked.map((i) => insightCard(i, false, true)).join('')
+    : '<p class="hint">Nothing acknowledged yet.</p>';
 }
 
 function handleInsightClick(ev: Event): void {
@@ -560,10 +630,10 @@ function handleInsightClick(ev: Event): void {
   const action = btn.getAttribute('data-action') ?? '';
   if (action === 'goto-library') {
     showView('knowledge');
-    showSub('library');
+    showSub('knowledge', 'library');
   } else if (action === 'goto-import') {
     showView('knowledge');
-    showSub('import');
+    showSub('knowledge', 'import');
   } else if (action === 'pin') {
     togglePin(id);
     renderPaths();
@@ -593,14 +663,9 @@ function handleInsightClick(ev: Event): void {
 el('insightList').addEventListener('click', handleInsightClick);
 el('ackedList').addEventListener('click', handleInsightClick);
 
-el('ackToggle').addEventListener('click', () => {
-  showAcked = !showAcked;
-  renderPaths();
-});
-
 el('pathsImportBtn').addEventListener('click', () => {
   showView('knowledge');
-  showSub('import');
+  showSub('knowledge', 'import');
 });
 
 // --- Onboarding (get to know you) ---
@@ -767,92 +832,307 @@ function renderAll(): void {
   renderPaths();
 }
 
-// --- Knowledgebase subtabs ---
+// --- Submenus (strip in the old tab-bar position) ---
 
-function showSub(name: string): void {
+const SUB_PANES: Record<string, Record<string, string>> = {
+  knowledge: { library: 'sub-library', network: 'sub-network', import: 'sub-import', security: 'sub-security' },
+  legacy: { export: 'sub-export' },
+};
+
+function showSub(view: string, name: string): void {
   document
-    .querySelectorAll('.subnav button[data-sub]')
+    .querySelectorAll(`#subnav-${view} button[data-sub]`)
     .forEach((b) => b.classList.toggle('active', (b as HTMLElement).dataset.sub === name));
-  el('sub-library').hidden = name !== 'library';
-  el('sub-network').hidden = name !== 'network';
-  el('sub-import').hidden = name !== 'import';
-  el('sub-security').hidden = name !== 'security';
+  const panes = SUB_PANES[view] ?? {};
+  for (const [key, id] of Object.entries(panes)) {
+    el(id).hidden = key !== name;
+  }
 }
 
-document.querySelectorAll<HTMLButtonElement>('.subnav button[data-sub]').forEach((btn) => {
-  btn.addEventListener('click', () => showSub(btn.dataset.sub ?? 'library'));
+document.querySelectorAll<HTMLButtonElement>('#subnavBar .subnav button[data-sub]').forEach((btn) => {
+  btn.addEventListener('click', () => {
+    const group = btn.closest('.subnav')?.id.replace('subnav-', '') ?? 'knowledge';
+    showSub(group, btn.dataset.sub ?? 'library');
+  });
 });
 
 // --- Network (people rollups) ---
 
-function renderNetwork(): void {
-  // Tagging form: every knowledgebase entry is taggable after synthesis.
-  const entries = listEntries();
-  const select = el<HTMLSelectElement>('tagEntrySelect');
-  const previous = select.value;
-  select.innerHTML = entries.length
-    ? entries
-        .map((e) => `<option value="${e.id}">${escapeHtml(e.title)}</option>`)
-        .join('')
-    : '<option value="">No entries yet</option>';
-  if (entries.some((e) => e.id === previous)) select.value = previous;
+function initialsOf(name: string): string {
+  return name.split(/\s+/).map((w) => w[0]).slice(0, 2).join('').toUpperCase();
+}
 
+function renderNetwork(): void {
+  const entries = listEntries();
+  renderNetworkGraph(entries);
   const people = listPeople();
   const list = el('personList');
   if (people.length === 0) {
     list.innerHTML =
-      '<p class="hint">No people yet. Tag someone above, or load a persona from the demo controls.</p>';
+      '<p class="hint">No people yet. Add knowledge in Import &amp; Connect, or load a persona from the demo controls.</p>';
     return;
   }
   list.innerHTML = people
-    .map((p) => {
-      const rows = p.entryIds
-        .map((id) => getEntry(id))
-        .filter((e): e is Entry => e !== undefined)
-        .slice(0, 5)
-        .map(
-          (e) =>
-            `<p class="meta">${escapeHtml(e.title)} <button type="button" class="linklike" data-action="untag" data-entry="${e.id}" data-name="${escapeHtml(p.name)}">untag</button></p>`,
-        )
-        .join('');
-      return `<article class="item" data-person="${escapeHtml(p.name)}">
-        <header><h3>${escapeHtml(p.name)}</h3><span class="meta">${p.entryIds.length} ${p.entryIds.length === 1 ? 'entry' : 'entries'}</span></header>
-        ${rows}
-      </article>`;
-    })
+    .map(
+      (p) => `<button type="button" class="person-card" data-person-card="${escapeHtml(p.name)}" aria-label="Open ${escapeHtml(p.name)}">
+        <span class="person-avatar">${escapeHtml(initialsOf(p.name))}</span>
+        <span class="person-name">${escapeHtml(p.name)}</span>
+        <span class="meta">${p.entryIds.length} ${p.entryIds.length === 1 ? 'entry' : 'entries'}</span>
+      </button>`,
+    )
     .join('');
 }
 
-el('tagPersonBtn').addEventListener('click', () => {
-  const entryId = el<HTMLSelectElement>('tagEntrySelect').value;
-  const name = el<HTMLInputElement>('tagPersonInput').value.trim();
-  if (!entryId || !name) {
-    el('tagNote').textContent = 'Pick an entry and type a name first.';
-    return;
-  }
-  try {
-    addPersonToEntry(entryId, name);
-    el<HTMLInputElement>('tagPersonInput').value = '';
-    el('tagNote').textContent = `Tagged ${name}. They now appear in your network below.`;
-    renderAll();
-  } catch (err) {
-    el('tagNote').textContent = err instanceof Error ? err.message : 'Tag failed.';
-  }
+interface SimNode {
+  id: string;
+  label: string;
+  count: number;
+  center?: boolean;
+  photo?: string;
+  x?: number;
+  y?: number;
+  fx?: number | null;
+  fy?: number | null;
+}
+
+const savedPositions = new Map<string, { x: number; y: number }>();
+let networkSim: d3.Simulation<SimNode, undefined> | undefined;
+let networkTimer: d3.Timer | undefined;
+let orbitDragging = false;
+
+let modalPerson = '';
+
+function renderPersonNotes(name: string): void {
+  const notes = listPersonNotes(name);
+  el('personNotesList').innerHTML = notes.length
+    ? notes
+        .map(
+          (note) =>
+            `<div class="note-bubble"><p>${escapeHtml(note.text)}</p><span class="meta">${escapeHtml(note.at.slice(0, 10))}</span></div>`,
+        )
+        .join('')
+    : '<p class="hint">No notes yet. Add the first one below.</p>';
+}
+
+function renderPersonTimeline(name: string): void {
+  const host = el('personTimeline');
+  host.innerHTML = '';
+  const ctx = personContext(listEntries(), name);
+  if (ctx.timeline.length === 0) return;
+  const you = getProfile()?.name ?? 'You';
+  const width = Math.max(320, host.clientWidth || 500);
+  const height = 120;
+  const times = ctx.timeline.map((m) => Date.parse(m.at));
+  const min = Math.min(...times);
+  const max = Math.max(...times);
+  const span = Math.max(1, max - min);
+  const x = (at: string): number => 30 + ((Date.parse(at) - min) / span) * (width - 60);
+  const svg = d3.select(host).append('svg')
+    .attr('viewBox', `0 0 ${width} ${height}`)
+    .attr('role', 'img')
+    .attr('aria-label', `Relationship timeline for ${name}`);
+  svg.append('text').attr('x', 30).attr('y', 18).attr('font-size', '11px')
+    .text(`${you} + ${name}`);
+  svg.append('line')
+    .attr('x1', 30).attr('x2', width - 30).attr('y1', 62).attr('y2', 62)
+    .attr('stroke', '#c9c2b4').attr('stroke-width', 2);
+  const dots = svg.append('g').selectAll<SVGCircleElement, (typeof ctx.timeline)[number]>('circle')
+    .data(ctx.timeline).join('circle')
+    .attr('cx', (d) => x(d.at))
+    .attr('cy', 62)
+    .attr('r', (d) => (d.key ? 9 : 5))
+    .attr('fill', (d) => (d.key ? '#2e6b46' : '#ece8e0'))
+    .attr('stroke', '#1c1a17')
+    .attr('cursor', 'pointer');
+  dots.append('title').text((d) => `${d.at} — ${d.title} (${d.type})`);
+  svg.append('g').selectAll('text')
+    .data(ctx.timeline.filter((m) => m.key).slice(0, 4)).join('text')
+    .attr('x', (d) => x(d.at)).attr('y', 92)
+    .attr('text-anchor', 'middle').attr('font-size', '10px')
+    .text((d) => d.at.slice(0, 4));
+}
+
+function openPersonModal(name: string): void {
+  modalPerson = name;
+  const ctx = personContext(listEntries(), name);
+  el('personModalName').textContent = ctx.name;
+  const shared = ctx.connectedTo.length
+    ? ctx.connectedTo.map((c) => `${escapeHtml(c.name)} (${c.shared} shared)`).join(', ')
+    : 'no shared connections yet';
+  const keyMoments = ctx.timeline
+    .filter((m) => m.key)
+    .slice(0, 5)
+    .map(
+      (m) =>
+        `<p class="meta">★ ${escapeHtml(m.at)} — ${escapeHtml(m.title)} <span>· ${escapeHtml(m.type)}${m.people.length ? ` · with ${m.people.map(escapeHtml).join(', ')}` : ''}</span></p>`,
+    )
+    .join('');
+  const knownMs = ctx.firstSeen ? Date.now() - Date.parse(ctx.firstSeen) : 0;
+  const knownYears = Math.floor(knownMs / (365.25 * 86400000));
+  const knownText =
+    knownYears >= 1
+      ? ` — you've known each other for ${knownYears} ${knownYears === 1 ? 'year' : 'years'}.`
+      : ctx.firstSeen
+        ? ' — you\'ve known each other for under a year.'
+        : '.';
+  el('personModalBody').innerHTML =
+    `<p>${ctx.entryCount} ${ctx.entryCount === 1 ? 'entry mentions' : 'entries mention'} ${escapeHtml(ctx.name)}` +
+    knownText +
+    `</p><p class="meta">Types: ${escapeHtml(ctx.types.join(', ') || '—')}</p>` +
+    `<p class="meta">Relationships: ${shared}</p>` +
+    `<div id="personTimeline" class="person-timeline" aria-label="Relationship timeline"></div>` +
+    (keyMoments ? `<h3 class="ov-sub">Key moments</h3>${keyMoments}` : '') +
+    `<h3 class="ov-sub">Notes</h3><div id="personNotesList"></div>` +
+    `<div class="comment-box"><textarea id="personNoteInput" rows="2" maxlength="500" placeholder="Add a note about ${escapeHtml(ctx.name)}…"></textarea>` +
+    `<button type="button" id="personNoteBtn" class="small">Add note</button></div>` +
+    '<p class="hint">Notes stay on this device, attached to this person.</p>';
+  el('personModal').hidden = false;
+  renderPersonTimeline(name);
+  renderPersonNotes(name);
+  el('personNoteBtn').addEventListener('click', () => {
+    const input = el<HTMLTextAreaElement>('personNoteInput');
+    const text = input.value.trim();
+    if (!text) return;
+    addPersonNote(modalPerson, text);
+    input.value = '';
+    renderPersonNotes(modalPerson);
+  });
+}
+
+function closePersonModal(): void {
+  el('personModal').hidden = true;
+}
+
+el('personModalClose').addEventListener('click', closePersonModal);
+document.addEventListener('keydown', (ev) => {
+  if (ev.key === 'Escape' && !el('personModal').hidden) closePersonModal();
+});
+el('personModal').addEventListener('click', (ev) => {
+  if (ev.target === el('personModal')) closePersonModal();
 });
 
-el('personList').addEventListener('click', (ev) => {
-  const btn = (ev.target as HTMLElement).closest('button[data-action="untag"]');
-  if (!btn) return;
-  try {
-    removePersonFromEntry(
-      btn.getAttribute('data-entry') ?? '',
-      btn.getAttribute('data-name') ?? '',
+function renderNetworkGraph(entries: Entry[]): void {
+  const host = el('networkGraph');
+  const centerLabel = getProfile()?.name ?? 'You';
+  const graph = buildNetwork(entries, centerLabel);
+  el('networkGraphEmpty').hidden = graph.nodes.length > 1;
+  host.innerHTML = '';
+  if (networkSim) networkSim.stop();
+  if (networkTimer) networkTimer.stop();
+  if (graph.nodes.length <= 1) return;
+  const width = Math.max(320, host.clientWidth || 760);
+  const height = 420;
+  const nodes: SimNode[] = graph.nodes.map((node) => ({
+    ...node,
+    ...(savedPositions.get(node.id) ?? {}),
+  }));
+  const links = graph.links.map((l) => ({ ...l })) as unknown as Array<{
+    source: string | SimNode;
+    target: string | SimNode;
+    weight: number;
+  }>;
+  const svg = d3.select(host).append('svg')
+    .attr('viewBox', `0 0 ${width} ${height}`)
+    .attr('role', 'img')
+    .attr('aria-label', `Network graph centered on ${centerLabel}`);
+  const orbit = svg.append('g');
+  let orbitAngle = 0;
+  const link = orbit.append('g').selectAll('line').data(links).join('line')
+    .attr('stroke', '#c9c2b4')
+    .attr('stroke-width', (d) => Math.min(4, 1 + d.weight * 0.5));
+  const sim = d3.forceSimulation<SimNode>(nodes)
+    .force('link', d3.forceLink<SimNode, (typeof links)[number]>(links).id((d) => d.id).distance(130))
+    .force('charge', d3.forceManyBody().strength(-260))
+    .force('center', d3.forceCenter(width / 2, height / 2))
+    .force('collide', d3.forceCollide<SimNode>().radius(28));
+  networkSim = sim;
+  const node = orbit.append('g').selectAll<SVGGElement, SimNode>('g').data(nodes).join('g')
+    .attr('class', 'node')
+    .attr('cursor', 'pointer')
+    .call(
+      d3.drag<SVGGElement, SimNode>()
+        .on('start', (ev, d) => {
+          orbitDragging = true;
+          if (!ev.active) sim.alphaTarget(0.3).restart();
+          d.fx = d.x; d.fy = d.y;
+          (d as SimNode & { __moved?: boolean }).__moved = false;
+        })
+        .on('drag', (ev, d) => {
+          d.fx = ev.x; d.fy = ev.y;
+          (d as SimNode & { __moved?: boolean }).__moved = true;
+          savedPositions.set(d.id, { x: ev.x, y: ev.y });
+        })
+        .on('end', (ev, d) => {
+          orbitDragging = false;
+          if (!ev.active) sim.alphaTarget(0);
+          if (!d.center) { d.fx = null; d.fy = null; }
+        }),
     );
-    renderAll();
-  } catch {
-    // Entry vanished between render and click; the re-render settles it.
-    renderAll();
-  }
+  const AVATAR_R = 20;
+  const defs = svg.append('defs');
+  nodes.forEach((d, i) => {
+    defs.append('clipPath').attr('id', `avatar-clip-${i}`)
+      .append('circle').attr('r', AVATAR_R);
+    void d;
+  });
+  node.append('circle')
+    .attr('r', AVATAR_R)
+    .attr('fill', (d) => (d.center ? '#1c1a17' : '#dcefe2'))
+    .attr('stroke', (d) => (d.center ? '#1c1a17' : '#2e6b46'))
+    .attr('stroke-width', 1.5);
+  node.append('g')
+    .attr('clip-path', (_d, i) => `url(#avatar-clip-${i})`)
+    .append('image')
+    .attr('href', (d) => d.photo ?? '')
+    .attr('x', -AVATAR_R).attr('y', -AVATAR_R)
+    .attr('width', AVATAR_R * 2).attr('height', AVATAR_R * 2)
+    .attr('preserveAspectRatio', 'xMidYMid slice')
+    .style('display', (d) => (d.photo ? null : 'none'));
+  node.append('text')
+    .attr('class', 'node-initials')
+    .attr('text-anchor', 'middle')
+    .attr('dy', '0.35em')
+    .attr('font-size', '11px')
+    .attr('font-weight', '700')
+    .attr('fill', (d) => (d.center ? '#ffffff' : '#1f4d30'))
+    .style('display', (d) => (d.photo ? 'none' : null))
+    .text((d) => initialsOf(d.label));
+  node.append('text')
+    .attr('class', 'node-name')
+    .attr('text-anchor', 'middle')
+    .attr('y', -28)
+    .attr('font-size', '12px')
+    .attr('font-weight', '600')
+    .text((d) => d.label);
+  node.append('title').text((d) => d.label);
+  node.on('click', (_ev, d) => {
+    if ((d as SimNode & { __moved?: boolean }).__moved || d.center) return;
+    openPersonModal(d.label);
+  });
+  const reducedMotion =
+    typeof window !== 'undefined' &&
+    typeof window.matchMedia === 'function' &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  networkTimer = d3.timer(() => {
+    if (orbitDragging || reducedMotion) return;
+    orbitAngle = (orbitAngle + 0.02) % 360;
+    orbit.attr('transform', `rotate(${orbitAngle} ${width / 2} ${height / 2})`);
+    node.selectAll('text').attr('transform', `rotate(${-orbitAngle})`);
+  });
+  sim.on('tick', () => {
+    link
+      .attr('x1', (d) => (d.source as SimNode).x ?? 0)
+      .attr('y1', (d) => (d.source as SimNode).y ?? 0)
+      .attr('x2', (d) => (d.target as SimNode).x ?? 0)
+      .attr('y2', (d) => (d.target as SimNode).y ?? 0);
+    node.attr('transform', (d) => `translate(${d.x ?? 0},${d.y ?? 0})`);
+  });
+}
+
+el('personList').addEventListener('click', (ev) => {
+  const card = (ev.target as HTMLElement).closest('[data-person-card]');
+  if (!card) return;
+  openPersonModal(card.getAttribute('data-person-card') ?? '');
 });
 
 // --- Security subtab (actionable insights + badge) ---
@@ -875,7 +1155,7 @@ function renderSecurity(): void {
   badge.textContent = String(actionable.length);
   el('securitySummary').innerHTML =
     entries.length === 0
-      ? '<p class="hint">No knowledge uploaded yet — link an account in Library and findings will appear here.</p>'
+      ? '<p class="hint">No knowledge uploaded yet — link an account in Import & Connect and findings will appear here.</p>'
       : `<p>${actionable.length} actionable ${actionable.length === 1 ? 'insight' : 'insights'} · ${warn} warnings across ${entries.length} entries.</p>`;
   el('securityList').innerHTML = actionable.length
     ? actionable

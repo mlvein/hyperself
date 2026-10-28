@@ -1,7 +1,6 @@
 // Cloud calls: plan generation only (plus optional pack summaries later).
-// Every call goes through route() -> scrubForCloud() -> checkBudget().
-import { listBudget, pushBudget } from './store';
-import { checkBudget, estimateCost, route, scrubForCloud } from './router';
+// Every call goes through route() -> scrubForCloud().
+import { route, scrubForCloud } from './router';
 import type { Entry, Goal } from './types';
 
 export interface CloudConfig {
@@ -39,7 +38,6 @@ export interface PlanResult {
   text: string;
   inputTokens: number;
   outputTokens: number;
-  estCost: number;
   cached: boolean;
   withheldCount: number;
 }
@@ -71,7 +69,6 @@ export async function generatePlan(
       text: cachedText,
       inputTokens: 0,
       outputTokens: 0,
-      estCost: 0,
       cached: true,
       withheldCount: withheld.length,
     };
@@ -81,7 +78,6 @@ export async function generatePlan(
   if (!cfg.endpoint) throw new CloudError('No cloud endpoint configured.');
 
   const estIn = estimateTokens(userPrompt) + 120;
-  checkBudget(listBudget(), estimateCost(estIn, 800));
 
   let res: Response;
   try {
@@ -110,15 +106,6 @@ export async function generatePlan(
 
   const inputTokens = data.usage?.prompt_tokens ?? estIn;
   const outputTokens = data.usage?.completion_tokens ?? estimateTokens(text);
-  const estCost = estimateCost(inputTokens, outputTokens);
-  pushBudget({
-    at: new Date().toISOString(),
-    task: 'plan',
-    model: cfg.model,
-    input_tokens: inputTokens,
-    output_tokens: outputTokens,
-    est_cost: estCost,
-  });
 
   cache[cacheKey] = text;
   try {
@@ -126,5 +113,5 @@ export async function generatePlan(
   } catch {
     // Cache is best-effort; the plan itself succeeded.
   }
-  return { text, inputTokens, outputTokens, estCost, cached: false, withheldCount: withheld.length };
+  return { text, inputTokens, outputTokens, cached: false, withheldCount: withheld.length };
 }

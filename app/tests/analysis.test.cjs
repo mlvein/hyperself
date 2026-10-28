@@ -62,6 +62,33 @@ assert.ok(a.questions.includes("people I've met this week"), 'date question sugg
 assert.ok(a.questions.some((q) => q.startsWith('who might know about')), 'topic question suggested');
 assert.ok(a.questions.includes('Priya Nair'), 'top person suggested as a query');
 
+// --- synthesis sections: short Next steps / Facts / Entries, not a wall of text ---
+const { buildSynthesisSections } = require('../.test-compiled/analysis.js');
+const sections = buildSynthesisSections(entries, a);
+assert.ok(sections.nextSteps.length > 0, 'next steps present');
+assert.ok(
+  sections.nextSteps.some((s) => /blind spot|Import/i.test(s)),
+  'next steps point at gaps/import',
+);
+assert.ok(
+  sections.facts.some((f) => /4 entries/.test(f)),
+  'facts state totals',
+);
+assert.ok(
+  sections.facts.some((f) => /shareable/.test(f)),
+  'facts state sharing split',
+);
+assert.ok(!('entries' in sections), 'no recent-entries section at the bottom');
+const { buildWhatMatters } = require('../.test-compiled/analysis.js');
+const matters = buildWhatMatters(entries);
+assert.ok(matters.interests.includes('research'), 'interests from shared knowledge');
+assert.ok(matters.people.includes('Priya Nair'), 'key people from shared knowledge');
+assert.ok(/shared knowledge centers on/.test(matters.headline), 'what-matters headline');
+assert.ok(
+  /Nothing shared yet/.test(buildWhatMatters([]).headline),
+  'empty shared knowledge prompts sharing',
+);
+
 // --- synthesis cards: one per insight, multi-tagged ---
 const { buildSynthesisCards, TAGS_BY_TYPE } = require('../.test-compiled/analysis.js');
 assert.deepEqual(buildSynthesisCards([], empty), [], 'no cards when empty');

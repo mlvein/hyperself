@@ -201,6 +201,74 @@ export function buildSynthesisCards(entries: Entry[], a: KbAnalysis): SynthesisC
   return cards;
 }
 
+export interface SynthesisSections {
+  nextSteps: string[];
+  facts: string[];
+}
+
+export interface WhatMatters {
+  interests: string[];
+  people: string[];
+  headline: string;
+}
+
+/** What matters most, from shared knowledge only: interests + key people. */
+export function buildWhatMatters(entries: Entry[]): WhatMatters {
+  const shared = entries.filter((e) => e.deleted_at === null && e.tag === 'shareable');
+  const byType = new Map<string, number>();
+  const people = new Map<string, number>();
+  for (const e of shared) {
+    byType.set(e.type, (byType.get(e.type) ?? 0) + 1);
+    for (const name of e.people ?? []) people.set(name, (people.get(name) ?? 0) + 1);
+  }
+  const interests = [...byType.entries()]
+    .sort((x, y) => y[1] - x[1] || x[0].localeCompare(y[0]))
+    .slice(0, 3)
+    .map(([type]) => type);
+  const topPeople = [...people.entries()]
+    .sort((x, y) => y[1] - x[1] || x[0].localeCompare(y[0]))
+    .slice(0, 3)
+    .map(([name]) => name);
+  const headline =
+    shared.length === 0
+      ? 'Nothing shared yet — mark findings or methods shareable and your priorities will surface here.'
+      : interests.length > 0
+        ? `Your shared knowledge centers on ${interests.join(', ')}${topPeople.length ? `, with ${topPeople.join(', ')}` : ''}.`
+        : 'Your shared knowledge is ready in Paths and Legacy.';
+  return { interests, people: topPeople, headline };
+}
+
+/** Short card sections for the Library: actions, facts, and recent entries. */
+export function buildSynthesisSections(entries: Entry[], a: KbAnalysis): SynthesisSections {
+  const live = entries.filter((e) => e.deleted_at === null);
+  const nextSteps: string[] = [];
+  if (a.shareableCount === 0) {
+    nextSteps.push(
+      'Promote a finding or method to shareable so Paths and Legacy have something to work with.',
+    );
+  }
+  if (a.gaps.length > 0) {
+    nextSteps.push(
+      `Fill blind spots (${a.gaps.slice(0, 3).join(', ')}) — see Import & Connect for linked accounts.`,
+    );
+  }
+  if (a.staleCount > 0) {
+    nextSteps.push(
+      `Review ${a.staleCount} stale ${a.staleCount === 1 ? 'entry' : 'entries'} (90+ days old) in Paths.`,
+    );
+  }
+  if (nextSteps.length === 0) {
+    nextSteps.push('Open Paths to work your latest insights.');
+  }
+  const facts: string[] = [
+    `${a.total} entries on this device (${a.personalCount} personal, ${a.shareableCount} shareable).`,
+    `${a.fresh7} updated this week · ${a.staleCount} stale (90+ days).`,
+    `${a.peopleCount} people tracked · ${a.indexedCount} of ${a.total} indexed for semantic search.`,
+  ];
+  void live;
+  return { nextSteps, facts };
+}
+
 const DAY = 86400000;
 
 function ageDays(entry: Entry, now: number): number {

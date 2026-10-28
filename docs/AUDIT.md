@@ -36,7 +36,7 @@ The file is two overlapping drafts. "Personal LLM / offline personal data / encr
 ### 5. Missing pieces (added in MVP plan)
 
 - Data model: what an entry is, what `personal` vs `shareable` enforces technically.
-- Router policy: what runs on-device vs. Meta Model API, and the budget guardrail.
+- Router policy: what runs on-device vs. Meta Model API, and the privacy guardrail (personal never leaves).
 - Eval: how to know Paths advice is good (even 5 golden test cases beat none).
 - Threat model: what "private" concretely means (device compromise? cloud logs? pack recipients?).
 - Success criteria for the hackathon demo (3-minute story).
@@ -74,7 +74,7 @@ The owner approved all six Audit #2 holds and redirected the product: no manual 
 
 - Removed: entry creation form, check-in UI, skill manager form, sample-data seeder. The Library is now read + curate (tag toggle, delete, source filter).
 - Added: profile (name), simulated connections (Notion, Drive, Health, Calendar) through the real store path with `connection` source, get-to-know-you onboarding (name → privacy → sources → first goal).
-- Dashboard reframed from streaks/alignment to coverage-by-source + connection status + budget.
+- Dashboard reframed from streaks/alignment to coverage-by-source + connection status.
 - Goal creation retained: stating intent is not journaling.
 
 ### Pushbacks
@@ -87,7 +87,7 @@ The owner approved all six Audit #2 holds and redirected the product: no manual 
 
 ## Audit #4 — Paths as insights (owner-directed)
 
-Paths no longer hosts goals, chat, or budget UI. It is now a findings view over the knowledgebase: stale-data alerts, security findings, shareable-exposure review, freshness notes — each with review / add-context / pin / expound / acknowledge actions, and Import shortcuts when the knowledgebase is empty.
+Paths no longer hosts goals or chat UI. It is now a findings view over the knowledgebase: stale-data alerts, security findings, shareable-exposure review, freshness notes — each with review / add-context / pin / expound / acknowledge actions, and Import shortcuts when the knowledgebase is empty.
 
 ### Applied
 

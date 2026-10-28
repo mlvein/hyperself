@@ -48,7 +48,7 @@ export function buildInsights(entries: Entry[]): Insight[] {
       id: `sec:${e.id}`,
       severity: 'high',
       title: leaked ? `\u201C${e.title}\u201D may contain leaked data` : `\u201C${e.title}\u201D needs attention`,
-      body: `${messages}. Next step: ${steps} Open the entry in the Library to amend it, or mark it reviewed if you accept it.`,
+      body: `${messages}. Next step: ${steps} Open the entry in Synthesis to review it, or mark it reviewed if you accept it.`,
       entryIds: [e.id],
       kinds: ['goto-library', 'goto-import', 'acknowledge', 'expound'],
     });
@@ -60,7 +60,7 @@ export function buildInsights(entries: Entry[]): Insight[] {
       id: 'exposure',
       severity: 'info',
       title: `You share ${shareable.length} ${shareable.length === 1 ? 'entry' : 'entries'}`,
-      body: 'Review them in the Library before each Legacy export. Anything shared can travel.',
+      body: 'Review them in Synthesis before each Legacy export. Anything shared can travel.',
       entryIds: shareable.map((e) => e.id),
       kinds: ['goto-library', 'expound'],
     });

@@ -1,10 +1,10 @@
-# MVP Plan: Feasibility, Budget, Architecture
+# MVP Plan: Feasibility and Architecture
 
 ## Ground rules
 
 - **Web-first, local-first.** MVP is a PWA: in-browser inference (WebLLM, Llama 3.2 1B) + local storage. No training anywhere — per-user fine-tuning is OUT for MVP. Native mobile via ExecuTorch (Llama 3.2 1B/3B quantized, inference only) is the post-MVP stretch, not the starting point.
 - **$150 Meta Model API credits** = roughly tens of millions of tokens on efficient models (one report cites ~35M output tokens on Muse Spark-class pricing). Generous for a 10-day hackathon **if** cloud calls are reserved for heavy/optional tasks with caching. It is NOT enough to route every chat turn or to fine-tune.
-- Therefore the architecture is: **on-device default, cloud exception, with a budget guardrail.**
+- Therefore the architecture is: **on-device default, cloud exception, cached aggressively.**
 
 ## Feasible for MVP
 
@@ -22,7 +22,7 @@
 - **Automatic activity tracking + alignment notifications.** Pushback: no sources defined; OS/health integrations are each multi-day efforts with permissions review. Ship manual check-ins; one scripted demo of a notification if time allows.
 - **Community matching / hyperlocal LLMs.** Pushback: needs user base, moderation, matching eval — a second product. Ship manual pack exchange; describe community as the roadmap slide.
 - **Omnichannel.** Pushback: each channel is a full client. Ship ONE: recommend mobile (ExecuTorch LLaMA demo app as starting point) or web chat. WhatsApp-in-the-loop approvals also deferred (see AGENTS.md).
-- **Cloud fine-tuning or heavy cloud pipelines on the $150.** Pushback: burns budget fast and contradicts the privacy story. Cap cloud spend (e.g., $20–30 for the whole hackathon), cache aggressively, demo primarily on-device.
+- **Cloud fine-tuning or heavy cloud pipelines on the $150 hackathon credits.** Pushback: burns credit fast and contradicts the privacy story. Cache aggressively, demo primarily on-device. The credits are hackathon funding, not a product feature — there is no in-app budget meter.
 
 ## Implementation status (2026-10-27)
 
@@ -32,8 +32,7 @@ WebLLM is now wired: `app/src/engine.ts` runs `Llama-3.2-1B-Instruct-q4f16_1-MLC
 
 1. **Client (one channel):** PWA chat + entries + goals + dashboard. Works offline; zero-install judging via URL.
 2. **In-browser local engine:** WebLLM Llama 3.2 1B; OPFS/SQLite storage; in-browser embeddings (Transformers.js); retriever with tag filter (`personal` never leaves the browser for network).
-3. **Router:** local-first. Cloud (Meta Model API) only for: plan generation, pack summarization, eval runs. Every cloud call strips `personal` content and logs token usage to a local budget meter.
-4. **Budget meter:** hard cap in config (e.g., $25), visible in UI; blocks cloud calls past cap. This is both a cost control and a demo talking point.
+3. **Router:** local-first. Cloud (Meta Model API) only for: plan generation, pack summarization, eval runs. Every cloud call strips `personal` content (scrub) and is cached.
 5. **Legacy pack:** `manifest.json` (version, author, entry hashes) + entries + embeddings. Import = verify + index locally.
 
 ## Suggested improvements over the original notes
@@ -50,7 +49,7 @@ WebLLM is now wired: `app/src/engine.ts` runs `Llama-3.2-1B-Instruct-q4f16_1-MLC
 ## 10-day shape (suggested)
 
 - Days 1–2: data model, tag enforcement, local RAG baseline in-browser.
-- Days 3–4: goal loop + dashboard; router + budget meter.
+- Days 3–4: goal loop + dashboard; router + scrub enforcement.
 - Days 5–6: Legacy pack export/import; golden evals.
 - Day 7: hard scope freeze; threat-model pass; on-device-first demo rehearsal.
 - Days 8–9: hardening, QA sweep, demo script + video.

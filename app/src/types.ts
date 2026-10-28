@@ -85,15 +85,6 @@ export interface Skill {
   created_at: string;
 }
 
-export interface BudgetRecord {
-  at: string;
-  task: string;
-  model: string;
-  input_tokens: number;
-  output_tokens: number;
-  est_cost: number;
-}
-
 export interface PackEntrySummary {
   entry_id: string;
   type: EntryType;

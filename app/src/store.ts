@@ -5,7 +5,6 @@
 // (uploads, simulated connections, persona loader); the Library curates.
 import { dropVector } from './embeddings';
 import type {
-  BudgetRecord,
   CheckIn,
   Entry,
   EntrySource,
@@ -27,13 +26,13 @@ interface DB {
   goals: Goal[];
   checkins: CheckIn[];
   skills: Skill[];
-  budget: BudgetRecord[];
+  personNotes: Record<string, PersonNote[]>;
 }
 
 export class StoreError extends Error {}
 
 function emptyDB(): DB {
-  return { entries: [], goals: [], checkins: [], skills: [], budget: [] };
+  return { entries: [], goals: [], checkins: [], skills: [], personNotes: {} };
 }
 
 function load(): DB {
@@ -46,7 +45,7 @@ function load(): DB {
       goals: parsed.goals ?? [],
       checkins: parsed.checkins ?? [],
       skills: parsed.skills ?? [],
-      budget: parsed.budget ?? [],
+      personNotes: parsed.personNotes ?? {},
     };
   } catch {
     return emptyDB();
@@ -282,16 +281,23 @@ export function createSkill(input: { name: string; level: SkillLevel }): Skill {
   return skill;
 }
 
-// --- Budget log ---
-
-export function listBudget(): BudgetRecord[] {
-  return load().budget;
+export interface PersonNote {
+  at: string;
+  text: string;
 }
 
-export function pushBudget(record: BudgetRecord): void {
+export function listPersonNotes(name: string): PersonNote[] {
+  return [...(load().personNotes[name] ?? [])].sort((a, b) => (a.at < b.at ? -1 : 1));
+}
+
+export function addPersonNote(name: string, text: string): PersonNote {
+  const clean = text.trim().slice(0, 500);
+  if (!clean) throw new StoreError('Note is empty.');
   const db = load();
-  db.budget.push(record);
+  const note: PersonNote = { at: now(), text: clean };
+  db.personNotes[name] = [...(db.personNotes[name] ?? []), note];
   save(db);
+  return note;
 }
 
 // --- People (network) ---

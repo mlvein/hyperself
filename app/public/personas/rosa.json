@@ -1,225 +1,532 @@
 {
   "id": "rosa",
-  "label": "Rosa (designated caretaker)",
-  "tagline": "Six years holding a family together: two kids growing up, two parents growing older, one estate slowly getting its paperwork done.",
+  "label": "Rosa (carer → coordinator)",
+  "tagline": "Two decades of care: aide, nurse, coordinator, and the Sunday table that held a whole family together.",
   "entries": [
     {
-      "at": "2020-02-11",
+      "at": "2006-02-12",
       "type": "journal",
-      "title": "Mateo starts kindergarten",
-      "body": "Mateo Ruiz, 5, walked into Lincoln Elementary holding my hand and let go at the door. Lucia Ruiz, 2, waved like a mayor. I cried in the car, then bought celebratory churros.",
+      "title": "Care aide, first ward",
+      "body": "Started as a hospital care aide. Night shifts, strong coffee, kind nurses. Family said I was born for this; my feet disagreed.",
       "tag": "personal",
       "people": [
-        "Mateo Ruiz",
-        "Lucia Ruiz"
+        "Nurse Kim"
       ]
     },
     {
-      "at": "2020-06-19",
+      "at": "2006-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2006",
+      "body": "Year 2006: the Sunday table held. Work hard, family harder, rest scheduled like medicine.",
+      "tag": "personal",
+      "people": [
+        "Mama Elena",
+        "Sister Carmen"
+      ]
+    },
+    {
+      "at": "2007-06-03",
+      "type": "relationship",
+      "title": "Sunday lunches begin",
+      "body": "Started Sunday lunches at Mama Elena’s: twelve people, one table, no phones. The family operating system.",
+      "tag": "personal",
+      "people": [
+        "Mama Elena",
+        "Papa Miguel",
+        "Brother Luis",
+        "Sister Carmen"
+      ]
+    },
+    {
+      "at": "2007-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2007",
+      "body": "Year 2007: a caring year in every direction. Roster updated, hearts too.",
+      "tag": "personal",
+      "people": [
+        "Fatima Noor"
+      ]
+    },
+    {
+      "at": "2008-04-19",
       "type": "health",
-      "title": "Mom's diagnosis",
-      "body": "Carmen Vega diagnosed with early heart failure. Manageable, the cardiologist said, with medication and salt discipline. I am now the family medical secretary, apparently. Starting a list.",
+      "title": "Back and lifting",
+      "body": "Lifting patients wrecked my back at 24. Physio, technique, asking for help — a skill I resisted for years.",
       "tag": "personal",
       "people": [
-        "Carmen Vega"
+        "Dr Patel"
       ]
     },
     {
-      "at": "2020-10-03",
-      "type": "relationship",
-      "title": "Carmen Vega — Mom",
-      "body": "Carmen Vega, 71. Retired seamstress, unbeatable cook, allergic to being helped. Strategy: never say 'let me do that for you' — say 'teach me how you do it'. Works every time.",
+      "at": "2008-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2008",
+      "body": "Year 2008: pivots and night shifts, but lunch was at one and nobody missed it.",
       "tag": "personal",
       "people": [
-        "Carmen Vega"
+        "Brother Luis",
+        "Mama Elena"
       ]
     },
     {
-      "at": "2021-01-22",
-      "type": "document",
-      "title": "Parents' wills — first draft",
-      "body": "Estate attorney drafted wills for Carmen and Jose Vega. Signing scheduled, then postponed, then forgotten. This folder is my nemesis. Future me: finish this.",
-      "tag": "personal",
+      "at": "2009-09-27",
+      "type": "skill",
+      "title": "Medication systems",
+      "body": "Learned medication scheduling systems cold. Colour codes, double checks, calm under alarms.",
+      "tag": "shareable",
       "people": [
-        "Carmen Vega",
-        "Jose Vega"
+        "Nurse Kim",
+        "Fatima Noor"
       ]
     },
     {
-      "at": "2021-05-14",
-      "type": "relationship",
-      "title": "Jose Vega — Dad",
-      "body": "Jose Vega, 74. Retired bus driver, fixes anything with a motor and most things without. Starting to forget small things. Watching quietly for now.",
+      "at": "2009-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2009",
+      "body": "Year 2009: I learned to accept care as well as give it. Growth, Rosa-style.",
       "tag": "personal",
       "people": [
-        "Jose Vega"
+        "Niece Lucia",
+        "Nephew Diego"
       ]
     },
     {
-      "at": "2021-09-08",
+      "at": "2010-01-16",
+      "type": "journal",
+      "title": "Papa Miguel diagnosed",
+      "body": "Dad’s heart diagnosis. I became the family scheduler overnight. Care is logistics plus love.",
+      "tag": "personal",
+      "people": [
+        "Papa Miguel",
+        "Mama Elena",
+        "Sister Carmen"
+      ]
+    },
+    {
+      "at": "2010-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2010",
+      "body": "Year 2010: the Sunday table held. Work hard, family harder, rest scheduled like medicine.",
+      "tag": "personal",
+      "people": [
+        "Mama Elena",
+        "Papa Miguel"
+      ]
+    },
+    {
+      "at": "2011-05-08",
       "type": "finance",
-      "title": "Two-household budget",
-      "body": "We quietly cover Mom's prescriptions and Dad's car insurance now. Built a shared spreadsheet with Andres Ruiz so the help is sustainable, not heroic. $420/month, planned and calm.",
+      "title": "Care costs spreadsheet",
+      "body": "Built the family care-cost spreadsheet everyone pretends not to need. Funerals, meds, transport: priced with love.",
       "tag": "personal",
       "people": [
-        "Andres Ruiz"
+        "Brother Luis"
       ]
     },
     {
-      "at": "2022-03-17",
-      "type": "health",
-      "title": "Mom's medication list v2",
-      "body": "Carmen's list after the cardiology change: morning diuretic, evening statin, pill box filled Sundays by me. Printed copy on her fridge, photo on my phone.",
-      "tag": "personal",
-      "people": [
-        "Carmen Vega"
-      ]
-    },
-    {
-      "at": "2022-08-25",
+      "at": "2011-12-28",
       "type": "journal",
-      "title": "Lucia starts preschool",
-      "body": "Lucia Ruiz, 4, marched in with Mateo's old backpack. Both kids in school four mornings a week. I sat in a silent house and didn't know what to do with my hands.",
+      "title": "Year-end reflection 2011",
+      "body": "Year 2011: a caring year in every direction. Roster updated, hearts too.",
       "tag": "personal",
       "people": [
-        "Lucia Ruiz",
-        "Mateo Ruiz"
+        "Mama Elena",
+        "Sister Carmen"
       ]
     },
     {
-      "at": "2022-11-30",
+      "at": "2012-08-23",
       "type": "goal-note",
-      "title": "Estate paperwork: finish line",
-      "body": "Goal before year-end: wills signed, powers of attorney done, one folder with everything. The attorney has the drafts. I need two signatures and one notary. That's all. Do it.",
-      "tag": "personal"
-    },
-    {
-      "at": "2023-02-09",
-      "type": "document",
-      "title": "Powers of attorney — signed",
-      "body": "Done, finally: healthcare and financial POA for both parents, notarized, copies with the attorney and in the blue folder. The wills remain unsigned. One dragon left.",
+      "title": "Pivot: train properly",
+      "body": "Decided to train as a nurse properly, nights and weekends. The ward taught me first; school will credential it.",
       "tag": "personal",
       "people": [
-        "Carmen Vega",
-        "Jose Vega"
+        "Fatima Noor"
       ]
     },
     {
-      "at": "2023-04-15",
+      "at": "2012-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2012",
+      "body": "Year 2012: pivots and night shifts, but lunch was at one and nobody missed it.",
+      "tag": "personal",
+      "people": [
+        "Fatima Noor"
+      ]
+    },
+    {
+      "at": "2013-03-30",
+      "type": "relationship",
+      "title": "Fatima, study sister",
+      "body": "Fatima and I studied through every night class. She quizzed me on the bus; I kept her awake with empanadas.",
+      "tag": "personal",
+      "people": [
+        "Fatima Noor",
+        "Grace Ade"
+      ]
+    },
+    {
+      "at": "2013-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2013",
+      "body": "Year 2013: I learned to accept care as well as give it. Growth, Rosa-style.",
+      "tag": "personal",
+      "people": [
+        "Brother Luis",
+        "Mama Elena"
+      ]
+    },
+    {
+      "at": "2014-07-12",
+      "type": "health",
+      "title": "Burnout, recognised",
+      "body": "I cared for everyone except me. Burnout leave, six weeks. Mama Elena moved in and cared for the carer.",
+      "tag": "personal",
+      "people": [
+        "Mama Elena",
+        "Sister Carmen"
+      ]
+    },
+    {
+      "at": "2014-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2014",
+      "body": "Year 2014: the Sunday table held. Work hard, family harder, rest scheduled like medicine.",
+      "tag": "personal",
+      "people": [
+        "Niece Lucia",
+        "Nephew Diego"
+      ]
+    },
+    {
+      "at": "2015-02-21",
+      "type": "skill",
+      "title": "Qualified nurse",
+      "body": "Qualified at last, oldest in my cohort, proudest too. The pivot took five years of nights. Worth every one.",
+      "tag": "shareable",
+      "people": [
+        "Dr Patel",
+        "Nurse Kim"
+      ]
+    },
+    {
+      "at": "2015-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2015",
+      "body": "Year 2015: a caring year in every direction. Roster updated, hearts too.",
+      "tag": "personal",
+      "people": [
+        "Mama Elena",
+        "Papa Miguel"
+      ]
+    },
+    {
+      "at": "2016-06-18",
       "type": "finding",
-      "title": "POA before you need it",
-      "body": "Powers of attorney took three years of dread and one afternoon of signing — because we started before any crisis. The lesson I tell everyone: paperwork is easiest exactly when it feels least urgent.",
-      "tag": "shareable"
-    },
-    {
-      "at": "2023-06-21",
-      "type": "health",
-      "title": "Dad's memory check",
-      "body": "Primary care ran Jose's memory screening: mild changes, recheck in a year. Driving still fine. We agreed: I ride along monthly, no drama, just data.",
-      "tag": "personal",
+      "title": "Discharge fails families",
+      "body": "Finding: discharges fail at the kitchen table, not the hospital. Families need one page, not forty.",
+      "tag": "shareable",
       "people": [
-        "Jose Vega"
+        "Dr Patel",
+        "Sofia Reyes"
       ]
     },
     {
-      "at": "2023-10-12",
+      "at": "2016-12-28",
       "type": "journal",
-      "title": "Parent-teacher night, both schools",
-      "body": "Mateo (3rd grade) reads above level, forgets homework exists. Lucia (kindergarten) runs the classroom's feelings corner. Two schools, one evening, very tired feet.",
+      "title": "Year-end reflection 2016",
+      "body": "Year 2016: pivots and night shifts, but lunch was at one and nobody missed it.",
       "tag": "personal",
       "people": [
-        "Mateo Ruiz",
-        "Lucia Ruiz"
+        "Mama Elena",
+        "Sister Carmen"
       ]
     },
     {
-      "at": "2024-01-29",
-      "type": "finance",
-      "title": "Care fund, formalized",
-      "body": "Opened a separate savings account for parent care: $300/month auto-transfer. When the house needs a ramp or Mom needs a device, the money conversation is already over.",
-      "tag": "personal"
-    },
-    {
-      "at": "2024-05-16",
-      "type": "document",
-      "title": "Wills — signed at last",
-      "body": "Three years after the first draft: Carmen and Jose signed their wills. Beneficiaries checked, executor is me, copies distributed. The nemesis folder is complete. I could frame it.",
-      "tag": "personal",
-      "people": [
-        "Carmen Vega",
-        "Jose Vega"
-      ]
-    },
-    {
-      "at": "2024-09-05",
-      "type": "health",
-      "title": "Mom's medication list v3",
-      "body": "Cardiologist adjusted Carmen's dosage after the summer swelling. List updated everywhere: fridge, phone, blue folder. Version numbers on care documents forever now.",
-      "tag": "personal",
-      "people": [
-        "Carmen Vega"
-      ]
-    },
-    {
-      "at": "2024-12-18",
-      "type": "journal",
-      "title": "Four generations, one table",
-      "body": "Christmas: kids performed a play, Dad fixed the oven mid-roast, Mom directed seating like a general. This is the whole point of the paperwork years. Wrote it down so I remember.",
-      "tag": "personal",
-      "people": [
-        "Mateo Ruiz",
-        "Lucia Ruiz",
-        "Carmen Vega",
-        "Jose Vega"
-      ]
-    },
-    {
-      "at": "2025-03-13",
-      "type": "goal-note",
-      "title": "Respite plan",
-      "body": "Andres and I agreed: one weekend a quarter, my sister covers parents, we disappear. Caretaking is a marathon; scheduled rest is part of the care, not a reward for it.",
-      "tag": "personal",
-      "people": [
-        "Andres Ruiz"
-      ]
-    },
-    {
-      "at": "2025-05-09",
+      "at": "2017-01-29",
       "type": "method",
-      "title": "The blue folder system",
-      "body": "One folder per person: current medication list (versioned), signed legal docs, insurance cards, one page of who-to-call. Updated every time anything changes, reviewed every November. Boring, portable, priceless.",
-      "tag": "shareable"
-    },
-    {
-      "at": "2025-07-22",
-      "type": "health",
-      "title": "Dad stops driving at night",
-      "body": "Family agreement after the recheck: Jose keeps daytime driving, I handle nights and freeways. Framed as headlights, not capability. He grumbled, then agreed. Dignity preserved, risk down.",
-      "tag": "personal",
+      "title": "One-page care plans",
+      "body": "Method: one-page care plans families actually use: meds, meals, red flags, who to call. Adopted ward-wide.",
+      "tag": "shareable",
       "people": [
-        "Jose Vega"
+        "Sofia Reyes",
+        "Tomas Herrera"
       ]
     },
     {
-      "at": "2025-11-06",
-      "type": "document",
-      "title": "Estate review due",
-      "body": "Annual review of the blue folder: wills current, POAs current, care fund healthy. This review used to take three years of dread. Now it takes one afternoon. Systems beat willpower.",
-      "tag": "personal",
-      "people": [
-        "Carmen Vega",
-        "Jose Vega"
-      ]
-    },
-    {
-      "at": "2026-02-24",
+      "at": "2017-11-05",
       "type": "journal",
-      "title": "Mateo, double digits soon",
-      "body": "Mateo turns 10 next month and Lucia is reading chapter books to ME now. The kids are growing up on schedule. The parents are growing older on schedule. My job is to keep both schedules gentle.",
+      "title": "Papa Miguel, goodbye",
+      "body": "Dad died at home, us around him, Sunday lunch still warm. Grief is a roster change nobody wants.",
       "tag": "personal",
       "people": [
-        "Mateo Ruiz",
-        "Lucia Ruiz"
+        "Mama Elena",
+        "Brother Luis",
+        "Sister Carmen",
+        "Aunt Dolores"
+      ]
+    },
+    {
+      "at": "2017-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2017",
+      "body": "Year 2017: I learned to accept care as well as give it. Growth, Rosa-style.",
+      "tag": "personal",
+      "people": [
+        "Fatima Noor"
+      ]
+    },
+    {
+      "at": "2018-05-13",
+      "type": "relationship",
+      "title": "Mama Elena moves in",
+      "body": "Mum moved in after Dad. Three generations, one bathroom, much laughter. Care became home-shaped.",
+      "tag": "personal",
+      "people": [
+        "Mama Elena",
+        "Niece Lucia",
+        "Nephew Diego"
+      ]
+    },
+    {
+      "at": "2018-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2018",
+      "body": "Year 2018: the Sunday table held. Work hard, family harder, rest scheduled like medicine.",
+      "tag": "personal",
+      "people": [
+        "Brother Luis",
+        "Mama Elena"
+      ]
+    },
+    {
+      "at": "2019-04-07",
+      "type": "research",
+      "title": "Community care models",
+      "body": "Researched community care cooperatives. Families like mine are infrastructure; policy just hasn’t noticed.",
+      "tag": "shareable",
+      "people": [
+        "Isabel Fuente",
+        "Ramon Vega"
+      ]
+    },
+    {
+      "at": "2019-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2019",
+      "body": "Year 2019: a caring year in every direction. Roster updated, hearts too.",
+      "tag": "personal",
+      "people": [
+        "Niece Lucia",
+        "Nephew Diego"
+      ]
+    },
+    {
+      "at": "2020-03-22",
+      "type": "journal",
+      "title": "Pandemic ward",
+      "body": "COVID ward spring. Video calls held families together through glass. I coordinated and cried in stairwells.",
+      "tag": "personal",
+      "people": [
+        "Fatima Noor",
+        "Peter Novak",
+        "Clara Ortiz"
+      ]
+    },
+    {
+      "at": "2020-12-24",
+      "type": "health",
+      "title": "My own scare",
+      "body": "Brief hospital stay, exhaustion and infection. The cared-for carer again. Family roster activated without me asking.",
+      "tag": "personal",
+      "people": [
+        "Sister Carmen",
+        "Mama Elena",
+        "Brother Luis"
+      ]
+    },
+    {
+      "at": "2020-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2020",
+      "body": "Year 2020: pivots and night shifts, but lunch was at one and nobody missed it.",
+      "tag": "personal",
+      "people": [
+        "Mama Elena",
+        "Papa Miguel"
+      ]
+    },
+    {
+      "at": "2021-06-15",
+      "type": "goal-note",
+      "title": "Pivot: coordination",
+      "body": "Moving from bedside to care coordination: fewer shifts, wider reach. My Sunday-table skills, professionalised.",
+      "tag": "personal",
+      "people": [
+        "Isabel Fuente"
+      ]
+    },
+    {
+      "at": "2021-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2021",
+      "body": "Year 2021: I learned to accept care as well as give it. Growth, Rosa-style.",
+      "tag": "personal",
+      "people": [
+        "Mama Elena",
+        "Sister Carmen"
+      ]
+    },
+    {
+      "at": "2022-02-06",
+      "type": "method",
+      "title": "Family roster method",
+      "body": "Method: the family roster — named humans, named jobs, rest built in. Shared with every family I coordinate.",
+      "tag": "shareable",
+      "people": [
+        "Clara Ortiz",
+        "Hugo Sanz",
+        "Lena Mora"
+      ]
+    },
+    {
+      "at": "2022-10-30",
+      "type": "finance",
+      "title": "Mum’s care fund",
+      "body": "Siblings pooled a care fund for Mum, transparent spreadsheet, no drama. Past-Rosa’s spreadsheet obsession vindicated.",
+      "tag": "personal",
+      "people": [
+        "Brother Luis",
+        "Sister Carmen",
+        "Mama Elena"
+      ]
+    },
+    {
+      "at": "2022-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2022",
+      "body": "Year 2022: the Sunday table held. Work hard, family harder, rest scheduled like medicine.",
+      "tag": "personal",
+      "people": [
+        "Fatima Noor"
+      ]
+    },
+    {
+      "at": "2023-05-20",
+      "type": "research",
+      "title": "Co-op pilot",
+      "body": "Piloting a carers cooperative in our district: twenty families, shared respite, shared knowledge.",
+      "tag": "shareable",
+      "people": [
+        "Victor Ruiz",
+        "Nora Gil",
+        "Andres Paz"
+      ]
+    },
+    {
+      "at": "2023-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2023",
+      "body": "Year 2023: a caring year in every direction. Roster updated, hearts too.",
+      "tag": "personal",
+      "people": [
+        "Brother Luis",
+        "Mama Elena"
+      ]
+    },
+    {
+      "at": "2024-01-14",
+      "type": "relationship",
+      "title": "Lucia qualifies",
+      "body": "Niece Lucia qualified as a nurse. I pinned her badge. The family care line continues, chosen this time.",
+      "tag": "personal",
+      "people": [
+        "Niece Lucia",
+        "Mama Elena",
+        "Sister Carmen"
+      ]
+    },
+    {
+      "at": "2024-09-08",
+      "type": "finding",
+      "title": "Respite is medicine",
+      "body": "Finding across 40 families: scheduled respite prevents crisis admissions better than any leaflet. Rest is treatment.",
+      "tag": "shareable",
+      "people": [
+        "Marta Leon",
+        "Julia Sanz"
+      ]
+    },
+    {
+      "at": "2024-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2024",
+      "body": "Year 2024: pivots and night shifts, but lunch was at one and nobody missed it.",
+      "tag": "personal",
+      "people": [
+        "Niece Lucia",
+        "Nephew Diego"
+      ]
+    },
+    {
+      "at": "2025-04-19",
+      "type": "journal",
+      "title": "Mama Elena at 90",
+      "body": "Mum turned 90 at the Sunday table, 22 of us, she beat everyone at dominoes. Care returned as celebration.",
+      "tag": "personal",
+      "people": [
+        "Mama Elena",
+        "Brother Luis",
+        "Sister Carmen",
+        "Niece Lucia",
+        "Nephew Diego",
+        "Aunt Dolores",
+        "Cousin Ana"
+      ]
+    },
+    {
+      "at": "2025-11-02",
+      "type": "skill",
+      "title": "Teaching coordination",
+      "body": "Teaching care coordination to new nurses: logistics as love language, rosters as kindness.",
+      "tag": "shareable",
+      "people": [
+        "Rosa Jr",
+        "Lena Mora"
+      ]
+    },
+    {
+      "at": "2025-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2025",
+      "body": "Year 2025: I learned to accept care as well as give it. Growth, Rosa-style.",
+      "tag": "personal",
+      "people": [
+        "Mama Elena",
+        "Papa Miguel"
+      ]
+    },
+    {
+      "at": "2026-03-15",
+      "type": "journal",
+      "title": "It all threads",
+      "body": "Aide, daughter-carer, nurse, coordinator. Every pivot was care changing shape. Twenty years, one table, it works out.",
+      "tag": "personal",
+      "people": [
+        "Mama Elena",
+        "Fatima Noor",
+        "Sister Carmen"
+      ]
+    },
+    {
+      "at": "2026-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2026",
+      "body": "Year 2026: the Sunday table held. Work hard, family harder, rest scheduled like medicine.",
+      "tag": "personal",
+      "people": [
+        "Mama Elena",
+        "Sister Carmen"
       ]
     }
   ]

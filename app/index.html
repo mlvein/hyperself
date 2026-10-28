@@ -10,9 +10,13 @@
     <header class="topbar">
       <div class="brand">
         <strong>Hyperself</strong>
-        <span class="pill">local-first scaffold</span>
         <span id="userGreeting" class="hint"></span>
       </div>
+      <nav class="tabs" aria-label="Main menu">
+        <button type="button" data-view="knowledge" class="active">Knowledgebase</button>
+        <button type="button" data-view="paths">Paths</button>
+        <button type="button" data-view="legacy">Legacy</button>
+      </nav>
       <div class="searchbar" role="search">
         <input
           id="globalSearch"
@@ -25,48 +29,42 @@
       </div>
     </header>
 
-    <nav class="tabs" aria-label="Views">
-      <button type="button" data-view="knowledge" class="active">Knowledgebase</button>
-      <button type="button" data-view="paths">Paths</button>
-      <button type="button" data-view="legacy">Legacy</button>
-    </nav>
+    <div id="subnavBar" class="submenu-strip">
+      <div id="subnav-knowledge" class="subnav" role="tablist" aria-label="Knowledgebase sections">
+        <button type="button" data-sub="library" class="active">Synthesis</button>
+        <button type="button" data-sub="network">Network</button>
+        <button type="button" data-sub="import">Import &amp; Connect</button>
+        <button type="button" data-sub="security" class="subnav-action sec-tab">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+          Security <span id="secBadge" class="badge" hidden>0</span>
+        </button>
+      </div>
+      <div id="subnav-legacy" class="subnav" role="tablist" aria-label="Legacy sections" hidden>
+        <button type="button" data-sub="export" class="active">Export</button>
+      </div>
+    </div>
 
     <div id="searchResults" class="search-results" hidden></div>
 
     <main>
       <section id="view-knowledge" aria-label="Knowledgebase">
-        <div class="subnav" role="tablist" aria-label="Knowledgebase sections">
-          <button type="button" data-sub="library" class="active">Library</button>
-          <button type="button" data-sub="network">Network</button>
-          <button type="button" data-sub="import">Import &amp; Connect</button>
-          <button type="button" data-sub="security" class="subnav-action sec-tab">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
-            Security <span id="secBadge" class="badge" hidden>0</span>
-          </button>
-        </div>
-
         <div id="sub-library">
           <div id="kbEmpty" class="card">
-            <h2>Add your knowledge</h2>
-            <p class="hint">Everything is parsed on this device, and a synthesis appears here automatically.</p>
-            <div class="add-grid">
-              <button type="button" id="kbUploadTile" class="add-tile">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4"/><path d="m6 10 6-6 6 6"/><path d="M4 20h16"/></svg>
-                <span>Upload documents</span>
-                <span class="hint">.md or .txt files</span>
-              </button>
-              <button type="button" id="kbLinkTile" class="add-tile js-link-tile">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14a5 5 0 0 0 7.1 0l2.4-2.4a5 5 0 0 0-7.1-7.1l-1.7 1.7"/><path d="M14 10a5 5 0 0 0-7.1 0L4.5 12.4a5 5 0 0 0 7.1 7.1l1.7-1.7"/></svg>
-                <span>Link an account</span>
-                <span class="hint">Third-party services</span>
-              </button>
+            <h2>Nothing to synthesize yet</h2>
+            <p class="hint">Add documents or link accounts in Import &amp; Connect — uploads and linked data are managed there. Your synthesis will appear here automatically.</p>
+            <div class="row">
+              <button type="button" id="synthImportBtn">Go to Import &amp; Connect</button>
             </div>
-            <input type="file" id="kbFileInput" accept=".md,.txt,.markdown,text/plain,text/markdown" multiple hidden />
-            <p id="kbUploadNote" class="hint"></p>
           </div>
           <div id="kbSynthesis" hidden>
-            <h2>Synthesis overview</h2>
-            <p id="synthesisStatus" class="hint" aria-live="polite"></p>
+            <div id="profileCard" class="card profile-card">
+              <div id="profileAvatar" class="profile-avatar" aria-label="Profile photo slot" title="Profile photo">?</div>
+              <div class="profile-main">
+                <div id="archetypePills" class="tagrow" aria-label="Archetypes"></div>
+                <p id="profileBlurb" class="profile-blurb">Your archetypes and story will appear here as Hyperself synthesizes your knowledge.</p>
+                <p id="synthesisStatus" class="hint" aria-live="polite"></p>
+              </div>
+            </div>
             <div id="synthesisCards" class="list"></div>
             <p class="hint">Looking for something specific? Ask in the search bar above.</p>
           </div>
@@ -80,25 +78,19 @@
 
         <div id="sub-network" hidden>
           <div class="card">
-            <h2>Tag people</h2>
-            <p class="hint">Tagging happens here, after synthesis: pick something your knowledgebase mentions, name the person, and they join your network.</p>
-            <div class="row">
-              <label>Entry
-                <select id="tagEntrySelect"></select>
-              </label>
-              <label>Person <input id="tagPersonInput" placeholder="Priya Nair" maxlength="80" /></label>
-            </div>
-            <button type="button" id="tagPersonBtn">Tag person</button>
-            <p id="tagNote" class="hint"></p>
+            <h2>Your network</h2>
+            <p class="hint">You are the center. People connect through entries that mention them together. Drag to rearrange; click a person for context. The graph updates automatically as your knowledgebase grows.</p>
+            <div id="networkGraph" class="network-graph" aria-label="Network graph"></div>
+            <p id="networkGraphEmpty" class="hint">No people yet — add knowledge in Import &amp; Connect and people will appear here.</p>
           </div>
-          <p class="hint">People synthesized across your knowledgebase. Untag anyone who doesn't belong.</p>
-          <div id="personList" class="list"></div>
+          <p class="hint">People synthesized across your knowledgebase. Click a card for their story.</p>
+          <div id="personList" class="people-grid"></div>
         </div>
 
         <div id="sub-import" hidden>
           <div class="card">
             <h2>Import &amp; connect</h2>
-            <p class="hint">Everything is parsed on this device, and the Library synthesis updates automatically.</p>
+            <p class="hint">Everything is parsed on this device, and the Synthesis updates automatically. Uploads and linked accounts are managed here.</p>
             <div class="add-grid">
               <button type="button" id="importUploadTile" class="add-tile">
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4"/><path d="m6 10 6-6 6 6"/><path d="M4 20h16"/></svg>
@@ -113,6 +105,15 @@
             </div>
             <input type="file" id="importFileInput" accept=".md,.txt,.markdown,text/plain,text/markdown" multiple hidden />
             <p id="importTileNote" class="hint"></p>
+            <div class="add-grid">
+              <button type="button" id="audioUploadTile" class="add-tile">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v1a7 7 0 0 1-14 0v-1"/><path d="M12 18v4"/></svg>
+                <span>Upload audio</span>
+                <span class="hint">Recordings transcribed on-device</span>
+              </button>
+            </div>
+            <input type="file" id="audioFileInput" accept="audio/*,.mp3,.wav,.m4a,.aac,.ogg,.oga,.webm,.flac,.opus" multiple hidden />
+            <p id="audioNote" class="hint" aria-live="polite"></p>
           </div>
         </div>
       </section>
@@ -126,13 +127,17 @@
           </div>
         </div>
         <div id="pathsContent">
-          <div id="insightList" class="list"></div>
-          <p><button type="button" id="ackToggle" class="linklike"></button></p>
-          <div id="ackedList" class="list" hidden></div>
+          <div id="sub-insights">
+            <div id="insightList" class="list"></div>
+            <h3>Acknowledged</h3>
+            <p class="hint">Insights you marked reviewed. Undo returns one to the active list.</p>
+            <div id="ackedList" class="list"></div>
+          </div>
         </div>
       </section>
 
       <section id="view-legacy" hidden aria-label="Legacy">
+        <div id="sub-export">
         <div class="card">
           <h2>Export knowledge pack</h2>
           <p class="hint">Exports shareable entries only, with a hash-verified manifest. Personal entries never leave. You'll be asked before exporting entries with high-severity findings.</p>
@@ -155,6 +160,7 @@
           <button type="button" id="packAskBtn">Ask</button>
           <pre id="packAskOut" class="log" aria-live="polite"></pre>
         </div>
+        </div>
       </section>
     </main>
 
@@ -164,10 +170,18 @@
     <div id="devPanel" hidden>
       <p class="hint">Demo controls</p>
       <button type="button" id="tourBtn">Replay tour</button>
-      <button type="button" data-persona="maya">Load Maya (career switcher, 2022–26)</button>
-      <button type="button" data-persona="daniel">Load Daniel (founder, 2019–26)</button>
-      <button type="button" data-persona="rosa">Load Rosa (caretaker, 2020–26)</button>
+      <button type="button" data-persona="maya">Load Maya (teacher → researcher, 2006–26)</button>
+      <button type="button" data-persona="daniel">Load Daniel (support → founder, 2006–26)</button>
+      <button type="button" data-persona="rosa">Load Rosa (carer → coordinator, 2006–26)</button>
       <button type="button" id="clearBtn" class="danger">Clear workspace</button>
+    </div>
+
+    <div id="personModal" class="overlay" hidden>
+      <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="personModalName">
+        <h2 id="personModalName">Person</h2>
+        <div id="personModalBody"></div>
+        <p><button type="button" id="personModalClose" class="linklike">Close</button></p>
+      </div>
     </div>
 
     <div id="linkModal" class="overlay" hidden>

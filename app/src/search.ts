@@ -194,6 +194,18 @@ export function tokenize(text: string): string[] {
     .filter((t) => t.length > 1 && !STOP.has(t));
 }
 
+export function isAudioEntry(entry: Entry): boolean {
+  const label = (entry.source_label ?? '').toLowerCase();
+  return (
+    /\.(mp3|wav|m4a|aac|ogg|oga|webm|flac|opus)$/.test(label) ||
+    entry.body.includes('[Audio transcript]')
+  );
+}
+
+export function hasAudioIntent(raw: string): boolean {
+  return /\b(audio|recording|recordings|transcript|transcripts|voice|spoken|said|say)\b/i.test(raw);
+}
+
 export function parseSearchQuery(raw: string, today = new Date()): ParsedQuery {
   const q = raw.trim();
   if (!q) return { kind: 'general', tokens: [] };
@@ -309,6 +321,26 @@ export function runKnowledgeSearch(
         ? `Nobody in your knowledgebase matches "${parsed.topic}" yet.`
         : `${people.length} ${people.length === 1 ? 'person' : 'people'} may know about "${parsed.topic}" (${scored.length} matching ${scored.length === 1 ? 'entry' : 'entries'}).`;
     return { parsed, people, entries: top.slice(0, 8), summary };
+  }
+
+  if (hasAudioIntent(raw)) {
+    const pool = live.filter(isAudioEntry);
+    const tokens = parsed.tokens.filter((t) => !/^(audio|recording|recordings|transcript|transcripts|voice|spoken)$/.test(t));
+    const scored = pool
+      .map((e) => ({ e, score: tokens.length ? scoreEntry(e, tokens) : 1 }))
+      .filter((s) => s.score > 0)
+      .sort((a, b) => b.score - a.score);
+    const top = scored.slice(0, 8).map((s) => s.e);
+    const people = rollupPeople(top, (name, ids) => `Tagged on ${ids.length} matching ${ids.length === 1 ? 'entry' : 'entries'}`);
+    return {
+      parsed,
+      people,
+      entries: top,
+      summary:
+        scored.length === 0
+          ? 'No audio transcripts match yet. Import a recording in Import & Connect first.'
+          : `${scored.length} audio ${scored.length === 1 ? 'transcript matches' : 'transcripts match'}${people.length ? `, ${people.length} ${people.length === 1 ? 'person' : 'people'}` : ''}.`,
+    };
   }
 
   if (parsed.tokens.length === 0) {

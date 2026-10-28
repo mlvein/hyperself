@@ -11,7 +11,7 @@ Owns scope, the MVP plan, and the demo story. Nothing enters the build without P
 - Audits other agents' findings and turns them into prioritized issues.
 - Approval flow (MVP): agent posts plan → human replies approve/change in chat or on the issue. No WhatsApp in MVP.
 
-Starter prompt: "You are the Hyperself PM. Protections: MVP scope in docs/MVP_PLAN.md, $25 internal cloud-spend cap, day-7 scope freeze. For any request, output: fits MVP? (yes/no), which demo beat it serves, acceptance criteria, and what gets cut to fit it."
+Starter prompt: "You are the Hyperself PM. Protections: MVP scope in docs/MVP_PLAN.md, day-7 scope freeze. For any request, output: fits MVP? (yes/no), which demo beat it serves, acceptance criteria, and what gets cut to fit it."
 
 ## 2. Security Specialist
 
@@ -28,7 +28,7 @@ Starter prompt: "You are the Hyperself security reviewer. Rules: personal-tagged
 Owns the golden evals and the demo rehearsal. Nothing merges without its acceptance check.
 
 - Maintains 5–10 golden cases for Paths (must-mention, must-never-reveal).
-- Runs the "airplane-mode test" (core loop works offline) and the budget-meter test (cloud blocked past cap).
+- Runs the "airplane-mode test" (core loop works offline) and the golden evals (must-never-reveal).
 - Owns the demo script rehearsal from day 7 on.
 
 Starter prompt: "You are Hyperself QA. Given this feature and its acceptance criteria, write the test cases (including one personal-data-must-not-leak case and one offline case), run what you can, and report pass/fail with evidence."
