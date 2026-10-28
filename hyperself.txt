@@ -1,0 +1,51 @@
+Hyperself
+
+Augmented capabilities with AI
+
+Problem: AI has disrupted patterns familiar to people, their work, habits, learning, among other things. It has caused a fragmentation that is hard to make sense of as the technology continues to progress at ward speed. There is a need for equilibrium to allow for the best potential for holistic growth that AI can potentially provide when designed right
+
+Won't a mobile phone be capable of this? Not everything on the user's phone are suitable for their knowledge-base. Hyperself acts as a filter that the user can
+
+Solution: A hyper-local LLM inside an omnichannel application focused on the user, their unique set of skills, experiences, goals, and underutilized talents augmenting their capabilities and helping them understand and reach a higher level of understanding and capabilities
+
+MVP Features:
+
+Feature 1 - Knowledge-base: 
+User builds their knowledge-base in their personal LLM split mainly between two types: personal (financial, health, relationships, private journals) and shareable knowledge (users own findings, ways of working, research)
+
+-- Knowledge-base view: uploaded items and connected third party platforms: show what info has been parsed. bonus would be include if info is considered vulnerable and make suggestions to keep secure or update.
+
+-- Knowledge-base dummy data include from family, calendar integration to expand to use cases where user is a designated caretaker so they need to be on top of a lot of things like their kids schools, their aging parents welfare or estate
+
+Feature 2 - Paths:
+Paths make use of feature 1’s shareable knowledgebase, allowing users to explore further opportunities for growth. 
+
+--- Path offers a unique view of parsed data from knowledgebase using local LLM to analyze personal and shareable data and sharing insights to the user that the user can pin or choose to expound on by adding more context via uploads
+
+--- Path provides actionable steps shared to the user: for example if a data or information they shared is outdated, Hyperself adds an alert to the user and provides actionable steps that allow user to amend the data or make a note that user has been made aware.
+
+Feature 3 - Legacy: you can choose to package and share your LLM to others allowing other users to tap into your knowledgebase
+
+--- Legacy is a summary view of knowledgebase and path findings that can be tagged as shareable or private. it shows data as to how many users have connected with your LLM and what information has been used and properly referenced.
+
+--- Legacy also scours the web for potential misuse of legacy, providing actionable steps on how to correct it
+
+--- Personal legacy can also be chosen to share to personal connections via email or a downloadable encrypted file that can only be unlocked by who the user shares it to. this contains all personal tagged information in case the user wants it shared after passing.
+
+Technicalities: Using Meta’s ExecuTorch SDK, Hyperself creates a local LLM for each user that handles a knowledgebase of users information and augments it with the latest and most reliable models available.
+
+Privacy: User information is stored locally and only encrypted data is used when being processed or shared in online services. Private user information like financial, health, and other personal data only relevant to the user remains confidential and is handled by the LLM privately and securely.
+
+AI Agents:
+
+Security Specialist: handles and audits everything data security related. Prioritizes private user information making sure that it stays private and cannot be accessed by other services used by the platform
+
+Project Manager: Prioritizes MVP features and suggests plan of action during the hackathon period. Provides detailed PRDs and audits findings from other agents. Sends updates to WhatsApp and waits for my approval or suggested changes before executing plans.
+
+QA and UAT Specialists: Tests and audits every update and shares findings with the Project Manager to help fix bugs ensure seamless user experience
+
+Design Manager: handles everything UI/UX design related. Maintains a figmadesign.md guide to handoff to Figma MCP. Creates and maintains a list of required design assets for the application.
+
+
+
+

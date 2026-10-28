@@ -1,0 +1,204 @@
+{
+  "id": "daniel",
+  "label": "Daniel (founder & engineer)",
+  "tagline": "Seven years from first job to startup exit track: building, fundraising, and learning to rest.",
+  "entries": [
+    {
+      "at": "2019-03-04",
+      "type": "journal",
+      "title": "First engineering job",
+      "body": "Started as a junior backend engineer. Everything is on fire and I love it. Goal: ship something real in my first quarter.",
+      "tag": "personal"
+    },
+    {
+      "at": "2019-06-18",
+      "type": "skill",
+      "title": "Picked up Go",
+      "body": "Rewrote our log pipeline in Go over two weekends. Concurrency finally clicks: channels are just queues with good manners.",
+      "tag": "shareable"
+    },
+    {
+      "at": "2019-11-02",
+      "type": "relationship",
+      "title": "Sam Ortiz — first manager",
+      "body": "Sam Ortiz manages the platform team. Direct, generous with context, allergic to status theater. I want his one-pager habit.",
+      "tag": "personal",
+      "people": [
+        "Sam Ortiz"
+      ]
+    },
+    {
+      "at": "2020-03-15",
+      "type": "journal",
+      "title": "Remote, suddenly",
+      "body": "Office closed mid-sprint. Kitchen-table desk, standups on video. Output held; serendipity died. Started a Friday demo ritual to compensate.",
+      "tag": "personal"
+    },
+    {
+      "at": "2020-08-22",
+      "type": "health",
+      "title": "Back pain audit",
+      "body": "Six months of couch-coding: lower back complains daily. Standing desk, hourly walks, and a hard stop at six. Non-negotiable now.",
+      "tag": "personal"
+    },
+    {
+      "at": "2020-12-05",
+      "type": "finding",
+      "title": "Incidents teach more than launches",
+      "body": "Three outages this year wrote our real architecture doc. Blameless write-ups, one fix per incident, no heroics. Reliability is a writing practice.",
+      "tag": "shareable"
+    },
+    {
+      "at": "2021-04-10",
+      "type": "research",
+      "title": "Side project: deploy previews",
+      "body": "Built preview deploys for side projects. Two friends asked to pay. That sentence rewired my year: maybe this is a company.",
+      "tag": "personal"
+    },
+    {
+      "at": "2021-09-01",
+      "type": "relationship",
+      "title": "June Park — co-founder?",
+      "body": "June Park, product designer from the meetup circuit. We whiteboarded the preview-deploy idea for three hours and left with a company name. Testing the partnership with a 4-week build sprint.",
+      "tag": "personal",
+      "people": [
+        "June Park"
+      ]
+    },
+    {
+      "at": "2021-11-19",
+      "type": "goal-note",
+      "title": "Quit-or-commit deadline",
+      "body": "Giving the side project until March: ten paying teams or back to full-time focus. Savings cover seven months. Written down so I can't move the goalposts.",
+      "tag": "personal"
+    },
+    {
+      "at": "2022-02-14",
+      "type": "finance",
+      "title": "Runway spreadsheet v1",
+      "body": "Personal runway: 7 months at current burn. Business costs near zero until incorporation. Every expense now asks: does this buy learning or comfort?",
+      "tag": "personal"
+    },
+    {
+      "at": "2022-05-06",
+      "type": "journal",
+      "title": "Incorporated today",
+      "body": "Filed the Delaware C-corp, opened the business account, cried a little at the kitchen table. We have ten paying teams. It's real now.",
+      "tag": "personal"
+    },
+    {
+      "at": "2022-08-30",
+      "type": "method",
+      "title": "Weekly founder notes",
+      "body": "Friday note, three sections: what shipped, what I learned, what I'm avoiding. Shared with June unedited. Avoidance is the section that matters.",
+      "tag": "shareable"
+    },
+    {
+      "at": "2022-12-12",
+      "type": "relationship",
+      "title": "Alex Kim — first hire",
+      "body": "Alex Kim joins as founding engineer in January. Brilliant systems thinker, calmer than me under incident pressure. Equity and salary both written down, no handshake math.",
+      "tag": "personal",
+      "people": [
+        "Alex Kim"
+      ]
+    },
+    {
+      "at": "2023-03-21",
+      "type": "finding",
+      "title": "Onboarding beats features",
+      "body": "Churn interviews said the same thing twelve ways: teams didn't fail to love the product, they failed to reach first value. We rebuilt onboarding; activation doubled.",
+      "tag": "shareable"
+    },
+    {
+      "at": "2023-07-08",
+      "type": "document",
+      "title": "First investor update",
+      "body": "Monthly update format locked: metrics, one win, one miss, one ask. Investors reply to asks, not victories. Keeping every update in one doc for the raise.",
+      "tag": "personal"
+    },
+    {
+      "at": "2023-10-17",
+      "type": "health",
+      "title": "Sleep is the roadmap",
+      "body": "Two quarters of 5-hour nights and my decisions got stupid. Sleep tracking, no Slack after nine, naps allowed. The roadmap got better when I did.",
+      "tag": "personal"
+    },
+    {
+      "at": "2024-01-25",
+      "type": "research",
+      "title": "Enterprise curiosity",
+      "body": "Three enterprise pilots asked for SSO and audit logs. Different product gravity. Piloting one, saying no twice — focus is the strategy this year.",
+      "tag": "personal"
+    },
+    {
+      "at": "2024-05-30",
+      "type": "finance",
+      "title": "Seed extension closed",
+      "body": "Extended the seed: 18 more months of runway without a priced round. Terms clean, board unchanged. The best fundraising is the kind you can decline.",
+      "tag": "personal"
+    },
+    {
+      "at": "2024-09-14",
+      "type": "journal",
+      "title": "The pivot conversation",
+      "body": "June and I finally said it out loud: previews are a feature, not the company. The wedge is release confidence. Six weeks to validate or wind down gracefully.",
+      "tag": "personal",
+      "people": [
+        "June Park"
+      ]
+    },
+    {
+      "at": "2024-11-02",
+      "type": "method",
+      "title": "Kill criteria, written early",
+      "body": "Every bet now ships with kill criteria and a date. The pivot took six weeks instead of six months because past-us had written the exit down.",
+      "tag": "shareable"
+    },
+    {
+      "at": "2025-02-19",
+      "type": "finding",
+      "title": "Release confidence sells",
+      "body": "The pivot validated: teams pay to know a release is safe, not to see it sooner. Positioning, pricing, and roadmap all simplified in one move.",
+      "tag": "shareable"
+    },
+    {
+      "at": "2025-06-11",
+      "type": "relationship",
+      "title": "Mentoring junior founders",
+      "body": "Office hours at the accelerator, two Fridays a month. Teaching runway math and kill criteria. Sam was right: context is generosity.",
+      "tag": "personal",
+      "people": [
+        "Sam Ortiz"
+      ]
+    },
+    {
+      "at": "2025-09-27",
+      "type": "skill",
+      "title": "Learned to sell",
+      "body": "Fifty sales calls this year. Engineers underestimate how learnable this is: listen, recap, ask what happens if nothing changes. The recap is the close.",
+      "tag": "shareable"
+    },
+    {
+      "at": "2025-12-08",
+      "type": "document",
+      "title": "Acquisition interest memo",
+      "body": "Two acquirers circling. Memo for the board: what we'd need (team intact, product alive, 3-year horizon) and what we'll decline. Written before any term sheet arrives.",
+      "tag": "personal"
+    },
+    {
+      "at": "2026-02-16",
+      "type": "goal-note",
+      "title": "Year of depth",
+      "body": "No new initiatives in 2026. Deepen the wedge, grow the team to nine, protect the Friday note. Boring is the strategy now.",
+      "tag": "personal"
+    },
+    {
+      "at": "2026-05-20",
+      "type": "journal",
+      "title": "Seven years in",
+      "body": "Read my 2019 journal tonight. The kid who loved fires now writes kill criteria and sleeps eight hours. Both versions built this. Keeping both in view.",
+      "tag": "personal"
+    }
+  ]
+}

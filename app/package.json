@@ -1,0 +1,21 @@
+{
+  "name": "hyperself-app",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "personas": "node scripts/build-persona.mjs",
+    "test": "node tests/emit-cjs-package.cjs && tsc src/vite-env.d.ts src/types.ts src/store.ts src/router.ts src/cloud.ts src/pack.ts src/engine.ts src/embeddings.ts src/ingest.ts src/security.ts src/insights.ts src/search.ts src/connections.ts src/analysis.ts --outDir .test-compiled --module commonjs --target es2022 --lib es2022,dom --skipLibCheck && node tests/chunking.test.cjs && node tests/security.test.cjs && node tests/paths.test.cjs && node tests/people.test.cjs && node tests/search.test.cjs && node tests/scan.test.cjs && node tests/engine.test.cjs && node tests/embeddings.test.cjs && node tests/analysis.test.cjs && node tests/personas.test.cjs"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.0",
+    "vite": "^6.0.0"
+  },
+  "dependencies": {
+    "@huggingface/transformers": "^4.3.2",
+    "@mlc-ai/web-llm": "^0.2.86"
+  }
+}

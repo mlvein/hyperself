@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hyperself — local-first scaffold</title>
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <strong>Hyperself</strong>
+        <span class="pill">local-first scaffold</span>
+        <span id="userGreeting" class="hint"></span>
+      </div>
+      <div class="searchbar" role="search">
+        <input
+          id="globalSearch"
+          type="search"
+          placeholder="Ask your knowledgebase: &quot;people I've met on Oct 4&quot; or &quot;who might know about Figma&quot;"
+          aria-label="Search your knowledgebase"
+          autocomplete="off"
+        />
+        <button type="button" id="globalSearchBtn">Search</button>
+      </div>
+    </header>
+
+    <nav class="tabs" aria-label="Views">
+      <button type="button" data-view="knowledge" class="active">Knowledgebase</button>
+      <button type="button" data-view="paths">Paths</button>
+      <button type="button" data-view="legacy">Legacy</button>
+    </nav>
+
+    <div id="searchResults" class="search-results" hidden></div>
+
+    <main>
+      <section id="view-knowledge" aria-label="Knowledgebase">
+        <div class="subnav" role="tablist" aria-label="Knowledgebase sections">
+          <button type="button" data-sub="library" class="active">Library</button>
+          <button type="button" data-sub="network">Network</button>
+          <button type="button" data-sub="import">Import &amp; Connect</button>
+          <button type="button" data-sub="security" class="subnav-action sec-tab">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+            Security <span id="secBadge" class="badge" hidden>0</span>
+          </button>
+        </div>
+
+        <div id="sub-library">
+          <div id="kbEmpty" class="card">
+            <h2>Add your knowledge</h2>
+            <p class="hint">Everything is parsed on this device, and a synthesis appears here automatically.</p>
+            <div class="add-grid">
+              <button type="button" id="kbUploadTile" class="add-tile">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4"/><path d="m6 10 6-6 6 6"/><path d="M4 20h16"/></svg>
+                <span>Upload documents</span>
+                <span class="hint">.md or .txt files</span>
+              </button>
+              <button type="button" id="kbLinkTile" class="add-tile js-link-tile">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14a5 5 0 0 0 7.1 0l2.4-2.4a5 5 0 0 0-7.1-7.1l-1.7 1.7"/><path d="M14 10a5 5 0 0 0-7.1 0L4.5 12.4a5 5 0 0 0 7.1 7.1l1.7-1.7"/></svg>
+                <span>Link an account</span>
+                <span class="hint">Third-party services</span>
+              </button>
+            </div>
+            <input type="file" id="kbFileInput" accept=".md,.txt,.markdown,text/plain,text/markdown" multiple hidden />
+            <p id="kbUploadNote" class="hint"></p>
+          </div>
+          <div id="kbSynthesis" hidden>
+            <h2>Synthesis overview</h2>
+            <p id="synthesisStatus" class="hint" aria-live="polite"></p>
+            <div id="synthesisCards" class="list"></div>
+            <p class="hint">Looking for something specific? Ask in the search bar above.</p>
+          </div>
+        </div>
+
+        <div id="sub-security" hidden>
+          <p class="hint">Actionable security insights from your uploaded knowledge — scanned locally, nothing leaves your browser.</p>
+          <div id="securitySummary"></div>
+          <div id="securityList" class="list"></div>
+        </div>
+
+        <div id="sub-network" hidden>
+          <div class="card">
+            <h2>Tag people</h2>
+            <p class="hint">Tagging happens here, after synthesis: pick something your knowledgebase mentions, name the person, and they join your network.</p>
+            <div class="row">
+              <label>Entry
+                <select id="tagEntrySelect"></select>
+              </label>
+              <label>Person <input id="tagPersonInput" placeholder="Priya Nair" maxlength="80" /></label>
+            </div>
+            <button type="button" id="tagPersonBtn">Tag person</button>
+            <p id="tagNote" class="hint"></p>
+          </div>
+          <p class="hint">People synthesized across your knowledgebase. Untag anyone who doesn't belong.</p>
+          <div id="personList" class="list"></div>
+        </div>
+
+        <div id="sub-import" hidden>
+          <div class="card">
+            <h2>Import &amp; connect</h2>
+            <p class="hint">Everything is parsed on this device, and the Library synthesis updates automatically.</p>
+            <div class="add-grid">
+              <button type="button" id="importUploadTile" class="add-tile">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4"/><path d="m6 10 6-6 6 6"/><path d="M4 20h16"/></svg>
+                <span>Upload documents</span>
+                <span class="hint">.md or .txt files</span>
+              </button>
+              <button type="button" class="add-tile js-link-tile">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14a5 5 0 0 0 7.1 0l2.4-2.4a5 5 0 0 0-7.1-7.1l-1.7 1.7"/><path d="M14 10a5 5 0 0 0-7.1 0L4.5 12.4a5 5 0 0 0 7.1 7.1l1.7-1.7"/></svg>
+                <span>Link an account</span>
+                <span class="hint">Third-party services</span>
+              </button>
+            </div>
+            <input type="file" id="importFileInput" accept=".md,.txt,.markdown,text/plain,text/markdown" multiple hidden />
+            <p id="importTileNote" class="hint"></p>
+          </div>
+        </div>
+      </section>
+
+      <section id="view-paths" hidden aria-label="Paths">
+        <div id="pathsEmpty" class="card" hidden>
+          <h2>No Paths yet</h2>
+          <p class="hint">Paths grow from your knowledgebase, and yours is empty. Import documents or link an app to begin.</p>
+          <div class="row">
+            <button type="button" id="pathsImportBtn">Import or link data</button>
+          </div>
+        </div>
+        <div id="pathsContent">
+          <div id="insightList" class="list"></div>
+          <p><button type="button" id="ackToggle" class="linklike"></button></p>
+          <div id="ackedList" class="list" hidden></div>
+        </div>
+      </section>
+
+      <section id="view-legacy" hidden aria-label="Legacy">
+        <div class="card">
+          <h2>Export knowledge pack</h2>
+          <p class="hint">Exports shareable entries only, with a hash-verified manifest. Personal entries never leave. You'll be asked before exporting entries with high-severity findings.</p>
+          <div class="row">
+            <label>Author label <input id="packAuthor" placeholder="anonymous" /></label>
+            <label>Version <input id="packVersion" placeholder="0.1.0" /></label>
+          </div>
+          <button type="button" id="exportBtn">Export pack</button>
+        </div>
+        <div class="card">
+          <h2>Import knowledge pack</h2>
+          <input type="file" id="packFile" accept="application/json" />
+          <button type="button" id="importBtn">Verify and import</button>
+          <pre id="packLog" class="log" aria-live="polite"></pre>
+        </div>
+        <div class="card">
+          <h2>Ask this pack</h2>
+          <p class="hint">Answers come from imported pack entries only, via the on-device engine.</p>
+          <label>Question <input id="packAskInput" placeholder="What does this pack say about onboarding?" /></label>
+          <button type="button" id="packAskBtn">Ask</button>
+          <pre id="packAskOut" class="log" aria-live="polite"></pre>
+        </div>
+      </section>
+    </main>
+
+    <button type="button" id="devGear" aria-label="Demo controls" title="Demo controls">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06A1.7 1.7 0 0 0 15 19.4a1.7 1.7 0 0 0-1 1.55V21a2 2 0 1 1-4 0v-.09A1.7 1.7 0 0 0 9 19.4a1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-1.55-1H3a2 2 0 1 1 0-4h.09A1.7 1.7 0 0 0 4.6 9a1.7 1.7 0 0 0-.34-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-1.55V3a2 2 0 1 1 4 0v.09a1.7 1.7 0 0 0 1 1.51 1.7 1.7 0 0 0 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.7 1.7 0 0 0 19.4 9c.24.6.86 1 1.51 1H21a2 2 0 1 1 0 4h-.09a1.7 1.7 0 0 0-1.51 1Z"/></svg>
+    </button>
+    <div id="devPanel" hidden>
+      <p class="hint">Demo controls</p>
+      <button type="button" id="tourBtn">Replay tour</button>
+      <button type="button" data-persona="maya">Load Maya (career switcher, 2022–26)</button>
+      <button type="button" data-persona="daniel">Load Daniel (founder, 2019–26)</button>
+      <button type="button" data-persona="rosa">Load Rosa (caretaker, 2020–26)</button>
+      <button type="button" id="clearBtn" class="danger">Clear workspace</button>
+    </div>
+
+    <div id="linkModal" class="overlay" hidden>
+      <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="linkModalTitle">
+        <h2 id="linkModalTitle">Link an account</h2>
+        <p class="hint">Simulated links — sample data is ingested on this device only.</p>
+        <div id="linkModalList"></div>
+        <p><button type="button" id="linkModalClose" class="linklike">Close</button></p>
+      </div>
+    </div>
+
+    <div id="onboarding" class="overlay" hidden>
+      <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="obTitle">
+        <h2 id="obTitle">Welcome</h2>
+        <div id="obBody"></div>
+        <div class="row ob-nav">
+          <button type="button" id="obBack">Back</button>
+          <span id="obDots" class="hint"></span>
+          <button type="button" id="obNext">Next</button>
+        </div>
+        <p><button type="button" id="obSkip" class="linklike">Skip tour</button></p>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
