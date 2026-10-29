@@ -59,7 +59,7 @@ export function chunkText(title: string, text: string): Chunk[] {
 export function ingestDoc(
   name: string,
   text: string,
-  opts?: { type?: EntryType; goalIds?: string[]; people?: string[] },
+  opts?: { type?: EntryType; goalIds?: string[]; people?: string[]; at?: string },
 ): { created: number; title: string } {
   if (!text.trim()) throw new StoreError(`"${name}" has no readable content.`);
   const title = extractTitle(text, titleFromFilename(name));
@@ -75,6 +75,7 @@ export function ingestDoc(
       people: opts?.people ?? [],
       source: 'upload',
       source_label: name,
+      at: opts?.at,
     });
   }
   return { created: chunks.length, title };

@@ -14,19 +14,33 @@ export interface LocalEngine {
 export const WEBLLM_MODEL_ID = 'Llama-3.2-1B-Instruct-q4f16_1-MLC';
 export const WEBLLM_MODEL_FALLBACK = 'Llama-3.2-1B-Instruct-q4f32_1-MLC';
 
+/** Prompt fragments that must never be presented as a synthesis result. */
+const PROMPT_LEAK =
+  /you are hyperself|private on-device assistant|answer only from the provided entries|write an overview blurb|based on all my uploaded|use second person|local draft for/i;
+
+export function isPromptLeak(text: string): boolean {
+  return PROMPT_LEAK.test(text);
+}
+
+/** Strip prompt/system echoes the local engines sometimes regurgitate. */
+export function cleanDraftText(text: string): string {
+  return text
+    .split('\n')
+    .filter((line) => !PROMPT_LEAK.test(line))
+    .join('\n')
+    .trim();
+}
+
 export class StubEngine implements LocalEngine {
   readonly name = 'stub (templated local draft)';
 
-  async draft(query: string, context: Entry[]): Promise<string> {
+  async draft(_query: string, context: Entry[]): Promise<string> {
     if (context.length === 0) {
-      return (
-        `Local draft — no matching entries for "${query}".\n\n` +
-        'Add entries first, then ask again. Nothing left your browser.'
-      );
+      return 'Add entries first — no matching entries yet. Nothing left your browser.';
     }
     const lines = context.map((e) => `- ${e.title} [${e.tag}]: ${e.body.slice(0, 160)}`);
     return (
-      `Local draft for "${query}" (from ${context.length} entr${context.length === 1 ? 'y' : 'ies'}):\n\n` +
+      `From ${context.length} ${context.length === 1 ? 'entry' : 'entries'} on this device:\n\n` +
       `${lines.join('\n')}\n\nNothing left your browser.`
     );
   }

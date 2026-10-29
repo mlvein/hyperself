@@ -65,4 +65,51 @@ assert.ok(
   'clean shared entry draws a review reminder',
 );
 
+// --- image flags: compromising / inappropriate image imports notify in Security ---
+const img = {
+  ...base,
+  source: 'upload',
+  source_label: 'passport-scan.jpg',
+  body: '[Image transcript: passport-scan.jpg]\n\nPASSPORT United States of America. Passport No: X7421980.',
+};
+assert.ok(
+  scanEntry(img).some((f) => f.level === 'high' && /ID document/.test(f.message)),
+  'image of an ID document flags high',
+);
+const flagged = {
+  ...base,
+  source: 'upload',
+  source_label: 'party.png',
+  body: '[Image transcript: party.png]\n\nNSFW explicit intimate photo backup',
+};
+assert.ok(
+  scanEntry(flagged).some((f) => f.level === 'high' && /inappropriate/.test(f.message)),
+  'inappropriate image flags high',
+);
+const chatShot = {
+  ...base,
+  source: 'upload',
+  source_label: 'chat.png',
+  body: '[Image transcript: chat.png]\n\nWhatsApp screenshot: chat history with Ana',
+};
+assert.ok(
+  scanEntry(chatShot).some((f) => f.level === 'warn' && /private conversation/.test(f.message)),
+  'conversation screenshot warns',
+);
+const cleanPhoto = {
+  ...base,
+  source: 'upload',
+  source_label: 'beach.jpg',
+  body: '[Image transcript: beach.jpg]\n\nBeach day, no text found.',
+};
+assert.ok(
+  !scanEntry(cleanPhoto).some((f) => f.level === 'high'),
+  'clean photo gets no high flag',
+);
+const notImage = { ...base, body: 'Notes about my passport renewal appointment.' };
+assert.ok(
+  !scanEntry(notImage).some((f) => /ID document/.test(f.message)),
+  'image-only checks do not fire on plain text entries',
+);
+
 console.log('security scan OK: silent clean, high secrets, warn contacts, stale + shared info');

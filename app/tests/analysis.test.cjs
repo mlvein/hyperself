@@ -112,4 +112,14 @@ assert.ok(
   'raw health series is summarize-first, not directly integrable',
 );
 
+// --- essence: person, aspirations, potential; no people/counts/sources ---
+const { buildEssence } = require('../.test-compiled/analysis.js');
+const essence = buildEssence(entries, [
+  { label: 'Bookworm', meaning: 'You process life through books and finish what you start.' },
+]);
+assert.ok(!/bookworm/i.test(essence.summary), 'essence never repeats the archetype label (shown as pills)');
+const essenceText = [essence.summary, ...essence.aspirations, ...essence.potential].join(' ');
+assert.ok(!/Priya|Ana Reyes|\b\d+ entries|journal entries|sources/i.test(essenceText), 'essence never names people, counts, or sources');
+assert.ok(essence.potential.length > 0, 'potential surfaces growth directions');
+
 console.log('analysis OK: behavior signals, gaps, fits, ranked recommendations');

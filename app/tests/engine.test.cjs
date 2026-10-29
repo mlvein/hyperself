@@ -61,3 +61,27 @@ const ctx = [
   console.error(err);
   process.exit(1);
 });
+
+// --- draft sanitizer: system-prompt echo never reaches the UI ---
+{
+  const { cleanDraftText } = require('../.test-compiled/engine.js');
+  const echoed = 'You are Hyperself, a private on-device assistant. Answer only from the provided entries.\nYou read constantly and mentor junior researchers.';
+  assert.equal(cleanDraftText(echoed), 'You read constantly and mentor junior researchers.');
+  assert.equal(cleanDraftText('You are Hyperself, a private on-device assistant.'), '');
+  assert.equal(cleanDraftText('A normal synthesis.'), 'A normal synthesis.');
+  console.log('engine sanitizer OK: system-prompt echo stripped');
+}
+
+// --- stub drafts never echo the caller's prompt ---
+{
+  const { isPromptLeak } = require('../.test-compiled/engine.js');
+  void stub
+    .draft(
+      'Write an overview blurb describing me as a person in a maximum of two sentences, based on ALL my uploaded and linked data. Use second person.',
+      ctx,
+    )
+    .then((out) => {
+      assert.ok(!isPromptLeak(out) && !out.includes('overview blurb'), 'stub output is prompt-free');
+      console.log('engine prompt-leak OK: stub never echoes prompts');
+    });
+}

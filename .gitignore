@@ -2,6 +2,9 @@
 .DS_Store
 Thumbs.db
 
+# Owner's canonical brief — private source notes, never publish
+hyperself.txt
+
 # Secrets / personal data — never commit these
 .env
 .env.*

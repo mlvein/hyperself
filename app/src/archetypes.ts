@@ -9,7 +9,60 @@ export interface Archetype {
   label: string;
   evidence: string;
   score: number;
+  meaning: string;
+  watchFor: string;
 }
+
+export const ARCHETYPE_MEANINGS: Record<string, { meaning: string; watchFor: string }> = {
+  bookworm: {
+    meaning: 'You process life through books: you read steadily, finish what you start, and let what you read change how you work and relate. Reading is not escape for you; it is how you metabolise experience.',
+    watchFor: 'Watch for reading becoming avoidance when a decision is due; your notes usually already hold the answer.',
+  },
+  'book-hoarder': {
+    meaning: 'You collect beginnings: shelves of bought, beloved, mostly unread books. The collection maps your curiosity and ambitions, even when finishing lags behind acquiring.',
+    watchFor: 'Watch the gap between buying and finishing; picking one spine a month turns the museum back into a library.',
+  },
+  'network-weaver': {
+    meaning: 'People are your infrastructure: you keep a wide web of family, close friends, and casual ties warm, and connections compound because you maintain them.',
+    watchFor: 'Watch for over-weaving; a web this wide needs a few threads you are allowed to let go quiet.',
+  },
+  'caretaker-anchor': {
+    meaning: 'You are the steady point others organise around: care work, health logistics, and relationship maintenance run through you, largely invisibly.',
+    watchFor: 'Anchors erode quietly; scheduled rest is part of the job, not a reward after it.',
+  },
+  'deep-researcher': {
+    meaning: 'You go below the surface before forming a view: research and findings dominate because you would rather be accurate than fast.',
+    watchFor: 'Watch for research as procrastination; at some point the evidence is sufficient and the decision is the work.',
+  },
+  'method-maker': {
+    meaning: 'You turn private know-how into shared methods others can reuse. Your knowledge compounds publicly, which is why people seek you out.',
+    watchFor: 'Keep methods versioned; what worked two pivots ago may mislead someone today.',
+  },
+  'serial-pivoter': {
+    meaning: 'Your life is a series of deliberate turns, not a straight line: you quit, retrain, and restart when the current shape stops fitting, and each pivot reuses the last one.',
+    watchFor: 'Name what carries over each time; your continuity is skills and people, not titles.',
+  },
+  'night-owl': {
+    meaning: 'Your thinking sharpens after dark: late-night entries show reflection and making happening when the world is quiet.',
+    watchFor: 'Protect sleep like infrastructure; tomorrow-you pays for tonight-you.',
+  },
+  'early-riser': {
+    meaning: 'You front-load the day: early mornings hold your planning, movement, and clearest thinking before demands arrive.',
+    watchFor: 'Guard the early hours from other people scheduling over them.',
+  },
+  wanderer: {
+    meaning: 'Movement is a thinking tool: new places reset your perspective and your knowledgebase is stamped with relocations and journeys.',
+    watchFor: 'Keep one anchor ritual per place so wandering stays restorative, not rootless.',
+  },
+  'keeper-of-records': {
+    meaning: 'You keep the receipts, literally: documents and finances are ordered so future-you and family can find anything fast.',
+    watchFor: 'Records serve decisions; archive what no longer informs one.',
+  },
+  'skill-collector': {
+    meaning: 'You acquire skills the way others acquire hobbies: broadly and joyfully, building an unusual combination over time.',
+    watchFor: 'Periodically pick one skill to take deep; breadth plus one depth is your unfair advantage.',
+  },
+};
 
 const READ_RE = /\b(read|reading|finished|re-read|reread|book club|novel|chapter)\b/i;
 const COLLECT_RE = /\b(bought|buy|tbr|to-read pile|shelf|shelves|collection|collecting|unread|hoard)\b/i;
@@ -153,7 +206,8 @@ export function computeArchetypes(entries: Entry[], limit = 4): Archetype[] {
   const blocked = new Set<string>();
   for (const a of scored) {
     if (blocked.has(a.id)) continue;
-    picked.push({ id: a.id, label: a.label, evidence: a.evidence, score: a.score });
+    const detail = ARCHETYPE_MEANINGS[a.id] ?? { meaning: '', watchFor: '' };
+    picked.push({ id: a.id, label: a.label, evidence: a.evidence, score: a.score, ...detail });
     if (a.conflictsWith) blocked.add(a.conflictsWith);
     if (picked.length >= limit) break;
   }

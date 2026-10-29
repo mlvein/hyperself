@@ -20,10 +20,11 @@ import {
   listPersonNotes,
 } from './store';
 import { PackError, exportPackText, importPackText } from './pack';
-import { StubEngine, initLocalEngine, type LocalEngine } from './engine';
+import { StubEngine, cleanDraftText, initLocalEngine, isPromptLeak, type LocalEngine } from './engine';
 import { embedEntry, embedText, loadVectors } from './embeddings';
 import { ingestDoc } from './ingest';
 import { isAudioFilename, isAudioMime, transcribeAudioBlob } from './transcribe';
+import { isImageFilename, isImageMime, ocrImageBlob, parseExifDate } from './image';
 import {
   PROVIDERS,
   connectMany,
@@ -32,7 +33,7 @@ import {
   runAccountScan,
 } from './connections';
 import { runKnowledgeSearch } from './search';
-import { analyzeKnowledgebase, buildSynthesisCards, buildSynthesisSections, buildWhatMatters } from './analysis';
+import { analyzeKnowledgebase, buildEssence, buildSynthesisCards, buildSynthesisSections, buildWhatMatters } from './analysis';
 import { scanEntry } from './security';
 import {
   acknowledge,
@@ -110,7 +111,15 @@ function renderLibrary(): void {
   const empty = entries.length === 0;
   el('kbEmpty').hidden = !empty;
   el('kbSynthesis').hidden = empty;
-  if (empty) return;
+  if (empty) {
+    // Never let a stale or in-flight synthesis present as user data.
+    synthesisKey = '';
+    el('archetypePills').innerHTML = '';
+    el('profileBlurb').textContent =
+      'Your archetypes and story will appear here as Hyperself synthesizes your knowledge.';
+    el('synthesisStatus').textContent = '';
+    return;
+  }
   void maybeSynthesize(entries);
 }
 
@@ -140,29 +149,28 @@ function renderProfileCard(blurb: string): void {
   el('profileBlurb').textContent = limitTwoSentences(blurb);
 }
 
-function renderSynthesisCards(overviewBody: string): void {
+function renderSynthesisCards(_overviewBody = ''): void {
+  void _overviewBody;
   const a = currentAnalysis();
   const cards = buildSynthesisCards(listEntries(), a);
   const s = buildSynthesisSections(listEntries(), a);
   const bullets = (items: string[]): string =>
     items.map((i) => `<p class="meta">• ${escapeHtml(i)}</p>`).join('');
-  const matters = buildWhatMatters(listEntries());
-  const hero = `<article class="item hero-card">
-      <header><h3>What matters most</h3></header>
-      <p>${escapeHtml(matters.headline)}</p>
-      ${matters.interests.length ? `<p class="meta">Interests: ${matters.interests.map(escapeHtml).join(' · ')}</p>` : ''}
-      ${matters.people.length ? `<p class="meta">Key people: ${matters.people.map(escapeHtml).join(' · ')}</p>` : ''}
-    </article>`;
-  const overview = `<article class="item">
-      <header><h3>Insights</h3></header>
-      <p>${escapeHtml(overviewBody.slice(0, 280))}${overviewBody.length > 280 ? '…' : ''}</p>
-    </article>`;
+  const archetypeCards = computeArchetypes(listEntries())
+    .map(
+      (arch) => `<article class="item archetype-card">
+        <header><h3>${escapeHtml(arch.label)}</h3><span class="archetype-pill">Archetype</span></header>
+        <p>${escapeHtml(arch.meaning)}</p>
+        <p class="meta">Why this fits: ${escapeHtml(arch.evidence)}.</p>
+        <p class="meta">Watch for: ${escapeHtml(arch.watchFor)}</p>
+      </article>`,
+    )
+    .join('');
   const sections =
     `<article class="item"><header><h3>Next steps</h3></header>${bullets(s.nextSteps)}</article>` +
     `<article class="item"><header><h3>Facts</h3></header>${bullets(s.facts)}</article>`;
   el('synthesisCards').innerHTML =
-    hero +
-    overview +
+    archetypeCards +
     cards
       .map(
         (c) => `<article class="item">
@@ -174,36 +182,56 @@ function renderSynthesisCards(overviewBody: string): void {
     sections;
 }
 
+/** One-line summary merged into the main synthesis (profile) card. */
+function mattersLine(entries: Entry[]): string {
+  const matters = buildWhatMatters(entries);
+  const parts: string[] = [];
+  if (matters.interests.length) parts.push(`Interests: ${matters.interests.join(' · ')}`);
+  if (matters.people.length) parts.push(`Key people: ${matters.people.join(' · ')}`);
+  return parts.length ? parts.join('  ·  ') : matters.headline;
+}
+
 async function maybeSynthesize(entries: Entry[]): Promise<void> {
+  if (entries.length === 0) return;
   const latest = entries.reduce((max, e) => (e.updated_at > max ? e.updated_at : max), '');
   const key = `${entries.length}:${latest}:${engine.name}`;
   if (synthesizing || key === synthesisKey) return;
   synthesizing = true;
   synthesisKey = key;
   const status = el('synthesisStatus');
-  status.textContent = 'Synthesizing on-device…';
+  status.textContent = 'Synthesizing…';
   status.classList.add('loading');
   const a = currentAnalysis();
-  const facts = [...a.behavior, `Blind spots: ${a.gaps.join(', ') || 'none'}.`].join(' ');
-  const archetypeFacts = computeArchetypes(entries)
-    .map((x) => `${x.label} (${x.evidence})`)
-    .join('; ');
+  const archetypes = computeArchetypes(entries);
+  const essence = buildEssence(entries, archetypes);
+  const facts = [
+    essence.summary,
+    ...essence.traits,
+    ...(essence.aspirations.length ? [`Aspirations: ${essence.aspirations.join(' ')}`] : []),
+    ...(essence.potential.length ? [`Potential: ${essence.potential.join(' ')}`] : []),
+  ].join(' ');
+  const archetypeFacts = archetypes.map((x) => x.meaning.split('.')[0]).join('; ');
   renderSynthesisCards('Synthesizing…');
   renderProfileCard('Synthesizing who you are from everything you have shared…');
   try {
     const reply = await engine.draft(
-      `Write an overview blurb describing me as a person in a maximum of two sentences, based on ALL my uploaded and linked data. ` +
-        `Use second person. Facts: ${facts} Archetypes: ${archetypeFacts || 'none yet'}.`,
+      `Describe my essence as a person in a maximum of two sentences: who I am at my core, what I aspire to, and my potential. ` +
+        `Use second person. Never mention other people by name, entry counts, data sources, or how much I have uploaded. ` +
+        `Essence: ${facts} Archetypes: ${archetypeFacts || 'none yet'}.`,
       entries.slice(0, 6),
     );
-    renderProfileCard(reply.replace(/\n\nNothing left your browser\.?$/, ''));
-    renderSynthesisCards(reply);
-    status.textContent = `Updated just now · synthesized on-device · ${entries.length} entries behind this view`;
+    if (listEntries().length === 0) return; // workspace cleared mid-synthesis
+    const cleaned = cleanDraftText(reply.replace(/\n\nNothing left your browser\.?$/, ''));
+    const usable = cleaned.length > 0 && !isPromptLeak(cleaned) && !cleaned.startsWith('From ');
+    const localBlurb = essence.summary;
+    renderProfileCard(usable ? cleaned : localBlurb);
+    renderSynthesisCards(usable ? cleaned : facts);
+    status.textContent = mattersLine(entries);
   } catch {
     const matters = buildWhatMatters(entries);
     renderProfileCard(`${matters.headline} ${facts}`);
     renderSynthesisCards(facts);
-    status.textContent = 'Synthesis from local facts · on-device';
+    status.textContent = mattersLine(entries);
   } finally {
     status.classList.remove('loading');
     synthesizing = false;
@@ -325,6 +353,61 @@ el<HTMLInputElement>('importFileInput').addEventListener('change', () => {
     el<HTMLButtonElement>('importUploadTile'),
     input,
   );
+});
+
+el('imageUploadTile').addEventListener('click', () => {
+  el<HTMLInputElement>('imageFileInput').click();
+});
+
+el<HTMLInputElement>('imageFileInput').addEventListener('change', () => {
+  const input = el<HTMLInputElement>('imageFileInput');
+  if (!input.files || input.files.length === 0) return;
+  const note = el('imageNote');
+  const tile = el<HTMLButtonElement>('imageUploadTile');
+  const manualPerson = el<HTMLInputElement>('imagePersonInput').value.trim();
+  void (async () => {
+    tile.disabled = true;
+    let done = 0;
+    for (const file of Array.from(input.files ?? [])) {
+      if (!isImageFilename(file.name) && !isImageMime(file.type)) {
+        note.textContent = `"${file.name}" is not an image — skipped.`;
+        continue;
+      }
+      try {
+        const exifDate = parseExifDate(await file.arrayBuffer());
+        const at = exifDate ?? new Date(file.lastModified || Date.now()).toISOString();
+        const text = await ocrImageBlob(file, (status) => {
+          note.textContent = `${file.name}: ${status}`;
+        });
+        const known = listPeople()
+          .map((person) => person.name)
+          .filter((name) => text.toLowerCase().includes(name.toLowerCase()));
+        const people = [...new Set([...(manualPerson ? [manualPerson] : []), ...known])];
+        const body = text
+          ? `[Image transcript: ${file.name}]\n\n${text}`
+          : `[Image: ${file.name}] No readable text found in this image.`;
+        const { created } = ingestDoc(file.name, body, { people, at });
+        done += created;
+        const flags = listEntries()
+          .filter((e) => e.source_label === file.name)
+          .flatMap((e) => scanEntry(e))
+          .filter((f) => f.level === 'high' || f.level === 'warn');
+        note.textContent =
+          `Imported "${file.name}" dated ${at.slice(0, 10)}${exifDate ? ' (from EXIF)' : ''}` +
+          (people.length ? `, tagged ${people.join(', ')}` : '') +
+          ' — see them in Network.' +
+          (flags.length
+            ? ` Security flag: ${flags.map((f) => f.message).join('; ')}. Review in Knowledgebase → Security.`
+            : '');
+      } catch (err) {
+        note.textContent =
+          err instanceof Error ? `"${file.name}": ${err.message}` : `"${file.name}": image import failed.`;
+      }
+    }
+    tile.disabled = false;
+    input.value = '';
+    if (done > 0) renderAll();
+  })();
 });
 
 el('audioUploadTile').addEventListener('click', () => {
@@ -819,7 +902,13 @@ el('clearBtn').addEventListener('click', () => {
   if (confirm('Delete all local Hyperself data? This cannot be undone.')) {
     closeDevPanel();
     clearAll();
+    localStorage.removeItem(OB_KEY);
+    synthesisKey = '';
     renderAll();
+    if (obShouldShow()) {
+      el('onboarding').hidden = false;
+      obRender();
+    }
   }
 });
 

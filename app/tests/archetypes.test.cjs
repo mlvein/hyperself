@@ -40,4 +40,7 @@ assert.deepEqual(computeArchetypes([]), [], 'no data, no archetypes');
 const top = computeArchetypes([...reader, ...hoarder]);
 assert.ok(top.length <= 4 && top[0].score >= top[top.length - 1].score, 'ranked, capped at four');
 
+assert.ok(top.every((a) => a.meaning.length > 20 && a.watchFor.length > 10), 'archetypes carry expounded meaning + watch-for');
+assert.ok(/metabolise|process life/i.test(computeArchetypes(reader)[0].meaning + computeArchetypes(reader).map((a) => a.meaning).join(' ')), 'bookworm expounded');
+
 console.log('archetypes OK: bookworm vs hoarder, conflicts resolve, ranked cap');

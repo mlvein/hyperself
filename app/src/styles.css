@@ -47,7 +47,6 @@ body {
 }
 .submenu-strip .subnav { margin-bottom: 0; flex: 1; }
 .subnav[hidden], #subnavBar[hidden] { display: none; }
-.hero-card { border-color: var(--ink); background: var(--wash); }
 .profile-card { display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 1rem; }
 .profile-avatar {
   width: 72px; height: 72px; border-radius: 50%; flex: none;
@@ -341,3 +340,4 @@ button.small { padding: 0.2rem 0.6rem; font-size: 0.85rem; }
 .search-hit h3 { margin: 0; font-size: 0.95rem; }
 .search-hit p { margin: 0.35rem 0 0; }
 
+.archetype-card { border-left: 3px solid var(--accent); }

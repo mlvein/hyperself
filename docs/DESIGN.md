@@ -6,7 +6,7 @@ Status: implemented in `app/` except where marked. Converts 1:1 into a Figma han
 
 - Ingestion-only: the user never types knowledge by hand. Data arrives via uploads, connections, and personas; the user curates tags and states goals.
 - Teach the tag model once, then stay out of the way. `personal` vs `shareable` is the product's one novel idea; everything else is standard CRUD.
-- Local-first must be visible: the search bar lives in the header on every view. Knowledgebase shows AI-synthesized output only on the Insights side; Synthesis leads with a What-matters-most card (interests + key people from shared knowledge), then short Next steps / Facts cards.
+- Local-first must be visible: the search bar lives in the header on every view. Knowledgebase shows AI-synthesized output only on the Insights side; Synthesis leads with a What-matters-most card (interests + key people from shared knowledge), then short Next steps / Facts cards. What-matters interests/key people are merged into the main profile card line (no separate hero card, no device/entry-count status).
 - No dark patterns: destructive actions confirm, the API key is never stored, simulated connections always say simulated.
 
 ## First-run onboarding (implemented)
@@ -42,4 +42,4 @@ System font stack, white surface, warm gray wash header, ink text, muted seconda
 
 ## Figma handoff (deferred)
 
-When the core demo is green: export these specs + the copy deck + empty/error states per view into `figmadesign.md` for the Figma MCP. Do not start it earlier — the UI is still settling.
+Handoff lives in `figmadesign.md` (repo root): screens, states, copy deck, and visual tokens for the Figma MCP. Keep it in sync with the app; where they disagree, the app wins.

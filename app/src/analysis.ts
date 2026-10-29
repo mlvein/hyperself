@@ -269,6 +269,46 @@ export function buildSynthesisSections(entries: Entry[], a: KbAnalysis): Synthes
   return { nextSteps, facts };
 }
 
+export interface Essence {
+  traits: string[];
+  aspirations: string[];
+  potential: string[];
+  /** One-line essence summary, free of people, counts, and sources. */
+  summary: string;
+}
+
+const ASPIRATION_RE =
+  /\b(want|hope|aim|dream|goal|aspire|someday|one day|plan to|working toward|learn to|become)\b/i;
+
+/** Essence view: who this person is, what they reach for, what they could become. */
+export function buildEssence(entries: Entry[], archetypes: Array<{ label: string; meaning: string }>): Essence {
+  const live = entries.filter((e) => e.deleted_at === null);
+  const aspirations: string[] = [];
+  for (const e of live) {
+    if (e.type !== 'goal-note' && !ASPIRATION_RE.test(`${e.title} ${e.body}`)) continue;
+    const cleaned = e.body.replace(/\s+/g, ' ').trim();
+    if (cleaned) aspirations.push(cleaned.slice(0, 180));
+    if (aspirations.length >= 3) break;
+  }
+  const potential: string[] = [];
+  const a = analyzeKnowledgebase(entries, []);
+  for (const gap of a.gaps.slice(0, 3)) {
+    potential.push(`Room to grow into ${gap} — an unexplored dimension of your life so far.`);
+  }
+  const learning = live.filter((e) => e.type === 'skill');
+  if (learning.length > 0) {
+    potential.push('A pattern of picking up new skills suggests untapped range when one is taken deep.');
+  }
+  // Meanings describe the trait without naming the archetype label:
+  // the label already appears as a pill on the profile card.
+  const traits = archetypes.map((x) => x.meaning.split('.')[0].trim()).filter(Boolean);
+  const summary =
+    traits.length > 0
+      ? `${traits[0]}.`
+      : 'Your essence is still forming as your knowledge grows.';
+  return { traits, aspirations, potential, summary };
+}
+
 const DAY = 86400000;
 
 function ageDays(entry: Entry, now: number): number {

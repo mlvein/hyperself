@@ -1,6 +1,7 @@
 // Local-only sensitivity scan. Heuristic pattern matching over entry text —
 // findings never leave the browser. Advisory, not a guarantee: patterns can
 // miss secrets and can flag innocent text. Review, don't trust blindly.
+import { isImageFilename } from './image';
 import type { Entry } from './types';
 
 export type FindingLevel = 'info' | 'warn' | 'high';
@@ -89,9 +90,65 @@ const WARN_CHECKS: Check[] = [
 
 const STALE_DAYS = 90;
 
+interface ImageCheck {
+  pattern: RegExp;
+  level: FindingLevel;
+  message: string;
+  suggestion: string;
+}
+
+/** Extra heuristics for imported images, over OCR text + filename. Advisory only. */
+const IMAGE_CHECKS: ImageCheck[] = [
+  {
+    pattern: /\b(passport|driver'?s\s*licen[cs]e|national\s+id|id\s+card|birth\s+certificate|visa\s+document)\b/i,
+    level: 'high',
+    message: 'Image may contain an ID document',
+    suggestion: 'Keep this personal, never share it, and consider deleting the image entry.',
+  },
+  {
+    pattern: /\b(bank\s+statement|account\s+number|routing\s+number|iban|credit\s+card|debit\s+card|tax\s+return)\b/i,
+    level: 'high',
+    message: 'Image may contain financial information',
+    suggestion: 'Keep this personal; crop or delete it before any export or share.',
+  },
+  {
+    pattern: /\b(nude|naked|nsfw|explicit|intimate\s+photo|topless)\b/i,
+    level: 'high',
+    message: 'Image flagged as potentially inappropriate',
+    suggestion: 'Review this image yourself; if it is intimate content, keep it off shared devices and never export it.',
+  },
+  {
+    pattern: /\b(screenshot|chat\s+history|text\s+message|imessage|whatsapp|direct\s+message|\bdm\b)\b/i,
+    level: 'warn',
+    message: 'Image may contain a private conversation',
+    suggestion: 'Check everyone in the conversation is comfortable with this being kept; names may be tagged.',
+  },
+  {
+    pattern: /\b(school\s+report|report\s+card|pediatric|minor'?s|child'?s\s+(medical|school|record))\b/i,
+    level: 'warn',
+    message: 'Image may contain information about a minor',
+    suggestion: 'Keep this personal and review who can access this device.',
+  },
+];
+
+export function isImageEntry(entry: Entry): boolean {
+  return (
+    isImageFilename(entry.source_label ?? '') ||
+    entry.body.includes('[Image transcript]') ||
+    entry.body.includes('[Image:')
+  );
+}
+
 export function scanEntry(entry: Entry): Finding[] {
   const findings: Finding[] = [];
   const text = `${entry.title}\n${entry.body}`;
+  if (isImageEntry(entry)) {
+    for (const check of IMAGE_CHECKS) {
+      if (check.pattern.test(text)) {
+        findings.push({ level: check.level, message: check.message, suggestion: check.suggestion });
+      }
+    }
+  }
   for (const check of HIGH_CHECKS) {
     if (check.pattern.test(text)) {
       findings.push({ level: 'high', message: check.message, suggestion: check.suggestion });
