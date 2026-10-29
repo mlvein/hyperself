@@ -18,6 +18,11 @@ import {
   setProfile,
   addPersonNote,
   listPersonNotes,
+  activateVault,
+  createSavedPath,
+  deleteSavedPath,
+  listSavedPaths,
+  setSavedPathPinned,
 } from './store';
 import { PackError, exportPackText, importPackText } from './pack';
 import { StubEngine, cleanDraftText, initLocalEngine, isPromptLeak, type LocalEngine } from './engine';
@@ -25,6 +30,16 @@ import { embedEntry, embedText, loadVectors } from './embeddings';
 import { ingestDoc } from './ingest';
 import { isAudioFilename, isAudioMime, transcribeAudioBlob } from './transcribe';
 import { isImageFilename, isImageMime, ocrImageBlob, parseExifDate } from './image';
+import { budgetInsights, monthlyTotals, parseStatement, recurringCosts, summarizeTransactions, transactionsFromEntries, type StatementParse } from './budget';
+import { PATH_TEMPLATES, isBudgetingQuery, suggestTemplates, templateById, templateReadiness } from './templates';
+import {
+  biometricAvailable,
+  enrollBiometric,
+  hasVault,
+  setupVault,
+  unlockWithBiometric,
+  unlockWithPin,
+} from './vault';
 import {
   PROVIDERS,
   connectMany,
@@ -329,6 +344,10 @@ async function ingestFiles(
   let total = 0;
   for (const file of Array.from(files)) {
     try {
+      if (/\.csv$/i.test(file.name) || file.type === 'text/csv') {
+        showStatementReview(file.name, parseStatement(await file.text()));
+        continue;
+      }
       total += ingestDoc(file.name, await file.text(), { type: 'research' }).created;
     } catch {
       // Unreadable files are skipped; the count reflects what landed.
@@ -355,24 +374,131 @@ el<HTMLInputElement>('importFileInput').addEventListener('change', () => {
   );
 });
 
-el('imageUploadTile').addEventListener('click', () => {
+let pendingStatement: { name: string; parsed: StatementParse } | null = null;
+
+function showStatementReview(name: string, parsed: StatementParse): void {
+  pendingStatement = { name, parsed };
+  const summary = summarizeTransactions(parsed.transactions);
+  el('statementStats').textContent =
+    parsed.parsedRows === 0
+      ? `Could not parse "${name}". We need columns for date, description, and amount (or debit/credit). Nothing was imported.`
+      : `Found ${parsed.parsedRows} of ${parsed.totalRows} transactions in "${name}"` +
+        (parsed.unparsedRows ? ` (${parsed.unparsedRows} could not be parsed and will be skipped)` : '') +
+        `. Spent ${summary.spent.toFixed(2)} · received ${summary.received.toFixed(2)}.` +
+        (summary.byCategory.length
+          ? ` Top categories: ${summary.byCategory.slice(0, 3).map((c) => `${c.category} ${c.total.toFixed(2)}`).join(', ')}.`
+          : '') +
+        ' Review, then import.';
+  el('statementPreview').innerHTML = parsed.transactions
+    .slice(0, 6)
+    .map(
+      (t) =>
+        `<article class="item"><header><h3>${escapeHtml(t.description)}</h3><span class="meta">${t.amount.toFixed(2)}</span></header><p class="meta">${escapeHtml(t.date)} · ${escapeHtml(t.category)}</p></article>`,
+    )
+    .join('');
+  el('statementConfirmBtn').toggleAttribute('disabled', parsed.parsedRows === 0);
+  el('statementReview').hidden = false;
+}
+
+el('statementCancelBtn').addEventListener('click', () => {
+  pendingStatement = null;
+  el('statementReview').hidden = true;
+});
+
+el('statementConfirmBtn').addEventListener('click', () => {
+  if (!pendingStatement) return;
+  const { name, parsed } = pendingStatement;
+  for (const t of parsed.transactions) {
+    ingestDoc(name, `# ${t.description}\nAmount: ${t.amount.toFixed(2)} · Category: ${t.category} · Date: ${t.date}`, {
+      type: 'finance',
+      at: `${t.date}T12:00:00`,
+    });
+  }
+  el('statementStats').textContent =
+    `Imported ${parsed.parsedRows} transactions from "${name}" as dated finance entries. ` +
+    'Ask "where does my money go?" in search, then save it as a Budgeting Path.';
+  el('statementPreview').innerHTML = '';
+  pendingStatement = null;
+  renderAll();
+});
+
+let pendingImages: File[] = [];
+let pendingImageUrls: string[] = [];
+
+function openImageModal(): void {
+  el('imageModal').hidden = false;
+}
+function closeImageModal(): void {
+  el('imageModal').hidden = true;
+  for (const url of pendingImageUrls) URL.revokeObjectURL(url);
+  pendingImageUrls = [];
+  pendingImages = [];
+  el('imagePreview').innerHTML = '';
+  el('imagePreviewWrap').hidden = true;
+  el<HTMLInputElement>('imageFileInput').value = '';
+  el('imageModalNote').textContent = '';
+}
+
+el('imageUploadTile').addEventListener('click', openImageModal);
+el('imageModalClose').addEventListener('click', closeImageModal);
+el('imageModal').addEventListener('click', (ev) => {
+  if (ev.target === el('imageModal')) closeImageModal();
+});
+document.addEventListener('keydown', (ev) => {
+  if (ev.key === 'Escape' && !el('imageModal').hidden) closeImageModal();
+});
+el('imageBrowseBtn').addEventListener('click', () => {
   el<HTMLInputElement>('imageFileInput').click();
 });
 
+function stageImages(files: File[]): void {
+  const valid = files.filter((f) => isImageFilename(f.name) || isImageMime(f.type));
+  const skipped = files.length - valid.length;
+  pendingImages = [...pendingImages, ...valid];
+  el('imagePreview').innerHTML = pendingImages
+    .map((file) => {
+      const url = URL.createObjectURL(file);
+      pendingImageUrls.push(url);
+      return `<figure><img src="${url}" alt="" /><figcaption>${escapeHtml(file.name)}</figcaption></figure>`;
+    })
+    .join('');
+  el('imagePreviewWrap').hidden = pendingImages.length === 0;
+  el('imageModalNote').textContent =
+    pendingImages.length === 0
+      ? 'No readable images in that selection.'
+      : `${pendingImages.length} ${pendingImages.length === 1 ? 'image' : 'images'} ready. Tag a person (optional), then import.` +
+        (skipped ? ` ${skipped} non-image ${skipped === 1 ? 'file' : 'files'} skipped.` : '');
+}
+
 el<HTMLInputElement>('imageFileInput').addEventListener('change', () => {
   const input = el<HTMLInputElement>('imageFileInput');
-  if (!input.files || input.files.length === 0) return;
-  const note = el('imageNote');
-  const tile = el<HTMLButtonElement>('imageUploadTile');
+  if (input.files) stageImages(Array.from(input.files));
+  input.value = '';
+});
+
+const dropZone = el('imageDropZone');
+dropZone.addEventListener('dragover', (ev) => {
+  ev.preventDefault();
+  dropZone.classList.add('drag-over');
+});
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+dropZone.addEventListener('drop', (ev) => {
+  ev.preventDefault();
+  dropZone.classList.remove('drag-over');
+  if (ev.dataTransfer?.files) stageImages(Array.from(ev.dataTransfer.files));
+});
+
+el('imageImportBtn').addEventListener('click', () => {
+  if (pendingImages.length === 0) return;
+  const note = el('imageModalNote');
+  const btn = el<HTMLButtonElement>('imageImportBtn');
   const manualPerson = el<HTMLInputElement>('imagePersonInput').value.trim();
+  const files = [...pendingImages];
   void (async () => {
-    tile.disabled = true;
+    btn.disabled = true;
     let done = 0;
-    for (const file of Array.from(input.files ?? [])) {
-      if (!isImageFilename(file.name) && !isImageMime(file.type)) {
-        note.textContent = `"${file.name}" is not an image — skipped.`;
-        continue;
-      }
+    const notes: string[] = [];
+    for (const file of files) {
       try {
         const exifDate = parseExifDate(await file.arrayBuffer());
         const at = exifDate ?? new Date(file.lastModified || Date.now()).toISOString();
@@ -392,21 +518,26 @@ el<HTMLInputElement>('imageFileInput').addEventListener('change', () => {
           .filter((e) => e.source_label === file.name)
           .flatMap((e) => scanEntry(e))
           .filter((f) => f.level === 'high' || f.level === 'warn');
-        note.textContent =
+        notes.push(
           `Imported "${file.name}" dated ${at.slice(0, 10)}${exifDate ? ' (from EXIF)' : ''}` +
-          (people.length ? `, tagged ${people.join(', ')}` : '') +
-          ' — see them in Network.' +
-          (flags.length
-            ? ` Security flag: ${flags.map((f) => f.message).join('; ')}. Review in Knowledgebase → Security.`
-            : '');
+            (people.length ? `, tagged ${people.join(', ')}` : '') +
+            (flags.length
+              ? `. Security flag: ${flags.map((f) => f.message).join('; ')} — review in Security.`
+              : '.'),
+        );
       } catch (err) {
-        note.textContent =
-          err instanceof Error ? `"${file.name}": ${err.message}` : `"${file.name}": image import failed.`;
+        notes.push(`"${file.name}": ${err instanceof Error ? err.message : 'image import failed.'}`);
       }
     }
-    tile.disabled = false;
-    input.value = '';
-    if (done > 0) renderAll();
+    btn.disabled = false;
+    if (done > 0) {
+      el('imageNote').textContent = notes.join(' ');
+      closeImageModal();
+      el('imageNote').textContent = notes.join(' ') + ' See them in Network.';
+      renderAll();
+    } else {
+      note.textContent = notes.join(' ');
+    }
   })();
 });
 
@@ -550,6 +681,7 @@ async function runTopSearch(): Promise<void> {
     .join('');
   box.innerHTML =
     `<p class="meta">${escapeHtml(result.summary)} <span class="hint">(${kindLabel} · local only)</span></p>` +
+    `<div class="row"><button type="button" class="small" data-action="save-path">Save as Path</button><span class="hint">Pinned in Paths for easy access</span></div>` +
     (result.people.length ? `<h3 class="hint">People</h3>${peopleHtml}` : '') +
     (result.entries.length ? `<h3 class="hint">Entries</h3>${entriesHtml}` : '');
   box.hidden = false;
@@ -565,6 +697,20 @@ el<HTMLInputElement>('globalSearch').addEventListener('keydown', (ev) => {
 });
 
 el('searchResults').addEventListener('click', (ev) => {
+  const saveBtn = (ev.target as HTMLElement).closest('button[data-action="save-path"]');
+  if (saveBtn) {
+    const query = el<HTMLInputElement>('globalSearch').value.trim();
+    if (!query) return;
+    const budgeting = isBudgetingQuery(query);
+    createSavedPath({
+      name: budgeting ? 'Budgeting' : query.slice(0, 60),
+      query,
+      templateId: budgeting ? 'budgeting' : undefined,
+    });
+    showView('paths');
+    renderPaths();
+    return;
+  }
   const btn = (ev.target as HTMLElement).closest('button[data-action="view-person"]');
   if (!btn) return;
   showView('knowledge');
@@ -677,11 +823,102 @@ function insightCard(insight: Insight, pinned: boolean, acked: boolean): string 
   </article>`;
 }
 
+function renderSavedPaths(): void {
+  const entries = listEntries();
+  const saved = listSavedPaths();
+  el('savedPathList').innerHTML = saved.length
+    ? saved
+        .map(
+          (path) => `<article class="item" data-saved-path="${path.id}">
+        <header><h3>${escapeHtml(path.name)}</h3><span class="meta">${path.pinned ? 'Pinned · ' : ''}${path.templateId ? escapeHtml(templateById(path.templateId)?.name ?? '') : 'From an ask'}</span></header>
+        <p class="meta">Ask: “${escapeHtml(path.query)}”</p>
+        <div class="row" style="margin-top:0.5rem">
+          <button type="button" class="small" data-path-action="open">Open</button>
+          <button type="button" class="small" data-path-action="pin">${path.pinned ? 'Unpin' : 'Pin'}</button>
+          <button type="button" class="small" data-path-action="delete">Delete</button>
+        </div>
+      </article>`,
+        )
+        .join('')
+    : '<p class="hint">No saved Paths yet. Ask in search and save it, or start from a template below.</p>';
+
+  const suggestions = suggestTemplates(entries);
+  const banner = suggestions
+    .filter((x) => !saved.some((p) => p.templateId === x.template.id))
+    .map(
+      (x) => `<article class="item hero-card"><header><h3>Hyperself suggests: ${escapeHtml(x.template.name)}</h3><span class="archetype-pill">Suggested for you</span></header><p>${escapeHtml(x.reason)} Start it below — no manual setup, it parses what you already uploaded.</p></article>`,
+    )
+    .join('');
+  el('templateList').innerHTML =
+    banner +
+    PATH_TEMPLATES.map((t) => {
+      const suggested = suggestions.find((x) => x.template.id === t.id);
+      const already = saved.some((x) => x.templateId === t.id);
+      const readiness = templateReadiness(entries, t);
+      const checklist = [
+        ...readiness.have.map((h) => `<p class="meta">Have: ${escapeHtml(h)}</p>`),
+        ...readiness.missing.map((m) => `<p class="meta">Needs: ${escapeHtml(m)}</p>`),
+      ].join('');
+      return `<article class="item">
+      <header><h3>${escapeHtml(t.name)}</h3>${suggested ? '<span class="archetype-pill">Suggested for you</span>' : ''}</header>
+      <p>${escapeHtml(t.description)}</p>
+      ${checklist}
+      <p class="meta">Creates: ${t.scaffold.map(escapeHtml).join(' · ')}</p>
+      ${suggested ? `<p class="meta">${escapeHtml(suggested.reason)}</p>` : ''}
+      <div class="row" style="margin-top:0.5rem"><button type="button" class="small" data-template-start="${t.id}" ${already ? 'disabled' : ''}>${already ? 'Already created' : 'Start ' + escapeHtml(t.name) + ' Path'}</button>${readiness.ready || already ? '' : '<span class="hint">You can start now and add data later — the Path fills in automatically.</span>'}</div>
+    </article>`;
+    }).join('');
+}
+
+function renderBudgetDetail(pathId: string): void {
+  const host = el('budgetDetail');
+  const path = listSavedPaths().find((x) => x.id === pathId);
+  if (!path || path.templateId !== 'budgeting') {
+    host.innerHTML = '';
+    return;
+  }
+  const tx = transactionsFromEntries(listEntries());
+  if (tx.length === 0) {
+    host.innerHTML =
+      '<article class="item"><header><h3>Budgeting</h3></header><p class="hint">No statement data yet. Import a bank statement (CSV) via Upload documents in Import & Connect and this Path fills in automatically.</p></article>';
+    return;
+  }
+  const summary = summarizeTransactions(tx);
+  const maxCat = Math.max(1, ...summary.byCategory.map((c) => c.total));
+  const cats = summary.byCategory
+    .map(
+      (c) => `<div class="budget-row"><span>${escapeHtml(c.category)}</span><span class="budget-bar"><span style="width:${Math.round((c.total / maxCat) * 100)}%"></span></span><strong>${c.total.toFixed(2)}</strong><span class="meta">${summary.spent ? Math.round((c.total / summary.spent) * 100) : 0}%</span></div>`,
+    )
+    .join('');
+  const months = monthlyTotals(tx);
+  const maxMonth = Math.max(1, ...months.map((m) => m.spent));
+  const trend = months
+    .map(
+      (m) => `<div class="budget-row"><span>${escapeHtml(m.month)}</span><span class="budget-bar trend"><span style="width:${Math.round((m.spent / maxMonth) * 100)}%"></span></span><strong>${m.spent.toFixed(2)}</strong><span class="meta">in ${m.received.toFixed(2)}</span></div>`,
+    )
+    .join('');
+  const recurring = recurringCosts(tx)
+    .map(
+      (r) => `<p class="meta">• ${escapeHtml(r.description)} — ${r.count}×, avg ${r.average.toFixed(2)} (${escapeHtml(r.category)})</p>`,
+    )
+    .join('');
+  const insights = budgetInsights(tx).map((i) => `<p>• ${escapeHtml(i)}</p>`).join('');
+  host.innerHTML = `<article class="item hero-card">
+    <header><h3>${escapeHtml(path.name)} — your money, clearly</h3></header>
+    <p>Spent ${summary.spent.toFixed(2)} · Received ${summary.received.toFixed(2)} · Net ${(summary.received - summary.spent).toFixed(2)} across ${tx.length} transactions (${escapeHtml(tx[0].date)} to ${escapeHtml(tx[tx.length - 1].date)}).</p>
+    <h3 class="ov-sub">Spending by category</h3>${cats}
+    <h3 class="ov-sub">Monthly trend</h3>${trend || '<p class="hint">Not enough months yet.</p>'}
+    ${recurring ? `<h3 class="ov-sub">Recurring costs</h3>${recurring}` : ''}
+    <h3 class="ov-sub">What stands out</h3>${insights}
+  </article>`;
+}
+
 function renderPaths(): void {
   const entries = listEntries();
   const empty = entries.length === 0;
-  el('pathsEmpty').hidden = !empty;
-  el('pathsContent').hidden = empty;
+  el('pathsEmpty').hidden = !empty && listSavedPaths().length === 0;
+  el('pathsContent').hidden = empty && listSavedPaths().length === 0;
+  renderSavedPaths();
   if (empty) return;
   const insights = buildInsights(entries);
   const state = loadPathsState();
@@ -742,6 +979,43 @@ function handleInsightClick(ev: Event): void {
     });
   }
 }
+
+el('savedPathList').addEventListener('click', (ev) => {
+  const btn = (ev.target as HTMLElement).closest('button[data-path-action]') as HTMLButtonElement | null;
+  const card = (ev.target as HTMLElement).closest('[data-saved-path]');
+  if (!btn || !card) return;
+  const id = card.getAttribute('data-saved-path') ?? '';
+  const action = btn.getAttribute('data-path-action');
+  const path = listSavedPaths().find((x) => x.id === id);
+  if (!path) return;
+  if (action === 'delete') {
+    deleteSavedPath(id);
+    el('budgetDetail').innerHTML = '';
+    renderPaths();
+  } else if (action === 'pin') {
+    setSavedPathPinned(id, !path.pinned);
+    renderPaths();
+  } else if (action === 'open') {
+    if (path.templateId === 'budgeting') renderBudgetDetail(id);
+    el<HTMLInputElement>('globalSearch').value = path.query;
+    showView('paths');
+    void runTopSearch();
+  }
+});
+
+el('templateList').addEventListener('click', (ev) => {
+  const btn = (ev.target as HTMLElement).closest('button[data-template-start]') as HTMLButtonElement | null;
+  if (!btn || btn.disabled) return;
+  const template = templateById(btn.getAttribute('data-template-start') ?? '');
+  if (!template) return;
+  const created = createSavedPath({
+    name: template.name,
+    query: template.suggestedQuery,
+    templateId: template.id,
+  });
+  renderPaths();
+  renderBudgetDetail(created.id);
+});
 
 el('insightList').addEventListener('click', handleInsightClick);
 el('ackedList').addEventListener('click', handleInsightClick);
@@ -1268,9 +1542,99 @@ el('securityList').addEventListener('click', (ev) => {
   showView('paths');
 });
 
-renderAll();
+// --- Vault gate: nothing renders user data until unlock ---
+let pendingVaultKey: CryptoKey | null = null;
 
-if (obShouldShow()) {
-  el('onboarding').hidden = false;
-  obRender();
+function finishUnlock(): void {
+  el('lockOverlay').hidden = true;
+  renderAll();
+  if (obShouldShow()) {
+    el('onboarding').hidden = false;
+    obRender();
+  }
 }
+
+function showLockGate(): void {
+  const setupMode = !hasVault();
+  el('lockTitle').textContent = setupMode ? 'Create your vault' : 'Unlock Hyperself';
+  el('lockHint').textContent = setupMode
+    ? 'Choose a PIN. Your knowledge will be encrypted on this device; add biometrics after setup if you like.'
+    : 'Your knowledge is encrypted on this device.';
+  el('lockPinConfirmLabel').hidden = !setupMode;
+  el('lockUnlockBtn').textContent = setupMode ? 'Create vault' : 'Unlock';
+  el('lockBioBtn').hidden = setupMode || !biometricAvailable();
+  el('lockEnrollBioBtn').hidden = true;
+  el('lockOverlay').hidden = false;
+  el<HTMLInputElement>('lockPin').focus();
+}
+
+el('lockUnlockBtn').addEventListener('click', () => {
+  const pin = el<HTMLInputElement>('lockPin').value;
+  const error = el('lockError');
+  error.textContent = '';
+  if (pendingVaultKey && hasVault()) {
+    finishUnlock();
+    return;
+  }
+  void (async () => {
+    try {
+      if (!hasVault()) {
+        if (pin !== el<HTMLInputElement>('lockPinConfirm').value) {
+          throw new Error('PINs do not match.');
+        }
+        pendingVaultKey = await setupVault(pin);
+        await activateVault(pendingVaultKey);
+        if (biometricAvailable()) {
+          el('lockEnrollBioBtn').hidden = false;
+          el('lockHint').textContent = 'Vault created. Enable biometrics now, or continue with PIN only.';
+          el('lockUnlockBtn').textContent = 'Continue with PIN only';
+          return;
+        }
+        finishUnlock();
+        return;
+      }
+      await activateVault(await unlockWithPin(pin));
+      finishUnlock();
+    } catch (err) {
+      error.textContent = err instanceof Error ? err.message : 'Unlock failed.';
+    }
+  })();
+});
+
+el('lockEnrollBioBtn').addEventListener('click', () => {
+  if (!pendingVaultKey) return;
+  void enrollBiometric(pendingVaultKey)
+    .then(() => finishUnlock())
+    .catch((err: unknown) => {
+      el('lockError').textContent =
+        (err instanceof Error ? err.message : 'Biometric enrollment failed.') + ' Continuing with PIN.';
+      finishUnlock();
+    });
+});
+
+el('lockBioBtn').addEventListener('click', () => {
+  el('lockError').textContent = '';
+  void unlockWithBiometric()
+    .then(async (key) => {
+      await activateVault(key);
+      finishUnlock();
+    })
+    .catch((err: unknown) => {
+      el('lockError').textContent = err instanceof Error ? err.message : 'Biometric unlock failed. Use your PIN.';
+    });
+});
+
+// --- Offline proof: register the service worker + live offline badge ---
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    void navigator.serviceWorker.register('/sw.js').catch(() => undefined);
+  });
+}
+function renderOnlineState(): void {
+  el('offlineBadge').hidden = navigator.onLine;
+}
+window.addEventListener('online', renderOnlineState);
+window.addEventListener('offline', renderOnlineState);
+renderOnlineState();
+
+showLockGate();

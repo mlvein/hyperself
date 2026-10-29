@@ -85,6 +85,15 @@ export interface Skill {
   created_at: string;
 }
 
+export interface SavedPath {
+  id: string;
+  name: string;
+  query: string;
+  templateId?: string;
+  pinned: boolean;
+  created_at: string;
+}
+
 export interface PackEntrySummary {
   entry_id: string;
   type: EntryType;

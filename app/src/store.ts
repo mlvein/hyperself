@@ -12,6 +12,7 @@ import type {
   Goal,
   GoalStatus,
   PackEntryPayload,
+  SavedPath,
   Skill,
   SkillLevel,
   Tag,
@@ -20,6 +21,49 @@ import { NON_SHAREABLE_TYPES } from './types';
 
 const KEY = 'hyperself.v1';
 const PROFILE_KEY = 'hyperself.profile.v1';
+const ENCRYPTED_KEY = 'hyperself.db.v1';
+
+// --- Vault-encrypted storage (active after unlock) ---
+// Without a vault key the legacy plaintext path below is used (tests,
+// pre-vault data). After activation every save is AES-GCM encrypted.
+let vaultKey: CryptoKey | null = null;
+let memoryDb: DB | null = null;
+let persistChain: Promise<void> = Promise.resolve();
+
+export function isVaultActive(): boolean {
+  return vaultKey !== null;
+}
+
+export async function activateVault(key: CryptoKey): Promise<void> {
+  const { decryptJson, encryptJson } = await import('./vault');
+  vaultKey = key;
+  const sealed = localStorage.getItem(ENCRYPTED_KEY);
+  if (sealed) {
+    memoryDb = await decryptJson<DB>(key, sealed);
+    memoryDb = {
+      entries: (memoryDb.entries ?? []).map((e) => ({ ...e, people: e.people ?? [] })),
+      goals: memoryDb.goals ?? [],
+      checkins: memoryDb.checkins ?? [],
+      skills: memoryDb.skills ?? [],
+      personNotes: memoryDb.personNotes ?? {},
+      savedPaths: memoryDb.savedPaths ?? [],
+    };
+    return;
+  }
+  // First activation: migrate any legacy plaintext DB, then seal it.
+  memoryDb = loadLegacy();
+  const toSeal = memoryDb;
+  persistChain = persistChain.then(async () => {
+    localStorage.setItem(ENCRYPTED_KEY, await encryptJson(key, toSeal));
+    localStorage.removeItem(KEY);
+  });
+  await persistChain;
+}
+
+export function lockVault(): void {
+  vaultKey = null;
+  memoryDb = null;
+}
 
 interface DB {
   entries: Entry[];
@@ -27,15 +71,16 @@ interface DB {
   checkins: CheckIn[];
   skills: Skill[];
   personNotes: Record<string, PersonNote[]>;
+  savedPaths: SavedPath[];
 }
 
 export class StoreError extends Error {}
 
 function emptyDB(): DB {
-  return { entries: [], goals: [], checkins: [], skills: [], personNotes: {} };
+  return { entries: [], goals: [], checkins: [], skills: [], personNotes: {}, savedPaths: [] };
 }
 
-function load(): DB {
+function loadLegacy(): DB {
   try {
     const raw = localStorage.getItem(KEY);
     if (!raw) return emptyDB();
@@ -46,13 +91,31 @@ function load(): DB {
       checkins: parsed.checkins ?? [],
       skills: parsed.skills ?? [],
       personNotes: parsed.personNotes ?? {},
+      savedPaths: parsed.savedPaths ?? [],
     };
   } catch {
     return emptyDB();
   }
 }
 
+function load(): DB {
+  if (vaultKey) return memoryDb ?? emptyDB();
+  return loadLegacy();
+}
+
 function save(db: DB): void {
+  if (vaultKey && memoryDb !== null) {
+    memoryDb = db;
+    const snapshot = db;
+    const key = vaultKey;
+    persistChain = persistChain
+      .then(async () => {
+        const { encryptJson } = await import('./vault');
+        localStorage.setItem(ENCRYPTED_KEY, await encryptJson(key, snapshot));
+      })
+      .catch(() => undefined);
+    return;
+  }
   localStorage.setItem(KEY, JSON.stringify(db));
 }
 
@@ -339,6 +402,48 @@ export function listPeople(): PersonRollup[] {
   return [...byName.entries()]
     .map(([name, entryIds]) => ({ name, entryIds }))
     .sort((a, b) => b.entryIds.length - a.entryIds.length || a.name.localeCompare(b.name));
+}
+
+// --- Saved Paths (persistent, user-owned workspaces) ---
+
+export function listSavedPaths(): SavedPath[] {
+  return [...load().savedPaths].sort((a, b) =>
+    a.pinned === b.pinned ? (a.created_at < b.created_at ? 1 : -1) : a.pinned ? -1 : 1,
+  );
+}
+
+export function createSavedPath(input: { name: string; query: string; templateId?: string }): SavedPath {
+  const name = input.name.trim().slice(0, 80);
+  const query = input.query.trim().slice(0, 200);
+  if (!name) throw new StoreError('Path name is required.');
+  if (!query) throw new StoreError('Path query is required.');
+  const db = load();
+  const path: SavedPath = {
+    id: uid(),
+    name,
+    query,
+    templateId: input.templateId,
+    pinned: true,
+    created_at: now(),
+  };
+  db.savedPaths.push(path);
+  save(db);
+  return path;
+}
+
+export function deleteSavedPath(id: string): void {
+  const db = load();
+  db.savedPaths = db.savedPaths.filter((p) => p.id !== id);
+  save(db);
+}
+
+export function setSavedPathPinned(id: string, pinned: boolean): SavedPath {
+  const db = load();
+  const path = db.savedPaths.find((p) => p.id === id);
+  if (!path) throw new StoreError('Path not found.');
+  path.pinned = pinned;
+  save(db);
+  return path;
 }
 
 // --- Pack import ---

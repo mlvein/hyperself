@@ -3,7 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hyperself — local-first scaffold</title>
+    <title>Hyperself</title>
+    <meta name="theme-color" content="#f2efe9" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="icon" href="/icons/icon-192.png" />
     <link rel="stylesheet" href="/src/styles.css" />
   </head>
   <body>
@@ -11,6 +14,7 @@
       <div class="brand">
         <strong>Hyperself</strong>
         <span id="userGreeting" class="hint"></span>
+        <span id="offlineBadge" class="badge-offline" hidden>Offline · on-device</span>
       </div>
       <nav class="tabs" aria-label="Main menu">
         <button type="button" data-view="knowledge" class="active">Knowledgebase</button>
@@ -91,41 +95,41 @@
           <div class="card">
             <h2>Import &amp; connect</h2>
             <p class="hint">Everything is parsed on this device, and the Synthesis updates automatically. Uploads and linked accounts are managed here.</p>
-            <div class="add-grid">
-              <button type="button" id="importUploadTile" class="add-tile">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4"/><path d="m6 10 6-6 6 6"/><path d="M4 20h16"/></svg>
-                <span>Upload documents</span>
-                <span class="hint">.md or .txt files</span>
-              </button>
-              <button type="button" class="add-tile js-link-tile">
+            <div class="import-layout">
+              <button type="button" class="add-tile link-tile js-link-tile">
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14a5 5 0 0 0 7.1 0l2.4-2.4a5 5 0 0 0-7.1-7.1l-1.7 1.7"/><path d="M14 10a5 5 0 0 0-7.1 0L4.5 12.4a5 5 0 0 0 7.1 7.1l1.7-1.7"/></svg>
                 <span>Link an account</span>
                 <span class="hint">Third-party services</span>
               </button>
-            </div>
-            <input type="file" id="importFileInput" accept=".md,.txt,.markdown,text/plain,text/markdown" multiple hidden />
-            <p id="importTileNote" class="hint"></p>
-            <div class="add-grid">
+              <button type="button" id="importUploadTile" class="add-tile">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4"/><path d="m6 10 6-6 6 6"/><path d="M4 20h16"/></svg>
+                <span>Upload documents</span>
+                <span class="hint">.md, .txt, or bank statement (.csv)</span>
+              </button>
               <button type="button" id="audioUploadTile" class="add-tile">
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v1a7 7 0 0 1-14 0v-1"/><path d="M12 18v4"/></svg>
                 <span>Upload audio</span>
                 <span class="hint">Recordings transcribed on-device</span>
               </button>
-            </div>
-            <input type="file" id="audioFileInput" accept="audio/*,.mp3,.wav,.m4a,.aac,.ogg,.oga,.webm,.flac,.opus" multiple hidden />
-            <p id="audioNote" class="hint" aria-live="polite"></p>
-            <div class="add-grid">
               <button type="button" id="imageUploadTile" class="add-tile">
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.1-3.1a2 2 0 0 0-2.8 0L6 21"/></svg>
                 <span>Upload image</span>
                 <span class="hint">Text read on-device, dated from EXIF</span>
               </button>
             </div>
-            <label>Tag a person on these images (optional)
-              <input id="imagePersonInput" placeholder="e.g. Priya Nair" maxlength="80" />
-            </label>
-            <input type="file" id="imageFileInput" accept="image/*,.jpg,.jpeg,.png,.webp,.gif,.bmp,.tif,.tiff,.heic,.heif,.avif" multiple hidden />
+            <input type="file" id="importFileInput" accept=".md,.txt,.markdown,.csv,text/plain,text/markdown,text/csv" multiple hidden />
+            <p id="importTileNote" class="hint"></p>
+            <input type="file" id="audioFileInput" accept="audio/*,.mp3,.wav,.m4a,.aac,.ogg,.oga,.webm,.flac,.opus" multiple hidden />
+            <p id="audioNote" class="hint" aria-live="polite"></p>
             <p id="imageNote" class="hint" aria-live="polite"></p>
+            <div id="statementReview" hidden>
+              <p id="statementStats" class="hint" aria-live="polite"></p>
+              <div id="statementPreview" class="list"></div>
+              <div class="row">
+                <button type="button" id="statementConfirmBtn">Import transactions</button>
+                <button type="button" id="statementCancelBtn" class="small">Cancel</button>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -140,6 +144,13 @@
         </div>
         <div id="pathsContent">
           <div id="sub-insights">
+            <div id="savedPathsSection">
+              <h3>Your Paths</h3>
+              <div id="savedPathList" class="list"></div>
+              <div id="budgetDetail"></div>
+              <h3>Start from a template</h3>
+              <div id="templateList" class="list"></div>
+            </div>
             <div id="insightList" class="list"></div>
             <h3>Acknowledged</h3>
             <p class="hint">Insights you marked reviewed. Undo returns one to the active list.</p>
@@ -188,6 +199,30 @@
       <button type="button" id="clearBtn" class="danger">Clear workspace</button>
     </div>
 
+    <div id="imageModal" class="overlay" hidden>
+      <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="imageModalTitle">
+        <h2 id="imageModalTitle">Upload images</h2>
+        <div id="imageDropZone" class="drop-zone" tabindex="0">
+          <p>Drag and drop images here</p>
+          <p class="hint">or</p>
+          <button type="button" id="imageBrowseBtn">Browse files</button>
+          <input type="file" id="imageFileInput" accept="image/*,.jpg,.jpeg,.png,.webp,.gif,.bmp,.tif,.tiff,.heic,.heif,.avif" multiple hidden />
+        </div>
+        <div id="imagePreviewWrap" hidden>
+          <div id="imagePreview" class="image-preview"></div>
+          <label>Tag a person on these images (optional)
+            <input id="imagePersonInput" placeholder="e.g. Priya Nair" maxlength="80" />
+          </label>
+          <p class="hint">People named in the image text are also tagged automatically. Images are dated from EXIF when available.</p>
+          <div class="row">
+            <button type="button" id="imageImportBtn">Import images</button>
+          </div>
+        </div>
+        <p id="imageModalNote" class="hint" aria-live="polite"></p>
+        <p><button type="button" id="imageModalClose" class="linklike">Close</button></p>
+      </div>
+    </div>
+
     <div id="personModal" class="overlay" hidden>
       <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="personModalName">
         <h2 id="personModalName">Person</h2>
@@ -202,6 +237,21 @@
         <p class="hint">Simulated links — sample data is ingested on this device only.</p>
         <div id="linkModalList"></div>
         <p><button type="button" id="linkModalClose" class="linklike">Close</button></p>
+      </div>
+    </div>
+
+    <div id="lockOverlay" class="overlay" hidden>
+      <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="lockTitle">
+        <h2 id="lockTitle">Unlock Hyperself</h2>
+        <p id="lockHint" class="hint">Your knowledge is encrypted on this device.</p>
+        <label id="lockPinLabel">PIN <input id="lockPin" type="password" inputmode="numeric" autocomplete="current-password" /></label>
+        <label id="lockPinConfirmLabel" hidden>Confirm PIN <input id="lockPinConfirm" type="password" inputmode="numeric" autocomplete="new-password" /></label>
+        <div class="row">
+          <button type="button" id="lockUnlockBtn">Unlock</button>
+          <button type="button" id="lockBioBtn" class="small" hidden>Use biometrics</button>
+          <button type="button" id="lockEnrollBioBtn" class="small" hidden>Enable biometrics</button>
+        </div>
+        <p id="lockError" class="error" aria-live="polite"></p>
       </div>
     </div>
 
