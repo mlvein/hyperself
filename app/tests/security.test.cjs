@@ -113,3 +113,13 @@ assert.ok(
 );
 
 console.log('security scan OK: silent clean, high secrets, warn contacts, stale + shared info');
+
+// --- crisis signals surface through the normal Security scan (local only) ---
+{
+  const distressed = { ...base, body: 'Some nights I want to die and nobody would notice.' };
+  assert.ok(
+    scanEntry(distressed).some((f) => f.level === 'high' && /serious distress/.test(f.message) && /988/.test(f.suggestion)),
+    'distress entry raises a supportive high finding with resources',
+  );
+  console.log('security crisis OK: distress flagged supportively with resources');
+}

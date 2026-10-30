@@ -140,20 +140,13 @@ function tagsForTypes(types: EntryType[]): string[] {
   return [...new Set(types.flatMap((t) => TAGS_BY_TYPE[t]))];
 }
 
-/** Skimmable synthesis: one card per insight, each tagged by category. */
+/** Skimmable synthesis cards (thematic only — no focus/facts/readiness cards; those belong in Paths). */
 export function buildSynthesisCards(entries: Entry[], a: KbAnalysis): SynthesisCard[] {
   const live = entries.filter((e) => e.deleted_at === null);
   if (live.length === 0) return [];
   const cards: SynthesisCard[] = [];
   const countOf = (types: EntryType[]): number =>
     live.filter((e) => types.includes(e.type)).length;
-
-  const topTypes = a.byType.filter((t) => t.count > 0).slice(0, 2).map((t) => t.type);
-  cards.push({
-    title: `Focus: ${a.byType[0].type}`,
-    body: `Your knowledgebase leans ${a.byType[0].type} (${a.byType[0].count} of ${a.total} entries). ${a.fresh7} updated this week.`,
-    tags: tagsForTypes(topTypes),
-  });
 
   if (a.topPeople.length > 0) {
     cards.push({
@@ -178,23 +171,6 @@ export function buildSynthesisCards(entries: Entry[], a: KbAnalysis): SynthesisC
       title: 'Money & paperwork',
       body: `${financeCount} finance/document entries on file. Documents stay personal by design and never enter shareable packs.`,
       tags: ['finance', 'personal'],
-    });
-  }
-
-  cards.push({
-    title: 'Sharing readiness',
-    body:
-      a.shareableCount === 0
-        ? 'Nothing is shareable yet — Paths and Legacy have nothing to work with. Promote findings or methods when ready.'
-        : `${a.shareableCount} shareable ${a.shareableCount === 1 ? 'entry powers' : 'entries power'} Paths and Legacy; ${a.personalCount} stay personal.`,
-    tags: ['work', 'personal'],
-  });
-
-  if (a.gaps.length > 0) {
-    cards.push({
-      title: 'Blind spots to grow',
-      body: `No ${a.gaps.join(', ')} knowledge yet. Linking more accounts fills these in — see Import & Connect.`,
-      tags: tagsForTypes(a.gaps),
     });
   }
 
@@ -282,7 +258,7 @@ const ASPIRATION_RE =
 
 /** Essence view: who this person is, what they reach for, what they could become. */
 export function buildEssence(entries: Entry[], archetypes: Array<{ label: string; meaning: string }>): Essence {
-  const live = entries.filter((e) => e.deleted_at === null);
+  const live = entries.filter((e) => e.deleted_at === null && e.ownership !== 'reference');
   const aspirations: string[] = [];
   for (const e of live) {
     if (e.type !== 'goal-note' && !ASPIRATION_RE.test(`${e.title} ${e.body}`)) continue;

@@ -93,7 +93,7 @@ assert.ok(
 const { buildSynthesisCards, TAGS_BY_TYPE } = require('../.test-compiled/analysis.js');
 assert.deepEqual(buildSynthesisCards([], empty), [], 'no cards when empty');
 const cards = buildSynthesisCards(entries, a);
-assert.ok(cards.length >= 3, 'several skimmable cards');
+assert.ok(cards.length >= 2, 'thematic cards only after synthesis cleanup');
 assert.ok(cards.every((c) => c.title && c.body && c.tags.length > 0), 'every card tagged');
 assert.ok(cards.some((c) => c.tags.length >= 2), 'cards carry multiple tags');
 assert.ok(cards.some((c) => /People/.test(c.title) && c.tags.includes('people')), 'people card');
@@ -123,3 +123,10 @@ assert.ok(!/Priya|Ana Reyes|\b\d+ entries|journal entries|sources/i.test(essence
 assert.ok(essence.potential.length > 0, 'potential surfaces growth directions');
 
 console.log('analysis OK: behavior signals, gaps, fits, ranked recommendations');
+
+// --- removed Synthesis cards stay removed (they belong in Paths, not Synthesis) ---
+{
+  const titles = cards.map((c) => c.title).join(' | ');
+  assert.ok(!/Focus:|Sharing readiness|Blind spots/.test(titles), 'no focus/sharing/blind-spot cards in Synthesis');
+  console.log('synthesis cleanup OK: no focus, sharing-readiness, or blind-spot cards');
+}

@@ -265,11 +265,11 @@ button.small { padding: 0.2rem 0.6rem; font-size: 0.85rem; }
 .import-layout {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 1fr);
   gap: 0.75rem;
   align-items: stretch;
 }
-.import-layout .link-tile { grid-row: 1 / span 3; height: 100%; justify-content: center; }
+.import-layout .link-tile { grid-row: 1 / span 4; height: 100%; justify-content: center; }
 .import-layout .add-tile { height: 100%; }
 .add-tile {
   display: flex;
@@ -373,3 +373,5 @@ button.small { padding: 0.2rem 0.6rem; font-size: 0.85rem; }
 .budget-bar { height: 10px; background: var(--wash); border: 1px solid var(--line); border-radius: 999px; overflow: hidden; }
 .budget-bar > span { display: block; height: 100%; background: var(--accent); }
 .budget-bar.trend > span { background: #7a5b1e; }
+.check-row { display: flex; align-items: center; gap: 0.4rem; font-weight: 400; }
+.check-row input[type="checkbox"] { width: auto; margin: 0; }

@@ -2,6 +2,7 @@
 // findings never leave the browser. Advisory, not a guarantee: patterns can
 // miss secrets and can flag innocent text. Review, don't trust blindly.
 import { isImageFilename } from './image';
+import { detectCrisisSignals } from './psych';
 import type { Entry } from './types';
 
 export type FindingLevel = 'info' | 'warn' | 'high';
@@ -139,7 +140,7 @@ export function isImageEntry(entry: Entry): boolean {
   );
 }
 
-export function scanEntry(entry: Entry): Finding[] {
+export function scanEntry(entry: Entry, profileName?: string): Finding[] {
   const findings: Finding[] = [];
   const text = `${entry.title}\n${entry.body}`;
   if (isImageEntry(entry)) {
@@ -165,6 +166,27 @@ export function scanEntry(entry: Entry): Finding[] {
     }
   }
   const lower = text.toLowerCase();
+  // Provenance heuristic: identifiers present, but the profile owner is
+  // never mentioned. Advisory only — caregivers legitimately hold family
+  // documents, so this surfaces a question, never an accusation or block.
+  if (profileName && entry.ownership !== 'reference') {
+    const hasIdentifiers = /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}|\b\d{3}[-. ]\d{3}[-. ]\d{4}\b/.test(text);
+    const ownerMentioned = profileName
+      .toLowerCase()
+      .split(/\s+/)
+      .filter((part) => part.length > 2)
+      .some((part) => text.toLowerCase().includes(part));
+    if (hasIdentifiers && !ownerMentioned) {
+      findings.push({
+        level: 'warn',
+        message: "This may contain someone else's personal details",
+        suggestion: `It has contact/account identifiers but never mentions ${profileName}. If it is someone else's document, check you have their OK to keep it — or mark the import as Shared/Reference.`,
+      });
+    }
+  }
+  for (const signal of detectCrisisSignals(text)) {
+    findings.push({ level: signal.level, message: signal.message, suggestion: signal.suggestion });
+  }
   for (const hit of BREACH_CORPUS) {
     if (lower.includes(hit.email.toLowerCase())) {
       findings.push({

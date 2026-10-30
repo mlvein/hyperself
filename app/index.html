@@ -18,7 +18,7 @@
       </div>
       <nav class="tabs" aria-label="Main menu">
         <button type="button" data-view="knowledge" class="active">Knowledgebase</button>
-        <button type="button" data-view="paths">Paths</button>
+        <button type="button" data-view="paths">Paths <span id="pathsBadge" class="badge" hidden>0</span></button>
         <button type="button" data-view="legacy">Legacy</button>
       </nav>
       <div class="searchbar" role="search">
@@ -42,6 +42,12 @@
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
           Security <span id="secBadge" class="badge" hidden>0</span>
         </button>
+      </div>
+      <div id="subnav-paths" class="subnav" role="tablist" aria-label="Paths sections" hidden>
+        <button type="button" data-sub="insights" class="active">Insights</button>
+        <span id="pinnedPathTabs"></span>
+        <button type="button" data-sub="templates" class="subnav-action">Templates</button>
+        <button type="button" data-sub="security" class="sec-tab">Security <span id="secBadgePaths" class="badge" hidden>0</span></button>
       </div>
       <div id="subnav-legacy" class="subnav" role="tablist" aria-label="Legacy sections" hidden>
         <button type="button" data-sub="export" class="active">Export</button>
@@ -104,12 +110,17 @@
               <button type="button" id="importUploadTile" class="add-tile">
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4"/><path d="m6 10 6-6 6 6"/><path d="M4 20h16"/></svg>
                 <span>Upload documents</span>
-                <span class="hint">.md, .txt, or bank statement (.csv)</span>
+                <span class="hint">Docs, PDFs, statements (.csv), Apple Journal (.html), calendars (.ics), contacts (.vcf)</span>
               </button>
               <button type="button" id="audioUploadTile" class="add-tile">
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v1a7 7 0 0 1-14 0v-1"/><path d="M12 18v4"/></svg>
                 <span>Upload audio</span>
                 <span class="hint">Recordings transcribed on-device</span>
+              </button>
+              <button type="button" id="folderSyncTile" class="add-tile">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/></svg>
+                <span>Sync a folder</span>
+                <span class="hint">Re-scans on each pick; new + changed files only</span>
               </button>
               <button type="button" id="imageUploadTile" class="add-tile">
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.1-3.1a2 2 0 0 0-2.8 0L6 21"/></svg>
@@ -117,7 +128,19 @@
                 <span class="hint">Text read on-device, dated from EXIF</span>
               </button>
             </div>
-            <input type="file" id="importFileInput" accept=".md,.txt,.markdown,.csv,text/plain,text/markdown,text/csv" multiple hidden />
+            <div class="row">
+              <label>These uploads are
+                <select id="ownershipSelect">
+                  <option value="mine">Mine</option>
+                  <option value="shared">Shared with me</option>
+                  <option value="reference">Reference (not about me)</option>
+                </select>
+              </label>
+              <label class="check-row"><input type="checkbox" id="attestCheck" /> They're mine, or I have the right to keep them</label>
+            </div>
+            <p class="hint">Reference material is kept searchable but never feeds your Synthesis, archetypes, or essence. Classification is your declaration — Hyperself never tries to verify ownership.</p>
+            <input type="file" id="folderInput" hidden />
+            <input type="file" id="importFileInput" accept=".md,.txt,.markdown,.csv,.html,.htm,.pdf,.docx,.rtf,.json,.ics,.vcf,text/plain,text/markdown,text/csv,text/html,application/pdf" multiple hidden />
             <p id="importTileNote" class="hint"></p>
             <input type="file" id="audioFileInput" accept="audio/*,.mp3,.wav,.m4a,.aac,.ogg,.oga,.webm,.flac,.opus" multiple hidden />
             <p id="audioNote" class="hint" aria-live="polite"></p>
@@ -147,14 +170,24 @@
             <div id="savedPathsSection">
               <h3>Your Paths</h3>
               <div id="savedPathList" class="list"></div>
-              <div id="budgetDetail"></div>
-              <h3>Start from a template</h3>
-              <div id="templateList" class="list"></div>
             </div>
             <div id="insightList" class="list"></div>
             <h3>Acknowledged</h3>
             <p class="hint">Insights you marked reviewed. Undo returns one to the active list.</p>
             <div id="ackedList" class="list"></div>
+          </div>
+          <div id="sub-templates" hidden>
+            <h3>Suggested for you</h3>
+            <div id="templateList" class="list"></div>
+          </div>
+          <div id="sub-path-detail" hidden>
+            <div id="budgetDetail"></div>
+            <p class="hint">Pinned Paths live in the Paths sub-menu above. Unpin from Your Paths to remove a subtab.</p>
+          </div>
+          <div id="sub-security-paths" hidden>
+            <p class="hint">Actionable security insights from your uploaded knowledge — scanned locally, nothing leaves your browser.</p>
+            <div id="pathsSecuritySummary"></div>
+            <div id="pathsSecurityList" class="list"></div>
           </div>
         </div>
       </section>

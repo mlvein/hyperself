@@ -44,11 +44,17 @@ export interface Entry {
   source: EntrySource;
   source_pack?: string;
   source_label?: string;
+  /** Content hash for import dedupe/sync (set by ingestion only). */
+  source_hash?: string;
+  /** User-declared provenance: mine (default), shared with me, or reference. Reference never feeds essence/archetypes. */
+  ownership?: OwnershipKind;
   embedding_status: 'pending' | 'indexed' | 'stale';
   created_at: string;
   updated_at: string;
   deleted_at: string | null;
 }
+
+export type OwnershipKind = 'mine' | 'shared' | 'reference';
 
 export type GoalStatus = 'active' | 'paused' | 'achieved' | 'abandoned';
 
@@ -90,6 +96,8 @@ export interface SavedPath {
   name: string;
   query: string;
   templateId?: string;
+  /** Archetype lens that seeded this Path, when any. */
+  archetypeId?: string;
   pinned: boolean;
   created_at: string;
 }

@@ -45,10 +45,10 @@ assert.deepEqual(buildInsights([]), [], 'empty knowledgebase yields no insights'
 
 const stale = mk({ updated_at: '2020-01-01T00:00:00' });
 const staleInsights = buildInsights([stale]);
-assert.equal(staleInsights.length, 1);
-assert.ok(staleInsights[0].id.startsWith('stale:'), 'stable stale id');
-assert.equal(staleInsights[0].severity, 'warn');
-assert.deepEqual(staleInsights[0].kinds, ['goto-import', 'acknowledge', 'expound']);
+const staleOnly = staleInsights.find((i) => i.id.startsWith('stale:'));
+assert.ok(staleOnly, 'stale insight present alongside coverage insight');
+assert.equal(staleOnly.severity, 'warn');
+assert.deepEqual(staleOnly.kinds, ['goto-import', 'acknowledge', 'expound']);
 
 const risky = mk({ body: 'key AKIAIOSFODNN7EXAMPLE here' });
 const sec = buildInsights([risky]).find((i) => i.id.startsWith('sec:'));
@@ -79,3 +79,18 @@ unacknowledge('sec:y');
 assert.ok(!('sec:y' in loadPathsState().acked), 'unacknowledge clears');
 
 console.log('paths insights OK: stale/security/exposure/fresh, stable ids, pin+ack state');
+
+// --- coverage blind spot lives in Paths, with an attached next step ---
+{
+  const gap = buildInsights([mk({ type: 'finding' })]).find((i) => i.id === 'gap:coverage');
+  assert.ok(gap, 'missing types yield a coverage blind-spot insight in Paths');
+  assert.equal(gap.severity, 'info');
+  assert.ok(/Blind spot/.test(gap.title), 'blind-spot title');
+  assert.ok(gap.kinds.includes('goto-import'), 'blind spot routes to Import');
+  assert.ok(/Next step/i.test('Next step: ' + (gap.nextStep ?? '')), 'next step attached to the insight');
+  assert.ok((gap.nextStep ?? '').length > 10, 'next step is concrete');
+  const allTypes = ['journal', 'goal-note', 'skill', 'health', 'finance', 'relationship', 'finding', 'method', 'research', 'document'];
+  const full = allTypes.map((t) => mk({ type: t }));
+  assert.ok(!buildInsights(full).some((i) => i.id === 'gap:coverage'), 'no blind spot when coverage is complete');
+  console.log('paths blind spot OK: coverage gap in Paths with attached next step');
+}

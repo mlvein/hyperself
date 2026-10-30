@@ -1,8 +1,8 @@
 // Ingestion: files and pasted text become entries.
 // All parsing and chunking runs locally. Uploads always arrive personal;
 // the user promotes to shareable explicitly, one entry at a time.
-import { StoreError, createEntry } from './store';
-import type { EntryType } from './types';
+import { StoreError, createEntry, deleteEntriesByLabel, listEntriesByLabel } from './store';
+import type { EntryType, OwnershipKind } from './types';
 
 export interface Chunk {
   title: string;
@@ -56,12 +56,32 @@ export function chunkText(title: string, text: string): Chunk[] {
   }));
 }
 
+/** Fast content hash for dedupe (not cryptographic — change detection only). */
+export function hashContent(text: string): string {
+  let h1 = 0xdeadbeef;
+  let h2 = 0x41c6ce57;
+  for (let i = 0; i < text.length; i += 1) {
+    const ch = text.charCodeAt(i);
+    h1 = Math.imul(h1 ^ ch, 2654435761);
+    h2 = Math.imul(h2 ^ ch, 1597334677);
+  }
+  h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^ Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+  h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^ Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+  return `${(h2 >>> 0).toString(16)}${(h1 >>> 0).toString(16)}`;
+}
+
 export function ingestDoc(
   name: string,
   text: string,
-  opts?: { type?: EntryType; goalIds?: string[]; people?: string[]; at?: string },
-): { created: number; title: string } {
+  opts?: { type?: EntryType; goalIds?: string[]; people?: string[]; at?: string; ownership?: OwnershipKind },
+): { created: number; title: string; skipped?: boolean } {
   if (!text.trim()) throw new StoreError(`"${name}" has no readable content.`);
+  const hash = hashContent(text);
+  const existing = listEntriesByLabel(name);
+  if (existing.length > 0 && existing.every((e) => e.source_hash === hash)) {
+    return { created: 0, title: existing[0].title, skipped: true };
+  }
+  if (existing.length > 0) deleteEntriesByLabel(name); // changed file: replace, never duplicate
   const title = extractTitle(text, titleFromFilename(name));
   const chunks = chunkText(title, text);
   if (chunks.length === 0) throw new StoreError(`"${name}" has no readable content.`);
@@ -75,6 +95,8 @@ export function ingestDoc(
       people: opts?.people ?? [],
       source: 'upload',
       source_label: name,
+      source_hash: hash,
+      ownership: opts?.ownership ?? 'mine',
       at: opts?.at,
     });
   }

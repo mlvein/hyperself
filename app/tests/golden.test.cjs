@@ -71,3 +71,13 @@ main().then(
     process.exit(1);
   },
 );
+
+// --- golden: archetype/synthesis language must never diagnose ---
+{
+  const { computeArchetypes } = require('../.test-compiled/archetypes.js');
+  const { isDiagnosticLanguage } = require('../.test-compiled/psych.js');
+  const fixture = [mk({ type: 'research', tag: 'shareable', body: 'Finished reading a novel and took notes.' })];
+  const labels = computeArchetypes(fixture).map((a) => `${a.label} ${a.meaning} ${a.watchFor}`).join(' ');
+  assert.ok(!isDiagnosticLanguage(labels), 'archetype copy never diagnoses');
+  console.log('golden psych OK: must-never-diagnose holds for archetypes');
+}

@@ -1,5 +1,6 @@
 // Cloud calls: plan generation only (plus optional pack summaries later).
 // Every call goes through route() -> scrubForCloud().
+import { PSYCH_PRINCIPLES } from './psych';
 import { route, scrubForCloud } from './router';
 import type { Entry, Goal } from './types';
 
@@ -87,7 +88,7 @@ export async function generatePlan(
       body: JSON.stringify({
         model: cfg.model,
         messages: [
-          { role: 'system', content: 'You are a concise personal-growth coach. Be concrete and brief.' },
+          { role: 'system', content: `You are a concise personal-growth coach. Be concrete and brief. ${PSYCH_PRINCIPLES}` },
           { role: 'user', content: userPrompt },
         ],
       }),

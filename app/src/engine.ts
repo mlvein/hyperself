@@ -4,6 +4,7 @@
 // initLocalEngine() picks WebLLM when WebGPU exists, else the stub; a failed
 // model load degrades drafts to the stub so core flows never break.
 // Nothing here touches the network except the one-time model download.
+import { PSYCH_PRINCIPLES } from './psych';
 import type { Entry } from './types';
 
 export interface LocalEngine {

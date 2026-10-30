@@ -20,18 +20,26 @@ import {
   listPersonNotes,
   activateVault,
   createSavedPath,
+  deleteEntriesByLabel,
+  getFolderManifest,
+  setFolderManifest,
   deleteSavedPath,
   listSavedPaths,
   setSavedPathPinned,
+  getArchetypePreferences,
+  setArchetypePreference,
 } from './store';
 import { PackError, exportPackText, importPackText } from './pack';
 import { StubEngine, cleanDraftText, initLocalEngine, isPromptLeak, type LocalEngine } from './engine';
 import { embedEntry, embedText, loadVectors } from './embeddings';
-import { ingestDoc } from './ingest';
+import { hashContent, ingestDoc } from './ingest';
+import { diffFolder, isSyncablePath, nextManifest } from './foldersync';
+import { isHtmlFilename, parseJournalHtml } from './html';
+import { docxToText, extensionOf, jsonToText, parseIcs, parseVcf, pdfToText, rtfToText } from './formats';
 import { isAudioFilename, isAudioMime, transcribeAudioBlob } from './transcribe';
 import { isImageFilename, isImageMime, ocrImageBlob, parseExifDate } from './image';
 import { budgetInsights, monthlyTotals, parseStatement, recurringCosts, summarizeTransactions, transactionsFromEntries, type StatementParse } from './budget';
-import { PATH_TEMPLATES, isBudgetingQuery, suggestTemplates, templateById, templateReadiness } from './templates';
+import { availablePathCount, isBudgetingQuery, readingLifeSummary, relationshipRhythms, suggestTemplates, templateById, templateForArchetype, templateReadiness, visibleSuggestedTemplates } from './templates';
 import {
   biometricAvailable,
   enrollBiometric,
@@ -48,7 +56,7 @@ import {
   runAccountScan,
 } from './connections';
 import { runKnowledgeSearch } from './search';
-import { analyzeKnowledgebase, buildEssence, buildSynthesisCards, buildSynthesisSections, buildWhatMatters } from './analysis';
+import { analyzeKnowledgebase, buildEssence, buildSynthesisCards, buildWhatMatters } from './analysis';
 import { scanEntry } from './security';
 import {
   acknowledge,
@@ -60,7 +68,7 @@ import {
 } from './insights';
 import * as d3 from 'd3';
 import { CENTER_ID, buildNetwork, personContext } from './network';
-import { computeArchetypes } from './archetypes';
+import { applyArchetypePreferences, computeArchetypeTimeline, computeArchetypes } from './archetypes';
 import type { Entry, EntryType, Tag } from './types';
 
 let engine: LocalEngine = new StubEngine();
@@ -92,10 +100,10 @@ function showView(view: string): void {
   for (const section of document.querySelectorAll('main > section')) {
     (section as HTMLElement).hidden = section.id !== `view-${view}`;
   }
-  for (const id of ['knowledge', 'legacy']) {
+  for (const id of ['knowledge', 'legacy', 'paths']) {
     el(`subnav-${id}`).hidden = id !== view;
   }
-  el('subnavBar').hidden = view === 'paths';
+  el('subnavBar').hidden = false;
 }
 
 document.querySelectorAll<HTMLButtonElement>('.tabs button').forEach((btn) => {
@@ -138,6 +146,19 @@ function renderLibrary(): void {
   void maybeSynthesize(entries);
 }
 
+
+function visibleArchetypes(limit = 4) {
+  return applyArchetypePreferences(computeArchetypes(listEntries(), 8), getArchetypePreferences()).slice(0, limit);
+}
+
+function archetypeLensLabel(archetypeId: string | undefined): string {
+  if (!archetypeId) return '';
+  const visible = visibleArchetypes(8).find((a) => a.id === archetypeId);
+  if (visible) return visible.label;
+  const template = templateForArchetype(archetypeId);
+  return template?.archetypeLabel ?? archetypeId.replace(/-/g, ' ');
+}
+
 function tagChips(tags: string[]): string {
   return `<span class="tagrow">${tags.map((t) => `<span class="tagchip">${escapeHtml(t)}</span>`).join('')}</span>`;
 }
@@ -150,16 +171,23 @@ function limitTwoSentences(text: string): string {
 
 function renderProfileCard(blurb: string): void {
   const entries = listEntries();
-  const archetypes = computeArchetypes(entries);
+  const archetypes = visibleArchetypes();
   el('archetypePills').innerHTML = archetypes.length
     ? archetypes
         .map(
           (a) =>
-            `<span class="archetype-pill" title="${escapeHtml(a.evidence)}">${escapeHtml(a.label)}</span>`,
+            `<span class="archetype-pill" title="${escapeHtml(a.evidence)} · Strength ${a.strength}/100 · Confidence ${a.confidence}/100 · ${escapeHtml(a.trend)}">${escapeHtml(a.label)}${a.confirmed ? ' ✓' : ''}</span>`,
         )
         .join('')
     : '<span class="hint">No archetypes yet — add more knowledge.</span>';
   const name = getProfile()?.name ?? '';
+  const pills = el('archetypePills');
+  if (archetypes.length && !pills.querySelector('.archetype-note')) {
+    pills.insertAdjacentHTML(
+      'beforeend',
+      '<span class="hint archetype-note">Playful patterns from your data — not labels, not diagnoses.</span>',
+    );
+  }
   el('profileAvatar').textContent = name ? name.slice(0, 1).toUpperCase() : '?';
   el('profileBlurb').textContent = limitTwoSentences(blurb);
 }
@@ -168,23 +196,31 @@ function renderSynthesisCards(_overviewBody = ''): void {
   void _overviewBody;
   const a = currentAnalysis();
   const cards = buildSynthesisCards(listEntries(), a);
-  const s = buildSynthesisSections(listEntries(), a);
-  const bullets = (items: string[]): string =>
-    items.map((i) => `<p class="meta">• ${escapeHtml(i)}</p>`).join('');
-  const archetypeCards = computeArchetypes(listEntries())
-    .map(
-      (arch) => `<article class="item archetype-card">
-        <header><h3>${escapeHtml(arch.label)}</h3><span class="archetype-pill">Archetype</span></header>
+  const archetypeCards = visibleArchetypes()
+    .map((arch) => {
+      const template = templateForArchetype(arch.id);
+      return `<article class="item archetype-card" data-archetype-card="${arch.id}">
+        <header><h3>${escapeHtml(arch.label)}</h3><span class="archetype-pill">${arch.confirmed ? 'Confirmed archetype' : 'Archetype'}</span></header>
         <p>${escapeHtml(arch.meaning)}</p>
         <p class="meta">Why this fits: ${escapeHtml(arch.evidence)}.</p>
+        <p class="meta">Strength ${arch.strength}/100 · Confidence ${arch.confidence}/100 · Trend: ${escapeHtml(arch.trend)}</p>
+        <div class="budget-bar" aria-hidden="true"><span style="width:${arch.strength}%"></span></div>
         <p class="meta">Watch for: ${escapeHtml(arch.watchFor)}</p>
-      </article>`,
-    )
+        <div class="row" style="margin-top:0.5rem">
+          <button type="button" class="small" data-archetype-action="confirm" data-archetype-id="${arch.id}">${arch.confirmed ? 'Confirmed' : 'Confirm'}</button>
+          <button type="button" class="small" data-archetype-action="rename" data-archetype-id="${arch.id}">Rename</button>
+          <button type="button" class="small" data-archetype-action="dismiss" data-archetype-id="${arch.id}">Not me</button>
+          ${template ? `<button type="button" class="small" data-archetype-path="${arch.id}">Start a Path from this archetype</button>` : ''}
+        </div>
+      </article>`;
+    })
     .join('');
-  const sections =
-    `<article class="item"><header><h3>Next steps</h3></header>${bullets(s.nextSteps)}</article>` +
-    `<article class="item"><header><h3>Facts</h3></header>${bullets(s.facts)}</article>`;
+  const eras = computeArchetypeTimeline(listEntries());
+  const timelineCard = eras.length > 1
+    ? `<article class="item"><header><h3>How your archetypes changed</h3></header>${eras.map((era) => `<p class="meta"><strong>${escapeHtml(era.label)}:</strong> ${applyArchetypePreferences(era.archetypes, getArchetypePreferences()).map((a) => escapeHtml(a.label)).join(' · ') || 'Patterns forming'}</p>`).join('')}</article>`
+    : '';
   el('synthesisCards').innerHTML =
+    timelineCard +
     archetypeCards +
     cards
       .map(
@@ -193,8 +229,7 @@ function renderSynthesisCards(_overviewBody = ''): void {
         <p>${escapeHtml(c.body)}</p>
       </article>`,
       )
-      .join('') +
-    sections;
+      .join('');
 }
 
 /** One-line summary merged into the main synthesis (profile) card. */
@@ -217,7 +252,7 @@ async function maybeSynthesize(entries: Entry[]): Promise<void> {
   status.textContent = 'Synthesizing…';
   status.classList.add('loading');
   const a = currentAnalysis();
-  const archetypes = computeArchetypes(entries);
+  const archetypes = visibleArchetypes();
   const essence = buildEssence(entries, archetypes);
   const facts = [
     essence.summary,
@@ -333,6 +368,62 @@ async function indexPending(auto = false): Promise<void> {
 
 // --- Import tiles (managed only in Import & Connect) ---
 
+type OwnershipKind = import('./types').OwnershipKind;
+
+function currentOwnership(): OwnershipKind {
+  const value = el<HTMLSelectElement>('ownershipSelect').value;
+  return value === 'shared' || value === 'reference' ? value : 'mine';
+}
+
+function attested(): boolean {
+  return el<HTMLInputElement>('attestCheck').checked;
+}
+
+const ATTEST_KEY = 'hyperself.attested.v1';
+el<HTMLInputElement>('attestCheck').checked = localStorage.getItem(ATTEST_KEY) === '1';
+el<HTMLInputElement>('attestCheck').addEventListener('change', () => {
+  localStorage.setItem(ATTEST_KEY, attested() ? '1' : '0');
+});
+
+async function ingestFormattedFile(file: File, label: string): Promise<number> {
+  const ext = extensionOf(file.name);
+  const note = el('importTileNote');
+  if (ext === 'pdf') {
+    const text = await pdfToText(file, (status) => { note.textContent = `${file.name}: ${status}`; });
+    if (!text.trim()) throw new Error('no text layer');
+    return ingestDoc(label, text, { ownership: currentOwnership() }).created;
+  }
+  if (ext === 'docx') {
+    const text = await docxToText(file, (status) => { note.textContent = `${file.name}: ${status}`; });
+    if (!text.trim()) throw new Error('no readable text');
+    return ingestDoc(label, text, { ownership: currentOwnership() }).created;
+  }
+  if (ext === 'ics') {
+    const events = parseIcs(await file.text());
+    let created = 0;
+    for (const ev of events.slice(0, 200)) {
+      created += ingestDoc(label, `# ${ev.title}\n${ev.description ?? ''}${ev.location ? `\nLocation: ${ev.location}` : ''}`, {
+        type: 'journal',
+        at: ev.date,
+      }).created;
+    }
+    return created;
+  }
+  if (ext === 'vcf') {
+    const contacts = parseVcf(await file.text());
+    if (!contacts.length) throw new Error('no contacts');
+    const body = contacts.map((c) => `- ${c.name}${c.org ? ` · ${c.org}` : ''}${c.email ? ` · ${c.email}` : ''}${c.phone ? ` · ${c.phone}` : ''}`).join('\n');
+    return ingestDoc(label, `# Contacts import\n\n${body}`, { type: 'relationship', ownership: currentOwnership() }).created;
+  }
+  if (ext === 'rtf') return ingestDoc(label, rtfToText(await file.text()), { ownership: currentOwnership() }).created;
+  if (ext === 'json') {
+    const converted = jsonToText(await file.text(), file.name);
+    if (!converted) throw new Error('no readable text');
+    return ingestDoc(label, converted, { ownership: currentOwnership() }).created;
+  }
+  return ingestDoc(label, await file.text(), { type: 'research' }).created;
+}
+
 async function ingestFiles(
   files: FileList,
   note: HTMLElement,
@@ -348,13 +439,25 @@ async function ingestFiles(
         showStatementReview(file.name, parseStatement(await file.text()));
         continue;
       }
-      total += ingestDoc(file.name, await file.text(), { type: 'research' }).created;
+      if (isHtmlFilename(file.name)) {
+        const page = parseJournalHtml(await file.text(), file.name);
+        total += ingestDoc(file.name, page.text, {
+          type: 'journal',
+          at: page.date ?? undefined,
+          ownership: currentOwnership(),
+        }).created;
+        continue;
+      }
+      total += await ingestFormattedFile(file, file.name);
     } catch {
       // Unreadable files are skipped; the count reflects what landed.
     }
   }
   tile.disabled = false;
   input.value = '';
+  if (!attested() && total > 0) {
+    note.textContent += ' Tip: tick the attestation above to record that these are yours to keep.';
+  }
   note.textContent = total > 0 ? `Added ${total} entries — synthesizing…` : 'Nothing readable in those files.';
   renderAll();
 }
@@ -416,7 +519,7 @@ el('statementConfirmBtn').addEventListener('click', () => {
   }
   el('statementStats').textContent =
     `Imported ${parsed.parsedRows} transactions from "${name}" as dated finance entries. ` +
-    'Ask "where does my money go?" in search, then save it as a Budgeting Path.';
+    'Ask "where does my money go?" in search, then save it as a Finance Path.';
   el('statementPreview').innerHTML = '';
   pendingStatement = null;
   renderAll();
@@ -438,6 +541,131 @@ function closeImageModal(): void {
   el<HTMLInputElement>('imageFileInput').value = '';
   el('imageModalNote').textContent = '';
 }
+
+interface FolderCandidate {
+  path: string;
+  read: () => Promise<string>;
+}
+
+async function syncFolderCandidates(candidates: FolderCandidate[]): Promise<void> {
+  const note = el('importTileNote');
+  note.textContent = 'Scanning folder…';
+  const readable: Array<{ path: string; text: string; hash: string }> = [];
+  for (const c of candidates) {
+    if (!isSyncablePath(c.path)) continue;
+    try {
+      const text = await c.read();
+      readable.push({ path: c.path, text, hash: hashContent(text) });
+    } catch {
+      // Unreadable files are skipped and counted below as not imported.
+    }
+  }
+  const manifest = getFolderManifest();
+  const diff = diffFolder(manifest, readable);
+  let imported = 0;
+  for (const path of [...diff.added, ...diff.changed]) {
+    const item = readable.find((r) => r.path === path);
+    if (!item) continue;
+    if (/\.csv$/i.test(path)) {
+      const parsed = parseStatement(item.text);
+      for (const t of parsed.transactions) {
+        ingestDoc(path, `# ${t.description}\nAmount: ${t.amount.toFixed(2)} · Category: ${t.category} · Date: ${t.date}`, {
+          type: 'finance',
+          at: `${t.date}T12:00:00`,
+        });
+      }
+      imported += parsed.parsedRows;
+    } else if (isHtmlFilename(path)) {
+      const page = parseJournalHtml(item.text, path.split('/').pop() ?? path);
+      imported += ingestDoc(path, page.text, {
+        type: 'journal',
+        at: page.date ?? undefined,
+      }).created;
+    } else if (['pdf', 'docx', 'ics', 'vcf'].includes(extensionOf(path))) {
+      // Binary formats need the Upload documents path (proper parsers +
+      // progress). Calendar/contact text formats fall through below.
+      if (extensionOf(path) === 'ics') {
+        for (const ev of parseIcs(item.text).slice(0, 200)) {
+          imported += ingestDoc(path, `# ${ev.title}\n${ev.description ?? ''}`, {
+            type: 'journal',
+            at: ev.date,
+          }).created;
+        }
+      } else if (extensionOf(path) === 'vcf') {
+        const contacts = parseVcf(item.text);
+        if (contacts.length) {
+          imported += ingestDoc(path, `# Contacts import\n\n${contacts.map((c) => `- ${c.name}`).join('\n')}`, {
+            type: 'relationship',
+          }).created;
+        }
+      }
+      // pdf/docx in folders: counted in the manifest, not ingested raw.
+    } else if (extensionOf(path) === 'rtf') {
+      imported += ingestDoc(path, rtfToText(item.text)).created;
+    } else if (extensionOf(path) === 'json') {
+      const converted = jsonToText(item.text, path.split('/').pop() ?? path);
+      if (converted) imported += ingestDoc(path, converted).created;
+    } else {
+      imported += ingestDoc(path, item.text).created;
+    }
+  }
+  for (const path of diff.removed) deleteEntriesByLabel(path);
+  setFolderManifest(nextManifest(readable));
+  note.textContent =
+    `Folder synced: ${diff.added.length} new, ${diff.changed.length} changed, ${diff.removed.length} removed, ` +
+    `${diff.unchanged} unchanged. ${imported} ${imported === 1 ? 'entry' : 'entries'} updated. Changed files replace their old entries — never duplicates.`;
+  renderAll();
+}
+
+interface DirHandleLike {
+  kind: 'directory';
+  name: string;
+  values: () => AsyncIterable<DirHandleLike | { kind: 'file'; name: string; getFile: () => Promise<File> }>;
+}
+
+async function walkDirectory(
+  dir: DirHandleLike,
+  prefix: string,
+  out: FolderCandidate[],
+): Promise<void> {
+  for await (const handle of dir.values()) {
+    const path = prefix ? `${prefix}/${handle.name}` : handle.name;
+    if (handle.kind === 'directory') {
+      await walkDirectory(handle as DirHandleLike, path, out);
+    } else if (handle.kind === 'file') {
+      const fileHandle = handle as { getFile: () => Promise<File> };
+      out.push({ path, read: async () => (await fileHandle.getFile()).text() });
+    }
+  }
+}
+
+el('folderSyncTile').addEventListener('click', () => {
+  const picker = (window as unknown as { showDirectoryPicker?: () => Promise<DirHandleLike> }).showDirectoryPicker;
+  if (typeof picker === 'function') {
+    void picker()
+      .then(async (dir) => {
+        const out: FolderCandidate[] = [];
+        await walkDirectory(dir, dir.name, out);
+        await syncFolderCandidates(out);
+      })
+      .catch(() => undefined); // user cancelled
+    return;
+  }
+  el<HTMLInputElement>('folderInput').click();
+});
+
+el<HTMLInputElement>('folderInput').setAttribute('webkitdirectory', '');
+el<HTMLInputElement>('folderInput').setAttribute('multiple', '');
+el<HTMLInputElement>('folderInput').addEventListener('change', () => {
+  const input = el<HTMLInputElement>('folderInput');
+  if (!input.files) return;
+  const candidates: FolderCandidate[] = Array.from(input.files).map((file) => ({
+    path: (file as File & { webkitRelativePath?: string }).webkitRelativePath || file.name,
+    read: () => file.text(),
+  }));
+  input.value = '';
+  void syncFolderCandidates(candidates);
+});
 
 el('imageUploadTile').addEventListener('click', openImageModal);
 el('imageModalClose').addEventListener('click', closeImageModal);
@@ -516,7 +744,7 @@ el('imageImportBtn').addEventListener('click', () => {
         done += created;
         const flags = listEntries()
           .filter((e) => e.source_label === file.name)
-          .flatMap((e) => scanEntry(e))
+          .flatMap((e) => scanEntry(e, getProfile()?.name))
           .filter((f) => f.level === 'high' || f.level === 'warn');
         notes.push(
           `Imported "${file.name}" dated ${at.slice(0, 10)}${exifDate ? ' (from EXIF)' : ''}` +
@@ -703,9 +931,10 @@ el('searchResults').addEventListener('click', (ev) => {
     if (!query) return;
     const budgeting = isBudgetingQuery(query);
     createSavedPath({
-      name: budgeting ? 'Budgeting' : query.slice(0, 60),
+      name: budgeting ? 'Finance' : query.slice(0, 60),
       query,
       templateId: budgeting ? 'budgeting' : undefined,
+      pinned: budgeting ? false : undefined,
     });
     showView('paths');
     renderPaths();
@@ -717,6 +946,47 @@ el('searchResults').addEventListener('click', (ev) => {
   showSub('knowledge', 'network');
 });
 
+
+// --- Archetype agency + archetype-seeded Paths ---
+
+el('synthesisCards').addEventListener('click', (ev) => {
+  const pathBtn = (ev.target as HTMLElement).closest('button[data-archetype-path]') as HTMLButtonElement | null;
+  if (pathBtn) {
+    const archetypeId = pathBtn.getAttribute('data-archetype-path') ?? '';
+    const template = templateForArchetype(archetypeId);
+    if (!template) return;
+    const existing = listSavedPaths().find((x) => x.templateId === template.id);
+    const created = existing ?? createSavedPath({ name: template.name, query: template.suggestedQuery, templateId: template.id, archetypeId });
+    showView('paths');
+    renderPaths();
+    showSub('paths', 'path', created.id);
+    renderTemplateDetail(created.id);
+    return;
+  }
+  const btn = (ev.target as HTMLElement).closest('button[data-archetype-action]') as HTMLButtonElement | null;
+  if (!btn) return;
+  const id = btn.getAttribute('data-archetype-id') ?? '';
+  const action = btn.getAttribute('data-archetype-action');
+  const current = visibleArchetypes(8).find((a) => a.id === id);
+  if (!id || !current) return;
+  if (action === 'confirm') {
+    setArchetypePreference(id, { status: 'confirmed', customLabel: current.customLabel });
+  } else if (action === 'dismiss') {
+    if (!confirm(`Dismiss “${current.label}”? Hyperself will stop showing it for this workspace.`)) return;
+    setArchetypePreference(id, { status: 'dismissed' });
+  } else if (action === 'rename') {
+    const next = prompt('What should Hyperself call this pattern?', current.label);
+    if (next === null) return;
+    const clean = next.trim().slice(0, 60);
+    if (!clean) return;
+    setArchetypePreference(id, { status: 'confirmed', customLabel: clean });
+  } else {
+    return;
+  }
+  synthesisKey = '';
+  renderAll();
+});
+
 // --- Packs ---
 
 el('exportBtn').addEventListener('click', () => {
@@ -724,7 +994,7 @@ el('exportBtn').addEventListener('click', () => {
   void (async () => {
     try {
       const risky = listEntries().filter(
-        (e) => e.tag === 'shareable' && scanEntry(e).some((f) => f.level === 'high'),
+        (e) => e.tag === 'shareable' && scanEntry(e, getProfile()?.name).some((f) => f.level === 'high'),
       );
       if (risky.length > 0) {
         const proceed = confirm(
@@ -817,20 +1087,29 @@ function insightCard(insight: Insight, pinned: boolean, acked: boolean): string 
       `<button type="button" class="small" data-action="pin">${pinned ? 'Unpin' : 'Pin'}</button>`;
   return `<article class="item${acked ? ' dimmed' : ''}" data-insight="${insight.id}">
     <header><h3>${escapeHtml(insight.title)}</h3><span class="sev-${insight.severity}">${insight.severity}</span></header>
+    ${insight.archetypeId ? `<p><span class="archetype-pill">Lens: ${escapeHtml(archetypeLensLabel(insight.archetypeId))}</span></p>` : ''}
     <p>${escapeHtml(insight.body)}</p>
+    ${insight.nextStep ? `<p class="meta"><strong>Next step:</strong> ${escapeHtml(insight.nextStep)}</p>` : ''}
     <div class="log" data-expound hidden></div>
     <div class="row" style="margin-top:0.5rem">${buttons}</div>
   </article>`;
 }
 
+function pathDisplayName(path: { name: string; templateId?: string }): string {
+  return path.templateId === 'budgeting' ? 'Finance' : path.name;
+}
+
 function renderSavedPaths(): void {
   const entries = listEntries();
   const saved = listSavedPaths();
-  el('savedPathList').innerHTML = saved.length
-    ? saved
+  // The Finance Path stays hidden until financial data has been shared.
+  const financeCount = entries.filter((e) => e.type === 'finance').length;
+  const displaySaved = saved.filter((x) => x.templateId !== 'budgeting' || financeCount > 0);
+  el('savedPathList').innerHTML = displaySaved.length
+    ? displaySaved
         .map(
           (path) => `<article class="item" data-saved-path="${path.id}">
-        <header><h3>${escapeHtml(path.name)}</h3><span class="meta">${path.pinned ? 'Pinned · ' : ''}${path.templateId ? escapeHtml(templateById(path.templateId)?.name ?? '') : 'From an ask'}</span></header>
+        <header><h3>${escapeHtml(pathDisplayName(path))}</h3><span class="meta">${path.pinned ? 'Pinned · ' : ''}${path.templateId ? escapeHtml(templateById(path.templateId)?.name ?? '') : 'From an ask'}${path.archetypeId ? ` · Lens: ${escapeHtml(archetypeLensLabel(path.archetypeId))}` : ''}</span></header>
         <p class="meta">Ask: “${escapeHtml(path.query)}”</p>
         <div class="row" style="margin-top:0.5rem">
           <button type="button" class="small" data-path-action="open">Open</button>
@@ -842,32 +1121,41 @@ function renderSavedPaths(): void {
         .join('')
     : '<p class="hint">No saved Paths yet. Ask in search and save it, or start from a template below.</p>';
 
-  const suggestions = suggestTemplates(entries);
-  const banner = suggestions
-    .filter((x) => !saved.some((p) => p.templateId === x.template.id))
-    .map(
-      (x) => `<article class="item hero-card"><header><h3>Hyperself suggests: ${escapeHtml(x.template.name)}</h3><span class="archetype-pill">Suggested for you</span></header><p>${escapeHtml(x.reason)} Start it below — no manual setup, it parses what you already uploaded.</p></article>`,
-    )
-    .join('');
-  el('templateList').innerHTML =
-    banner +
-    PATH_TEMPLATES.map((t) => {
-      const suggested = suggestions.find((x) => x.template.id === t.id);
-      const already = saved.some((x) => x.templateId === t.id);
-      const readiness = templateReadiness(entries, t);
-      const checklist = [
-        ...readiness.have.map((h) => `<p class="meta">Have: ${escapeHtml(h)}</p>`),
-        ...readiness.missing.map((m) => `<p class="meta">Needs: ${escapeHtml(m)}</p>`),
-      ].join('');
-      return `<article class="item">
-      <header><h3>${escapeHtml(t.name)}</h3>${suggested ? '<span class="archetype-pill">Suggested for you</span>' : ''}</header>
+  // Suggested templates only appear when related data has been shared.
+  const visible = visibleSuggestedTemplates(entries, saved.map((x) => x.templateId));
+  el('templateList').innerHTML = visible.length
+    ? visible
+        .map((x) => {
+          const t = x.template;
+          const readiness = templateReadiness(entries, t);
+          const checklist = [
+            ...readiness.have.map((h) => `<p class="meta">Have: ${escapeHtml(h)}</p>`),
+            ...readiness.missing.map((m) => `<p class="meta">Needs: ${escapeHtml(m)}</p>`),
+          ].join('');
+          return `<article class="item hero-card">
+      <header><h3>Hyperself suggests: ${escapeHtml(t.name)}</h3><span class="archetype-pill">Suggested for you</span></header>
       <p>${escapeHtml(t.description)}</p>
       ${checklist}
       <p class="meta">Creates: ${t.scaffold.map(escapeHtml).join(' · ')}</p>
-      ${suggested ? `<p class="meta">${escapeHtml(suggested.reason)}</p>` : ''}
-      <div class="row" style="margin-top:0.5rem"><button type="button" class="small" data-template-start="${t.id}" ${already ? 'disabled' : ''}>${already ? 'Already created' : 'Start ' + escapeHtml(t.name) + ' Path'}</button>${readiness.ready || already ? '' : '<span class="hint">You can start now and add data later — the Path fills in automatically.</span>'}</div>
+      <p class="meta">${escapeHtml(x.reason)} No manual setup — it parses what you already uploaded.</p>
+      <div class="row" style="margin-top:0.5rem"><button type="button" class="small" data-template-start="${t.id}">Start ${escapeHtml(t.name)} Path</button></div>
     </article>`;
-    }).join('');
+        })
+        .join('')
+    : '<p class="hint">No suggested Paths yet. Hyperself suggests a Path only when you have shared related data — nothing is pushed at you before then.</p>';
+
+  // Badge beside the Paths menu: your Paths + suggested Paths ready to start.
+  const count = availablePathCount(entries, displaySaved);
+  const badge = el('pathsBadge');
+  badge.hidden = count === 0;
+  badge.textContent = String(count);
+  badge.title = `${displaySaved.length} saved · ${visible.length} suggested`;
+
+  // Pinned Paths become subtabs in the Paths submenu strip.
+  const pinned = displaySaved.filter((x) => x.pinned);
+  el('pinnedPathTabs').innerHTML = pinned
+    .map((x) => `<button type="button" data-sub="path" data-path-id="${x.id}">${escapeHtml(pathDisplayName(x))}</button>`)
+    .join('');
 }
 
 function renderBudgetDetail(pathId: string): void {
@@ -880,7 +1168,7 @@ function renderBudgetDetail(pathId: string): void {
   const tx = transactionsFromEntries(listEntries());
   if (tx.length === 0) {
     host.innerHTML =
-      '<article class="item"><header><h3>Budgeting</h3></header><p class="hint">No statement data yet. Import a bank statement (CSV) via Upload documents in Import & Connect and this Path fills in automatically.</p></article>';
+      '<article class="item"><header><h3>Finance</h3></header><p class="hint">No statement data yet. Import a bank statement (CSV) via Upload documents in Import & Connect and this Path fills in automatically.</p></article>';
     return;
   }
   const summary = summarizeTransactions(tx);
@@ -913,6 +1201,31 @@ function renderBudgetDetail(pathId: string): void {
   </article>`;
 }
 
+
+function renderArchetypePathDetail(pathId: string): void {
+  const host = el('budgetDetail');
+  const path = listSavedPaths().find((x) => x.id === pathId);
+  if (!path || (path.templateId !== 'relationship-rhythms' && path.templateId !== 'reading-life')) return;
+  const entries = listEntries();
+  if (path.templateId === 'relationship-rhythms') {
+    const rhythms = relationshipRhythms(entries);
+    const recent = rhythms.slice().sort((a, b) => a.daysQuiet - b.daysQuiet).slice(0, 5);
+    const quiet = rhythms.filter((r) => r.daysQuiet >= 90).slice(0, 5);
+    const row = (r: (typeof rhythms)[number]) => `<p class="meta">• ${escapeHtml(r.name)} — ${r.mentions} mentions · last mentioned ${r.daysQuiet === 0 ? 'today' : `${r.daysQuiet} days ago`}</p>`;
+    host.innerHTML = `<article class="item hero-card"><header><h3>${escapeHtml(path.name)}${path.archetypeId ? ` — ${escapeHtml(archetypeLensLabel(path.archetypeId))} lens` : ''}</h3></header><p>Descriptive relationship recency from your own entries. Quiet does not mean unimportant — only you know the context.</p><h3 class="ov-sub">Most recently mentioned</h3>${recent.map(row).join('') || '<p class="hint">No people yet.</p>'}${quiet.length ? `<h3 class="ov-sub">Gone quiet (90+ days)</h3>${quiet.map(row).join('')}` : ''}</article>`;
+    return;
+  }
+  const summary = readingLifeSummary(entries);
+  host.innerHTML = `<article class="item hero-card"><header><h3>${escapeHtml(path.name)}${path.archetypeId ? ` — ${escapeHtml(archetypeLensLabel(path.archetypeId))} lens` : ''}</h3></header><p>${escapeHtml(summary.pattern)}</p><div class="budget-row"><span>Finished/reading</span><span class="budget-bar"><span style="width:${summary.read + summary.collect ? Math.round((summary.read / (summary.read + summary.collect)) * 100) : 0}%"></span></span><strong>${summary.read}</strong><span class="meta">signals</span></div><div class="budget-row"><span>Collected/TBR</span><span class="budget-bar trend"><span style="width:${summary.read + summary.collect ? Math.round((summary.collect / (summary.read + summary.collect)) * 100) : 0}%"></span></span><strong>${summary.collect}</strong><span class="meta">signals</span></div><p class="meta">This Path describes the pattern; it does not prescribe what you should read next.</p></article>`;
+}
+
+function renderTemplateDetail(pathId: string): void {
+  const path = listSavedPaths().find((x) => x.id === pathId);
+  if (!path) { el('budgetDetail').innerHTML = ''; return; }
+  if (path.templateId === 'budgeting') renderBudgetDetail(pathId);
+  else renderArchetypePathDetail(pathId);
+}
+
 function renderPaths(): void {
   const entries = listEntries();
   const empty = entries.length === 0;
@@ -920,7 +1233,10 @@ function renderPaths(): void {
   el('pathsContent').hidden = empty && listSavedPaths().length === 0;
   renderSavedPaths();
   if (empty) return;
-  const insights = buildInsights(entries);
+  const archPrefs = getArchetypePreferences();
+  const insights = buildInsights(entries).filter(
+    (i) => !i.archetypeId || archPrefs[i.archetypeId]?.status !== 'dismissed',
+  );
   const state = loadPathsState();
   const active = insights.filter((i) => state.acked[i.id] === undefined);
   const acked = insights.filter((i) => state.acked[i.id] !== undefined);
@@ -996,7 +1312,8 @@ el('savedPathList').addEventListener('click', (ev) => {
     setSavedPathPinned(id, !path.pinned);
     renderPaths();
   } else if (action === 'open') {
-    if (path.templateId === 'budgeting') renderBudgetDetail(id);
+    showSub('paths', 'path', id);
+    renderTemplateDetail(id);
     el<HTMLInputElement>('globalSearch').value = path.query;
     showView('paths');
     void runTopSearch();
@@ -1008,13 +1325,17 @@ el('templateList').addEventListener('click', (ev) => {
   if (!btn || btn.disabled) return;
   const template = templateById(btn.getAttribute('data-template-start') ?? '');
   if (!template) return;
+  const suggestion = suggestTemplates(listEntries()).find((x) => x.template.id === template.id);
   const created = createSavedPath({
     name: template.name,
     query: template.suggestedQuery,
     templateId: template.id,
+    archetypeId: suggestion?.archetypeId ?? template.archetypeId,
+    pinned: template.id === 'budgeting' ? false : undefined,
   });
   renderPaths();
-  renderBudgetDetail(created.id);
+  showSub('paths', 'path', created.id);
+  renderTemplateDetail(created.id);
 });
 
 el('insightList').addEventListener('click', handleInsightClick);
@@ -1199,24 +1520,35 @@ function renderAll(): void {
 
 const SUB_PANES: Record<string, Record<string, string>> = {
   knowledge: { library: 'sub-library', network: 'sub-network', import: 'sub-import', security: 'sub-security' },
+  paths: { insights: 'sub-insights', templates: 'sub-templates', security: 'sub-security-paths', path: 'sub-path-detail' },
   legacy: { export: 'sub-export' },
 };
 
-function showSub(view: string, name: string): void {
+function showSub(view: string, name: string, pathId?: string): void {
   document
     .querySelectorAll(`#subnav-${view} button[data-sub]`)
-    .forEach((b) => b.classList.toggle('active', (b as HTMLElement).dataset.sub === name));
+    .forEach((b) => {
+      const btn = b as HTMLElement;
+      const matches = btn.dataset.sub === name && (!pathId || btn.dataset.pathId === pathId);
+      btn.classList.toggle('active', matches);
+    });
   const panes = SUB_PANES[view] ?? {};
   for (const [key, id] of Object.entries(panes)) {
     el(id).hidden = key !== name;
   }
 }
 
-document.querySelectorAll<HTMLButtonElement>('#subnavBar .subnav button[data-sub]').forEach((btn) => {
-  btn.addEventListener('click', () => {
-    const group = btn.closest('.subnav')?.id.replace('subnav-', '') ?? 'knowledge';
-    showSub(group, btn.dataset.sub ?? 'library');
-  });
+el('subnavBar').addEventListener('click', (ev) => {
+  const btn = (ev.target as HTMLElement).closest('button[data-sub]') as HTMLButtonElement | null;
+  if (!btn) return;
+  const group = btn.closest('.subnav')?.id.replace('subnav-', '') ?? 'knowledge';
+  const name = btn.dataset.sub ?? 'library';
+  if (group === 'paths' && name === 'path' && btn.dataset.pathId) {
+    showSub('paths', 'path', btn.dataset.pathId);
+    renderTemplateDetail(btn.dataset.pathId);
+    return;
+  }
+  showSub(group, name);
 });
 
 // --- Network (people rollups) ---
@@ -1505,7 +1837,7 @@ function renderSecurity(): void {
   const actionable: Array<{ title: string; message: string; suggestion: string }> = [];
   let warn = 0;
   for (const e of entries) {
-    for (const f of scanEntry(e)) {
+    for (const f of scanEntry(e, getProfile()?.name)) {
       if (f.level === 'high') {
         actionable.push({ title: e.title, message: f.message, suggestion: f.suggestion });
       } else if (f.level === 'warn') {
@@ -1513,14 +1845,18 @@ function renderSecurity(): void {
       }
     }
   }
-  const badge = el('secBadge');
-  badge.hidden = actionable.length === 0;
-  badge.textContent = String(actionable.length);
-  el('securitySummary').innerHTML =
+  for (const badgeId of ['secBadge', 'secBadgePaths']) {
+    const badge = el(badgeId);
+    badge.hidden = actionable.length === 0;
+    badge.textContent = String(actionable.length);
+  }
+  const summaryHtml =
     entries.length === 0
       ? '<p class="hint">No knowledge uploaded yet — link an account in Import & Connect and findings will appear here.</p>'
       : `<p>${actionable.length} actionable ${actionable.length === 1 ? 'insight' : 'insights'} · ${warn} warnings across ${entries.length} entries.</p>`;
-  el('securityList').innerHTML = actionable.length
+  el('securitySummary').innerHTML = summaryHtml;
+  el('pathsSecuritySummary').innerHTML = summaryHtml;
+  const listHtml = actionable.length
     ? actionable
         .slice(0, 10)
         .map(
@@ -1534,13 +1870,18 @@ function renderSecurity(): void {
     : entries.length > 0
       ? '<p class="hint">No actionable security insights. Your uploaded knowledge looks clean.</p>'
       : '';
+  el('securityList').innerHTML = listHtml;
+  el('pathsSecurityList').innerHTML = listHtml;
 }
 
-el('securityList').addEventListener('click', (ev) => {
-  const btn = (ev.target as HTMLElement).closest('button[data-action="sec-paths"]');
-  if (!btn) return;
-  showView('paths');
-});
+for (const listId of ['securityList', 'pathsSecurityList']) {
+  el(listId).addEventListener('click', (ev) => {
+    const btn = (ev.target as HTMLElement).closest('button[data-action="sec-paths"]');
+    if (!btn) return;
+    showView('paths');
+    showSub('paths', 'insights');
+  });
+}
 
 // --- Vault gate: nothing renders user data until unlock ---
 let pendingVaultKey: CryptoKey | null = null;

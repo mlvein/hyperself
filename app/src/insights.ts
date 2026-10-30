@@ -14,6 +14,11 @@ export interface Insight {
   body: string;
   entryIds: string[];
   kinds: InsightKind[];
+  /** Archetype lens for this insight, when it serves one. */
+  archetypeId?: string;
+  archetypeLabel?: string;
+  /** One concrete next step attached to this specific insight. */
+  nextStep?: string;
 }
 
 const STALE_DAYS = 90;
@@ -52,6 +57,81 @@ export function buildInsights(entries: Entry[]): Insight[] {
       entryIds: [e.id],
       kinds: ['goto-library', 'goto-import', 'acknowledge', 'expound'],
     });
+  }
+
+
+  // Archetype-lensed insights: descriptive only, tied to the lens they serve.
+  const rhythms = new Map<string, { count: number; last: string; ids: string[] }>();
+  for (const e of entries) {
+    for (const name of e.people ?? []) {
+      const cur = rhythms.get(name) ?? { count: 0, last: '', ids: [] };
+      cur.count += 1;
+      cur.ids.push(e.id);
+      if (e.created_at > cur.last) cur.last = e.created_at;
+      rhythms.set(name, cur);
+    }
+  }
+  const quiet = [...rhythms.entries()]
+    .map(([name, v]) => ({ name, ...v, days: Math.floor((Date.now() - Date.parse(v.last)) / 86400000) }))
+    .filter((x) => x.count >= 2 && x.days >= 90)
+    .sort((a, b) => b.days - a.days)[0];
+  if (quiet && rhythms.size >= 12) {
+    insights.push({
+      id: `archetype:quiet:${quiet.name}`,
+      severity: 'info',
+      title: `For your Network Weaver side: ${quiet.name} has gone quiet`,
+      body: `${quiet.name} appears in ${quiet.count} entries and was last mentioned ${quiet.days} days ago. This is a descriptive recency note — only you know whether it matters.`,
+      entryIds: quiet.ids.slice(0, 5),
+      kinds: ['goto-library', 'acknowledge', 'expound'],
+      archetypeId: 'network-weaver',
+      archetypeLabel: 'Network Weaver',
+    });
+  }
+
+  const readCount = entries.filter((e) => /(read|reading|finished|novel|chapter)/i.test(`${e.title} ${e.body}`)).length;
+  const collectCount = entries.filter((e) => /(bought|tbr|to-read pile|shelf|shelves|unread|collection)/i.test(`${e.title} ${e.body}`)).length;
+  if (readCount + collectCount >= 3) {
+    const hoarding = collectCount > readCount;
+    insights.push({
+      id: 'archetype:reading-life',
+      severity: 'info',
+      title: hoarding ? 'For your Book Hoarder side: collecting is outpacing finishing' : 'For your Bookworm side: finishing is your stronger pattern',
+      body: `${readCount} reading/finishing signals and ${collectCount} collecting/TBR signals appear in your knowledgebase. The Reading Life Path keeps both visible without prescribing what to read.`,
+      entryIds: entries.filter((e) => /(read|reading|finished|novel|chapter|bought|tbr|shelf|unread)/i.test(`${e.title} ${e.body}`)).slice(0, 5).map((e) => e.id),
+      kinds: ['goto-library', 'acknowledge', 'expound'],
+      archetypeId: hoarding ? 'book-hoarder' : 'bookworm',
+      archetypeLabel: hoarding ? 'Book Hoarder' : 'Bookworm',
+    });
+  }
+
+
+  // Coverage blind spots (moved out of Synthesis): actionable gaps with
+  // one concrete next step attached to this insight, not a generic list.
+  if (entries.length > 0) {
+    const ALL_TYPES = ['journal', 'goal-note', 'skill', 'health', 'finance', 'relationship', 'finding', 'method', 'research', 'document'] as const;
+    const present = new Set(entries.map((e) => e.type));
+    const gaps = ALL_TYPES.filter((t) => !present.has(t));
+    if (gaps.length > 0) {
+      const STEP_FOR: Record<string, string> = {
+        finance: 'import a bank statement (CSV) via Upload documents in Import & Connect',
+        health: 'upload a health summary or results document in Import & Connect',
+        relationship: 'import contacts (.vcf) or a calendar (.ics), or upload notes that mention people',
+        skill: 'upload notes or documents from something you are learning',
+        document: 'upload a document in Import & Connect',
+        'goal-note': 'upload notes where you wrote down goals or plans',
+      };
+      const firstStep = STEP_FOR[gaps[0]] ?? 'upload or link a source that covers it from Import & Connect';
+      const shown = gaps.slice(0, 4).join(', ');
+      insights.push({
+        id: 'gap:coverage',
+        severity: 'info',
+        title: `Blind spot: no ${gaps[0]} knowledge yet`,
+        body: `Your knowledgebase has no ${shown}${gaps.length > 4 ? `, and ${gaps.length - 4} more missing types` : ''} yet. Gaps are coverage notes, not shortcomings — add only what you want Hyperself to reason over.`,
+        entryIds: [],
+        kinds: ['goto-import', 'acknowledge'],
+        nextStep: `To fill the ${gaps[0]} gap, ${firstStep}.`,
+      });
+    }
   }
 
   const shareable = entries.filter((e) => e.tag === 'shareable');

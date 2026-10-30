@@ -11,6 +11,7 @@ import type {
   EntryType,
   Goal,
   GoalStatus,
+  OwnershipKind,
   PackEntryPayload,
   SavedPath,
   Skill,
@@ -18,6 +19,7 @@ import type {
   Tag,
 } from './types';
 import { NON_SHAREABLE_TYPES } from './types';
+import type { ArchetypePreference } from './archetypes';
 
 const KEY = 'hyperself.v1';
 const PROFILE_KEY = 'hyperself.profile.v1';
@@ -47,6 +49,8 @@ export async function activateVault(key: CryptoKey): Promise<void> {
       skills: memoryDb.skills ?? [],
       personNotes: memoryDb.personNotes ?? {},
       savedPaths: memoryDb.savedPaths ?? [],
+      folderFiles: memoryDb.folderFiles ?? {},
+      archetypePrefs: memoryDb.archetypePrefs ?? {},
     };
     return;
   }
@@ -72,12 +76,14 @@ interface DB {
   skills: Skill[];
   personNotes: Record<string, PersonNote[]>;
   savedPaths: SavedPath[];
+  folderFiles: Record<string, string>;
+  archetypePrefs: Record<string, ArchetypePreference>;
 }
 
 export class StoreError extends Error {}
 
 function emptyDB(): DB {
-  return { entries: [], goals: [], checkins: [], skills: [], personNotes: {}, savedPaths: [] };
+  return { entries: [], goals: [], checkins: [], skills: [], personNotes: {}, savedPaths: [], folderFiles: {}, archetypePrefs: {} };
 }
 
 function loadLegacy(): DB {
@@ -92,6 +98,8 @@ function loadLegacy(): DB {
       skills: parsed.skills ?? [],
       personNotes: parsed.personNotes ?? {},
       savedPaths: parsed.savedPaths ?? [],
+      folderFiles: parsed.folderFiles ?? {},
+      archetypePrefs: parsed.archetypePrefs ?? {},
     };
   } catch {
     return emptyDB();
@@ -189,6 +197,8 @@ export function createEntry(input: {
   goal_ids?: string[];
   source?: EntrySource;
   source_label?: string;
+  source_hash?: string;
+  ownership?: OwnershipKind;
   people?: string[];
   /** Backdate stamp. Persona loader only — lets simulated history span weeks. */
   at?: string;
@@ -218,6 +228,8 @@ export function createEntry(input: {
     skill_ids: [],
     source: input.source ?? 'typed',
     source_label: input.source_label,
+    source_hash: input.source_hash,
+    ownership: input.ownership ?? 'mine',
     people: normalizePeople(input.people ?? []),
     embedding_status: 'pending',
     created_at: stamp,
@@ -239,6 +251,34 @@ export function setEntryTag(id: string, tag: Tag, actor: 'user' | 'import' = 'us
   entry.updated_at = now();
   save(db);
   return entry;
+}
+
+export function listEntriesByLabel(label: string): Entry[] {
+  return load().entries.filter((e) => e.deleted_at === null && e.source_label === label);
+}
+
+export function deleteEntriesByLabel(label: string): number {
+  const db = load();
+  let count = 0;
+  for (const e of db.entries) {
+    if (e.deleted_at === null && e.source_label === label) {
+      e.deleted_at = now();
+      count += 1;
+      dropVector(e.id);
+    }
+  }
+  if (count) save(db);
+  return count;
+}
+
+export function getFolderManifest(): Record<string, string> {
+  return { ...load().folderFiles };
+}
+
+export function setFolderManifest(manifest: Record<string, string>): void {
+  const db = load();
+  db.folderFiles = { ...manifest };
+  save(db);
 }
 
 export function deleteEntry(id: string): void {
@@ -412,7 +452,7 @@ export function listSavedPaths(): SavedPath[] {
   );
 }
 
-export function createSavedPath(input: { name: string; query: string; templateId?: string }): SavedPath {
+export function createSavedPath(input: { name: string; query: string; templateId?: string; archetypeId?: string; pinned?: boolean }): SavedPath {
   const name = input.name.trim().slice(0, 80);
   const query = input.query.trim().slice(0, 200);
   if (!name) throw new StoreError('Path name is required.');
@@ -423,7 +463,8 @@ export function createSavedPath(input: { name: string; query: string; templateId
     name,
     query,
     templateId: input.templateId,
-    pinned: true,
+    archetypeId: input.archetypeId,
+    pinned: input.pinned ?? true,
     created_at: now(),
   };
   db.savedPaths.push(path);
@@ -444,6 +485,31 @@ export function setSavedPathPinned(id: string, pinned: boolean): SavedPath {
   path.pinned = pinned;
   save(db);
   return path;
+}
+
+// --- Archetype preferences (user is final authority on labels) ---
+
+export function getArchetypePreferences(): Record<string, ArchetypePreference> {
+  return { ...load().archetypePrefs };
+}
+
+export function setArchetypePreference(
+  id: string,
+  preference: Omit<ArchetypePreference, 'updated_at'>,
+): Record<string, ArchetypePreference> {
+  const cleanId = id.trim().slice(0, 80);
+  if (!cleanId) throw new StoreError('Archetype id is required.');
+  const db = load();
+  db.archetypePrefs = {
+    ...db.archetypePrefs,
+    [cleanId]: {
+      status: preference.status,
+      customLabel: preference.customLabel?.trim().slice(0, 60) || undefined,
+      updated_at: now(),
+    },
+  };
+  save(db);
+  return { ...db.archetypePrefs };
 }
 
 // --- Pack import ---
