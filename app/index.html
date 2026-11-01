@@ -84,8 +84,12 @@
             <p class="hint">Looking for something specific? Ask in the search bar above.</p>
           </div>
           <div class="card">
-            <h2>Local model — Muse Glimmer</h2>
-            <p class="hint">Deep synthesis runs on Muse Glimmer served on this device (Ollama, llama.cpp, or vLLM). The app only ever calls the endpoint below on this machine — no data leaves this device. If the server is off, templated local drafts are used instead.</p>
+            <h2>Local model — on this device</h2>
+            <p class="hint">Synthesis runs on a model served on this device (Ollama, llama.cpp, or vLLM). Light tier (a 3B model, about 2 GB) suits laptops and smaller machines; deep tier (Muse Glimmer 30B) needs roughly 24 GB+ of RAM. The app only ever calls the endpoint below on this machine — no data leaves this device. If the server is off, templated local drafts are used instead.</p>
+            <div class="row">
+              <button type="button" id="glimmerTierLight" class="small">Use light — llama3.2:3b (laptops)</button>
+              <button type="button" id="glimmerTierDeep" class="small">Use deep — Muse Glimmer (24 GB+ RAM)</button>
+            </div>
             <div class="row">
               <label>Endpoint
                 <input type="text" id="glimmerEndpoint" size="32" spellcheck="false" />
@@ -105,7 +109,8 @@
                 <li>Copy the commands below, paste them into Terminal (macOS) or Command Prompt (Windows), and press Enter. The first line downloads the model (about 17–20 GB, once only).</li>
                 <li>Come back here and choose Check connection.</li>
               </ol>
-              <pre id="glimmerCommands">ollama pull muse-glimmer
+              <pre id="glimmerCommands">ollama pull llama3.2:3b
+# Machines with 24 GB+ RAM can use the deep tier instead: ollama pull muse-glimmer
 OLLAMA_ORIGINS=http://localhost:5173 ollama serve</pre>
               <div class="row">
                 <button type="button" id="glimmerCopyBtn" class="small">Copy commands</button>

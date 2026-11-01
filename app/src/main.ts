@@ -106,6 +106,17 @@ void connectEngine();
       if (listEntries().length > 0) void maybeSynthesize(listEntries());
     });
   });
+  const setTierModel = (model: string): void => {
+    if (modelInput) modelInput.value = model;
+    saveGlimmerConfig({ endpoint: endpointInput?.value ?? '', model });
+    const status = document.getElementById('glimmerStatus');
+    if (status) status.textContent = `Reconnecting with ${model}…`;
+    void connectEngine().then(() => {
+      if (listEntries().length > 0) void maybeSynthesize(listEntries());
+    });
+  };
+  document.getElementById('glimmerTierLight')?.addEventListener('click', () => setTierModel('llama3.2:3b'));
+  document.getElementById('glimmerTierDeep')?.addEventListener('click', () => setTierModel('muse-glimmer'));
   document.getElementById('glimmerCheckBtn')?.addEventListener('click', () => {
     const status = document.getElementById('glimmerStatus');
     if (status) status.textContent = 'Checking the local model server…';
@@ -345,9 +356,9 @@ async function maybeSynthesize(entries: Entry[]): Promise<void> {
   renderProfileCard('Synthesizing who you are from everything you have shared…');
   setSynthProgress(
     65,
-    /muse-glimmer/.test(engine.name)
-      ? 'Asking Muse Glimmer on this device to draft your synthesis from those patterns…'
-      : 'Writing your synthesis from those patterns, on this device…',
+    /stub/.test(engine.name)
+      ? 'Writing your synthesis from those patterns, on this device…'
+      : `Asking ${engine.name.replace(/ \(on this device\)$/, '')} on this device to draft your synthesis from those patterns…`,
   );
   try {
     const reply = await engine.draft(
@@ -375,8 +386,8 @@ async function maybeSynthesize(entries: Entry[]): Promise<void> {
     setSynthProgress(100, 'Done.');
     setTimeout(hideSynthProgress, 900);
     const gs = document.getElementById('glimmerStatus');
-    if (gs && /muse-glimmer/.test(engine.name)) {
-      gs.textContent = 'Muse Glimmer connected on this device (local server).';
+    if (gs && /on this device/.test(engine.name)) {
+      gs.textContent = `Local model connected on this device: ${engine.name}`;
     }
   }
 }
@@ -449,6 +460,11 @@ async function indexPending(auto = false): Promise<void> {
   indexing = true;
   try {
     for (const entry of targets) {
+      // Never fight a draft for the GPU/RAM: indexing pauses while
+      // synthesis is running (matters on 8 GB machines).
+      while (synthesizing) {
+        await new Promise((resolve) => setTimeout(resolve, 400));
+      }
       await embedEntry(entry);
       setEmbeddingStatus(entry.id, 'indexed');
     }

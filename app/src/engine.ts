@@ -27,6 +27,66 @@ export const DEFAULT_GLIMMER_CONFIG: GlimmerConfig = {
   model: 'muse-glimmer',
 };
 
+/** Local model tiers: light fits laptops/phones-class hardware (~2 GB),
+ * deep (Muse Glimmer 30B) needs a 24 GB+ machine. The server decides what
+ * is actually available; the app picks the best tier it finds. */
+export const LIGHT_MODEL = 'llama3.2:3b';
+export const DEEP_MODEL = 'muse-glimmer';
+
+export type ModelTier = 'light' | 'deep' | 'custom';
+
+export function tierForModel(model: string): ModelTier {
+  const m = model.toLowerCase();
+  if (m.includes('muse-glimmer') || /(^|[:\-_])(30b|32b|70b)/.test(m)) return 'deep';
+  if (/(^|[:\-_])(1b|3b|4b|7b|8b)/.test(m) || m.includes('mini') || m.includes('small')) return 'light';
+  return 'custom';
+}
+
+export function tierLabel(model: string): string {
+  const tier = tierForModel(model);
+  if (tier === 'deep') return 'deep tier (needs ~24 GB+ RAM)';
+  if (tier === 'light') return 'light tier (laptops & smaller machines)';
+  return 'custom model';
+}
+
+/** Model ids the local server reports, best-effort (Ollama/OpenAI shape). */
+export async function fetchModelList(
+  cfg: GlimmerConfig,
+  fetchFn: FetchFn = defaultFetch,
+  timeoutMs = 2000,
+): Promise<string[]> {
+  try {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), timeoutMs);
+    try {
+      const res = await fetchFn(`${cfg.endpoint}/models`, { signal: controller.signal });
+      if (!res.ok) return [];
+      const data = (await res.json()) as {
+        data?: Array<{ id?: string }>;
+        models?: Array<{ name?: string; model?: string }>;
+      };
+      const ids = [
+        ...(data.data ?? []).map((x) => x.id ?? ''),
+        ...(data.models ?? []).map((x) => x.name ?? x.model ?? ''),
+      ].filter(Boolean);
+      return [...new Set(ids)];
+    } finally {
+      clearTimeout(timer);
+    }
+  } catch {
+    return [];
+  }
+}
+
+/** Prefer the configured model; else deep if served, else light, else first. */
+export function pickServedModel(configured: string, served: string[]): string {
+  if (!served.length) return configured;
+  if (served.includes(configured)) return configured;
+  if (served.includes(DEEP_MODEL)) return DEEP_MODEL;
+  if (served.includes(LIGHT_MODEL)) return LIGHT_MODEL;
+  return served[0];
+}
+
 const GLIMMER_KEY = 'hyperself.glimmer.v1';
 
 export function loadGlimmerConfig(): GlimmerConfig {
@@ -188,7 +248,7 @@ export class GlimmerEngine implements LocalEngine {
     private readonly cfg: GlimmerConfig = loadGlimmerConfig(),
     private readonly fetchFn: FetchFn = defaultFetch,
   ) {
-    this.name = `muse-glimmer: ${cfg.model} (on this device)`;
+    this.name = `${cfg.model} (on this device)`;
   }
 
   async reachable(): Promise<boolean> {
@@ -288,18 +348,22 @@ export class ReconnectingEngine implements LocalEngine {
 }
 
 export async function initLocalEngine(): Promise<{ engine: LocalEngine; notice: string }> {
-  const cfg = loadGlimmerConfig();
-  const reachable = await probeGlimmer(cfg);
+  const configured = loadGlimmerConfig();
+  const reachable = await probeGlimmer(configured);
   if (pickEngineKind(reachable) === 'stub') {
     return {
-      engine: new ReconnectingEngine(cfg, defaultFetch, { initiallyConnected: false }),
+      engine: new ReconnectingEngine(configured, defaultFetch, { initiallyConnected: false }),
       notice:
         'Local model server unreachable — using templated local drafts. ' +
-        'Start Muse Glimmer locally (e.g. Ollama) and the next synthesis will connect on its own.',
+        'Start a local model server (e.g. Ollama) and the next synthesis will connect on its own.',
     };
   }
+  const served = await fetchModelList(configured);
+  const picked = pickServedModel(configured.model, served);
+  const cfg: GlimmerConfig = { ...configured, model: picked };
+  const note = picked === configured.model ? '' : ` Using ${picked} (the server does not offer ${configured.model}).`;
   return {
     engine: new ReconnectingEngine(cfg, defaultFetch, { initiallyConnected: true }),
-    notice: 'Muse Glimmer connected on this device (local server).',
+    notice: `Local model connected on this device: ${picked} — ${tierLabel(picked)}.${note}`,
   };
 }

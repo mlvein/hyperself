@@ -50,7 +50,8 @@ npm run build  # typecheck + production build
 Deep synthesis (optional) runs on Muse Glimmer served on this device — install Ollama, then:
 
 ```sh
-ollama pull muse-glimmer   # one-time ~17–20 GB download
+ollama pull llama3.2:3b   # light tier, ~2 GB — right for most laptops
+# 24 GB+ machines can use the deep tier instead: ollama pull muse-glimmer (~17–20 GB)
 OLLAMA_ORIGINS=http://localhost:5173 ollama serve
 ```
 

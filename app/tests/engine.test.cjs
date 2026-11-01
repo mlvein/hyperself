@@ -20,12 +20,15 @@ const {
   GlimmerEngine,
   ReconnectingEngine,
   StubEngine,
+  fetchModelList,
   initLocalEngine,
   loadGlimmerConfig,
   pickEngineKind,
+  pickServedModel,
   probeGlimmer,
   readChatStream,
   saveGlimmerConfig,
+  tierForModel,
 } = require('../.test-compiled/engine.js');
 
 assert.equal(pickEngineKind(true), 'glimmer', 'reachable server selects Glimmer');
@@ -85,6 +88,20 @@ function sseResponse(chunks) {
   assert.ok(/Nothing left your browser/.test(draft), 'stub labels local-only');
   const empty = await stub.draft('zzz', []);
   assert.ok(/no matching entries/.test(empty), 'stub handles empty context');
+
+  // tiers: model choice follows hardware reality, server decides availability
+  assert.equal(tierForModel('muse-glimmer'), 'deep');
+  assert.equal(tierForModel('llama3.2:3b'), 'light');
+  assert.equal(tierForModel('some-custom-thing'), 'custom');
+  assert.equal(pickServedModel('muse-glimmer', ['llama3.2:3b']), 'llama3.2:3b', 'falls to the served light model');
+  assert.equal(pickServedModel('llama3.2:3b', ['muse-glimmer', 'llama3.2:3b']), 'llama3.2:3b', 'configured model wins when served');
+  assert.equal(pickServedModel('x', []), 'x', 'empty list keeps configured');
+  assert.deepEqual(
+    await fetchModelList({ endpoint: 'http://x/v1', model: 'm' }, async () => ({ ok: true, json: async () => ({ data: [{ id: 'llama3.2:3b' }, { id: 'muse-glimmer' }] }) })),
+    ['llama3.2:3b', 'muse-glimmer'],
+    'served models parsed',
+  );
+  console.log('engine tiers OK: light/deep selection from what the server offers');
 
   // probe: ok → true, HTTP error / network failure → false
   assert.equal(await probeGlimmer({ endpoint: 'http://x/v1', model: 'm' }, async () => ({ ok: true })), true, 'probe true on ok');
