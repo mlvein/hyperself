@@ -32,7 +32,7 @@ The app probes the endpoint at load and auto-connects when the server appears (`
 - Formats: MD/TXT/CSV (bank statements, review-then-import), PDF text layer, DOCX, RTF, JSON, HTML (incl. Apple Journal), ICS, VCF; audio via on-device Whisper; images via Tesseract OCR + EXIF dating; folder sync with hash dedupe
 - Vault (`src/vault.ts`): AES-GCM sealed storage, PIN (PBKDF2) unwrap, optional WebAuthn PRF biometrics
 - Vulnerability layer (`src/security.ts`): local-only heuristic scan per entry with severity pills, summary card, and export confirm guard
-- Router (`src/router.ts`): task routing + `scrubForCloud` (fail-closed). Cloud plan generation (`src/cloud.ts`) is retained with no UI entry point
+- Router (`src/router.ts`): task routing + `scrubForCloud` (fail-closed) for shareable pack tasks. Online reasoning exists only as Augmented Paths (`src/augmented.ts`, derived profile + BYO key); the former caller-less cloud plan generator was removed
 - Paths (`src/insights.ts`, `src/templates.ts`): stale/security/exposure/fresh analyzers with stable ids; pin/acknowledge/dismiss state in `hyperself.paths.v1`; no Path pinned by default; template suggestions surface on Insights; History holds approved + dismissed insights
 - Pack export/import (`src/pack.ts`): hash-verified JSON, importer rejects personal-tagged payloads
 - Personas: `npm run personas` builds Maya/Daniel/Rosa into `public/personas/*.json`, loaded through the real store path
@@ -46,5 +46,5 @@ The app probes the endpoint at load and auto-connects when the server appears (`
 ## Doc map
 
 - `../docs/DATA_MODEL.md` → `src/types.ts`, `src/store.ts`
-- `../docs/ROUTER_POLICY.md` → `src/router.ts`, `src/cloud.ts`, `src/engine.ts`
+- `../docs/ROUTER_POLICY.md` → `src/router.ts`, `src/augmented.ts`, `src/engine.ts`
 - `../docs/MVP_PLAN.md` → scope rules enforced above

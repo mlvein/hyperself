@@ -10,13 +10,13 @@ Each task maps to exactly one route and one data allowance:
 - **Retrieval (RAG)** → in-browser retriever. Data: all entries; tag filter applied before ranking so `personal` vectors are never in a cloud-bound context.
 - **Dashboard + alignment signal** → local, rule-based from check-ins (counts and self-reported progress). No model call at all.
 - **Skill-vs-goal gap view** → local (retrieval + template). No model call for MVP; upgrade to 1B summarization only if quality fails evals.
-- **Action plan generation** → CLOUD (Meta Model API). Allowed data: the single goal + linked entries tagged `shareable` only. `personal` entries are replaced with a stub (`[personal entry withheld: <type>]`) so the model knows something exists without seeing it. Response cached per goal-version.
+- **Action plan generation** → LOCAL (tiered on-device model; see engine tiers). Data: goal + linked entries on-device. The former cloud plan generator (`src/cloud.ts`) was removed 2026-11-01: it had no callers and its role is covered locally, with Augmented Paths as the only online reasoning tier (derived profile only).
 - **Pack summarization (export preview)** → CLOUD, optional. Allowed data: shareable entries in the pack only. Skippable — export works without it.
 - **Golden eval runs** → CLOUD for grading open-ended outputs; fixtures only, never real user entries.
 - **Embeddings** → in-browser embedding model (Transformers.js). No cloud embedding endpoint in MVP (vectors leak content).
 - **Augmented Paths (post-demo, paid, opt-in)** → CLOUD via the user's own provider key. Allowed data: a Derived Learning Profile only (platform archetype labels, lexicon skill counts, pattern aggregates, the user's ask) that passes `assertDerivedOnly`, sent only after per-destination consent with an exact-payload preview, only to allowlisted hosts. Entries, vectors, and `scrubForCloud` payloads are never valid inputs. See `docs/AUGMENTED_PATHS.md` for the schema and binding Security conditions.
 
-Fallback: if offline or WebGPU is unavailable, cloud tasks degrade to the in-browser 1B (or a templated draft if no GPU) with a visible "local draft" label. Cloud is never on the critical path of the demo.
+Fallback: if the local model server is unavailable, drafting degrades to templated local drafts with an honest label. Cloud (Augmented Paths only) is never on the critical path of the demo.
 
 Stretch: native mobile via ExecuTorch reuses this same policy with `engine: 'local'` pointing at the `.pte` model — no policy change needed.
 
