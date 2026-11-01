@@ -5,7 +5,7 @@ Post-demo-freeze parking lot (per AGENTS.md: anything new after scope freeze lan
 ## Deferred from demo week
 
 - **PDF bank statement parsing** — CSV tells the same demo story; add pdf.js on-device extraction + the same parse-review step when prioritized.
-- **Health template** — second Path template (health results import, descriptive trends only). Needs the same trust + descriptive-only discipline as Budgeting, plus extra sensitivity review.
+- ~~**Health template**~~ — shipped: Health Path (descriptive trends only, never medical advice; health entries always personal). See `app/src/templates.ts` `healthSummary`.
 - **More Path templates** — only Budgeting shipped; add one at a time with a real fixture each.
 - **Native packaging** (Tauri/Electron) — PWA-installable won for the demo; revisit for filesystem storage, larger quotas, OS keychain.
 - **Real account connections** — all connections are simulated and labeled; any real integration needs Security review first.

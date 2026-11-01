@@ -43,7 +43,7 @@ import { EXPORT_GUIDES } from './guides';
 import { isAudioFilename, isAudioMime, transcribeAudioBlob } from './transcribe';
 import { isImageFilename, isImageMime, ocrImageBlob, parseExifDate } from './image';
 import { budgetInsights, monthlyTotals, parseStatement, recurringCosts, summarizeTransactions, transactionsFromEntries, type StatementParse } from './budget';
-import { PATH_TEMPLATES, availablePathCount, isBudgetingQuery, readingLifeSummary, relationshipRhythms, suggestTemplates, templateById, templateForArchetype, templateReadiness, visibleSuggestedTemplates } from './templates';
+import { PATH_TEMPLATES, availablePathCount, healthSummary, isBudgetingQuery, isHealthQuery, readingLifeSummary, relationshipRhythms, suggestTemplates, templateById, templateForArchetype, templateReadiness, visibleSuggestedTemplates } from './templates';
 import {
   biometricAvailable,
   enrollBiometric,
@@ -1048,10 +1048,11 @@ el('searchResults').addEventListener('click', (ev) => {
     const query = el<HTMLInputElement>('globalSearch').value.trim();
     if (!query) return;
     const budgeting = isBudgetingQuery(query);
+    const health = !budgeting && isHealthQuery(query);
     createSavedPath({
-      name: budgeting ? 'Finance' : query.slice(0, 60),
+      name: budgeting ? 'Finance' : health ? 'Health' : query.slice(0, 60),
       query,
-      templateId: budgeting ? 'budgeting' : undefined,
+      templateId: budgeting ? 'budgeting' : health ? 'health' : undefined,
     });
     showView('paths');
     renderPaths();
@@ -1305,15 +1306,22 @@ function renderAllTemplates(): void {
 }
 
 function pathDisplayName(path: { name: string; templateId?: string }): string {
-  return path.templateId === 'budgeting' ? 'Finance' : path.name;
+  if (path.templateId === 'budgeting') return 'Finance';
+  if (path.templateId === 'health') return 'Health';
+  return path.name;
 }
 
 function renderSavedPaths(): void {
   const entries = listEntries();
   const saved = listSavedPaths();
-  // The Finance Path stays hidden until financial data has been shared.
+  // Finance/Health Paths stay hidden until their data has been shared.
   const financeCount = entries.filter((e) => e.type === 'finance').length;
-  const displaySaved = saved.filter((x) => x.templateId !== 'budgeting' || financeCount > 0);
+  const healthCount = entries.filter((e) => e.type === 'health').length;
+  const displaySaved = saved.filter(
+    (x) =>
+      (x.templateId !== 'budgeting' || financeCount > 0) &&
+      (x.templateId !== 'health' || healthCount > 0),
+  );
   el('savedPathList').innerHTML = displaySaved.length
     ? displaySaved
         .map(
@@ -1428,10 +1436,45 @@ function renderArchetypePathDetail(pathId: string): void {
   host.innerHTML = `<article class="item hero-card"><header><h3>${escapeHtml(path.name)}${path.archetypeId ? ` — ${escapeHtml(archetypeLensLabel(path.archetypeId))} lens` : ''}</h3></header><p>${escapeHtml(summary.pattern)}</p><div class="budget-row"><span>Finished/reading</span><span class="budget-bar"><span style="width:${summary.read + summary.collect ? Math.round((summary.read / (summary.read + summary.collect)) * 100) : 0}%"></span></span><strong>${summary.read}</strong><span class="meta">signals</span></div><div class="budget-row"><span>Collected/TBR</span><span class="budget-bar trend"><span style="width:${summary.read + summary.collect ? Math.round((summary.collect / (summary.read + summary.collect)) * 100) : 0}%"></span></span><strong>${summary.collect}</strong><span class="meta">signals</span></div><p class="meta">This Path describes the pattern; it does not prescribe what you should read next.</p></article>`;
 }
 
+function renderHealthDetail(pathId: string): void {
+  const host = el('budgetDetail');
+  const path = listSavedPaths().find((x) => x.id === pathId);
+  if (!path || path.templateId !== 'health') {
+    host.innerHTML = '';
+    return;
+  }
+  const entries = listEntries();
+  const summary = healthSummary(entries);
+  if (summary.total === 0) {
+    host.innerHTML =
+      '<article class="item"><header><h3>Health</h3></header><p class="hint">No health records yet. Import an Apple Health export (.zip) or health notes via Upload documents in Import & Connect and this Path fills in automatically.</p></article>';
+    return;
+  }
+  const recent = entries
+    .filter((e) => e.type === 'health')
+    .slice(0, 5)
+    .map((e) => `<p class="meta">• ${escapeHtml(e.title)} — ${escapeHtml(e.updated_at.slice(0, 10))}</p>`)
+    .join('');
+  const records = summary.recordLines.map((l) => `<p class="meta">${escapeHtml(l)}</p>`).join('');
+  const bar = (label: string, value: number): string =>
+    `<div class="budget-row"><span>${label}</span><span class="budget-bar"><span style="width:${summary.total ? Math.round((value / summary.total) * 100) : 0}%"></span></span><strong>${value}</strong><span class="meta">entries</span></div>`;
+  host.innerHTML = `<article class="item hero-card">
+    <header><h3>${escapeHtml(path.name)} — your health, descriptively</h3></header>
+    <p>${escapeHtml(summary.pattern)} ${summary.total} health ${summary.total === 1 ? 'entry' : 'entries'} on this device${summary.latestDate ? `, most recent ${escapeHtml(summary.latestDate)}` : ''}. Health entries are always personal and never enter shareable packs.</p>
+    ${bar('Activity & movement', summary.activitySignals)}
+    ${bar('Sleep & rest', summary.sleepSignals)}
+    ${bar('Check-ups & results', summary.checkupSignals)}
+    ${records ? `<h3 class="ov-sub">From your health export</h3>${records}` : ''}
+    <h3 class="ov-sub">Most recent records</h3>${recent}
+    <p class="meta">This Path describes what your records show; it is not medical advice. Talk to a clinician about anything that concerns you.</p>
+  </article>`;
+}
+
 function renderTemplateDetail(pathId: string): void {
   const path = listSavedPaths().find((x) => x.id === pathId);
   if (!path) { el('budgetDetail').innerHTML = ''; return; }
   if (path.templateId === 'budgeting') renderBudgetDetail(pathId);
+  else if (path.templateId === 'health') renderHealthDetail(pathId);
   else renderArchetypePathDetail(pathId);
 }
 

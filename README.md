@@ -23,7 +23,7 @@ Most personal data is fragmented across documents, statements, journals, calenda
 ### Paths
 
 - Ask anything in the search bar and save the answer as a Path. No Path is pinned by default; pin one yourself and it becomes a subtab beside Insights, Templates, History, and Security.
-- New Paths first appear as **Suggested Paths on Insights**, only when you have already shared related data — nothing is pushed at you: **Finance** (from bank statements: category spend, monthly trend, recurring costs; hidden until finance data exists, descriptive only, never advice), **Relationship Rhythms** (who has gone quiet, descriptively), **Reading Life** (finished vs collected). Templates lists every template with what you have and what it still needs.
+- New Paths first appear as **Suggested Paths on Insights**, only when you have already shared related data — nothing is pushed at you: **Finance** (from bank statements: category spend, monthly trend, recurring costs; hidden until finance data exists, descriptive only, never advice), **Health** (activity, sleep, and check-up records incl. Apple Health exports; descriptive only, never medical advice), **Relationship Rhythms** (who has gone quiet, descriptively), **Reading Life** (finished vs collected). Templates lists every template with what you have and what it still needs.
 - Insights include archetype-lensed notes (“For your Network Weaver side: Ana has gone quiet”). Expound, pin, mark reviewed, or dismiss each one — everything you approved or dismissed collects in **History**, where it can be restored.
 
 ### Legacy

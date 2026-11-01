@@ -41,6 +41,14 @@ export const PATH_TEMPLATES: PathTemplate[] = [
     scaffold: ['People by recency', 'Relationships gone quiet', 'Long-running connections', 'Your own notes beside each person'],
   },
   {
+    id: 'health',
+    name: 'Health',
+    description: 'A descriptive view of your health records — activity, sleep, and check-ups over time. Never medical advice.',
+    neededData: ['Apple Health export (.zip/.xml), health results, or activity/sleep notes — Import & Connect'],
+    suggestedQuery: 'how is my health trending?',
+    scaffold: ['Records by kind', 'Most recent activity', 'Sleep & activity signals', 'Descriptive trends only (never medical advice)'],
+  },
+  {
     id: 'reading-life',
     name: 'Reading Life',
     description: 'An honest view of what you finish, what you collect, and what your shelves say about your curiosity.',
@@ -76,6 +84,13 @@ export function suggestTemplates(entries: Entry[]): TemplateSuggestion[] {
     suggestions.push({
       template: PATH_TEMPLATES[0],
       reason: `You have ${financeCount} finance entries — enough to start a Finance Path.`,
+    });
+  }
+  const healthCount = live.filter((e) => e.type === 'health').length;
+  if (healthCount >= 2) {
+    suggestions.push({
+      template: templateById('health')!,
+      reason: `You have ${healthCount} health entries — enough to start a Health Path.`,
     });
   }
   const archetypes = computeArchetypes(live, 6);
@@ -141,6 +156,15 @@ export function templateReadiness(entries: Entry[], template: PathTemplate): Tem
       missing: ready ? [] : ['More entries mentioning people, a contacts (.vcf) file, or calendar (.ics) import'],
     };
   }
+  if (template.id === 'health') {
+    const healthCount = live.filter((e) => e.type === 'health').length;
+    const ready = healthCount >= 2;
+    return {
+      ready,
+      have: healthCount ? [`${healthCount} health ${healthCount === 1 ? 'entry' : 'entries'} imported`] : [],
+      missing: ready ? [] : ['Health records — an Apple Health export (.zip) or health notes via Upload documents in Import & Connect'],
+    };
+  }
   if (template.id === 'reading-life') {
     const { read, collect } = countReadingSignals(live);
     const ready = read + collect >= 3;
@@ -158,6 +182,64 @@ export function templateReadiness(entries: Entry[], template: PathTemplate): Tem
 
 export function isBudgetingQuery(query: string): boolean {
   return /\b(money|budget|spend|spending|finances?|expenses?|costs?)\b/i.test(query);
+}
+
+export function isHealthQuery(query: string): boolean {
+  return /\b(health|sleep|steps|weight|blood pressure|heart rate|workouts?|activity)\b/i.test(query);
+}
+
+export interface HealthSummary {
+  total: number;
+  latestDate: string | null;
+  sleepSignals: number;
+  activitySignals: number;
+  checkupSignals: number;
+  /** Record-kind lines from health-export summaries ("- StepCount: 12 records…"). */
+  recordLines: string[];
+  pattern: string;
+}
+
+const SLEEP_RE = /\b(sleep|slept|insomnia|nap)\b/i;
+const ACTIVITY_RE = /\b(steps|walk|walking|run|running|workout|exercise|activity|swim|cycling)\b/i;
+const CHECKUP_RE = /\b(appointment|check-?up|doctor|clinic|blood pressure|lab|test results?|vaccin)\b/i;
+
+/** Descriptive health overview — counts and recency only, never advice. */
+export function healthSummary(entries: Entry[]): HealthSummary {
+  const health = entries
+    .filter((e) => e.deleted_at === null && e.type === 'health')
+    .sort((a, b) => (a.updated_at < b.updated_at ? 1 : -1));
+  const recordLines: string[] = [];
+  for (const e of health) {
+    for (const line of e.body.split('\n')) {
+      const clean = line.trim();
+      if (/^- \w.*: \d+ records/.test(clean) && !recordLines.includes(clean)) recordLines.push(clean);
+      if (recordLines.length >= 8) break;
+    }
+    if (recordLines.length >= 8) break;
+  }
+  const count = (re: RegExp): number => health.filter((e) => re.test(`${e.title} ${e.body}`)).length;
+  const sleepSignals = count(SLEEP_RE);
+  const activitySignals = count(ACTIVITY_RE);
+  const checkupSignals = count(CHECKUP_RE);
+  const pattern =
+    health.length === 0
+      ? 'No health records yet.'
+      : sleepSignals > 0 && activitySignals > 0
+        ? 'Your records cover both rest and movement — the two halves of recovery.'
+        : activitySignals > 0
+          ? 'Movement is the best-documented side of your health so far.'
+          : sleepSignals > 0
+            ? 'Rest is the best-documented side of your health so far.'
+            : 'Your health records are mostly check-ups and results so far.';
+  return {
+    total: health.length,
+    latestDate: health[0]?.updated_at?.slice(0, 10) ?? null,
+    sleepSignals,
+    activitySignals,
+    checkupSignals,
+    recordLines,
+    pattern,
+  };
 }
 
 export interface RelationshipRhythm {

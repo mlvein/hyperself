@@ -60,10 +60,10 @@ console.log('savedpaths OK: persistent paths, pin toggle, template suggestion, b
 // --- Archetype-seeded Paths ---
 {
   const { PATH_TEMPLATES: templates2, templateForArchetype, templateReadiness: readiness3, relationshipRhythms, readingLifeSummary } = require('../.test-compiled/templates.js');
-  assert.equal(templates2.length, 3, 'budgeting plus two archetype templates');
+  assert.equal(templates2.length, 4, 'finance + health + two archetype templates');
   assert.equal(templateForArchetype('network-weaver').id, 'relationship-rhythms');
   assert.equal(templateForArchetype('bookworm').id, 'reading-life');
-  assert.equal(templateForArchetype('book-hoarder').id, 'reading-life', 'hoarder also seeds Reading Life');
+  assert.equal(templateForArchetype('book-hoarder').id, 'reading-life', 'cartographer also seeds Reading Life');
 
   const peopleEntries = Array.from({ length: 12 }, (_, i) => ({
     id: `p${i}`, type: 'relationship', title: `Person ${i}`, body: 'met and talked', tag: 'personal', tag_history: [], goal_ids: [], skill_ids: [], people: [`Person ${i}`], source: 'upload', embedding_status: 'pending', created_at: '2025-01-01T09:00:00', updated_at: '2025-01-01T09:00:00', deleted_at: null,
@@ -105,4 +105,33 @@ console.log('savedpaths OK: persistent paths, pin toggle, template suggestion, b
   assert.equal(templateById('budgeting').name, 'Finance', 'template renamed to Finance');
   store.deleteSavedPath(financePath.id);
   console.log('finance path OK: renamed, unpinned by default');
+}
+
+// --- Health Path: suggested on health data, descriptive summary, no advice ---
+{
+  const { healthSummary, isHealthQuery, templateReadiness } = require('../.test-compiled/templates.js');
+  const mkH = (over) => ({
+    id: `h${Math.random()}`, type: 'health', title: 'h', body: '', tag: 'personal', tag_history: [], goal_ids: [], skill_ids: [], people: [], source: 'upload', embedding_status: 'pending', created_at: '2025-01-01T09:00:00', updated_at: '2025-01-01T09:00:00', deleted_at: null, ...over,
+  });
+  const healthEntries = [
+    mkH({ title: 'October activity summary', body: 'Averaged 6,400 steps a day. Morning walks help.', updated_at: '2025-02-01T09:00:00' }),
+    mkH({ title: 'Sleep notes', body: 'Six weeks averaging 6h40m of sleep.', updated_at: '2025-02-03T09:00:00' }),
+    mkH({ title: 'Health export summary', body: '# Health export summary\n\n- StepCount: 120 records · total 800000 count · latest 2025-02-02' }),
+  ];
+  assert.ok(suggestTemplates(healthEntries).some((x) => x.template.id === 'health'), 'health suggested once health data exists');
+  assert.ok(!suggestTemplates([healthEntries[0]]).some((x) => x.template.id === 'health'), 'one health entry is not enough to suggest');
+  const readiness = templateReadiness(healthEntries, templateById('health'));
+  assert.equal(readiness.ready, true, 'health readiness met');
+  assert.equal(templateReadiness([], templateById('health')).ready, false, 'health readiness needs data');
+  const summary = healthSummary(healthEntries);
+  assert.equal(summary.total, 3);
+  assert.equal(summary.activitySignals, 1, 'activity signal counted');
+  assert.equal(summary.sleepSignals, 1, 'sleep signal counted');
+  assert.ok(summary.recordLines.some((l) => l.includes('StepCount')), 'export record lines surfaced');
+  assert.ok(!/should|must|recommend|advice/i.test(summary.pattern), 'pattern is descriptive, never advice');
+  assert.ok(isHealthQuery('how is my sleep trending?') && !isHealthQuery('where does my money go?'), 'health asks map to the Health template');
+  const healthPath = store.createSavedPath({ name: 'Health', query: 'how is my health trending?', templateId: 'health' });
+  assert.equal(healthPath.pinned, false, 'Health Path is unpinned by default');
+  store.deleteSavedPath(healthPath.id);
+  console.log('health path OK: suggestion, readiness, descriptive summary, unpinned');
 }
