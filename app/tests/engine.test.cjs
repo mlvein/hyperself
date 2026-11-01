@@ -195,6 +195,9 @@ function sseResponse(chunks) {
   assert.ok(html.includes('id="glimmerCheckBtn"'), 'one-click re-check button present');
   assert.ok(!html.includes('OLLAMA_ORIGINS=*'), 'setup never tells users to open CORS to every origin');
   assert.ok(main.includes("getElementById('glimmerCopyBtn')") && main.includes("getElementById('glimmerCheckBtn')"), 'copy + re-check wired in main');
+  assert.ok(html.includes('id="synthesisProgress"') && html.includes('id="synthesisProgressFill"') && html.includes('id="synthesisProgressText"'), 'synthesis progress bar present');
+  assert.ok(main.includes('Reading your') && main.includes('Finding patterns') && main.includes('Putting your summary'), 'synthesis stages describe the process');
+  assert.ok(main.includes('hideSynthProgress'), 'progress hides when synthesis completes');
   console.log('engine setup UX OK: disclosure, copy button, re-check wired');
 }
 

@@ -306,6 +306,19 @@ function mattersLine(entries: Entry[]): string {
   return parts.length ? parts.join('  ·  ') : matters.headline;
 }
 
+function setSynthProgress(percent: number, text: string): void {
+  const wrap = el('synthesisProgress');
+  wrap.hidden = false;
+  el('synthesisProgressFill').style.width = `${percent}%`;
+  el('synthesisProgressText').textContent = text;
+}
+
+function hideSynthProgress(): void {
+  el('synthesisProgress').hidden = true;
+  el('synthesisProgressFill').style.width = '0%';
+  el('synthesisProgressText').textContent = '';
+}
+
 async function maybeSynthesize(entries: Entry[]): Promise<void> {
   if (entries.length === 0) return;
   const latest = entries.reduce((max, e) => (e.updated_at > max ? e.updated_at : max), '');
@@ -316,9 +329,11 @@ async function maybeSynthesize(entries: Entry[]): Promise<void> {
   const status = el('synthesisStatus');
   status.textContent = 'Synthesizing…';
   status.classList.add('loading');
+  setSynthProgress(10, `Reading your ${entries.length} ${entries.length === 1 ? 'entry' : 'entries'} on this device…`);
   const a = currentAnalysis();
   const archetypes = visibleArchetypes();
   const essence = buildEssence(entries, archetypes);
+  setSynthProgress(35, 'Finding patterns — kinds of knowledge, people, and themes across your entries…');
   const facts = [
     essence.summary,
     ...essence.traits,
@@ -328,6 +343,12 @@ async function maybeSynthesize(entries: Entry[]): Promise<void> {
   const archetypeFacts = archetypes.map((x) => x.meaning.split('.')[0]).join('; ');
   renderSynthesisCards('Synthesizing…');
   renderProfileCard('Synthesizing who you are from everything you have shared…');
+  setSynthProgress(
+    65,
+    /muse-glimmer/.test(engine.name)
+      ? 'Asking Muse Glimmer on this device to draft your synthesis from those patterns…'
+      : 'Writing your synthesis from those patterns, on this device…',
+  );
   try {
     const reply = await engine.draft(
       `Describe my essence as a person in a maximum of two sentences: who I am at my core, what I aspire to, and my potential. ` +
@@ -336,6 +357,7 @@ async function maybeSynthesize(entries: Entry[]): Promise<void> {
       entries.slice(0, 6),
     );
     if (listEntries().length === 0) return; // workspace cleared mid-synthesis
+    setSynthProgress(90, 'Putting your summary and cards together…');
     const cleaned = cleanDraftText(reply.replace(/\n\nNothing left (your browser|this device)\.?$/, ''));
     const usable = cleaned.length > 0 && !isPromptLeak(cleaned) && !cleaned.startsWith('From ');
     const localBlurb = essence.summary;
@@ -350,6 +372,8 @@ async function maybeSynthesize(entries: Entry[]): Promise<void> {
   } finally {
     status.classList.remove('loading');
     synthesizing = false;
+    setSynthProgress(100, 'Done.');
+    setTimeout(hideSynthProgress, 900);
     const gs = document.getElementById('glimmerStatus');
     if (gs && /muse-glimmer/.test(engine.name)) {
       gs.textContent = 'Muse Glimmer connected on this device (local server).';

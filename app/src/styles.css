@@ -374,8 +374,12 @@ button.small { padding: 0.2rem 0.6rem; font-size: 0.85rem; }
 }
 .loading { animation: pulse 1.2s ease-in-out infinite; }
 @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.45; } }
+.synth-progress { margin-top: 0.6rem; max-width: 520px; }
+.synth-progress .budget-bar > span { transition: width 0.6s ease; }
+.synth-progress p { margin: 0.35rem 0 0; }
 @media (prefers-reduced-motion: reduce) {
   .loading { animation: none; }
+  .synth-progress .budget-bar > span { transition: none; }
 }
 
 .sev-high, .sev-warn, .sev-info, .sev-ok {
