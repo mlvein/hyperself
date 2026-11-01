@@ -58,6 +58,28 @@ The app connects automatically (Synthesis → “Local model — Muse Glimmer”
 
 Demo personas (Maya, Daniel, Rosa — 20-year non-linear arcs, 26–29-person networks) load from the gear menu (bottom-right, or Ctrl/Cmd+Shift+D). Demo script: `docs/DEMO_SCRIPT.md`.
 
+## How Hyperself is different
+
+Plenty of tools help you take notes, record your day, or chat with an assistant. Hyperself is built for a different job: bringing the data you already have — scattered across the services you use — together in one private place, and turning it into an understanding of your patterns, relationships, and next steps.
+
+| | Hyperself | Note & second-brain apps | Capture & recall tools | Built-in platform AI |
+|---|---|---|---|---|
+| Core job | Understand your life archive | Organize notes you write | Record everything you do | Assist inside one ecosystem |
+| Data in | Imports and exports from the services you already use | Notes you capture yourself | Continuous screen/audio recording | That platform's own apps |
+| Where AI runs | On your device, with an open local model | The provider's cloud | Varies | The provider's cloud |
+| Privacy model | A built-in tag boundary: personal never leaves the device | Account settings and policies | Recording consent controls | Platform policy |
+| Sharing | Optional packs of shareable entries only, hash-verified | Document sharing | Clip export | Ecosystem sharing |
+| Timescale | Years to decades of your history | Current projects | Recent recall | The current session |
+
+What that means in practice:
+
+- **Your data comes to you, not the other way around.** Instead of asking you to start journaling in yet another app, Hyperself assembles your archive from exports and imports of the tools you already use — and includes step-by-step guides for getting your data out of each one.
+- **Private by construction, not by preference.** Every entry is tagged `personal` or `shareable`, sensitive kinds can never be shared, and personal data is processed only on your device. There is no account and nothing to leak from a server, because there is no server holding your archive.
+- **Understanding, not just answers.** Beyond search, Hyperself surfaces long-term patterns — archetypes you can confirm, rename, or reject; relationships that have gone quiet; Paths suggested only when your data supports them. It describes; it does not prescribe, diagnose, or counsel.
+- **Yours to keep.** Your archive lives on your device, your model is open and replaceable, and you can export an encrypted backup only you can open. If Hyperself disappeared tomorrow, your data would not.
+
+In short: note apps are where you write your life down. Hyperself is where the record of your life — from everywhere, kept private — helps you see who you are and what might come next.
+
 ## Honest limits
 
 - Account connections are simulated for the demo; real integrations are future work.
