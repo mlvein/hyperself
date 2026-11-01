@@ -14,6 +14,7 @@ Each task maps to exactly one route and one data allowance:
 - **Pack summarization (export preview)** → CLOUD, optional. Allowed data: shareable entries in the pack only. Skippable — export works without it.
 - **Golden eval runs** → CLOUD for grading open-ended outputs; fixtures only, never real user entries.
 - **Embeddings** → in-browser embedding model (Transformers.js). No cloud embedding endpoint in MVP (vectors leak content).
+- **Augmented Paths (post-demo, paid, opt-in)** → CLOUD via the user's own provider key. Allowed data: a Derived Learning Profile only (platform archetype labels, lexicon skill counts, pattern aggregates, the user's ask) that passes `assertDerivedOnly`, sent only after per-destination consent with an exact-payload preview, only to allowlisted hosts. Entries, vectors, and `scrubForCloud` payloads are never valid inputs. See `docs/AUGMENTED_PATHS.md` for the schema and binding Security conditions.
 
 Fallback: if offline or WebGPU is unavailable, cloud tasks degrade to the in-browser 1B (or a templated draft if no GPU) with a visible "local draft" label. Cloud is never on the critical path of the demo.
 
@@ -27,7 +28,7 @@ Stretch: native mobile via ExecuTorch reuses this same policy with `engine: 'loc
 
 ## Privacy claims this policy supports (and wording)
 
-Supported: "Personal entries never leave your device." / "Cloud calls carry only shareable content, with personal entries withheld." / "Core features work offline."
+Supported: "Personal entries never leave your device." / "Cloud calls carry only shareable content, with personal entries withheld." / "Core features work offline." / "Augmented Paths (optional) send only a derived pattern profile — no entries or names — to the provider you choose, only when you approve the exact payload." Once Augmented Paths ships, blanket "everything stays on your device" marketing copy is not supported; scope it to local mode/default.
 NOT supported — never claim: "encrypted processing," "zero-knowledge," "your data trains nothing" (can't assert for the API provider; instead: "we send only what you approved, per call").
 
 ## Open questions (decide before code)
