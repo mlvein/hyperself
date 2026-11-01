@@ -1,6 +1,6 @@
 // Paths: local insights over the knowledgebase. Rule-based analyzers turn
 // parsed entries into titled findings with actions. No cloud calls — the
-// "local LLM" role is local analysis today, WebLLM expounding tomorrow.
+// "local LLM" role is local analysis today, Muse Glimmer expounding via Paths.
 import { scanEntry } from './security';
 import type { Entry } from './types';
 
@@ -105,35 +105,6 @@ export function buildInsights(entries: Entry[]): Insight[] {
   }
 
 
-  // Coverage blind spots (moved out of Synthesis): actionable gaps with
-  // one concrete next step attached to this insight, not a generic list.
-  if (entries.length > 0) {
-    const ALL_TYPES = ['journal', 'goal-note', 'skill', 'health', 'finance', 'relationship', 'finding', 'method', 'research', 'document'] as const;
-    const present = new Set(entries.map((e) => e.type));
-    const gaps = ALL_TYPES.filter((t) => !present.has(t));
-    if (gaps.length > 0) {
-      const STEP_FOR: Record<string, string> = {
-        finance: 'import a bank statement (CSV) via Upload documents in Import & Connect',
-        health: 'upload a health summary or results document in Import & Connect',
-        relationship: 'import contacts (.vcf) or a calendar (.ics), or upload notes that mention people',
-        skill: 'upload notes or documents from something you are learning',
-        document: 'upload a document in Import & Connect',
-        'goal-note': 'upload notes where you wrote down goals or plans',
-      };
-      const firstStep = STEP_FOR[gaps[0]] ?? 'upload or link a source that covers it from Import & Connect';
-      const shown = gaps.slice(0, 4).join(', ');
-      insights.push({
-        id: 'gap:coverage',
-        severity: 'info',
-        title: `Blind spot: no ${gaps[0]} knowledge yet`,
-        body: `Your knowledgebase has no ${shown}${gaps.length > 4 ? `, and ${gaps.length - 4} more missing types` : ''} yet. Gaps are coverage notes, not shortcomings — add only what you want Hyperself to reason over.`,
-        entryIds: [],
-        kinds: ['goto-import', 'acknowledge'],
-        nextStep: `To fill the ${gaps[0]} gap, ${firstStep}.`,
-      });
-    }
-  }
-
   const shareable = entries.filter((e) => e.tag === 'shareable');
   if (shareable.length > 0) {
     insights.push({
@@ -168,16 +139,17 @@ const PATHS_KEY = 'hyperself.paths.v1';
 export interface PathsState {
   pinned: string[];
   acked: Record<string, string>;
+  dismissed: Record<string, string>;
 }
 
 export function loadPathsState(): PathsState {
   try {
     const raw = localStorage.getItem(PATHS_KEY);
-    if (!raw) return { pinned: [], acked: {} };
+    if (!raw) return { pinned: [], acked: {}, dismissed: {} };
     const parsed = JSON.parse(raw) as Partial<PathsState>;
-    return { pinned: parsed.pinned ?? [], acked: parsed.acked ?? {} };
+    return { pinned: parsed.pinned ?? [], acked: parsed.acked ?? {}, dismissed: parsed.dismissed ?? {} };
   } catch {
-    return { pinned: [], acked: {} };
+    return { pinned: [], acked: {}, dismissed: {} };
   }
 }
 
@@ -206,5 +178,17 @@ export function acknowledge(id: string): void {
 export function unacknowledge(id: string): void {
   const state = loadPathsState();
   delete state.acked[id];
+  savePathsState(state);
+}
+
+export function dismissInsight(id: string): void {
+  const state = loadPathsState();
+  state.dismissed[id] = new Date().toISOString();
+  savePathsState(state);
+}
+
+export function undismissInsight(id: string): void {
+  const state = loadPathsState();
+  delete state.dismissed[id];
   savePathsState(state);
 }

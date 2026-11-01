@@ -1,7 +1,20 @@
 // Hyperself service worker: offline-first app shell.
 // Bump CACHE_VERSION on every release that must evict old shells.
-const CACHE_VERSION = 'hyperself-v2';
-const SHELL = ['/', '/index.html', '/manifest.webmanifest', '/icons/icon-192.png', '/icons/icon-512.png'];
+const CACHE_VERSION = 'hyperself-v3';
+const SHELL = [
+  '/',
+  '/index.html',
+  '/manifest.webmanifest',
+  '/icons/icon-192.png',
+  '/icons/icon-512.png',
+  '/assets/hyperself/artwork/hyperself-wordmark.svg',
+  '/assets/hyperself/icons/shield-check.svg',
+  '/assets/hyperself/icons/link.svg',
+  '/assets/hyperself/icons/file-text.svg',
+  '/assets/hyperself/icons/audio-lines.svg',
+  '/assets/hyperself/icons/folder-sync.svg',
+  '/assets/hyperself/icons/image-up.svg',
+];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(

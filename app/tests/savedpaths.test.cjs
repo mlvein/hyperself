@@ -14,10 +14,11 @@ const { transactionsFromEntries, summarizeTransactions } = require('../.test-com
 
 store.clearAll();
 const path = store.createSavedPath({ name: 'My Budget', query: 'where does my money go?', templateId: 'budgeting' });
-assert.equal(path.pinned, true, 'saved paths pin by default');
+assert.equal(path.pinned, false, 'no saved path is pinned by default');
 assert.equal(store.listSavedPaths().length, 1);
+store.setSavedPathPinned(path.id, true);
+assert.equal(store.listSavedPaths()[0].pinned, true, 'pin toggles persist');
 store.setSavedPathPinned(path.id, false);
-assert.equal(store.listSavedPaths()[0].pinned, false, 'pin toggles persist');
 assert.throws(() => store.createSavedPath({ name: '', query: 'x' }), /name is required/i);
 
 for (let i = 0; i < 3; i += 1) {

@@ -464,7 +464,7 @@ export function createSavedPath(input: { name: string; query: string; templateId
     query,
     templateId: input.templateId,
     archetypeId: input.archetypeId,
-    pinned: input.pinned ?? true,
+    pinned: input.pinned ?? false,
     created_at: now(),
   };
   db.savedPaths.push(path);
@@ -509,6 +509,15 @@ export function setArchetypePreference(
     },
   };
   save(db);
+  return { ...db.archetypePrefs };
+}
+
+export function clearArchetypePreference(id: string): Record<string, ArchetypePreference> {
+  const db = load();
+  if (id in db.archetypePrefs) {
+    delete db.archetypePrefs[id];
+    save(db);
+  }
   return { ...db.archetypePrefs };
 }
 

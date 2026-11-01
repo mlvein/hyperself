@@ -17,9 +17,11 @@ globalThis.localStorage = {
 const {
   acknowledge,
   buildInsights,
+  dismissInsight,
   loadPathsState,
   togglePin,
   unacknowledge,
+  undismissInsight,
 } = require('../.test-compiled/insights.js');
 
 const freshStamp = new Date().toISOString();
@@ -46,7 +48,7 @@ assert.deepEqual(buildInsights([]), [], 'empty knowledgebase yields no insights'
 const stale = mk({ updated_at: '2020-01-01T00:00:00' });
 const staleInsights = buildInsights([stale]);
 const staleOnly = staleInsights.find((i) => i.id.startsWith('stale:'));
-assert.ok(staleOnly, 'stale insight present alongside coverage insight');
+assert.ok(staleOnly, 'stale insight present');
 assert.equal(staleOnly.severity, 'warn');
 assert.deepEqual(staleOnly.kinds, ['goto-import', 'acknowledge', 'expound']);
 
@@ -78,19 +80,39 @@ assert.ok(loadPathsState().acked['sec:y'], 'acknowledge records a timestamp');
 unacknowledge('sec:y');
 assert.ok(!('sec:y' in loadPathsState().acked), 'unacknowledge clears');
 
-console.log('paths insights OK: stale/security/exposure/fresh, stable ids, pin+ack state');
+dismissInsight('stale:z');
+assert.ok(loadPathsState().dismissed['stale:z'], 'dismiss records a timestamp');
+undismissInsight('stale:z');
+assert.ok(!('stale:z' in loadPathsState().dismissed), 'undismiss clears');
+assert.deepEqual(loadPathsState().dismissed, {}, 'dismissed defaults to empty record');
 
-// --- coverage blind spot lives in Paths, with an attached next step ---
+console.log('paths insights OK: stale/security/exposure/fresh, stable ids, pin+ack+dismiss state');
+
+// --- Paths layout: suggestions on Insights, History beside Templates ---
 {
-  const gap = buildInsights([mk({ type: 'finding' })]).find((i) => i.id === 'gap:coverage');
-  assert.ok(gap, 'missing types yield a coverage blind-spot insight in Paths');
-  assert.equal(gap.severity, 'info');
-  assert.ok(/Blind spot/.test(gap.title), 'blind-spot title');
-  assert.ok(gap.kinds.includes('goto-import'), 'blind spot routes to Import');
-  assert.ok(/Next step/i.test('Next step: ' + (gap.nextStep ?? '')), 'next step attached to the insight');
-  assert.ok((gap.nextStep ?? '').length > 10, 'next step is concrete');
+  const fs = require('node:fs');
+  const path = require('node:path');
+  const html = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
+  const insightsAt = html.indexOf('id="sub-insights"');
+  const templatesAt = html.indexOf('id="sub-templates"');
+  const historyAt = html.indexOf('id="sub-history"');
+  const suggestedAt = html.indexOf('id="templateList"');
+  assert.ok(suggestedAt > insightsAt && suggestedAt < templatesAt, 'suggested paths render inside Insights');
+  assert.ok(historyAt > templatesAt, 'History pane sits after Templates');
+  assert.ok(html.includes('data-sub="history"'), 'History menu sits beside Templates');
+  assert.ok(html.includes('approved or dismissed'), 'History covers approved + dismissed insights');
+  const main = fs.readFileSync(path.join(__dirname, '..', 'src', 'main.ts'), 'utf8');
+  assert.ok(main.includes("data-action=\"dismiss\"") || main.includes("'dismiss'"), 'insights offer a dismiss action');
+  console.log('paths layout OK: suggestions on Insights, History beside Templates');
+}
+
+// --- no Blind spot card on Paths (removed; History holds reviewed items) ---
+{
+  const partial = buildInsights([mk({ type: 'finding' })]);
+  assert.ok(!partial.some((i) => i.id === 'gap:coverage'), 'no coverage blind-spot insight');
+  assert.ok(!partial.some((i) => /Blind spot/.test(i.title)), 'no Blind spot title on Paths');
   const allTypes = ['journal', 'goal-note', 'skill', 'health', 'finance', 'relationship', 'finding', 'method', 'research', 'document'];
   const full = allTypes.map((t) => mk({ type: t }));
-  assert.ok(!buildInsights(full).some((i) => i.id === 'gap:coverage'), 'no blind spot when coverage is complete');
-  console.log('paths blind spot OK: coverage gap in Paths with attached next step');
+  assert.ok(!buildInsights(full).some((i) => i.id === 'gap:coverage'), 'no blind spot with complete coverage either');
+  console.log('paths blind spot removed OK: no gap:coverage insight');
 }

@@ -9,7 +9,7 @@ Most personal data is fragmented across documents, statements, journals, calenda
 ### Knowledgebase
 
 - **Synthesis** — a profile card with archetype pills (Bookworm vs Book Hoarder, Network Weaver, Serial Pivoter, and more) and a two-sentence essence generated on-device from everything you have uploaded. Archetype cards explain the evidence behind each label, show how your archetypes changed across the years of your archive, and let you Confirm, Rename, or dismiss (“Not me”) any label — you are the final authority. Nothing diagnostic, nothing clinical.
-- **Network** — a D3 graph with you at the center: uniform avatar circles (photo or initials), names on hover only, slow orbit that pauses when you drag. Person cards open a modal with your shared timeline, key moments, known-for duration (“you've known each other for X years”), and private notes. Tag people on images at upload; Hyperself finds them in your texts automatically.
+- **Network** — a D3 graph with you at the center: uniform avatar circles (photo or initials), names on hover only, slow orbit that pauses when you drag. Person cards open a modal with your shared timeline, key moments, known-for duration (“you've known each other for X years”), and private notes. People come from tags you apply at import or upload (including on images) — Hyperself does not extract names from text automatically.
 - **Import & Connect** — the only place uploads and links are managed:
   - Documents: Markdown/text, CSV bank statements (review-then-import), PDF (text layer), DOCX, RTF, JSON, HTML (including Apple Journal exports), ICS calendars, VCF contacts.
   - Audio recordings transcribed fully on-device (Whisper) and searchable (“audio …” queries).
@@ -21,9 +21,9 @@ Most personal data is fragmented across documents, statements, journals, calenda
 
 ### Paths
 
-- Ask anything in the search bar and save the answer as a pinned Path; pinned Paths become subtabs beside Insights, Templates, and Security.
-- Templates are suggested only when you have already shared related data — nothing is pushed at you: **Finance** (from bank statements: category spend, monthly trend, recurring costs; hidden until finance data exists, descriptive only, never advice), **Relationship Rhythms** (who has gone quiet, descriptively), **Reading Life** (finished vs collected).
-- Insights carry one concrete next step each — including coverage blind spots (“no finance knowledge yet → import a statement”) and archetype-lensed notes (“For your Network Weaver side: Ana has gone quiet”). Pin, expound, or mark reviewed.
+- Ask anything in the search bar and save the answer as a Path. No Path is pinned by default; pin one yourself and it becomes a subtab beside Insights, Templates, History, and Security.
+- New Paths first appear as **Suggested Paths on Insights**, only when you have already shared related data — nothing is pushed at you: **Finance** (from bank statements: category spend, monthly trend, recurring costs; hidden until finance data exists, descriptive only, never advice), **Relationship Rhythms** (who has gone quiet, descriptively), **Reading Life** (finished vs collected). Templates lists every template with what you have and what it still needs.
+- Insights include archetype-lensed notes (“For your Network Weaver side: Ana has gone quiet”). Expound, pin, mark reviewed, or dismiss each one — everything you approved or dismissed collects in **History**, where it can be restored.
 
 ### Legacy
 
@@ -31,9 +31,9 @@ Export a hash-verified knowledge pack of shareable entries only, import packs fr
 
 ### Trust model
 
-- **Offline-first PWA**: installable, works in airplane mode after first load.
+- **Offline-first PWA**: installable; the core loop (import, search, insights, Paths) works in airplane mode after first load. Deep synthesis uses a model server on the same device (below), which also works offline once its weights are downloaded.
 - **Vault**: AES-GCM encrypted storage unlocked by PIN, with optional biometric unlock (WebAuthn PRF) that genuinely unwraps the key. A forgotten PIN without biometrics is unrecoverable by design.
-- **Two tags govern everything**: `personal` never leaves the device process; `shareable` is explicit, per entry, and health/finance/journal/relationship/document entries can never be shareable.
+- **Two tags govern everything**: `personal` never leaves the device; `shareable` is explicit, per entry, and health/finance/journal/relationship/document entries can never be shareable.
 
 ## Run it
 
@@ -45,13 +45,22 @@ npm test       # 24 focused suites over the real store/parsers/analyzers
 npm run build  # typecheck + production build
 ```
 
+Deep synthesis (optional) runs on Muse Glimmer served on this device — install Ollama, then:
+
+```sh
+ollama pull muse-glimmer   # one-time ~17–20 GB download
+OLLAMA_ORIGINS=http://localhost:5173 ollama serve
+```
+
+The app connects automatically (Synthesis → “Local model — Muse Glimmer” shows setup help). With no server running, drafts fall back to templated local text — every other feature works regardless.
+
 Demo personas (Maya, Daniel, Rosa — 20-year non-linear arcs, 26–29-person networks) load from the gear menu (bottom-right, or Ctrl/Cmd+Shift+D). Demo script: `docs/DEMO_SCRIPT.md`.
 
 ## Honest limits
 
 - Account connections are simulated for the demo; real integrations are future work.
 - Scanned/image-only PDFs have no text layer and are refused with a reason; legacy `.doc`/`.xls` and EPUB are not parsed.
-- On-device LLM drafting uses WebLLM (WebGPU) where available and falls back to local fact-based synthesis without it.
+- LLM drafting uses Muse Glimmer (Meta's open-weight 30B) served locally via Ollama/llama.cpp/vLLM on the same device; it auto-connects when the server appears and falls back to templated local synthesis without it. Embeddings (MiniLM) and transcription (Whisper) still run in-browser.
 - Archetypes are playful, evidence-backed patterns inferred locally — not personality tests, diagnoses, or labels you did not approve.
 
 ## Repo layout
@@ -63,4 +72,4 @@ Demo personas (Maya, Daniel, Rosa — 20-year non-linear arcs, 26–29-person ne
 
 ## Status
 
-Working demo build: vault unlock, offline PWA, synthesis/archetypes, network, multi-format import (documents/audio/images/folders), Paths with templates (Finance, Relationship Rhythms, Reading Life), security scanning, and pack export/import — covered by `npm test` and CI. Cloud routing modules exist behind the privacy router for shareable-only tasks; the demo loop runs fully on-device.
+Working demo build: vault unlock, offline PWA, synthesis/archetypes, network, multi-format import (documents/audio/images/folders), Paths with suggested templates (Finance, Relationship Rhythms, Reading Life) and a History of approved/dismissed insights, security scanning, and pack export/import — covered by `npm test` and CI. Deep synthesis runs on a locally served Muse Glimmer; cloud routing modules exist behind the privacy router for shareable-only tasks; the demo loop runs fully on-device.

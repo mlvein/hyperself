@@ -26,11 +26,12 @@ import {
   deleteSavedPath,
   listSavedPaths,
   setSavedPathPinned,
+  clearArchetypePreference,
   getArchetypePreferences,
   setArchetypePreference,
 } from './store';
 import { PackError, exportPackText, importPackText } from './pack';
-import { StubEngine, cleanDraftText, initLocalEngine, isPromptLeak, type LocalEngine } from './engine';
+import { StubEngine, cleanDraftText, initLocalEngine, isPromptLeak, loadGlimmerConfig, probeGlimmer, saveGlimmerConfig, type LocalEngine } from './engine';
 import { embedEntry, embedText, loadVectors } from './embeddings';
 import { hashContent, ingestDoc } from './ingest';
 import { diffFolder, isSyncablePath, nextManifest } from './foldersync';
@@ -39,7 +40,7 @@ import { docxToText, extensionOf, jsonToText, parseIcs, parseVcf, pdfToText, rtf
 import { isAudioFilename, isAudioMime, transcribeAudioBlob } from './transcribe';
 import { isImageFilename, isImageMime, ocrImageBlob, parseExifDate } from './image';
 import { budgetInsights, monthlyTotals, parseStatement, recurringCosts, summarizeTransactions, transactionsFromEntries, type StatementParse } from './budget';
-import { availablePathCount, isBudgetingQuery, readingLifeSummary, relationshipRhythms, suggestTemplates, templateById, templateForArchetype, templateReadiness, visibleSuggestedTemplates } from './templates';
+import { PATH_TEMPLATES, availablePathCount, isBudgetingQuery, readingLifeSummary, relationshipRhythms, suggestTemplates, templateById, templateForArchetype, templateReadiness, visibleSuggestedTemplates } from './templates';
 import {
   biometricAvailable,
   enrollBiometric,
@@ -61,9 +62,11 @@ import { scanEntry } from './security';
 import {
   acknowledge,
   buildInsights,
+  dismissInsight,
   loadPathsState,
   togglePin,
   unacknowledge,
+  undismissInsight,
   type Insight,
 } from './insights';
 import * as d3 from 'd3';
@@ -73,9 +76,68 @@ import type { Entry, EntryType, Tag } from './types';
 
 let engine: LocalEngine = new StubEngine();
 
-void initLocalEngine().then(({ engine: ready }) => {
+async function connectEngine(): Promise<void> {
+  const status = document.getElementById('glimmerStatus');
+  const { engine: ready, notice } = await initLocalEngine();
   engine = ready;
-});
+  if (status) status.textContent = notice;
+  synthesisKey = ''; // force re-synthesis with the (possibly new) engine
+}
+
+void connectEngine();
+
+{
+  const cfg = loadGlimmerConfig();
+  const endpointInput = document.getElementById('glimmerEndpoint') as HTMLInputElement | null;
+  const modelInput = document.getElementById('glimmerModel') as HTMLInputElement | null;
+  if (endpointInput) endpointInput.value = cfg.endpoint;
+  if (modelInput) modelInput.value = cfg.model;
+  document.getElementById('glimmerSaveBtn')?.addEventListener('click', () => {
+    saveGlimmerConfig({
+      endpoint: endpointInput?.value ?? '',
+      model: modelInput?.value ?? '',
+    });
+    const status = document.getElementById('glimmerStatus');
+    if (status) status.textContent = 'Reconnecting to the local model server…';
+    void connectEngine().then(() => {
+      if (listEntries().length > 0) void maybeSynthesize(listEntries());
+    });
+  });
+  document.getElementById('glimmerCheckBtn')?.addEventListener('click', () => {
+    const status = document.getElementById('glimmerStatus');
+    if (status) status.textContent = 'Checking the local model server…';
+    const entered = saveGlimmerConfig({
+      endpoint: endpointInput?.value ?? '',
+      model: modelInput?.value ?? '',
+    });
+    void probeGlimmer(entered).then((ok) => {
+      if (!status) return;
+      if (!ok) {
+        status.textContent =
+          'Could not reach the local model server yet. Finish the steps under “Set up deep synthesis” below, then check again.';
+        return;
+      }
+      status.textContent = 'Connected — Muse Glimmer is running on this device.';
+      void connectEngine().then(() => {
+        if (listEntries().length > 0) void maybeSynthesize(listEntries());
+      });
+    });
+  });
+  document.getElementById('glimmerCopyBtn')?.addEventListener('click', () => {
+    const copyStatus = document.getElementById('glimmerCopyStatus');
+    const text = document.getElementById('glimmerCommands')?.textContent ?? '';
+    const done = (): void => {
+      if (copyStatus) copyStatus.textContent = 'Copied. Paste into Terminal, then press Enter.';
+    };
+    if (navigator.clipboard?.writeText) {
+      navigator.clipboard.writeText(text).then(done).catch(() => {
+        if (copyStatus) copyStatus.textContent = 'Copy failed — select the commands above and copy them manually.';
+      });
+    } else if (copyStatus) {
+      copyStatus.textContent = 'Select the commands above and copy them manually.';
+    }
+  });
+}
 
 function el<T extends HTMLElement>(id: string): T {
   const node = document.getElementById(id);
@@ -271,7 +333,7 @@ async function maybeSynthesize(entries: Entry[]): Promise<void> {
       entries.slice(0, 6),
     );
     if (listEntries().length === 0) return; // workspace cleared mid-synthesis
-    const cleaned = cleanDraftText(reply.replace(/\n\nNothing left your browser\.?$/, ''));
+    const cleaned = cleanDraftText(reply.replace(/\n\nNothing left (your browser|this device)\.?$/, ''));
     const usable = cleaned.length > 0 && !isPromptLeak(cleaned) && !cleaned.startsWith('From ');
     const localBlurb = essence.summary;
     renderProfileCard(usable ? cleaned : localBlurb);
@@ -285,6 +347,10 @@ async function maybeSynthesize(entries: Entry[]): Promise<void> {
   } finally {
     status.classList.remove('loading');
     synthesizing = false;
+    const gs = document.getElementById('glimmerStatus');
+    if (gs && /muse-glimmer/.test(engine.name)) {
+      gs.textContent = 'Muse Glimmer connected on this device (local server).';
+    }
   }
 }
 
@@ -934,7 +1000,6 @@ el('searchResults').addEventListener('click', (ev) => {
       name: budgeting ? 'Finance' : query.slice(0, 60),
       query,
       templateId: budgeting ? 'budgeting' : undefined,
-      pinned: budgeting ? false : undefined,
     });
     showView('paths');
     renderPaths();
@@ -1074,25 +1139,66 @@ el('packAskBtn').addEventListener('click', () => {
 
 // --- Paths (insights over the knowledgebase) ---
 
-function insightCard(insight: Insight, pinned: boolean, acked: boolean): string {
+type InsightHistoryKind = 'approved' | 'dismissed';
+
+function insightCard(
+  insight: Insight,
+  pinned: boolean,
+  acked: boolean,
+  history?: { kind: InsightHistoryKind | 'archetype-dismissed'; at?: string },
+): string {
   const labels: Record<string, string> = {
     'goto-library': 'Review in Synthesis',
     'goto-import': 'Add context via Import',
     acknowledge: 'Mark as reviewed',
     expound: 'Expound',
   };
-  const buttons = acked
-    ? '<button type="button" class="small" data-action="unack">Undo</button>'
-    : `${insight.kinds.map((k) => `<button type="button" class="small" data-action="${k}">${labels[k]}</button>`).join('')}` +
+  let buttons: string;
+  let historyLine = '';
+  if (history?.kind === 'approved') {
+    buttons = '<button type="button" class="small" data-action="unack">Undo</button>';
+    historyLine = `<p class="meta">Approved${history.at ? ` · ${escapeHtml(history.at.slice(0, 10))}` : ''}</p>`;
+  } else if (history?.kind === 'dismissed') {
+    buttons = '<button type="button" class="small" data-action="undismiss">Restore</button>';
+    historyLine = `<p class="meta">Dismissed${history.at ? ` · ${escapeHtml(history.at.slice(0, 10))}` : ''}</p>`;
+  } else if (history?.kind === 'archetype-dismissed') {
+    buttons = `<button type="button" class="small" data-action="restore-archetype" data-archetype-id="${escapeHtml(insight.archetypeId ?? '')}">Restore</button>`;
+    historyLine = '<p class="meta">Dismissed · archetype marked “Not me”</p>';
+  } else if (acked) {
+    buttons = '<button type="button" class="small" data-action="unack">Undo</button>';
+  } else {
+    buttons =
+      `${insight.kinds.map((k) => `<button type="button" class="small" data-action="${k}">${labels[k]}</button>`).join('')}` +
+      '<button type="button" class="small" data-action="dismiss">Dismiss</button>' +
       `<button type="button" class="small" data-action="pin">${pinned ? 'Unpin' : 'Pin'}</button>`;
-  return `<article class="item${acked ? ' dimmed' : ''}" data-insight="${insight.id}">
+  }
+  return `<article class="item${history || acked ? ' dimmed' : ''}" data-insight="${insight.id}">
     <header><h3>${escapeHtml(insight.title)}</h3><span class="sev-${insight.severity}">${insight.severity}</span></header>
     ${insight.archetypeId ? `<p><span class="archetype-pill">Lens: ${escapeHtml(archetypeLensLabel(insight.archetypeId))}</span></p>` : ''}
     <p>${escapeHtml(insight.body)}</p>
+    ${historyLine}
     ${insight.nextStep ? `<p class="meta"><strong>Next step:</strong> ${escapeHtml(insight.nextStep)}</p>` : ''}
     <div class="log" data-expound hidden></div>
     <div class="row" style="margin-top:0.5rem">${buttons}</div>
   </article>`;
+}
+
+function renderAllTemplates(): void {
+  const entries = listEntries();
+  el('allTemplateList').innerHTML = PATH_TEMPLATES.map((t) => {
+    const readiness = templateReadiness(entries, t);
+    const checklist = [
+      ...readiness.have.map((h) => `<p class="meta">Have: ${escapeHtml(h)}</p>`),
+      ...readiness.missing.map((m) => `<p class="meta">Needs: ${escapeHtml(m)}</p>`),
+    ].join('');
+    return `<article class="item">
+      <header><h3>${escapeHtml(t.name)}</h3></header>
+      <p>${escapeHtml(t.description)}</p>
+      ${checklist}
+      <p class="meta">Creates: ${t.scaffold.map(escapeHtml).join(' · ')}</p>
+      <p class="meta">${readiness.ready ? 'Ready — find it under Suggested Paths on Insights.' : 'Not ready yet — add the data above and it will be suggested on Insights.'}</p>
+    </article>`;
+  }).join('');
 }
 
 function pathDisplayName(path: { name: string; templateId?: string }): string {
@@ -1232,14 +1338,27 @@ function renderPaths(): void {
   el('pathsEmpty').hidden = !empty && listSavedPaths().length === 0;
   el('pathsContent').hidden = empty && listSavedPaths().length === 0;
   renderSavedPaths();
+  renderAllTemplates();
   if (empty) return;
   const archPrefs = getArchetypePreferences();
-  const insights = buildInsights(entries).filter(
-    (i) => !i.archetypeId || archPrefs[i.archetypeId]?.status !== 'dismissed',
-  );
+  const allInsights = buildInsights(entries);
   const state = loadPathsState();
-  const active = insights.filter((i) => state.acked[i.id] === undefined);
-  const acked = insights.filter((i) => state.acked[i.id] !== undefined);
+  const isArchDismissed = (i: Insight): boolean =>
+    Boolean(i.archetypeId) && archPrefs[i.archetypeId!]?.status === 'dismissed';
+  const active = allInsights.filter(
+    (i) => state.acked[i.id] === undefined && state.dismissed[i.id] === undefined && !isArchDismissed(i),
+  );
+  const historyCards = [
+    ...allInsights
+      .filter((i) => state.acked[i.id] !== undefined)
+      .map((i) => insightCard(i, false, true, { kind: 'approved', at: state.acked[i.id] })),
+    ...allInsights
+      .filter((i) => state.acked[i.id] === undefined && state.dismissed[i.id] !== undefined)
+      .map((i) => insightCard(i, false, false, { kind: 'dismissed', at: state.dismissed[i.id] })),
+    ...allInsights
+      .filter((i) => state.acked[i.id] === undefined && state.dismissed[i.id] === undefined && isArchDismissed(i))
+      .map((i) => insightCard(i, false, false, { kind: 'archetype-dismissed' })),
+  ];
   const pinned = active.filter((i) => state.pinned.includes(i.id));
   const rest = active.filter((i) => !state.pinned.includes(i.id));
   const groups: string[] = [];
@@ -1253,9 +1372,9 @@ function renderPaths(): void {
   }
   el('insightList').innerHTML =
     groups.join('') || '<p class="hint">All clear. Nothing needs your attention.</p>';
-  el('ackedList').innerHTML = acked.length
-    ? acked.map((i) => insightCard(i, false, true)).join('')
-    : '<p class="hint">Nothing acknowledged yet.</p>';
+  el('ackedList').innerHTML = historyCards.length
+    ? historyCards.join('')
+    : '<p class="hint">Nothing approved or dismissed yet.</p>';
 }
 
 function handleInsightClick(ev: Event): void {
@@ -1279,6 +1398,17 @@ function handleInsightClick(ev: Event): void {
   } else if (action === 'unack') {
     unacknowledge(id);
     renderPaths();
+  } else if (action === 'dismiss') {
+    dismissInsight(id);
+    renderPaths();
+  } else if (action === 'undismiss') {
+    undismissInsight(id);
+    renderPaths();
+  } else if (action === 'restore-archetype') {
+    const archetypeId = btn.getAttribute('data-archetype-id') ?? '';
+    if (archetypeId) clearArchetypePreference(archetypeId);
+    synthesisKey = '';
+    renderAll();
   } else if (action === 'expound') {
     const insight = buildInsights(listEntries()).find((i) => i.id === id);
     const out = article.querySelector<HTMLDivElement>('[data-expound]');
@@ -1331,7 +1461,6 @@ el('templateList').addEventListener('click', (ev) => {
     query: template.suggestedQuery,
     templateId: template.id,
     archetypeId: suggestion?.archetypeId ?? template.archetypeId,
-    pinned: template.id === 'budgeting' ? false : undefined,
   });
   renderPaths();
   showSub('paths', 'path', created.id);
@@ -1520,7 +1649,7 @@ function renderAll(): void {
 
 const SUB_PANES: Record<string, Record<string, string>> = {
   knowledge: { library: 'sub-library', network: 'sub-network', import: 'sub-import', security: 'sub-security' },
-  paths: { insights: 'sub-insights', templates: 'sub-templates', security: 'sub-security-paths', path: 'sub-path-detail' },
+  paths: { insights: 'sub-insights', templates: 'sub-templates', history: 'sub-history', security: 'sub-security-paths', path: 'sub-path-detail' },
   legacy: { export: 'sub-export' },
 };
 
@@ -1630,14 +1759,14 @@ function renderPersonTimeline(name: string): void {
     .text(`${you} + ${name}`);
   svg.append('line')
     .attr('x1', 30).attr('x2', width - 30).attr('y1', 62).attr('y2', 62)
-    .attr('stroke', '#c9c2b4').attr('stroke-width', 2);
+    .attr('stroke', '#d2d1e5').attr('stroke-width', 2);
   const dots = svg.append('g').selectAll<SVGCircleElement, (typeof ctx.timeline)[number]>('circle')
     .data(ctx.timeline).join('circle')
     .attr('cx', (d) => x(d.at))
     .attr('cy', 62)
     .attr('r', (d) => (d.key ? 9 : 5))
-    .attr('fill', (d) => (d.key ? '#2e6b46' : '#ece8e0'))
-    .attr('stroke', '#1c1a17')
+    .attr('fill', (d) => (d.key ? '#05006d' : '#ebebf3'))
+    .attr('stroke', '#05006d')
     .attr('cursor', 'pointer');
   dots.append('title').text((d) => `${d.at} — ${d.title} (${d.type})`);
   svg.append('g').selectAll('text')
@@ -1733,7 +1862,7 @@ function renderNetworkGraph(entries: Entry[]): void {
   const orbit = svg.append('g');
   let orbitAngle = 0;
   const link = orbit.append('g').selectAll('line').data(links).join('line')
-    .attr('stroke', '#c9c2b4')
+    .attr('stroke', '#d2d1e5')
     .attr('stroke-width', (d) => Math.min(4, 1 + d.weight * 0.5));
   const sim = d3.forceSimulation<SimNode>(nodes)
     .force('link', d3.forceLink<SimNode, (typeof links)[number]>(links).id((d) => d.id).distance(130))
@@ -1772,8 +1901,8 @@ function renderNetworkGraph(entries: Entry[]): void {
   });
   node.append('circle')
     .attr('r', AVATAR_R)
-    .attr('fill', (d) => (d.center ? '#1c1a17' : '#dcefe2'))
-    .attr('stroke', (d) => (d.center ? '#1c1a17' : '#2e6b46'))
+    .attr('fill', (d) => (d.center ? '#05006d' : '#ffffff'))
+    .attr('stroke', (d) => (d.center ? '#05006d' : '#a59acb'))
     .attr('stroke-width', 1.5);
   node.append('g')
     .attr('clip-path', (_d, i) => `url(#avatar-clip-${i})`)
@@ -1789,7 +1918,7 @@ function renderNetworkGraph(entries: Entry[]): void {
     .attr('dy', '0.35em')
     .attr('font-size', '11px')
     .attr('font-weight', '700')
-    .attr('fill', (d) => (d.center ? '#ffffff' : '#1f4d30'))
+    .attr('fill', (d) => (d.center ? '#ffffff' : '#05006d'))
     .style('display', (d) => (d.photo ? 'none' : null))
     .text((d) => initialsOf(d.label));
   node.append('text')

@@ -1,131 +1,274 @@
-# Figma Handoff — Hyperself
+# Hyperself: Figma Design Handoff
 
-Source of truth: `app/` (implemented PWA) + `docs/DESIGN.md`. Build Figma frames 1:1 from this file; where this file and the app disagree, the app wins and this file gets fixed.
+## 1. Authority and Scope
 
-## 1. Product in one line
+Inspected on **2026-10-30**. Visual source of truth: Figma file `KD1Kg3NcRyUu87S2u3XLOF`, screen page `0:1`, design-system page `3:53635`.
+This handoff describes the inspected design and exported reference bundle, not a verified application implementation.
+The previous handoff cited `app/` and `docs/DESIGN.md`; neither is verified here and neither overrides the inspected Figma for visual fidelity.
+No Figma changes are part of this documentation update.
 
-Local-first personal AI: knowledge arrives via uploads (documents, audio, images, folders), linked accounts, and personas; the user never journals by hand. Two tags govern everything: `personal` (never leaves the device) and `shareable` (user-approved, powers Paths + Legacy). Vault-encrypted on-device storage (PIN + optional biometrics), installable PWA, works offline.
+- There are **35 actual desktop screen/state frames**, each 1200px wide; heights vary with content. Do not force all screens into a 900px viewport.
+- `docs/hyperself-assets/data/screens.json` is the complete exported screen tree, including exact text, node IDs, positions, dimensions, styles, and variable bindings.
+- `data/design-system.json` records resolved variables, shared text styles, component inventory, and foundation notes. Paths in this document beginning with `data/`, `icons/`, `artwork/`, or `references/` are relative to `docs/hyperself-assets/` unless stated otherwise.
+- `tokens.css` is the CSS source for the exported palette and geometry tokens; its colors are resolved Figma variables rounded to 8-bit hex.
+- `data/references.json` maps the 35 screen nodes to PNG references. `data/assets.json` and root `manifest.json` map asset paths to source IDs, dimensions, and SHA-256 values where applicable.
+- Static layouts, status copy, and exported assets do **not** verify backend behavior, encryption, privacy guarantees, offline operation, live integrations, or working interactions.
 
-## 2. Navigation (implemented)
+## 2. Product and Navigation
 
-- Header (warm wash bar, left-aligned): brand "Hyperself" → main menu (Knowledgebase / Paths / Legacy) beside the logo → search bar pinned right (placeholder: "Ask your knowledgebase…", e.g. "people I've met on Oct 4", "who might know about Figma", "audio budget"). Paths menu label carries a count badge (saved Paths + suggested Paths ready to start; hidden at zero). Offline badge appears when the PWA is offline ("Offline · on-device").
-- Submenu strip directly below the header, per active section:
-  - Knowledgebase: Synthesis · Network · Import & Connect · Security (Security pushed to the right edge, with actionable-count badge).
-  - Paths: Insights · pinned-Path subtabs (one per pinned saved Path, labeled with the Path name) · Templates · Security (Templates + Security at the right edge; Security badge mirrors the Knowledgebase count).
-  - Legacy: Export (only shown when Legacy is selected).
-- Demo controls (hidden): gear bottom-right on small screens, Ctrl/Cmd+Shift+D on desktop — Replay tour, Load Maya/Daniel/Rosa, Clear workspace.
+Hyperself is designed as a local-first personal knowledge and AI workspace. Knowledge arrives through documents, audio, images, folders, linked sources, and personas rather than mandatory journaling.
+The intended privacy model distinguishes `personal` material from explicitly approved `shareable` material. Paths and Legacy are intended to use approved shareable knowledge; a screen saying so is not proof of enforcement.
 
-## 3. Screens
+- Header: plain **Hyperself** wordmark, Knowledgebase / Paths / Legacy navigation, right-hand search, and an offline badge where shown.
+- Search placeholder: "Ask your knowledgebase…". The illustrated search state uses an audio-budget query and transcript results.
+- Knowledgebase submenu: Synthesis / Network / Import & Connect, with Security aligned right.
+- Paths submenu: Insights / pinned saved-Path tabs, with Templates and Security at the right. Only **Relationship Rhythms** is pinned in the illustrated populated states.
+- Legacy submenu: Export. The pane contains export, import, and pack-only question sections, not three separate navigation destinations.
+- The Paths badge counts saved Paths plus ready suggestions: initially **3 = 2 saved + 1 Reading Life suggestion**; after starting Reading Life, **3 = 3 saved + 0 suggestions**. Do not count only pinned tabs or double-count a started suggestion.
+- Security badge **1** counts the one actionable high-severity finding, not all insight cards. Clear/empty states must not keep a stale actionable badge.
+- "Offline · on-device" is a designed state label, not evidence that a service worker or airplane-mode workflow has been tested.
 
-### 3.1 Knowledgebase → Synthesis
+## 3. Visual System and Geometry
 
-Components top to bottom:
+Use the current light-mode navy/lavender system, not the previous warm brown/green palette or system-font-only specification.
 
-1. **Profile card** (replaces any "Synthesis" heading): circular 72px profile-photo slot (dashed border, initial fallback), archetype pill tags (max 4; confirmed ones carry a ✓; hover shows evidence + strength/confidence/trend), and an essence blurb of at most two sentences generated on-device: who the user is at their core, aspirations, potential. The blurb never names people, entry counts, or sources, and never repeats the pill labels. Status line under the blurb shows interests · key people.
-   - Archetypes: Bookworm, Book Hoarder, Network Weaver, Caretaker Anchor, Deep Researcher, Method Maker, Serial Pivoter, Night Owl, Early Riser, Wanderer, Keeper of Records, Skill Collector. Reading/finishing vs collecting/TBR signals compete — a hoarder is never labeled Bookworm. Small print: "Playful patterns from your data — not labels, not diagnoses."
-2. **Archetype era timeline card** ("How your archetypes changed", only when history spans 7+ years): one line per era (e.g. "2006–2012: … · …") showing which archetypes led then.
-3. **Archetype cards** (one per pill): meaning paragraph, "Why this fits: …" evidence, strength bar with "Strength N/100 · Confidence N/100 · Trend: rising/steady/fading/emerging", "Watch for: …", and actions **Confirm / Rename / Not me** (the user is the final authority; renamed labels replace the generated one everywhere, dismissed archetypes never return). Where an archetype seeds a Path (Network Weaver, Bookworm, Book Hoarder), a "Start a Path from this archetype" button appears.
-4. **Thematic cards**: People at the center / Care & wellbeing / Money & paperwork, each with category chips (work, people, finance, health, personal).
-
-Deliberately NOT in Synthesis (moved or dropped): trait-dimension scores (computed internally only — never surfaced, to avoid trait-gaming), Facts, Next steps, Focus, Sharing readiness, Blind spots. Blind spots live in Paths (see 3.5); sharing readiness lives at Legacy export / Security.
-
-States:
-- Empty: "Nothing to synthesize yet" + hint that uploads/links live in Import & Connect + "Go to Import & Connect" button.
-- Loading: blurb placeholder "Synthesizing who you are from everything you have shared…" with pulsing status.
-- Fallback (no WebGPU): same cards from local facts.
-
-### 3.2 Knowledgebase → Network
-
-- **Network graph card** ("Your network"): D3 force graph, user node at center (dark circle; all avatar circles uniform 20px radius, photo clipped inside or initials fallback), spokes weighted by mention count, cross-links for co-mentioned people. Slowly revolves around the user (~0.02°/frame; pauses on drag; off with prefers-reduced-motion). Names hidden until hover of that specific node. Drag nodes to rearrange (positions remembered by name); click a person node or card to open the person modal. Graph re-renders on every knowledgebase change.
-- **Portrait card grid**: wrapping flex grid of 118px, 3:4 portrait cards (44px initials avatar, name, entry count). No taglines, no untag buttons. Click opens the same person modal.
-- **Person modal** (overlay dialog): "You've known each other for X years" (or "under a year"), entry types, Relationships (shared connections with counts), D3 "You + Person" relationship timeline (all shared moments as dots; key moments — shared/other-people, relationship, and goal entries — as larger green dots with year labels), ★ Key moments list, Notes (dated bubbles) + comment box at the bottom (textarea + Add note, persists on-device). Close: button, overlay click, Escape.
-
-### 3.3 Knowledgebase → Import & Connect
-
-Sole place uploads and links are managed. Five equal tiles in a 2× grid (Link an account spans the three-row height on the right):
-- **Link an account**: opens services modal listing all providers, each marked simulated.
-- **Upload documents**: .md/.txt/.csv (statements get a review-then-import flow with totals preview), .html (Apple Journal exports parsed to dated journal entries), .pdf (text layer only; scanned PDFs are refused with a reason), .docx, .rtf, .json, .ics (calendar events), .vcf (contacts).
-- **Upload audio**: mp3/wav/m4a/aac/ogg/webm/flac/opus; transcribed fully on-device with Whisper, staged progress notes, then searchable entries. Header queries with audio intent ("audio …", "recording …") return transcripts only.
-- **Sync a folder**: File System Access where available, folder-picker fallback; content-hash dedupe, then manifest diff (added/changed/removed shown; removed files tombstoned).
-- **Upload image**: opens a modal (drag-and-drop or browse) → preview grid → optional tag-a-person field (only here, never on the main import form) → Import. OCR on-device (Tesseract.js), dated from EXIF when present, people auto-tagged from text + manual tag.
-
-Ownership row above the tiles: "These uploads are: Mine | Shared with me | Reference (not about me)" selector + "They're mine, or I have the right to keep them" attestation checkbox (remembered). Reference material stays searchable but never feeds Synthesis, archetypes, or essence. A non-blocking warning appears when an upload's signals mismatch the user's profile. Classification is the user's declaration — Hyperself never claims to verify ownership.
-
-### 3.4 Knowledgebase → Security (also mirrored in Paths → Security)
-
-Right-aligned submenu item with red badge counting actionable (high-severity) insights; the same content appears under Paths → Security. Per-finding cards (title, severity, message, suggestion, "Review in Paths"); image uploads are flagged here for inappropriate or compromising content; local crisis-language detection surfaces supportive resources, never diagnoses. Empty state: "No actionable security insights. Your uploaded knowledge looks clean."; empty-KB state points to Import & Connect.
-
-### 3.5 Paths
-
-Submenu: Insights · pinned-Path subtabs · Templates · Security (see section 2).
-
-**Insights pane:**
-- **Your Paths** cards: saved Paths with ask, template name, archetype lens ("Lens: Network Weaver"), actions Open / Pin-Unpin / Delete. Pinning creates the Path's subtab above.
-- **Insight cards** over the knowledgebase: stale-data alerts, leaked-data/security findings, coverage **blind-spot** insight (names the missing entry type with one concrete attached "Next step: …" routing to Import), archetype-lensed insights ("For your Network Weaver side: …" pill; suppressed if the user dismissed that archetype), shareable-exposure review, freshness notes. Each card: severity chip, body, optional Next step line, actions (Review in Synthesis, Add context via Import, Expound, Pin/Unpin, Mark as reviewed). Pinned group first, then the rest; Acknowledged list at the bottom with Undo.
-- Finance Paths stay **hidden entirely** (card, subtab, badge count) until financial data has been shared; nothing is deleted — the Path reappears when finance entries exist.
-
-**Path detail pane** (opens from a subtab or Open): Finance (spending by category bars, monthly trend, recurring costs, descriptive "What stands out" — never prescriptive advice), Relationship Rhythms (most-recently-mentioned people, gone-quiet 90+ days, descriptive only), Reading Life (finished vs collected signals with balance bar). Non-template Paths open their saved ask in search.
-
-**Templates pane:** only templates Hyperself suggests from already-shared data appear here (Have/Needs readiness checklist + Start button): Finance (bank-statement CSV; created unpinned by default), Relationship Rhythms (Network Weaver), Reading Life (Bookworm/Book Hoarder). Empty state: "No suggested Paths yet. Hyperself suggests a Path only when you have shared related data — nothing is pushed at you before then."
-
-Empty state: "No Paths yet" + "Import or link data" button.
-
-### 3.6 Legacy → Export (single pane, stacked)
-
-1. Export knowledge pack: Author label + Version inputs, Export button; exports shareable entries only with hash-verified manifest; high-severity findings trigger a confirm dialog first.
-2. Import knowledge pack: file picker + "Verify and import"; result log line (verified pack id/version/author + count, or the exact refusal reason).
-3. Ask this pack: question input + Ask; answers on-device from imported entries only; log output area.
-
-### 3.7 Onboarding (first run, modal)
-
-Trigger: no profile, entries, or goals, and no `hyperself.onboarded.v1` flag; returning workspaces never see it. Skippable; replayable from demo controls ("Replay tour").
-
-1. Welcome: what Hyperself does + name input (greets in header).
-2. Privacy promise: the two tags with live pill styles.
-3. Knowledge sources: account scan, uploads, personas; buttons "Scan my accounts", "Link all found", "Load Maya persona" with status line.
-4. Your Paths: insights explained; "See my Paths" finishes and lands on Paths.
-
-### 3.8 Vault lock + PWA
-
-First run: create PIN (PBKDF2-wrapped AES-GCM key); optional biometric enrollment (WebAuthn PRF) that genuinely unwraps the key. Locked state shows only the unlock overlay — no user data renders. Forgotten PIN without biometrics is unrecoverable by design. Installable PWA (manifest + service worker, versioned cache); offline badge in the header when offline; core loop (unlock, Synthesis, Network, Paths) works in airplane mode.
-
-## 4. Visual system (from `app/src/styles.css`)
-
-| Token | Value | Use |
+| Role / CSS token | Resolved value | Application |
 |---|---|---|
-| `--ink` | `#1c1a17` | text, user node, borders-on-hover |
-| `--muted` | `#5f5a52` | secondary text |
-| `--line` | `#ddd8cf` | borders |
-| `--bg` | `#ffffff` | surface |
-| `--wash` | `#f2efe9` | header strip, hero card, note bubbles |
-| `--accent` | `#2e6b46` | shareable/success, archetype pills border |
-| `--danger` | `#a33b2e` | destructive, high findings, security badge |
-| pill green | bg `#dcefe2`, text `#1f4d30` | archetype pills, person avatars, graph people nodes |
-| severity | high `#f6dcd8`/`--danger`, warn `#f3e8cf`/`#7a5b1e`, info `#ece8e0`, ok pill green | finding chips |
+| `--text-primary`, `--action-primary`, `--surface-strong` | `#05006d` | Navy text, primary controls, strong surfaces |
+| `--surface-default` | `#ffffff` | Main surfaces |
+| `--surface-wash` | `#f8f7fb` | Header/submenu wash |
+| `--text-secondary` | `#585875` | Secondary copy |
+| `--border-default` | `#d2d1e5` | Hairlines and input/card borders |
+| `--border-accent` | `#a59acb` | Lavender icon strokes and accent borders |
+| `--text-accent` | `#65558e` | Accent text |
+| `--surface-accent-lavender`, `--surface-accent-yellow` | `#a59acb`, `#ffc508` | Available design-system tokens; not used as surfaces by the 35 screens |
+| `--status-info-background` | `#ebebf3` | Neutral/info pills |
+| `--action-danger`, `--text-danger` | `#c4142e` | Destructive/high-severity emphasis |
+| `--status-danger-background` | `#f6dcd8` | High-severity soft fill |
+| `--status-success-background`, `--text-success` | `#dcefe2`, `#1f4d30` | Success/shareable states |
+| `--status-warning-background`, `--text-warning` | `#fff1c4`, `#7a5b1e` | Warnings |
 
-- Type: system stack (ui-sans-serif, system-ui, "Segoe UI", Helvetica, Arial); line-height 1.5. No custom display font, no gradients, no glow, no emoji icons (inline SVG only).
-- Radii: 6px inputs/buttons, 8px cards, 10px dialogs, 999px pills/avatars.
-- Layout: header flex (start-aligned, wraps); content column max-width 860px, 1.25rem padding; cards stacked with 0.75–1rem gaps; import tiles in a 2-column grid; people grid wraps at 118px cards. Count badges: 0.72rem pill, danger bg for security, neutral for Paths.
-- Motion: single pulsing "loading" opacity animation; graph orbit + hover fade (120ms); everything disabled under `prefers-reduced-motion`.
+Typography: **Momo Trust Display Regular** at 18, 21, 24, and 26px for display/headings/brand; **Inter 400/700** for body, navigation, controls, and captions at 11, 11.5, 12, 13, 14, and 15px as specified in the screen tree.
+Shared styles use **150% line height** and zero letter spacing. Do not replace display text with bold Inter or synthesize a bold Momo face.
 
-## 5. Copy deck (exact strings)
+| Element | Observed geometry |
+|---|---|
+| Header | 76px high; 24px horizontal and 16px vertical padding |
+| Submenu | 51px or 53px high depending on state; use the specific frame |
+| Main column | 860px **outer** width, including 20px left/right padding |
+| Cards | 820px wide at x=190 in a 1200px frame; normally 20px internal padding, 8px radius |
+| Content stack | 16px gaps |
+| Standard buttons | 37px high, 8px vertical / 12px horizontal padding, 6px radius |
+| Inputs | 41px high, 10px padding, 6px radius; header search is a separate 300 x 40px pattern |
+| Standard dialogs | 640px wide, 24px padding, 10px radius, top y=164 |
+| First-run panels | 600px wide, 28px padding, top y=146 |
+| Pills / avatars | Fully rounded; use individual exported dimensions |
+| People cards | 118 x 157px, 44px initials avatar; graph person nodes are 40px diameter |
 
-- "Hyperself never asks you to journal." / "Everything arrives personal." / "Nothing left your browser."
-- Synthesis empty: "Nothing to synthesize yet" / "Add documents or link accounts in Import & Connect — uploads and linked data are managed there. Your synthesis will appear here automatically."
-- Archetypes: "Playful patterns from your data — not labels, not diagnoses." / Buttons "Confirm" · "Rename" · "Not me" · "Start a Path from this archetype".
-- Network: "You are the center. People connect through entries that mention them together. Drag to rearrange; click a person for context. The graph updates automatically as your knowledgebase grows." / Modal: "You've known each other for X years." / "Notes stay on this device, attached to this person."
-- Paths empty: "No Paths yet" / "Paths grow from your knowledgebase, and yours is empty. Import documents or link an app to begin."
-- Paths insights: "Blind spot: no {type} knowledge yet" with "Next step:" lines; "Mark as reviewed" (acknowledge); "may contain leaked data" for high findings.
-- Templates empty: "No suggested Paths yet. Hyperself suggests a Path only when you have shared related data — nothing is pushed at you before then."
-- Import ownership: "Reference (not about me)" / "They're mine, or I have the right to keep them" / "Classification is your declaration — Hyperself never claims to verify ownership."
-- Legacy export hint: "Exports shareable entries only, with a hash-verified manifest. Personal entries never leave. You'll be asked before exporting entries with high-severity findings."
-- Audio: "Upload audio" / "Recordings transcribed on-device" / "Transcribed … into N entries — find it via search (try "audio")."
-- Refusals always name the reason (no silent failures): e.g. "Nothing to export: no entries are tagged shareable.", "Recording is too short to transcribe.", "No speech was detected in that recording.", scanned PDF: no text layer.
+**All ten modal scrims are solid, opaque navy**, not translucent backdrops. Do not show dimmed underlying content through them.
+The five source tiles are not equal-sized: four **268 x 218px** tiles form a 2-by-2 block on the left; the **260 x 448px** account tile on the right spans **two rows**, with 12px gaps.
+These are desktop observations, not a delivered mobile breakpoint specification. Preserve hierarchy when implementing responsive layouts and explicitly QA mobile behavior rather than claiming mobile screens were designed.
 
-## 6. Demo data for mockups
+## 4. Screen Index
 
-Personas (demo controls) span 2006–2026 with non-linear arcs and 26–29-person networks: Maya (teacher → researcher; Bookworm), Daniel (support → founder; Book Hoarder), Rosa (carer → coordinator; Caretaker Anchor). Use these for realistic graph/profile/era-timeline frames.
+Every row is a separate Figma screen/state frame on page `0:1`. PNG filenames below share the prefix **`docs/hyperself-assets/references/`**.
+All widths are 1200px; the height column is in pixels. Use these PNGs for QA, not as runtime page backgrounds.
 
-## 7. Out of scope for this handoff
+| # | Screen / state | Node ID | Height | Reference PNG filename |
+|---|---|---|---:|---|
+| 1 | Knowledgebase / Synthesis populated | `3:49868` | 2347 | `knowledgebase-synthesis-populated.png` |
+| 2 | Knowledgebase / Network, 28 people | `3:50021` | 1644 | `knowledgebase-network-28-people.png` |
+| 3 | Network / Priya Shah dialog | `3:50302` | 1644 | `knowledgebase-network-priya-shah-dialog.png` |
+| 4 | Knowledgebase / Import & Connect | `3:50671` | 1230 | `knowledgebase-import-connect.png` |
+| 5 | Import / Linked services, simulated | `3:50767` | 1230 | `import-connect-linked-services-simulated.png` |
+| 6 | Import / Upload image preview | `3:50919` | 1230 | `import-connect-upload-image-preview.png` |
+| 7 | Import / Statement review, ready | `3:51059` | 1230 | `import-connect-statement-review-ready-to-import.png` |
+| 8 | Import / Statement imported and approved | `3:51208` | 1230 | `import-connect-statement-imported-and-approved.png` |
+| 9 | Import / Folder manifest review | `3:51337` | 1230 | `import-connect-folder-sync-manifest-review.png` |
+| 10 | Import / Audio transcribing | `3:51477` | 1230 | `import-connect-audio-whisper-transcribing.png` |
+| 11 | Import / Audio transcription complete | `3:51601` | 1230 | `import-connect-audio-on-device-transcription-complete.png` |
+| 12 | Knowledgebase + Paths / Actionable Security | `3:51735` | 900 | `knowledgebase-paths-security-shared-actionable-finding.png` |
+| 13 | Paths / Insights, saved Paths and reviews | `3:51787` | 2349 | `paths-insights-saved-paths-and-reviews.png` |
+| 14 | Paths / Relationship Rhythms, pinned | `3:51933` | 1208 | `paths-relationship-rhythms-pinned-detail.png` |
+| 15 | Paths / Finance, unpinned | `3:52011` | 1781 | `paths-finance-unpinned-detail.png` |
+| 16 | Paths / Reading Life, just started, unpinned | `3:52145` | 1200 | `paths-reading-life-just-started-unpinned.png` |
+| 17 | Paths / Templates, Reading Life suggestion | `3:52224` | 900 | `paths-templates-reading-life-suggested.png` |
+| 18 | Legacy / Knowledge pack | `3:52282` | 1277 | `legacy-export-knowledge-pack.png` |
+| 19 | Legacy / High-severity export confirmation | `3:52357` | 1277 | `legacy-export-high-severity-confirmation.png` |
+| 20 | Utility / Audio-budget search results | `3:52456` | 999 | `utility-search-audio-budget-transcripts.png` |
+| 21 | First run / Welcome, step 1 | `3:52529` | 900 | `first-run-welcome-step-1.png` |
+| 22 | First run / Privacy promise, step 2 | `3:52549` | 900 | `first-run-privacy-promise-step-2.png` |
+| 23 | First run / Knowledge sources, step 3 | `3:52576` | 919 | `first-run-knowledge-sources-step-3.png` |
+| 24 | First run / Your Paths, step 4 | `3:52616` | 900 | `first-run-your-paths-step-4.png` |
+| 25 | Vault / Create PIN | `3:52641` | 900 | `vault-create-pin-first-run.png` |
+| 26 | Vault / Optional biometric enrollment | `3:52666` | 900 | `vault-optional-biometric-enrollment-after-pin.png` |
+| 27 | Vault / Locked, unlock only | `3:52684` | 900 | `vault-locked-unlock-only.png` |
+| 28 | Synthesis / Empty | `3:52708` | 900 | `knowledgebase-synthesis-empty.png` |
+| 29 | Synthesis / Loading | `3:52742` | 900 | `knowledgebase-synthesis-loading.png` |
+| 30 | Synthesis / Local-facts fallback | `3:52780` | 2383 | `knowledgebase-synthesis-local-facts-fallback.png` |
+| 31 | Paths / Empty knowledgebase | `3:52934` | 900 | `paths-insights-empty-knowledgebase.png` |
+| 32 | Templates / No related shared data | `3:52966` | 900 | `paths-templates-no-related-shared-data.png` |
+| 33 | Security / Clear after review | `3:52997` | 900 | `knowledgebase-paths-security-clear-after-review.png` |
+| 34 | Security / Empty knowledgebase | `3:53032` | 900 | `knowledgebase-paths-security-empty-knowledgebase.png` |
+| 35 | Import / Scanned PDF refusal | `3:53067` | 1230 | `import-connect-refused-scanned-pdf-explicit-reason.png` |
 
-Native mobile (ExecuTorch stretch), Figma component library/auto-layout system, dark mode, and real account integrations (all connections are simulated and labeled as such).
+## 5. Knowledgebase Hierarchy and Demo Content
+
+### Synthesis
+
+Stack: profile card, archetype era timeline, three archetype cards, then People at the center / Care & wellbeing / Money & paperwork thematic cards.
+The profile is **Maya**, with a circular **M** initials avatar, confirmed Bookworm / Network Weaver / Deep Researcher pills, an essence paragraph, interests, and 28 key people.
+Essence: "You turn curiosity into understanding and make room for others along the way. Moving from teaching into research, you’re building a life where careful inquiry can have a wider impact."
+Interests: reading, learning sciences, community. Disclaimer: "Playful patterns from your data — not labels, not diagnoses."
+
+| Archetype | Strength | Confidence | Trend |
+|---|---:|---:|---|
+| Bookworm | 88/100 | 94/100 | steady |
+| Network Weaver | 82/100 | 89/100 | rising |
+| Deep Researcher | 79/100 | 86/100 | rising |
+
+Era content: **2006–2012** Bookworm / Early Riser; **2013–2018** Bookworm / Caretaker Anchor; **2019–2022** Network Weaver / Bookworm; **2023–2026** Deep Researcher / Network Weaver / Bookworm.
+Each archetype has meaning, "Why this fits", a strength bar, explicit strength/confidence/trend, "Watch for", and Confirm / Rename / Not me actions. Bookworm and Network Weaver show a Path-start action.
+Do not substitute internal trait-dimension scores for these visible pattern scores. Exact evidence paragraphs and thematic copy are in `data/screens.json`.
+Empty state routes to Import & Connect; loading says "Synthesizing who you are from everything you have shared…"; local-facts fallback is its own full-height reference.
+
+### Network and Person Dialog
+
+The screen contains "Your network", a user-centered graph, explanatory copy, and a wrapping grid of **28 people**, not photographic portraits.
+Graph nodes and people cards use initials; names, counts, connecting lines, timeline dots, and bars should remain structured DOM/SVG rather than flattened screenshots.
+Priya Shah has **64 entries = Calendar 28 + Documents 31 + Images 5**, a **12-year** relationship, and **24 shared moments, 2014–2026**.
+Shared connections: **Jonah Reed 12**, **Elena Rossi 8**, **Sam Okafor 5** shared entries. Do not confuse these with their whole-person entry counts.
+Dialog hierarchy: person heading and duration, entry-type pills, Relationships, You + Priya timeline, Key moments, dated Notes, and note composer.
+Key moments include meeting at Northbank School in 2014, starting the neighborhood reading group in 2019, and collaborating on the learning-sciences research proposal in 2024.
+The visible note dated 24 October 2026 says Priya mentioned her new research group at the last catch-up. Persistence and graph manipulation remain implementation work.
+
+## 6. Import & Connect States
+
+The base surface places ownership/attestation above the five source tiles, followed by "Uploads & linked sources".
+Ownership choices: Mine / Shared with me / Reference (not about me). Attestation: "They're mine, or I have the right to keep them".
+"Classification is your declaration — Hyperself never claims to verify ownership." Reference material is intended to remain searchable without feeding personal synthesis.
+Listed source examples include `october-2026.csv`, Research notes (18 local files), and Calendar (Simulated, 36 entries, "Updated 27 Oct"). These are demo labels, not supplied user documents.
+
+- Documents advertise `.md .txt .csv .html .pdf .docx .rtf .json .ics .vcf`; PDF copy specifies text-layer-only import and statement review before import.
+- Audio advertises mp3 / wav / m4a / aac / ogg / webm / flac / opus. Whisper/on-device labels express the intended processing model.
+- Folder tile describes content-hash deduplication and tombstoning removals. The delivered state is **manifest review**, not a designed finished-sync screen.
+- Linked-services dialog labels providers as **Simulated**; do not replace this with claims of authenticated live account access.
+- Image preview shows **`reading-group.jpg`** and **`conference-note.png`**, optional Priya Shah tagging, and a non-blocking possible-author/ownership mismatch warning. Both previews are vector mock document cards, not real photographs or uploaded files.
+- The Security sample instead names **`conference-receipt.png`**. This is a different filename; do not silently rename the preview or treat it as the same source.
+
+Statement review: **`october-2026.csv`, 1–29 October 2026, USD, 42 rows validated**; income **$4,200.00**, spending **$2,860.00**, net **$1,340.00**.
+Five preview rows are illustrative, not the full ledger: 01 Oct Salary / Income **+$4,200.00**; 02 Oct Rent / Housing **−$1,250.00**; 03 Oct Market / Groceries **−$86.40**; 05 Oct Rail pass / Transport **−$110.00**; 06 Oct Bookshop / Books **−$42.00**.
+"Showing 5 of 42 rows. Totals include all rows." Do not derive full totals or categories from these five rows alone.
+The subsequent approved state explicitly shows **42 imported entries approved as shareable** and the same totals; approval is not export. The initial arrival is personal.
+Folder manifest: **18 checked = 2 added + 1 changed + 1 removed + 14 unchanged**. Do not turn unchanged files into new entries.
+Audio: **`budget-conversation.m4a`, 12 min 08 sec**, transcribing **65% / 7 min 53 sec processed**; completed state shows **8.4 MB**, full 12:08 processed, and **6 entries**.
+Search has **3 transcript results** dated 27 October 2026, with ranges **00:42–01:18**, **04:10–05:02**, **09:25–10:04**. Six generated entries do not mean six visible search matches.
+Scanned-PDF refusal: "archive-scan.pdf has no text layer. Scanned PDFs cannot be imported as documents." Preserve an explicit refusal reason, not a generic success toast.
+There is no designed generic completed-upload state, finished folder-sync state, or real fixture upload file in the exported bundle.
+
+## 7. Paths and Security
+
+Insights hierarchy: Your Paths saved cards; archetype-lensed/pinned insight grouping; high-severity, freshness, coverage, shareable-exposure, and finance observations; acknowledged content with Undo.
+Saved Relationship Rhythms is pinned; Finance is saved but unpinned. Reading Life begins as a template suggestion, then becomes saved **unpinned**, leaving only Relationship Rhythms as a pinned subtab.
+Actions such as Open / Pin / Unpin / Delete / Expound / Mark as reviewed are designed affordances, not tested persistence or routing.
+Original product rule: Finance must be hidden from cards, tabs, and counts until relevant approved financial data exists, without deleting the saved Path. This gating is an **engineering requirement**, not demonstrated by the populated Finance state alone.
+Templates show related-data readiness and Start; the no-related-data screen avoids premature suggestions. Custom saved-ask Paths and a rename workflow are not separately designed.
+
+Relationship Rhythms shows recent mentions (Priya 28 Oct / 64 entries; Jonah 26 Oct / 62; Elena 24 Oct / 60; Sam 21 Oct / 58), a "Gone quiet · 90+ days" group, and descriptive observations.
+Missing mentions do not prove a relationship changed or ended. The screen explicitly says calendar coverage ends in June while documents continue through October.
+
+Finance uses the same October statement as import: income **$4,200**, spending **$2,860**, net **$1,340**, **41 outgoing transactions / 42 total entries**.
+Categories: **Housing $1,250; Groceries $520; Transport $310; Dining $240; Other $200; Utilities $180; Books $160**. Their sum is **$2,860**.
+Monthly spending: **August $2,640 / September $2,780 / October $2,860**. Recurring costs: **Rent $1,250 + Internet $55 + Streaming $15 = $1,320/month**; these are part of spending, not extra spending.
+Observations include housing at 44% and increases of $80 versus September / $220 versus August. This is descriptive sample material, not financial advice or a complete financial picture.
+Reading Life: **18 finished + 7 collected = 25 signals**, balance **72% / 28%**; finished reading, collected titles, and interpretation follow. Keep the newly saved state unpinned.
+
+Security is a shared Knowledgebase/Paths destination with one high-severity sample image finding, review guidance, and local-check caveats.
+The `conference-receipt.png` sample may contain a home address and account identifier; the copy explicitly says this is **not a confirmed exposure**.
+Clear-after-review and empty-knowledgebase states are distinct; the latter should direct users toward adding knowledge, not imply actual scanning has occurred.
+Preserve uncertainty and supportive, non-diagnostic language. Security status must not be presented as proof that data left the device.
+
+**Known copy discrepancy:** Synthesis / Care & wellbeing mentions "Recent calendar records" and protected time; Insights and Relationship Rhythms say the latest calendar entry is June 2026.
+Keep the inspected text for fidelity and flag the discrepancy for product review; do not silently invent newer events. Calendar's **"Updated 27 Oct"** source badge concerns source/import updating, not the freshness of event dates.
+
+## 8. Legacy, First Run, and Vault
+
+Legacy stacks Export knowledge pack, Import knowledge pack, and Ask this pack. Author **Maya**, version **1.0.0**, **184 shareable entries**, and **1 high-severity finding** are the illustrated export values.
+Intended export scope is **184 shareable / 0 personal entries**; a high-severity confirmation state precedes export. Hash verification and filtering require runtime tests, not just matching labels.
+Import example: `maya-research-pack-1.0.0.hyperself`; "Verified"; pack ID **`maya-research-2026`**, version **1.0.0**, author **Maya**, **24 entries imported**.
+Question: "What did Maya research in 2024?" The example answer describes learning sciences, collaborative reading, and classroom discussion. **Ask this pack must use imported pack entries only**, not the owner's wider vault.
+
+First run has four distinct panels: Welcome/name, Privacy promise, Knowledge sources, Your Paths. Sources offers Scan my accounts / Link all found / Load Maya persona with simulated-source status.
+Privacy copy includes "Everything arrives personal." and "Nothing left your browser." These are product promises to implement and validate, not verified outcomes of this handoff.
+Vault has three separate states: create a PIN of at least six digits with confirmation; optional biometric enrollment after PIN; locked/unlock-only surface without visible personal workspace data.
+Vault copy names PBKDF2-protected AES-GCM keys, local credential-based biometric unlocking, no stored fingerprint/face data, and unrecoverability without PIN or enrolled biometrics. The design does not prove these mechanisms work.
+
+## 9. Assets and Runtime Usage
+
+**There are no real raster image fills anywhere in the inspected screens and no photographs.** Use CSS/DOM initials avatars; do not invent stock photos or real document uploads.
+Graphs, timelines, category bars, progress, and balance visuals should be dynamic DOM/SVG. A reference PNG is not an interactive chart or a runtime background.
+Brand usage is the plain Hyperself wordmark. Design-system scratch logo studies and its `CODE_INSTANCE` are not used by the screens and are excluded from runtime assets.
+
+| Bundle item | Use |
+|---|---|
+| `icons/*.svg` | Exported UI icons; use manifest dimensions and source mapping |
+| `artwork/reading-group-preview.svg` | 290 x 145 vector mock thumbnail for `reading-group.jpg` |
+| `artwork/conference-note-preview.svg` | 290 x 145 vector mock thumbnail for `conference-note.png` |
+| `artwork/hyperself-wordmark.svg` | 104 x 32 outlined-text wordmark; no font dependency inside this SVG |
+| `references/*.png` | All 35 desktop-state QA references, not runtime UI |
+| `tokens.css` | Resolved light-mode color, spacing, radius, and font-family tokens |
+| `fonts/fonts.css` and local WOFF2 files | Self-hosted fonts; CSS URLs resolve relative to this directory |
+| `data/*.json`, `manifest.json` | Build/reference metadata and provenance, not live vault data |
+
+Base icon names: `file-text`, `audio-lines`, `folder-sync`, `image`, `link`, `search`, `square-check`, `circle-check`, `x`, `pin`, `fingerprint`, `shield-check`, `route`, `files`, `lock-keyhole`, `image-up`, `calendar-days`, `mail`, `folder`, `star`.
+Use `icons/<name>.svg` for the base export. For additional fingerprint sizes or other variants, resolve the actual path through the manifest; do not hardcode a total SVG count or hash-suffixed filenames.
+SVG colors are baked into exported fill/stroke attributes. CSS `color` on an `<img>` does **not** recolor them. Preserve exported colors by default; if inlining for controlled recoloring, update attributes intentionally and namespace clip/mask IDs to avoid collisions between repeated SVGs.
+
+Font delivery includes **Inter Latin variable 400–700** and **Momo Trust Display Regular Latin WOFF2**, `fonts.css`, and OFL license files. Fonts are downloaded from public Google Fonts, **not extracted from Figma**.
+Exact download URLs and checksums are in `data/fonts.json`; matching family names does not establish identical font-binary versions to those used by Figma.
+Keep the supplied licenses with redistributed fonts. These are Latin subsets; additional languages require appropriately licensed extra subsets and glyph-coverage testing. Do not assume full multilingual coverage.
+Copy `docs/hyperself-assets/` unchanged to the site's `public/assets/hyperself/` directory so relative font filenames continue to resolve. Serve the files locally rather than relying on Google Fonts at runtime.
+
+```html
+<link rel="stylesheet" href="/assets/hyperself/tokens.css">
+<link rel="stylesheet" href="/assets/hyperself/fonts/fonts.css">
+<img src="/assets/hyperself/artwork/hyperself-wordmark.svg"
+     width="104" height="32" alt="Hyperself">
+<button type="button">
+  <img src="/assets/hyperself/icons/file-text.svg" width="24" height="24" alt="">
+  Upload documents
+</button>
+```
+
+```css
+body { font-family: var(--font-body); font-weight: 400; line-height: 1.5; color: var(--text-primary); }
+h1, h2, h3, .display { font-family: var(--font-display); font-weight: 400; line-height: 1.5; }
+button, input, textarea { font-family: var(--font-body); }
+.strong { font-weight: 700; }
+```
+
+Use actual text for accessible control labels and meaningful alt text for informative thumbnails; decorative icons get empty alt text. Set heading sizes per screen rather than inheriting browser defaults.
+If an offline core loop is required, include the local fonts, SVGs, CSS, and required application code/model assets in the offline caching strategy and test cold/warm offline behavior. Exporting assets alone does not supply this.
+The JSON and PNG references contain **sample personal data**. They are build references, not a user's vault: never auto-import or autoload them into real workspaces. Production fixture handling must be explicit.
+
+## 10. Export Maintenance and Engineering Boundaries
+
+Within an **authenticated Figma workspace**, the exporter workflow is:
+
+```sh
+node docs/export-hyperself-assets.mjs inventory
+node docs/export-hyperself-assets.mjs assets
+node docs/export-hyperself-assets.mjs references
+node docs/export-hyperself-assets.mjs fonts
+node docs/export-hyperself-assets.mjs all
+```
+
+Use the updated exporter that includes `fonts` mode for font delivery. These are export/build-maintenance commands, not an ordinary site's installation or runtime dependency.
+Reference exports currently **skip existing PNG files**. A rerun is not proof that cached images reflect current Figma; remove the relevant old reference PNGs before requesting fresh snapshots. Do not assume a `--refresh` option exists.
+After changes, reconcile screen inventory, reference dimensions/paths, resolved tokens, asset/font manifests, and this handoff. Consult manifests instead of copying stale hashes or variant suffixes into code.
+
+Preserved original product requirements, **not observed implemented guarantees**: personal-by-default ingestion; explicit shareable approval; no personal exports; reference ownership excluded from self-inference; local OCR/transcription/inference; hash dedupe/tombstones; pack verification and pack-only answers; encrypted local vault and genuine biometric key unwrapping; locked-state data suppression; offline PWA operation.
+Also intended: keyboard/overlay dialog closing, persistent notes and Path changes, drag/hover graph behavior, reduced-motion support, replayable/skippable onboarding with returning-workspace suppression, and explicit failure reasons. Exports do not establish any of these interactions.
+The earlier implementation ideas (D3 graph/orbit, Whisper, Tesseract.js, WebAuthn PRF, service-worker caching, persona/demo controls) require engineering validation and are not claims that dependencies or backend systems are present.
+No separate design is delivered for custom Path creation, archetype rename results, completed generic upload, finished folder sync, or mobile breakpoints. Do not invent those states while calling them inspected Figma.
+Real account integrations, native mobile, dark mode, and runtime security/privacy verification are outside the observed design delivery. The current Figma **does** have local linked components, variables, and shared text styles; the old claim that a Figma component system was out of scope is obsolete.
