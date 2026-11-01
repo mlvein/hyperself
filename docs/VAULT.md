@@ -15,3 +15,7 @@ Status: implemented. Goal: sensitive documents (bank statements, health results)
 - Forgotten PIN + no biometrics = unrecoverable vault by design; say this out loud in the demo, it is the trust story.
 - Store writes encrypt asynchronously after unlock; reads come from the unlocked in-memory copy.
 - Tests: `tests/vault.test.cjs` covers PIN wrap/unwrap, ciphertext opacity, wrong-PIN failure. The WebAuthn ceremony itself needs a real browser + authenticator to verify.
+
+## Personal backup (user-held)
+
+Legacy → “Personal backup” exports the whole database (personal entries included) as one JSON file whose payload is AES-GCM encrypted with a **backup passphrase** (PBKDF2, 210k iterations — `app/src/backup.ts`). The passphrase is deliberately independent of the vault PIN: a lost PIN or a new device does not lose the archive, and a lost backup passphrase loses only the backup. Restore decrypts, validates, and replaces the workspace wholesale; restored entries are marked `pending` so vectors re-index on the new device. Wrong passphrases fail closed and change nothing. Covered by `tests/backup.test.cjs` (no plaintext in file, wrong-pass no-op, restore replaces).

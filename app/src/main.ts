@@ -32,6 +32,7 @@ import {
   setArchetypePreference,
 } from './store';
 import { PackError, exportPackText, importPackText } from './pack';
+import { createBackup, restoreBackup } from './backup';
 import { StubEngine, cleanDraftText, initLocalEngine, isPromptLeak, loadGlimmerConfig, probeGlimmer, saveGlimmerConfig, type LocalEngine } from './engine';
 import { embedEntry, embedText, hydrateVectors, loadVectors } from './embeddings';
 import { hashContent, ingestDoc } from './ingest';
@@ -1162,6 +1163,57 @@ el('importBtn').addEventListener('click', () => {
         err instanceof PackError || err instanceof StoreError ? err.message : 'Import failed.';
     }
   })();
+});
+
+// --- Personal backup (encrypted, user-held; see backup.ts) ---
+el('backupExportBtn').addEventListener('click', () => {
+  const note = el('backupNote');
+  const passphrase = prompt('Choose a backup passphrase (at least 8 characters). It is separate from your vault PIN — there is no recovery if you lose it.');
+  if (passphrase === null) return;
+  const again = prompt('Repeat the backup passphrase.');
+  if (again === null) return;
+  if (again !== passphrase) {
+    note.textContent = 'Passphrases did not match. Nothing was exported.';
+    return;
+  }
+  void createBackup(passphrase)
+    .then(({ filename, text }) => {
+      const url = URL.createObjectURL(new Blob([text], { type: 'application/json' }));
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      a.click();
+      setTimeout(() => URL.revokeObjectURL(url), 5000);
+      note.textContent = `Backup saved as ${filename}. Keep it somewhere safe — it holds your whole knowledgebase, encrypted.`;
+    })
+    .catch((err) => {
+      note.textContent = err instanceof StoreError ? err.message : 'Backup failed.';
+    });
+});
+
+el('backupImportBtn').addEventListener('click', () => {
+  el<HTMLInputElement>('backupFileInput').click();
+});
+
+el<HTMLInputElement>('backupFileInput').addEventListener('change', () => {
+  const input = el<HTMLInputElement>('backupFileInput');
+  const file = input.files?.[0];
+  input.value = '';
+  if (!file) return;
+  const note = el('backupNote');
+  if (!confirm('Restore this backup? It replaces everything currently in this workspace.')) return;
+  const passphrase = prompt('Enter the backup passphrase.');
+  if (passphrase === null) return;
+  void file
+    .text()
+    .then((text) => restoreBackup(text, passphrase))
+    .then(({ entries }) => {
+      note.textContent = `Backup restored: ${entries} entries. Vectors will re-index in the background.`;
+      renderAll();
+    })
+    .catch((err) => {
+      note.textContent = err instanceof StoreError ? err.message : 'Restore failed. Nothing was changed.';
+    });
 });
 
 el('packAskBtn').addEventListener('click', () => {

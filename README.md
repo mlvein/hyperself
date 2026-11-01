@@ -29,6 +29,7 @@ Most personal data is fragmented across documents, statements, journals, calenda
 ### Legacy
 
 Export a hash-verified knowledge pack of shareable entries only, import packs from others, and ask questions answered on-device from pack entries alone. Personal entries can never enter a pack.
+- **Personal backup**: export your whole knowledgebase (personal included) as one file encrypted with its own backup passphrase — separate from your vault PIN, so a lost PIN or new device does not lose your archive — and restore it wholesale on any install.
 
 ### Trust model
 

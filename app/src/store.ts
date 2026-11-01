@@ -584,6 +584,27 @@ export function clearArchetypePreference(id: string): Record<string, ArchetypePr
   return { ...db.archetypePrefs };
 }
 
+/** Deep-copied snapshot of the whole database (personal backup export). */
+export function exportDatabase(): DB {
+  return JSON.parse(JSON.stringify(load())) as DB;
+}
+
+/**
+ * Replace the whole database from a restored backup. Vectors are dropped
+ * and entries marked pending so background indexing rebuilds them for the
+ * restored ids on this device.
+ */
+export function importDatabase(raw: unknown): void {
+  const candidate = raw as Partial<DB> | null;
+  if (!candidate || !Array.isArray(candidate.entries)) {
+    throw new StoreError('Backup does not contain a Hyperself database.');
+  }
+  const db = normalizeDb(candidate);
+  for (const e of db.entries) e.embedding_status = 'pending';
+  for (const e of load().entries) dropVector(e.id);
+  save(db);
+}
+
 // --- Pack import ---
 
 export function insertImported(payloads: PackEntryPayload[], packId: string): number {

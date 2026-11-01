@@ -255,6 +255,16 @@ OLLAMA_ORIGINS=http://localhost:5173 ollama serve</pre>
           <pre id="packLog" class="log" aria-live="polite"></pre>
         </div>
         <div class="card">
+          <h2>Personal backup</h2>
+          <p class="hint">Your whole knowledgebase — personal entries included — in one encrypted file only you can open. Use a backup passphrase you will remember: it is separate from your vault PIN, and there is no recovery if it is lost. Restoring replaces everything currently in this workspace.</p>
+          <div class="row">
+            <button type="button" id="backupExportBtn">Export encrypted backup</button>
+            <button type="button" id="backupImportBtn" class="small">Restore from backup…</button>
+            <input type="file" id="backupFileInput" accept="application/json,.json" hidden />
+          </div>
+          <p id="backupNote" class="hint" aria-live="polite"></p>
+        </div>
+        <div class="card">
           <h2>Ask this pack</h2>
           <p class="hint">Answers come from imported pack entries only, via the on-device engine.</p>
           <label>Question <input id="packAskInput" placeholder="What does this pack say about onboarding?" /></label>
