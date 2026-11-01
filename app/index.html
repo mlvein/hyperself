@@ -237,6 +237,40 @@ OLLAMA_ORIGINS=http://localhost:5173 ollama serve</pre>
           <div id="sub-path-detail" hidden>
             <div id="budgetDetail"></div>
             <p class="hint">Pinned Paths live in the Paths sub-menu above. Unpin from Your Paths to remove a subtab.</p>
+            <div class="card" id="augmentedCard" hidden>
+              <h2>Augmented Path <span class="meta">paid · online · optional</span></h2>
+              <p class="hint">Frontier online reasoning over how you learn and research. Only a derived pattern profile is sent — counts and pattern labels, no entries, names, or text — only when you approve the exact payload. This profile describes your patterns; it is minimized, not anonymous.</p>
+              <div class="row">
+                <label>Provider endpoint
+                  <input type="text" id="augEndpoint" size="30" spellcheck="false" />
+                </label>
+                <label>Model
+                  <input type="text" id="augModel" size="16" spellcheck="false" />
+                </label>
+              </div>
+              <div class="row">
+                <label>Your provider API key
+                  <input type="password" id="augKey" size="28" spellcheck="false" autocomplete="off" />
+                </label>
+                <label class="hint"><input type="checkbox" id="augRemember" /> Remember for this session</label>
+                <button type="button" id="augSaveKeyBtn" class="small">Save key</button>
+                <button type="button" id="augRevokeBtn" class="small">Revoke consent &amp; forget key</button>
+              </div>
+              <p id="augKeyStatus" class="hint" aria-live="polite"></p>
+              <div class="row">
+                <button type="button" id="augPreviewBtn">Preview &amp; send…</button>
+              </div>
+              <div id="augConsent" hidden>
+                <p class="hint">Exactly this will be sent to <strong id="augDestHost"></strong>. Nothing else.</p>
+                <pre id="augPayloadPreview"></pre>
+                <div class="row">
+                  <button type="button" id="augSendBtn">Send approved payload</button>
+                  <button type="button" id="augCancelBtn" class="small">Cancel</button>
+                </div>
+              </div>
+              <p id="augStatus" class="hint" aria-live="polite"></p>
+              <div id="augResult"></div>
+            </div>
           </div>
           <div id="sub-security-paths" hidden>
             <p class="hint">Actionable security insights from your uploaded knowledge — scanned locally, nothing leaves your browser.</p>

@@ -33,6 +33,19 @@ import {
 } from './store';
 import { PackError, exportPackText, importPackText } from './pack';
 import { createBackup, restoreBackup } from './backup';
+import {
+  DEFAULT_AUGMENTED_CONFIG,
+  buildDerivedProfile,
+  getAugmentedKey,
+  hostOf,
+  isAllowedHost,
+  isAugmentableAsk,
+  recordConsent,
+  revokeAugmented,
+  sendAugmented,
+  setAugmentedKey,
+  type DerivedLearningProfile,
+} from './augmented';
 import { StubEngine, cleanDraftText, initLocalEngine, isPromptLeak, loadGlimmerConfig, probeGlimmer, saveGlimmerConfig, type LocalEngine } from './engine';
 import { embedEntry, embedText, hydrateVectors, loadVectors } from './embeddings';
 import { hashContent, ingestDoc } from './ingest';
@@ -1513,8 +1526,118 @@ function renderHealthDetail(pathId: string): void {
   </article>`;
 }
 
+const AUG_RESULTS_KEY = 'hyperself.augmented.results.v1';
+let augmentedPathId: string | null = null;
+let augmentedPreview: { profile: DerivedLearningProfile; bytes: string } | null = null;
+
+function loadAugResults(): Record<string, { text: string; model: string; at: string }> {
+  try {
+    return JSON.parse(localStorage.getItem(AUG_RESULTS_KEY) ?? '{}') as Record<string, { text: string; model: string; at: string }>;
+  } catch {
+    return {};
+  }
+}
+
+function renderAugmented(pathId: string): void {
+  augmentedPathId = pathId;
+  const path = listSavedPaths().find((x) => x.id === pathId);
+  const card = el('augmentedCard');
+  if (!path) {
+    card.hidden = true;
+    return;
+  }
+  const eligible = isAugmentableAsk(`${path.name} ${path.query}`);
+  card.hidden = !eligible;
+  if (!eligible) return;
+  el<HTMLInputElement>('augEndpoint').value = DEFAULT_AUGMENTED_CONFIG.endpoint;
+  el<HTMLInputElement>('augModel').value = DEFAULT_AUGMENTED_CONFIG.model;
+  el('augKeyStatus').textContent = getAugmentedKey()
+    ? 'Key saved for this session. It never leaves this device except to call your provider.'
+    : 'No key saved yet. Your key stays on this device (session only).';
+  el('augConsent').hidden = true;
+  augmentedPreview = null;
+  const saved = loadAugResults()[pathId];
+  el('augResult').innerHTML = saved
+    ? `<article class="item"><header><h3>Augmented · inference</h3><span class="meta">${escapeHtml(saved.model)} · ${escapeHtml(saved.at.slice(0, 10))}</span></header><p>${escapeHtml(saved.text)}</p><p class="meta">Generated online from your derived pattern profile. Stored only on this device; never in packs.</p></article>`
+    : '';
+  el('augStatus').textContent = '';
+}
+
+el('augSaveKeyBtn').addEventListener('click', () => {
+  const key = el<HTMLInputElement>('augKey').value;
+  setAugmentedKey(key, el<HTMLInputElement>('augRemember').checked);
+  el<HTMLInputElement>('augKey').value = '';
+  el('augKeyStatus').textContent = getAugmentedKey()
+    ? 'Key saved for this session.'
+    : 'Enter a provider API key first.';
+});
+
+el('augRevokeBtn').addEventListener('click', () => {
+  revokeAugmented();
+  el('augKeyStatus').textContent = 'Consent revoked and key forgotten. Augmented Paths are off.';
+  el('augConsent').hidden = true;
+  augmentedPreview = null;
+});
+
+el('augPreviewBtn').addEventListener('click', () => {
+  const status = el('augStatus');
+  const path = listSavedPaths().find((x) => x.id === augmentedPathId);
+  if (!path) return;
+  try {
+    const profile = buildDerivedProfile(
+      listEntries(),
+      visibleArchetypes(),
+      getArchetypePreferences(),
+      path.query,
+      pathDisplayName(path),
+    );
+    augmentedPreview = { profile, bytes: JSON.stringify(profile, null, 2) };
+    const endpoint = el<HTMLInputElement>('augEndpoint').value.trim() || DEFAULT_AUGMENTED_CONFIG.endpoint;
+    el('augDestHost').textContent = hostOf(endpoint) || endpoint;
+    el('augPayloadPreview').textContent = augmentedPreview.bytes;
+    el('augConsent').hidden = false;
+    status.textContent = isAllowedHost(endpoint)
+      ? 'Review the exact payload, then send.'
+      : `Note: ${hostOf(endpoint)} is not on the allowlist — sending records your explicit consent for this host.`;
+  } catch (err) {
+    status.textContent = err instanceof StoreError ? err.message : 'Could not build the derived profile.';
+  }
+});
+
+el('augCancelBtn').addEventListener('click', () => {
+  el('augConsent').hidden = true;
+  augmentedPreview = null;
+  el('augStatus').textContent = 'Cancelled — nothing was sent.';
+});
+
+el('augSendBtn').addEventListener('click', () => {
+  const status = el('augStatus');
+  if (!augmentedPreview || !augmentedPathId) return;
+  const endpoint = el<HTMLInputElement>('augEndpoint').value.trim() || DEFAULT_AUGMENTED_CONFIG.endpoint;
+  const model = el<HTMLInputElement>('augModel').value.trim() || DEFAULT_AUGMENTED_CONFIG.model;
+  status.textContent = 'Sending the approved profile…';
+  void sendAugmented(augmentedPreview.profile, { endpoint, model })
+    .then(({ text, payloadBytes }) => {
+      if (augmentedPreview && payloadBytes !== JSON.stringify(augmentedPreview.profile)) {
+        throw new StoreError('Payload changed after preview. Nothing was stored.');
+      }
+      recordConsent(endpoint);
+      const results = loadAugResults();
+      results[augmentedPathId!] = { text, model, at: new Date().toISOString() };
+      localStorage.setItem(AUG_RESULTS_KEY, JSON.stringify(results));
+      el('augConsent').hidden = true;
+      status.textContent = 'Augmented reply received and stored on this device only.';
+      renderAugmented(augmentedPathId!);
+      el('augStatus').textContent = 'Augmented reply received and stored on this device only.';
+    })
+    .catch((err) => {
+      status.textContent = err instanceof StoreError ? err.message : 'Augmented send failed. Nothing was stored.';
+    });
+});
+
 function renderTemplateDetail(pathId: string): void {
   const path = listSavedPaths().find((x) => x.id === pathId);
+  renderAugmented(pathId);
   if (!path) { el('budgetDetail').innerHTML = ''; return; }
   if (path.templateId === 'budgeting') renderBudgetDetail(pathId);
   else if (path.templateId === 'health') renderHealthDetail(pathId);

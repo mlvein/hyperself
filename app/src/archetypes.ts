@@ -318,6 +318,11 @@ export const LEGACY_ARCHETYPE_IDS: Record<string, string> = {
   'curiosity-cabinet': 'skill-collector',
 };
 
+/** Platform label for an archetype id (never a user-renamed custom label). */
+export function platformArchetypeLabel(id: string): string | undefined {
+  return RULES.find((r) => r.id === id)?.label;
+}
+
 /** Apply the user's final say: confirmed, renamed, or dismissed ("not me"). */
 export function applyArchetypePreferences(
   archetypes: Archetype[],
