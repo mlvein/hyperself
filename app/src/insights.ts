@@ -181,6 +181,25 @@ export function unacknowledge(id: string): void {
   savePathsState(state);
 }
 
+/**
+ * Reopen entry-scoped acknowledgments when the underlying entry changes
+ * (tag, people, deletion): a reviewed stale/security note must not stay
+ * reviewed after the entry it describes has moved. Archetype-lens and
+ * aggregate insights are not entry-scoped and are left alone.
+ */
+export function reopenInsightsForEntry(entryId: string): number {
+  const state = loadPathsState();
+  let cleared = 0;
+  for (const key of [`stale:${entryId}`, `sec:${entryId}`]) {
+    if (key in state.acked) {
+      delete state.acked[key];
+      cleared += 1;
+    }
+  }
+  if (cleared) savePathsState(state);
+  return cleared;
+}
+
 export function dismissInsight(id: string): void {
   const state = loadPathsState();
   state.dismissed[id] = new Date().toISOString();

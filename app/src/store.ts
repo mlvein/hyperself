@@ -4,6 +4,7 @@
 // Prototype pivot: no manual journaling. createEntry serves ingestion paths
 // (uploads, simulated connections, persona loader); the Library curates.
 import { dropVector } from './embeddings';
+import { reopenInsightsForEntry } from './insights';
 import { DB_FILE, VECTORS_FILE, decodeEnvelope, encodeEnvelope, isOpfsAvailable, opfsRead, opfsRemove, opfsWrite } from './opfs';
 import type {
   CheckIn,
@@ -316,6 +317,7 @@ export function setEntryTag(id: string, tag: Tag, actor: 'user' | 'import' = 'us
   entry.tag_history.push({ tag, at: now(), actor });
   entry.updated_at = now();
   save(db);
+  reopenInsightsForEntry(id);
   return entry;
 }
 
@@ -354,6 +356,7 @@ export function deleteEntry(id: string): void {
   entry.deleted_at = now();
   save(db);
   dropVector(id);
+  reopenInsightsForEntry(id);
 }
 
 export function setEmbeddingStatus(
@@ -478,6 +481,7 @@ export function addPersonToEntry(id: string, name: string): Entry {
   entry.people = normalizePeople([...(entry.people ?? []), name]);
   entry.updated_at = now();
   save(db);
+  reopenInsightsForEntry(id);
   return entry;
 }
 
@@ -488,6 +492,7 @@ export function removePersonFromEntry(id: string, name: string): Entry {
   entry.people = (entry.people ?? []).filter((p) => p !== name);
   entry.updated_at = now();
   save(db);
+  reopenInsightsForEntry(id);
   return entry;
 }
 

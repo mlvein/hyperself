@@ -80,6 +80,30 @@ assert.ok(loadPathsState().acked['sec:y'], 'acknowledge records a timestamp');
 unacknowledge('sec:y');
 assert.ok(!('sec:y' in loadPathsState().acked), 'unacknowledge clears');
 
+// --- ack reopening: entry-scoped acks clear when the entry changes ---
+{
+  const store = require('../.test-compiled/store.js');
+  const { reopenInsightsForEntry } = require('../.test-compiled/insights.js');
+  store.clearAll();
+  const entry = store.createEntry({ title: 'Old note', type: 'finding', body: 'A note that will go stale.' });
+  acknowledge(`stale:${entry.id}`);
+  acknowledge(`sec:${entry.id}`);
+  acknowledge('arc-lens:keeper-of-threads');
+  assert.equal(reopenInsightsForEntry(entry.id), 2, 'both entry-scoped acks reopen');
+  assert.ok(!(`stale:${entry.id}` in loadPathsState().acked), 'stale ack cleared');
+  assert.ok('arc-lens:keeper-of-threads' in loadPathsState().acked, 'archetype-lens ack untouched');
+  assert.equal(reopenInsightsForEntry(entry.id), 0, 'reopen is idempotent');
+
+  acknowledge(`sec:${entry.id}`);
+  store.setEntryTag(entry.id, 'shareable');
+  assert.ok(!(`sec:${entry.id}` in loadPathsState().acked), 'tag change reopens the security ack');
+  acknowledge(`stale:${entry.id}`);
+  store.addPersonToEntry(entry.id, 'Ana Reyes');
+  assert.ok(!(`stale:${entry.id}` in loadPathsState().acked), 'people change reopens the stale ack');
+  unacknowledge('arc-lens:keeper-of-threads');
+  console.log('paths reopen OK: entry edits reopen entry-scoped acks only');
+}
+
 dismissInsight('stale:z');
 assert.ok(loadPathsState().dismissed['stale:z'], 'dismiss records a timestamp');
 undismissInsight('stale:z');
