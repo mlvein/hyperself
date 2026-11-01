@@ -28,11 +28,12 @@ import {
   setSavedPathPinned,
   clearArchetypePreference,
   getArchetypePreferences,
+  hydrateStore,
   setArchetypePreference,
 } from './store';
 import { PackError, exportPackText, importPackText } from './pack';
 import { StubEngine, cleanDraftText, initLocalEngine, isPromptLeak, loadGlimmerConfig, probeGlimmer, saveGlimmerConfig, type LocalEngine } from './engine';
-import { embedEntry, embedText, loadVectors } from './embeddings';
+import { embedEntry, embedText, hydrateVectors, loadVectors } from './embeddings';
 import { hashContent, ingestDoc } from './ingest';
 import { diffFolder, isSyncablePath, nextManifest } from './foldersync';
 import { isHtmlFilename, parseJournalHtml } from './html';
@@ -2061,6 +2062,11 @@ for (const listId of ['securityList', 'pathsSecurityList']) {
     showSub('paths', 'insights');
   });
 }
+
+// --- Storage hydration: OPFS wins, localStorage migrates (see opfs.ts) ---
+void Promise.all([hydrateStore(), hydrateVectors()]).then(() => {
+  if (el('lockOverlay').hidden) renderAll();
+});
 
 // --- Vault gate: nothing renders user data until unlock ---
 let pendingVaultKey: CryptoKey | null = null;

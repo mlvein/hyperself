@@ -96,7 +96,7 @@ Import rules: verify every hash before indexing; imports arrive tagged `shareabl
 - SQLite with SQLCipher (encrypted at rest, key in platform keystore) for entries, goals, check-ins, skills.
 - Sidecar vector store (sqlite-vec or platform equivalent) for local embeddings; vectors keyed by entry id, tag-checked on every read.
 - No server database in MVP. Cloud calls are stateless (see router policy).
-- Vectors (implemented): `Xenova/all-MiniLM-L6-v2` embeddings computed on-device, stored in a localStorage sidecar keyed by entry id (`hyperself.vectors.v1`), deleted with their entry, never serialized for network. `embedding_status` transitions `pending → indexed` after embedding; re-index is user-triggered from the Library overview. Known limit: localStorage capacity — OPFS/SQLite migration is the follow-up.
+- Vectors (implemented): `Xenova/all-MiniLM-L6-v2` embeddings computed on-device, stored in an OPFS sidecar file keyed by entry id (localStorage `hyperself.vectors.v1` is the fallback and migration source), deleted with their entry, never serialized for network. `embedding_status` transitions `pending → indexed` after embedding; re-index is user-triggered from the Library overview. The app database likewise persists to OPFS (`src/opfs.ts`, `src/store.ts` `hydrateStore`) with vault sealing unchanged — OPFS changes where bytes live, never whether they are encrypted. SQLite remains a possible future step behind the same in-memory store facade.
 
 ## Open questions (decide before code)
 

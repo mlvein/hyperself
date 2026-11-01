@@ -1,7 +1,7 @@
 // Local embeddings (Transformers.js). Vectors are computed on-device and
-// persisted in localStorage keyed by entry id; they inherit the entry's tag
-// boundary by never leaving the browser. The model download is the only
-// network touch, and it carries no user data.
+// persisted in OPFS keyed by entry id (localStorage fallback/migration
+// source); they inherit the entry's tag boundary by never leaving the
+// browser. The model download is the only network touch, no user data.
 
 export const EMBEDDING_MODEL_ID = 'Xenova/all-MiniLM-L6-v2';
 export const EMBEDDING_DIMS = 384;
@@ -23,7 +23,13 @@ export function cosineSimilarity(a: ArrayLike<number>, b: ArrayLike<number>): nu
   return dot / (Math.sqrt(na) * Math.sqrt(nb));
 }
 
-export function loadVectors(): Record<string, number[]> {
+let vectorsCache: Record<string, number[]> | null = null;
+let vectorsOpfs = false;
+let vectorsDirty = false;
+let vectorsHydrated = false;
+let vectorPersist: Promise<void> = Promise.resolve();
+
+function readLocalVectors(): Record<string, number[]> {
   try {
     const raw = localStorage.getItem(VECTOR_KEY);
     if (!raw) return {};
@@ -34,7 +40,45 @@ export function loadVectors(): Record<string, number[]> {
   }
 }
 
+export function loadVectors(): Record<string, number[]> {
+  if (!vectorsCache) vectorsCache = readLocalVectors();
+  return vectorsCache;
+}
+
+/** One-time startup hydration from OPFS (see opfs.ts); localStorage migrates. */
+export async function hydrateVectors(): Promise<void> {
+  if (vectorsHydrated) return;
+  vectorsHydrated = true;
+  const { VECTORS_FILE, isOpfsAvailable, opfsRead } = await import('./opfs');
+  if (!isOpfsAvailable()) return;
+  const raw = await opfsRead(VECTORS_FILE);
+  if (raw) {
+    try {
+      const parsed = JSON.parse(raw) as Record<string, number[]>;
+      if (parsed && typeof parsed === 'object' && !vectorsDirty) vectorsCache = parsed;
+    } catch {
+      // Corrupt sidecar: keep whatever local state exists.
+    }
+  }
+  vectorsOpfs = true;
+  if (vectorsCache && Object.keys(vectorsCache).length > 0) saveVectors(vectorsCache);
+}
+
 function saveVectors(vectors: Record<string, number[]>): void {
+  vectorsCache = vectors;
+  vectorsDirty = true;
+  if (vectorsOpfs) {
+    const text = JSON.stringify(vectors);
+    vectorPersist = vectorPersist
+      .then(async () => {
+        const { VECTORS_FILE, opfsWrite } = await import('./opfs');
+        if (await opfsWrite(VECTORS_FILE, text)) {
+          try { localStorage.removeItem(VECTOR_KEY); } catch { /* ignore */ }
+        }
+      })
+      .catch(() => undefined);
+    return;
+  }
   try {
     localStorage.setItem(VECTOR_KEY, JSON.stringify(vectors));
   } catch {

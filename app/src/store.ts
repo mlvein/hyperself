@@ -4,6 +4,7 @@
 // Prototype pivot: no manual journaling. createEntry serves ingestion paths
 // (uploads, simulated connections, persona loader); the Library curates.
 import { dropVector } from './embeddings';
+import { DB_FILE, VECTORS_FILE, decodeEnvelope, encodeEnvelope, isOpfsAvailable, opfsRead, opfsRemove, opfsWrite } from './opfs';
 import type {
   CheckIn,
   Entry,
@@ -32,6 +33,58 @@ let vaultKey: CryptoKey | null = null;
 let memoryDb: DB | null = null;
 let persistChain: Promise<void> = Promise.resolve();
 
+// --- OPFS backend state (hydrated once at startup; localStorage fallback) ---
+let opfsOk = false;
+let storeDirtyBeforeHydrate = false;
+let pendingSealed: string | null = null;
+
+export function isOpfsBacked(): boolean {
+  return opfsOk;
+}
+
+function normalizeDb(parsed: Partial<DB> | null | undefined): DB {
+  const p = parsed ?? {};
+  return {
+    entries: (p.entries ?? []).map((e) => ({ ...e, people: e.people ?? [] })),
+    goals: p.goals ?? [],
+    checkins: p.checkins ?? [],
+    skills: p.skills ?? [],
+    personNotes: p.personNotes ?? {},
+    savedPaths: p.savedPaths ?? [],
+    folderFiles: p.folderFiles ?? {},
+    archetypePrefs: p.archetypePrefs ?? {},
+  };
+}
+
+/**
+ * One-time startup hydration. OPFS wins when it holds data; legacy
+ * localStorage data is adopted and migrated on the next persist. Saves made
+ * before hydration finishes are never overwritten by older OPFS bytes.
+ */
+export async function hydrateStore(): Promise<void> {
+  if (!isOpfsAvailable()) return;
+  const raw = await opfsRead(DB_FILE);
+  if (raw) {
+    const env = decodeEnvelope(raw);
+    if (env?.sealed) {
+      pendingSealed = env.payload;
+      opfsOk = true;
+      return;
+    }
+    if (env && !storeDirtyBeforeHydrate && !vaultKey) {
+      try {
+        memoryDb = normalizeDb(JSON.parse(env.payload) as Partial<DB>);
+      } catch {
+        memoryDb = null;
+      }
+    }
+    opfsOk = true;
+    return;
+  }
+  // First run on OPFS: future persists go there; legacy bytes migrate then.
+  opfsOk = true;
+}
+
 export function isVaultActive(): boolean {
   return vaultKey !== null;
 }
@@ -39,26 +92,25 @@ export function isVaultActive(): boolean {
 export async function activateVault(key: CryptoKey): Promise<void> {
   const { decryptJson, encryptJson } = await import('./vault');
   vaultKey = key;
-  const sealed = localStorage.getItem(ENCRYPTED_KEY);
+  const sealed = pendingSealed ?? localStorage.getItem(ENCRYPTED_KEY);
   if (sealed) {
-    memoryDb = await decryptJson<DB>(key, sealed);
-    memoryDb = {
-      entries: (memoryDb.entries ?? []).map((e) => ({ ...e, people: e.people ?? [] })),
-      goals: memoryDb.goals ?? [],
-      checkins: memoryDb.checkins ?? [],
-      skills: memoryDb.skills ?? [],
-      personNotes: memoryDb.personNotes ?? {},
-      savedPaths: memoryDb.savedPaths ?? [],
-      folderFiles: memoryDb.folderFiles ?? {},
-      archetypePrefs: memoryDb.archetypePrefs ?? {},
-    };
+    memoryDb = normalizeDb(await decryptJson<DB>(key, sealed));
+    pendingSealed = null;
     return;
   }
   // First activation: migrate any legacy plaintext DB, then seal it.
   memoryDb = loadLegacy();
   const toSeal = memoryDb;
   persistChain = persistChain.then(async () => {
-    localStorage.setItem(ENCRYPTED_KEY, await encryptJson(key, toSeal));
+    const sealedText = await encryptJson(key, toSeal);
+    if (opfsOk) {
+      if (await opfsWrite(DB_FILE, encodeEnvelope(true, sealedText))) {
+        localStorage.removeItem(ENCRYPTED_KEY);
+        localStorage.removeItem(KEY);
+        return;
+      }
+    }
+    localStorage.setItem(ENCRYPTED_KEY, sealedText);
     localStorage.removeItem(KEY);
   });
   await persistChain;
@@ -90,28 +142,20 @@ function loadLegacy(): DB {
   try {
     const raw = localStorage.getItem(KEY);
     if (!raw) return emptyDB();
-    const parsed = JSON.parse(raw) as Partial<DB>;
-    return {
-      entries: (parsed.entries ?? []).map((e) => ({ ...e, people: e.people ?? [] })),
-      goals: parsed.goals ?? [],
-      checkins: parsed.checkins ?? [],
-      skills: parsed.skills ?? [],
-      personNotes: parsed.personNotes ?? {},
-      savedPaths: parsed.savedPaths ?? [],
-      folderFiles: parsed.folderFiles ?? {},
-      archetypePrefs: parsed.archetypePrefs ?? {},
-    };
+    return normalizeDb(JSON.parse(raw) as Partial<DB>);
   } catch {
     return emptyDB();
   }
 }
 
 function load(): DB {
-  if (vaultKey) return memoryDb ?? emptyDB();
+  if (memoryDb) return memoryDb;
+  if (vaultKey) return emptyDB();
   return loadLegacy();
 }
 
 function save(db: DB): void {
+  storeDirtyBeforeHydrate = true;
   if (vaultKey && memoryDb !== null) {
     memoryDb = db;
     const snapshot = db;
@@ -119,7 +163,26 @@ function save(db: DB): void {
     persistChain = persistChain
       .then(async () => {
         const { encryptJson } = await import('./vault');
-        localStorage.setItem(ENCRYPTED_KEY, await encryptJson(key, snapshot));
+        const sealedText = await encryptJson(key, snapshot);
+        if (opfsOk && (await opfsWrite(DB_FILE, encodeEnvelope(true, sealedText)))) {
+          localStorage.removeItem(ENCRYPTED_KEY);
+          return;
+        }
+        localStorage.setItem(ENCRYPTED_KEY, sealedText);
+      })
+      .catch(() => undefined);
+    return;
+  }
+  if (opfsOk) {
+    memoryDb = db;
+    const text = JSON.stringify(db);
+    persistChain = persistChain
+      .then(async () => {
+        if (await opfsWrite(DB_FILE, encodeEnvelope(false, text))) {
+          localStorage.removeItem(KEY);
+        } else {
+          localStorage.setItem(KEY, text);
+        }
       })
       .catch(() => undefined);
     return;
@@ -556,4 +619,11 @@ export function insertImported(payloads: PackEntryPayload[], packId: string): nu
 export function clearAll(): void {
   localStorage.removeItem(KEY);
   localStorage.removeItem(PROFILE_KEY);
+  localStorage.removeItem(ENCRYPTED_KEY);
+  memoryDb = vaultKey ? emptyDB() : null;
+  pendingSealed = null;
+  if (opfsOk) {
+    void opfsRemove(DB_FILE);
+    void opfsRemove(VECTORS_FILE);
+  }
 }
