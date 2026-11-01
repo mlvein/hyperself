@@ -7,7 +7,8 @@
 // discover the user's available accounts on this device and reports what data
 // each one can contribute. All discovery is canned and local — the value is
 // the UX flow (scan → review → link), not real OS integration.
-import { StoreError, createEntry, deleteEntry, listEntries, setEntryTag } from './store';
+import { StoreError, createEntry, deleteEntry, listEntries, listGoals, listPeople, listSkills, setEntryTag } from './store';
+import { extractKnownPeople, matchGoals, matchSkills } from './extract';
 import { scanEntry } from './security';
 import type { EntryType, Tag } from './types';
 
@@ -437,6 +438,10 @@ export function connectProvider(id: string): { created: number; name: string } {
   if (!provider) throw new StoreError('Unknown provider.');
   if (isConnected(id)) throw new StoreError(`${provider.name} is already linked.`);
   for (const seed of provider.seeds) {
+    const text = `${seed.title}\n${seed.body}`;
+    const people = [
+      ...new Set([...(seed.people ?? []), ...extractKnownPeople(text, listPeople().map((p) => p.name))]),
+    ].slice(0, 8);
     const created = createEntry({
       title: seed.title,
       type: seed.type,
@@ -444,7 +449,9 @@ export function connectProvider(id: string): { created: number; name: string } {
       tag: 'personal',
       source: 'connection',
       source_label: labelFor(id),
-      people: seed.people ?? [],
+      people,
+      goal_ids: matchGoals(text, listGoals()),
+      skill_ids: matchSkills(text, listSkills()),
       at: stampDaysAgo(seed.daysAgo),
     });
     if (seed.tag === 'shareable') setEntryTag(created.id, 'shareable');

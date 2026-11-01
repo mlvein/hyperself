@@ -1,8 +1,45 @@
 // Ingestion: files and pasted text become entries.
 // All parsing and chunking runs locally. Uploads always arrive personal;
 // the user promotes to shareable explicitly, one entry at a time.
-import { StoreError, createEntry, deleteEntriesByLabel, listEntriesByLabel } from './store';
+import { StoreError, createEntry, createSkill, deleteEntriesByLabel, listEntriesByLabel, listGoals, listPeople, listSkills } from './store';
+import { extractCandidatePeople, extractKnownPeople, lexiconSkillHits, matchGoals, matchSkills } from './extract';
 import type { EntryType, OwnershipKind } from './types';
+
+/** Ensure lexicon-detected skills exist as Skill records; returns their ids. */
+function ensureLexiconSkills(text: string): string[] {
+  const hits = lexiconSkillHits(text);
+  if (!hits.length) return [];
+  const existing = listSkills();
+  const ids: string[] = [];
+  for (const name of hits) {
+    const found = existing.find((s) => s.name.toLowerCase() === name.toLowerCase());
+    if (found) ids.push(found.id);
+    else ids.push(createSkill({ name, level: 'learning' }).id);
+  }
+  return ids;
+}
+
+/** People/goals/skills this chunk links to (provided tags always win). */
+function extractionFor(chunkText: string, docText: string, providedPeople: string[]): {
+  people: string[];
+  goalIds: string[];
+  skillIds: string[];
+} {
+  const known = listPeople().map((p) => p.name);
+  const candidates = extractCandidatePeople(docText);
+  const people = [
+    ...new Set([
+      ...providedPeople,
+      ...extractKnownPeople(chunkText, known),
+      ...extractKnownPeople(chunkText, candidates),
+    ]),
+  ].slice(0, 8);
+  return {
+    people,
+    goalIds: matchGoals(chunkText, listGoals()),
+    skillIds: [...new Set([...matchSkills(chunkText, listSkills()), ...ensureLexiconSkills(chunkText)])],
+  };
+}
 
 export interface Chunk {
   title: string;
@@ -86,13 +123,15 @@ export function ingestDoc(
   const chunks = chunkText(title, text);
   if (chunks.length === 0) throw new StoreError(`"${name}" has no readable content.`);
   for (const chunk of chunks) {
+    const linked = extractionFor(`${chunk.title}\n${chunk.body}`, text, opts?.people ?? []);
     createEntry({
       title: chunk.title,
       type: opts?.type ?? 'research',
       body: chunk.body,
       tag: 'personal',
-      goal_ids: opts?.goalIds ?? [],
-      people: opts?.people ?? [],
+      goal_ids: opts?.goalIds?.length ? opts.goalIds : linked.goalIds,
+      skill_ids: linked.skillIds,
+      people: linked.people,
       source: 'upload',
       source_label: name,
       source_hash: hash,

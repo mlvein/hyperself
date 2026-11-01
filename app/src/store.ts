@@ -258,6 +258,7 @@ export function createEntry(input: {
   body: string;
   tag?: Tag;
   goal_ids?: string[];
+  skill_ids?: string[];
   source?: EntrySource;
   source_label?: string;
   source_hash?: string;
@@ -288,7 +289,7 @@ export function createEntry(input: {
     tag,
     tag_history: [{ tag, at: stamp, actor: 'user' }],
     goal_ids: input.goal_ids ?? [],
-    skill_ids: [],
+    skill_ids: input.skill_ids ?? [],
     source: input.source ?? 'typed',
     source_label: input.source_label,
     source_hash: input.source_hash,
