@@ -172,7 +172,7 @@ OLLAMA_ORIGINS=http://localhost:5173 ollama serve</pre>
             </div>
             <p class="hint">Reference material is kept searchable but never feeds your Synthesis, archetypes, or essence. Classification is your declaration — Hyperself never tries to verify ownership.</p>
             <input type="file" id="folderInput" hidden />
-            <input type="file" id="importFileInput" accept=".md,.txt,.markdown,.csv,.html,.htm,.pdf,.docx,.rtf,.json,.ics,.vcf,text/plain,text/markdown,text/csv,text/html,application/pdf" multiple hidden />
+            <input type="file" id="importFileInput" accept=".md,.txt,.markdown,.csv,.html,.htm,.pdf,.docx,.rtf,.json,.ics,.vcf,.zip,.mbox,.xml,.eml,.js,text/plain,text/markdown,text/csv,text/html,application/pdf,application/zip" multiple hidden />
             <p id="importTileNote" class="hint"></p>
             <input type="file" id="audioFileInput" accept="audio/*,.mp3,.wav,.m4a,.aac,.ogg,.oga,.webm,.flac,.opus" multiple hidden />
             <p id="audioNote" class="hint" aria-live="polite"></p>
@@ -185,6 +185,11 @@ OLLAMA_ORIGINS=http://localhost:5173 ollama serve</pre>
                 <button type="button" id="statementCancelBtn" class="small">Cancel</button>
               </div>
             </div>
+          </div>
+          <div class="card">
+            <h2>Can’t link? Export it yourself</h2>
+            <p class="hint">Linking is simulated in this demo and real accounts can’t always connect. Every service below lets you download your own data instead — then upload the file here. Exports are unpacked and read on this device only; nothing is sent anywhere. ZIP exports from these services can be uploaded exactly as downloaded.</p>
+            <div id="exportGuideList" class="list"></div>
           </div>
         </div>
       </section>

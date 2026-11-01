@@ -36,7 +36,8 @@ import { embedEntry, embedText, loadVectors } from './embeddings';
 import { hashContent, ingestDoc } from './ingest';
 import { diffFolder, isSyncablePath, nextManifest } from './foldersync';
 import { isHtmlFilename, parseJournalHtml } from './html';
-import { docxToText, extensionOf, jsonToText, parseIcs, parseVcf, pdfToText, rtfToText } from './formats';
+import { docxToText, extensionOf, healthXmlToText, jsonToText, mboxToText, parseIcs, parseVcf, pdfToText, rtfToText, unzipTextEntries } from './formats';
+import { EXPORT_GUIDES } from './guides';
 import { isAudioFilename, isAudioMime, transcribeAudioBlob } from './transcribe';
 import { isImageFilename, isImageMime, ocrImageBlob, parseExifDate } from './image';
 import { budgetInsights, monthlyTotals, parseStatement, recurringCosts, summarizeTransactions, transactionsFromEntries, type StatementParse } from './budget';
@@ -451,21 +452,10 @@ el<HTMLInputElement>('attestCheck').addEventListener('change', () => {
   localStorage.setItem(ATTEST_KEY, attested() ? '1' : '0');
 });
 
-async function ingestFormattedFile(file: File, label: string): Promise<number> {
-  const ext = extensionOf(file.name);
-  const note = el('importTileNote');
-  if (ext === 'pdf') {
-    const text = await pdfToText(file, (status) => { note.textContent = `${file.name}: ${status}`; });
-    if (!text.trim()) throw new Error('no text layer');
-    return ingestDoc(label, text, { ownership: currentOwnership() }).created;
-  }
-  if (ext === 'docx') {
-    const text = await docxToText(file, (status) => { note.textContent = `${file.name}: ${status}`; });
-    if (!text.trim()) throw new Error('no readable text');
-    return ingestDoc(label, text, { ownership: currentOwnership() }).created;
-  }
+/** Ingest already-extracted text by extension (uploads and ZIP members share this). */
+async function ingestTextContent(label: string, ext: string, raw: string): Promise<number> {
   if (ext === 'ics') {
-    const events = parseIcs(await file.text());
+    const events = parseIcs(raw);
     let created = 0;
     for (const ev of events.slice(0, 200)) {
       created += ingestDoc(label, `# ${ev.title}\n${ev.description ?? ''}${ev.location ? `\nLocation: ${ev.location}` : ''}`, {
@@ -476,18 +466,58 @@ async function ingestFormattedFile(file: File, label: string): Promise<number> {
     return created;
   }
   if (ext === 'vcf') {
-    const contacts = parseVcf(await file.text());
+    const contacts = parseVcf(raw);
     if (!contacts.length) throw new Error('no contacts');
     const body = contacts.map((c) => `- ${c.name}${c.org ? ` · ${c.org}` : ''}${c.email ? ` · ${c.email}` : ''}${c.phone ? ` · ${c.phone}` : ''}`).join('\n');
     return ingestDoc(label, `# Contacts import\n\n${body}`, { type: 'relationship', ownership: currentOwnership() }).created;
   }
-  if (ext === 'rtf') return ingestDoc(label, rtfToText(await file.text()), { ownership: currentOwnership() }).created;
-  if (ext === 'json') {
-    const converted = jsonToText(await file.text(), file.name);
+  if (ext === 'rtf') return ingestDoc(label, rtfToText(raw), { ownership: currentOwnership() }).created;
+  if (ext === 'json' || ext === 'js') {
+    const converted = jsonToText(raw, label);
     if (!converted) throw new Error('no readable text');
     return ingestDoc(label, converted, { ownership: currentOwnership() }).created;
   }
-  return ingestDoc(label, await file.text(), { type: 'research' }).created;
+  if (ext === 'mbox') {
+    const converted = mboxToText(raw);
+    if (!converted) throw new Error('no readable mail');
+    return ingestDoc(label, converted, { ownership: currentOwnership() }).created;
+  }
+  if (ext === 'xml') {
+    const converted = healthXmlToText(raw);
+    if (!converted) throw new Error('no readable records');
+    return ingestDoc(label, converted, { type: 'health', ownership: currentOwnership() }).created;
+  }
+  return ingestDoc(label, raw, { type: 'research', ownership: currentOwnership() }).created;
+}
+
+async function ingestFormattedFile(file: File, label: string): Promise<number> {
+  const ext = extensionOf(file.name);
+  const note = el('importTileNote');
+  if (ext === 'zip') {
+    const members = await unzipTextEntries(file);
+    if (!members.length) throw new Error('no readable files in archive');
+    let created = 0;
+    for (const member of members) {
+      try {
+        created += await ingestTextContent(`${label} / ${member.name}`, extensionOf(member.name), member.text);
+      } catch {
+        // One unreadable member never blocks the rest of the export.
+      }
+    }
+    if (!created) throw new Error('no readable files in archive');
+    return created;
+  }
+  if (ext === 'pdf') {
+    const text = await pdfToText(file, (status) => { note.textContent = `${file.name}: ${status}`; });
+    if (!text.trim()) throw new Error('no text layer');
+    return ingestDoc(label, text, { ownership: currentOwnership() }).created;
+  }
+  if (ext === 'docx') {
+    const text = await docxToText(file, (status) => { note.textContent = `${file.name}: ${status}`; });
+    if (!text.trim()) throw new Error('no readable text');
+    return ingestDoc(label, text, { ownership: currentOwnership() }).created;
+  }
+  return ingestTextContent(label, ext, await file.text());
 }
 
 async function ingestFiles(
@@ -541,6 +571,26 @@ el<HTMLInputElement>('importFileInput').addEventListener('change', () => {
     el<HTMLButtonElement>('importUploadTile'),
     input,
   );
+});
+
+// --- Export guides: download-your-own-data backup for every service ---
+function renderExportGuides(): void {
+  el('exportGuideList').innerHTML = EXPORT_GUIDES.map(
+    (g) => `<details class="guide">
+      <summary><strong>${escapeHtml(g.service)}</strong> <span class="hint">${escapeHtml(g.arrivesAs)}</span></summary>
+      <p class="meta">Where: ${escapeHtml(g.where)}</p>
+      <ol class="hint">${g.steps.map((s) => `<li>${escapeHtml(s)}</li>`).join('')}</ol>
+      <p class="meta">Reads: ${g.formats.map((f) => `.${escapeHtml(f)}`).join(' · ')}</p>
+      <div class="row"><button type="button" class="small" data-guide-upload="${escapeHtml(g.providerId)}">Upload ${escapeHtml(g.service)} export</button></div>
+    </details>`,
+  ).join('');
+}
+renderExportGuides();
+
+el('exportGuideList').addEventListener('click', (ev) => {
+  const btn = (ev.target as HTMLElement).closest('button[data-guide-upload]');
+  if (!btn) return;
+  el<HTMLInputElement>('importFileInput').click();
 });
 
 let pendingStatement: { name: string; parsed: StatementParse } | null = null;

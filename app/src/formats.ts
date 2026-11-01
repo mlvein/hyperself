@@ -3,6 +3,12 @@
 // imported browser libraries so the app shell stays small. All local.
 export const DOCUMENT_EXTENSIONS = [
   'md', 'markdown', 'txt', 'csv', 'html', 'htm', 'pdf', 'docx', 'rtf', 'json', 'ics', 'vcf',
+  'zip', 'mbox', 'xml', 'eml', 'js',
+];
+
+/** Text formats that can appear inside an export ZIP and be read as-is. */
+export const ARCHIVE_TEXT_EXTENSIONS = [
+  'md', 'markdown', 'txt', 'csv', 'html', 'htm', 'rtf', 'json', 'ics', 'vcf', 'xml', 'mbox', 'eml', 'js',
 ];
 
 export function extensionOf(name: string): string {
@@ -38,7 +44,7 @@ export function rtfToText(rtf: string): string {
 /** JSON exports (notes/Takeout-style): readable string values, flattened. */
 export function jsonToText(text: string, fallbackTitle: string): string {
   try {
-    const data: unknown = JSON.parse(text);
+    const data: unknown = JSON.parse(stripJsAssignment(text));
     const lines: string[] = [];
     const walk = (value: unknown, depth: number): void => {
       if (lines.length > 400) return;
@@ -138,6 +144,105 @@ export function parseVcf(text: string): VcfContact[] {
     }
   }
   return contacts;
+}
+
+/** X/Twitter archive .js files are JSON behind a `window.YTD.x = ` assignment. */
+export function stripJsAssignment(text: string): string {
+  const trimmed = text.trim();
+  if (trimmed.startsWith('{') || trimmed.startsWith('[')) return trimmed;
+  const at = Math.min(
+    ...['{', '['].map((c) => {
+      const i = trimmed.indexOf(c);
+      return i === -1 ? Number.MAX_SAFE_INTEGER : i;
+    }),
+  );
+  return at === Number.MAX_SAFE_INTEGER ? trimmed : trimmed.slice(at);
+}
+
+/** MBOX mailbox (Gmail Takeout) -> readable per-message text. */
+export function mboxToText(text: string): string {
+  const messages = text.split(/^From .+$/m).map((m) => m.trim()).filter(Boolean);
+  const out: string[] = [];
+  for (const raw of messages.slice(0, 300)) {
+    const splitAt = raw.indexOf('\n\n');
+    const head = splitAt === -1 ? raw : raw.slice(0, splitAt);
+    let body = splitAt === -1 ? '' : raw.slice(splitAt + 2);
+    const header = (name: string): string =>
+      head.match(new RegExp(`^${name}:\\s*(.+)$`, 'mi'))?.[1]?.trim() ?? '';
+    body = body
+      .split('\n')
+      .filter((line) => !/^(Content-Type|Content-Transfer-Encoding|MIME-Version|--)/i.test(line.trim()))
+      .join('\n')
+      .replace(/\n{3,}/g, '\n\n')
+      .trim()
+      .slice(0, 4000);
+    const subject = header('Subject') || '(no subject)';
+    const meta = [header('From'), header('Date')].filter(Boolean).join(' · ');
+    out.push(`## ${subject}${meta ? `\n${meta}` : ''}${body ? `\n\n${body}` : ''}`);
+  }
+  return out.length ? `# Mailbox export\n\n${out.join('\n\n')}` : '';
+}
+
+/** Apple Health XML (or generic XML) -> compact readable summary/text. */
+export function healthXmlToText(text: string): string {
+  const records = [...text.matchAll(/<Record\s+[^>]*>/g)].map((m) => m[0]);
+  if (records.length > 0) {
+    const byType = new Map<string, { count: number; sum: number; unit: string; latest: string }>();
+    for (const tag of records) {
+      const type = tag.match(/type="([^"]+)"/)?.[1]?.replace(/^HK\w+TypeIdentifier/, '') ?? 'Other';
+      const value = Number(tag.match(/value="([\d.]+)"/)?.[1] ?? NaN);
+      const unit = tag.match(/unit="([^"]+)"/)?.[1] ?? '';
+      const start = tag.match(/startDate="([^"]+)"/)?.[1] ?? '';
+      const cur = byType.get(type) ?? { count: 0, sum: 0, unit, latest: '' };
+      cur.count += 1;
+      if (!Number.isNaN(value)) cur.sum += value;
+      if (start > cur.latest) cur.latest = start;
+      byType.set(type, cur);
+    }
+    const lines = [...byType.entries()]
+      .sort((a, b) => b[1].count - a[1].count)
+      .slice(0, 15)
+      .map(([type, v]) => {
+        const total = v.sum ? ` · total ${Math.round(v.sum * 10) / 10}${v.unit ? ` ${v.unit}` : ''}` : '';
+        return `- ${type}: ${v.count} records${total}${v.latest ? ` · latest ${v.latest.slice(0, 10)}` : ''}`;
+      });
+    return `# Health export summary\n\n${records.length} records summarized on-device:\n\n${lines.join('\n')}`;
+  }
+  const stripped = text
+    .replace(/<\?xml[^>]*>/g, '')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+  return stripped ? `# XML import\n\n${stripped.slice(0, 20000)}` : '';
+}
+
+export interface ArchiveTextEntry {
+  name: string;
+  text: string;
+}
+
+/** Unpack an export ZIP locally; returns readable text entries only. */
+export async function unzipTextEntries(blob: Blob): Promise<ArchiveTextEntry[]> {
+  const fflate = (await import('fflate')) as unknown as {
+    unzipSync: (data: Uint8Array) => Record<string, Uint8Array>;
+    strFromU8: (data: Uint8Array) => string;
+  };
+  const files = fflate.unzipSync(new Uint8Array(await blob.arrayBuffer()));
+  const entries: ArchiveTextEntry[] = [];
+  for (const [name, data] of Object.entries(files)) {
+    if (name.endsWith('/')) continue;
+    const base = name.split('/').pop() ?? name;
+    if (base.startsWith('.') || name.includes('__MACOSX')) continue;
+    if (!ARCHIVE_TEXT_EXTENSIONS.includes(extensionOf(name))) continue;
+    try {
+      const text = fflate.strFromU8(data);
+      if (text.trim()) entries.push({ name, text });
+    } catch {
+      // Unreadable member: skipped, the rest of the archive still lands.
+    }
+    if (entries.length >= 150) break;
+  }
+  return entries.sort((a, b) => a.name.localeCompare(b.name));
 }
 
 /** PDF text via pdf.js (dynamic import; text-layer PDFs only). */

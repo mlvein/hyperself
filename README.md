@@ -16,6 +16,7 @@ Most personal data is fragmented across documents, statements, journals, calenda
   - Images with on-device OCR (Tesseract.js), EXIF dating, and person tagging, flagged in Security if they look inappropriate or compromising.
   - Folder sync with content-hash dedupe and change detection across re-scans.
   - Simulated account links for the demo (clearly labeled simulated; no real third-party integration yet).
+  - **Can't link? Export it yourself**: per-service download guides in Import & Connect (Notion, Drive, Gmail, Slack, GitHub, LinkedIn, X, Apple Health, Calendar, Contacts, family portals). ZIP exports upload as downloaded — unpacked locally — including Gmail MBOX, Apple Health XML, Slack JSON, and X archive data. See `docs/EXPORT_GUIDES.md`.
   - Every upload is classified by you — Mine, Shared with me, or Reference. Reference material stays searchable but never shapes your Synthesis. Classification is your declaration; Hyperself never claims to verify ownership.
 - **Security** — local scanning of everything you upload (secrets, contact details, stale data, crisis language handled supportively and non-diagnostically), with actionable findings and a right-edge badge in both Knowledgebase and Paths.
 
