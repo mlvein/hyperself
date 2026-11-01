@@ -22,7 +22,7 @@ Copy deck (exact strings): "Hyperself never asks you to journal." / "Everything 
 
 ## View specs
 
-Synthesis profile card: circular photo slot (initial fallback), archetype pill tags synthesized from behaviour (e.g. Bookworm vs Book Hoarder — finishing vs collecting), and a blurb of at most two sentences generated on-device from all uploaded/linked data. Personas ship two decades (2006–2026) of non-linear life arcs with 25+ person networks.
+Synthesis profile card: circular photo slot (initial fallback), archetype pill tags synthesized from behaviour (e.g. Margin Annotator vs Shelf Cartographer — finishing vs collecting), and a blurb of at most two sentences generated on-device from all uploaded/linked data. Personas ship two decades (2006–2026) of non-linear life arcs with 25+ person networks.
 
 Navigation: main menu (Knowledgebase / Paths / Legacy) sits left-aligned beside the logo; the submenu strip shows Knowledgebase: Synthesis / Network / Import & Connect / Security (right-aligned) and, only when Legacy is selected, Export. Paths has no submenu (insights flow directly, acknowledged listed below). Network carries a D3 graph (user at center, drag to rearrange, click a person for a context modal) that re-renders on every knowledgebase change.
 

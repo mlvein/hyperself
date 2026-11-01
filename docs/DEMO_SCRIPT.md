@@ -29,7 +29,7 @@ Status: scope frozen. Anything not in this script goes to BACKLOG.md.
 
 ### Beat 4 — Why this is Hyperself, not a budgeting app (60s)
 - Paths also shows **"Hyperself suggests: Budgeting"** was offered from the data itself (skip if already created live; point at the template card + readiness checklist: Have/Needs, no manual setup).
-- Knowledgebase → **Synthesis**: profile card with archetype pills (Maya: Bookworm) and a two-sentence essence blurb — "who I am, what I aspire to, my potential. Not my data sources. Not my network. My essence."
+- Knowledgebase → **Synthesis**: profile card with archetype pills (Maya: Margin Annotator) and a two-sentence essence blurb — "who I am, what I aspire to, my potential. Not my data sources. Not my network. My essence."
 - Knowledgebase → **Network**: slowly revolving graph, you at the centre; hover a name, click a person for the timeline modal + notes.
 - If time: **Security** badge — an imported image with an ID document gets flagged. "Even my imports are screened locally."
 

@@ -31,6 +31,14 @@
       "tag": "personal"
     },
     {
+      "at": "2007-05-11",
+      "type": "research",
+      "title": "Drive export: support macros doc (2007)",
+      "body": "Night-shift macros collected in a doc: the ten replies that solved half the queue. Bought three more books on systems this month; the shelf is outpacing finishing again.",
+      "tag": "personal",
+      "via": "Google Drive (simulated)"
+    },
+    {
       "at": "2007-12-28",
       "type": "journal",
       "title": "Year-end reflection 2007",
@@ -73,6 +81,18 @@
       ]
     },
     {
+      "at": "2009-08-19",
+      "type": "relationship",
+      "title": "Gmail thread: June Park intro (2009)",
+      "body": "June Park introduced over email by Sam Ortiz after the meetup. June builds support tooling; offered to pair on a queue dashboard prototype.",
+      "tag": "personal",
+      "via": "Gmail (simulated)",
+      "people": [
+        "June Park",
+        "Sam Ortiz"
+      ]
+    },
+    {
       "at": "2009-12-28",
       "type": "journal",
       "title": "Year-end reflection 2009",
@@ -103,6 +123,14 @@
         "June Park",
         "Sister Bea"
       ]
+    },
+    {
+      "at": "2011-02-23",
+      "type": "finance",
+      "title": "Drive export: night-shift budget (2011)",
+      "body": "Budget sheet export: overtime in, textbooks out. The unread canon grows: bought the full distributed-systems shelf, finished one of nine.",
+      "tag": "personal",
+      "via": "Google Drive (simulated)"
     },
     {
       "at": "2011-06-14",
@@ -136,6 +164,14 @@
         "Mom Ana",
         "Dad Tom"
       ]
+    },
+    {
+      "at": "2012-12-01",
+      "type": "health",
+      "title": "Apple Health export summary (2012)",
+      "body": "Health export: sleep averaging 5h40m during night shifts, steps low on workdays. Weekend morning runs are the only steady activity.",
+      "tag": "personal",
+      "via": "Apple Health (simulated)"
     },
     {
       "at": "2012-12-28",
@@ -177,6 +213,17 @@
       "tag": "personal"
     },
     {
+      "at": "2014-06-17",
+      "type": "journal",
+      "title": "Calendar export: founder Fridays (2014)",
+      "body": "Recurring Friday block with Alex Kim: prototype review, one metric, no slides. The calendar shows fourteen weeks without a miss.",
+      "tag": "personal",
+      "via": "Calendar (simulated)",
+      "people": [
+        "Alex Kim"
+      ]
+    },
+    {
       "at": "2014-12-28",
       "type": "journal",
       "title": "Year-end reflection 2014",
@@ -197,6 +244,14 @@
         "Sam Ortiz",
         "Leo Park"
       ]
+    },
+    {
+      "at": "2015-09-29",
+      "type": "method",
+      "title": "GitHub export: queue triage playbook (2015)",
+      "body": "Open-sourced playbook from the repo: label first, reply second, escalate with a summary. Three teams forked it in the first month.",
+      "tag": "shareable",
+      "via": "GitHub (simulated)"
     },
     {
       "at": "2015-12-28",
@@ -220,6 +275,17 @@
       ]
     },
     {
+      "at": "2016-04-14",
+      "type": "finding",
+      "title": "Slack export: #support-eng thread (2016)",
+      "body": "Thread with Felix Wagner: macros cut handle time 30 percent; the write-up earned a shout-out in the all-hands notes.",
+      "tag": "shareable",
+      "via": "Slack (simulated)",
+      "people": [
+        "Felix Wagner"
+      ]
+    },
+    {
       "at": "2016-12-28",
       "type": "journal",
       "title": "Year-end reflection 2016",
@@ -240,6 +306,17 @@
       ]
     },
     {
+      "at": "2017-10-06",
+      "type": "relationship",
+      "title": "LinkedIn export: Grace Nolan message (2017)",
+      "body": "Grace Nolan hires support engineers; connected after the meetup talk. She likes decision-story portfolios. Follow up with the playbook link.",
+      "tag": "personal",
+      "via": "LinkedIn (simulated)",
+      "people": [
+        "Grace Nolan"
+      ]
+    },
+    {
       "at": "2017-12-28",
       "type": "journal",
       "title": "Year-end reflection 2017",
@@ -249,6 +326,14 @@
         "June Park",
         "Alex Kim"
       ]
+    },
+    {
+      "at": "2018-03-21",
+      "type": "research",
+      "title": "X export: shelves thread (2018)",
+      "body": "Posted the shelf photo thread: forty-one bought, nine finished. Replies called it a museum of intentions; the cartography of curiosity continues.",
+      "tag": "personal",
+      "via": "X (Twitter) (simulated)"
     },
     {
       "at": "2018-05-16",
@@ -283,6 +368,18 @@
       ]
     },
     {
+      "at": "2019-07-30",
+      "type": "document",
+      "title": "Family export: Dad Tom care schedule (2019)",
+      "body": "Shared doc: hospital visiting rota for Dad Tom with Sister Bea, medication list attached, discharge questions for Friday.",
+      "tag": "personal",
+      "via": "Family (simulated)",
+      "people": [
+        "Dad Tom",
+        "Sister Bea"
+      ]
+    },
+    {
       "at": "2019-11-20",
       "type": "finance",
       "title": "Runway v1",
@@ -300,6 +397,17 @@
       "tag": "personal",
       "people": [
         "Sam Ortiz"
+      ]
+    },
+    {
+      "at": "2020-05-16",
+      "type": "relationship",
+      "title": "Contacts export: June Park card (2020)",
+      "body": "Contact card: June Park, support tooling, prefers async messages. Collaborator since 2009, co-founder conversations since 2019.",
+      "tag": "personal",
+      "via": "Contacts (simulated)",
+      "people": [
+        "June Park"
       ]
     },
     {
@@ -335,6 +443,14 @@
       ]
     },
     {
+      "at": "2021-08-27",
+      "type": "goal-note",
+      "title": "Notion export: founder thesis (2021)",
+      "body": "Goal page in Notion: quit the support ladder, build the queue tool shops ask for, sell to ten teams before hiring. Pivot notes from three failed attempts attached.",
+      "tag": "personal",
+      "via": "Notion (simulated)"
+    },
+    {
       "at": "2021-09-14",
       "type": "method",
       "title": "Founder notes Fridays",
@@ -354,6 +470,14 @@
         "Felix Wagner",
         "Grace Nolan"
       ]
+    },
+    {
+      "at": "2022-04-09",
+      "type": "finance",
+      "title": "Gmail export: first investor update (2022)",
+      "body": "Investor update sent by email: two paying teams, churn zero, runway fourteen months. The museum shelf finally has a finished shelf beside it.",
+      "tag": "personal",
+      "via": "Gmail (simulated)"
     },
     {
       "at": "2022-05-20",
@@ -408,6 +532,14 @@
       ]
     },
     {
+      "at": "2023-11-18",
+      "type": "health",
+      "title": "Apple Health export summary (2023)",
+      "body": "Health export: sleep back to 7h10m as a founder with no night shifts; morning runs three times a week. The pivot shows in the data first.",
+      "tag": "personal",
+      "via": "Apple Health (simulated)"
+    },
+    {
       "at": "2023-12-28",
       "type": "journal",
       "title": "Year-end reflection 2023",
@@ -427,6 +559,14 @@
       "people": [
         "Mike Doyle"
       ]
+    },
+    {
+      "at": "2024-06-25",
+      "type": "finding",
+      "title": "Drive export: hiring lessons (2024)",
+      "body": "Findings doc: hire for writing samples, not interviews. The playbook chapter on triage became the onboarding week-one read.",
+      "tag": "shareable",
+      "via": "Google Drive (simulated)"
     },
     {
       "at": "2024-09-19",
@@ -471,6 +611,17 @@
         "Peter Hale",
         "Lucy Grant",
         "Sam Ortiz"
+      ]
+    },
+    {
+      "at": "2025-09-13",
+      "type": "journal",
+      "title": "Calendar export: sister call Sundays (2025)",
+      "body": "Sunday call block with Sister Bea kept for six years: family first, then the week. The thread that never went quiet.",
+      "tag": "personal",
+      "via": "Calendar (simulated)",
+      "people": [
+        "Sister Bea"
       ]
     },
     {

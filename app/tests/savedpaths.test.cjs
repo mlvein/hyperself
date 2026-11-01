@@ -61,16 +61,16 @@ console.log('savedpaths OK: persistent paths, pin toggle, template suggestion, b
 {
   const { PATH_TEMPLATES: templates2, templateForArchetype, templateReadiness: readiness3, relationshipRhythms, readingLifeSummary } = require('../.test-compiled/templates.js');
   assert.equal(templates2.length, 4, 'finance + health + two archetype templates');
-  assert.equal(templateForArchetype('network-weaver').id, 'relationship-rhythms');
-  assert.equal(templateForArchetype('bookworm').id, 'reading-life');
-  assert.equal(templateForArchetype('book-hoarder').id, 'reading-life', 'cartographer also seeds Reading Life');
+  assert.equal(templateForArchetype('keeper-of-threads').id, 'relationship-rhythms');
+  assert.equal(templateForArchetype('margin-annotator').id, 'reading-life');
+  assert.equal(templateForArchetype('shelf-cartographer').id, 'reading-life', 'cartographer also seeds Reading Life');
 
   const peopleEntries = Array.from({ length: 12 }, (_, i) => ({
     id: `p${i}`, type: 'relationship', title: `Person ${i}`, body: 'met and talked', tag: 'personal', tag_history: [], goal_ids: [], skill_ids: [], people: [`Person ${i}`], source: 'upload', embedding_status: 'pending', created_at: '2025-01-01T09:00:00', updated_at: '2025-01-01T09:00:00', deleted_at: null,
   }));
   const suggestions2 = suggestTemplates(peopleEntries);
-  assert.ok(suggestions2.some((x) => x.template.id === 'relationship-rhythms' && x.archetypeId === 'network-weaver'), 'Network Weaver suggests Relationship Rhythms');
-  assert.equal(readiness3(peopleEntries, templateForArchetype('network-weaver')).ready, true, 'relationship template ready with enough people');
+  assert.ok(suggestions2.some((x) => x.template.id === 'relationship-rhythms' && x.archetypeId === 'keeper-of-threads'), 'Network Weaver suggests Relationship Rhythms');
+  assert.equal(readiness3(peopleEntries, templateForArchetype('keeper-of-threads')).ready, true, 'relationship template ready with enough people');
   assert.ok(relationshipRhythms(peopleEntries).length >= 10, 'relationship rhythms are computed descriptively');
 
   const readingEntries = Array.from({ length: 6 }, (_, i) => ({

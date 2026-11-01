@@ -260,6 +260,7 @@ export function createEntry(input: {
   goal_ids?: string[];
   skill_ids?: string[];
   source?: EntrySource;
+  source_pack?: string;
   source_label?: string;
   source_hash?: string;
   ownership?: OwnershipKind;
@@ -291,6 +292,7 @@ export function createEntry(input: {
     goal_ids: input.goal_ids ?? [],
     skill_ids: input.skill_ids ?? [],
     source: input.source ?? 'typed',
+    source_pack: input.source_pack,
     source_label: input.source_label,
     source_hash: input.source_hash,
     ownership: input.ownership ?? 'mine',

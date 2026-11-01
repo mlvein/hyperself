@@ -38,6 +38,17 @@
       ]
     },
     {
+      "at": "2007-09-16",
+      "type": "document",
+      "title": "Drive export: ward rota archive (2007)",
+      "body": "Exported rota for the care ward: Sunday lunches at Mama Elena's after shift, who covers holidays, and the phone tree for emergencies.",
+      "tag": "personal",
+      "via": "Google Drive (simulated)",
+      "people": [
+        "Mama Elena"
+      ]
+    },
+    {
       "at": "2007-12-28",
       "type": "journal",
       "title": "Year-end reflection 2007",
@@ -66,6 +77,17 @@
       "people": [
         "Brother Luis",
         "Mama Elena"
+      ]
+    },
+    {
+      "at": "2009-04-25",
+      "type": "relationship",
+      "title": "Gmail thread: Fatima Noor training (2009)",
+      "body": "Email chain with Fatima Noor about the coordinator training: two Saturdays, a mentor assigned, exam in June. Replied with the rota swap.",
+      "tag": "personal",
+      "via": "Gmail (simulated)",
+      "people": [
+        "Fatima Noor"
       ]
     },
     {
@@ -124,6 +146,14 @@
       ]
     },
     {
+      "at": "2011-08-08",
+      "type": "health",
+      "title": "Apple Health export summary (2011)",
+      "body": "Health export: steps high on ward days (11k average), sleep short after late shifts. Sunday rest shows as the recovery anchor.",
+      "tag": "personal",
+      "via": "Apple Health (simulated)"
+    },
+    {
       "at": "2011-12-28",
       "type": "journal",
       "title": "Year-end reflection 2011",
@@ -152,6 +182,17 @@
       "tag": "personal",
       "people": [
         "Fatima Noor"
+      ]
+    },
+    {
+      "at": "2013-03-19",
+      "type": "finance",
+      "title": "Drive export: family support ledger (2013)",
+      "body": "Ledger export: who sent what for Papa Miguel's care, pharmacy receipts filed by month, and the shared account rules agreed at the Sunday table.",
+      "tag": "personal",
+      "via": "Google Drive (simulated)",
+      "people": [
+        "Papa Miguel"
       ]
     },
     {
@@ -188,6 +229,19 @@
       ]
     },
     {
+      "at": "2014-12-07",
+      "type": "journal",
+      "title": "Calendar export: Sunday table (2014)",
+      "body": "Recurring Sunday lunch block: Mama Elena hosts, Brother Luis brings bread, Niece Lucia does the school run rota. Seven years without a missed month.",
+      "tag": "personal",
+      "via": "Calendar (simulated)",
+      "people": [
+        "Mama Elena",
+        "Brother Luis",
+        "Niece Lucia"
+      ]
+    },
+    {
       "at": "2014-12-28",
       "type": "journal",
       "title": "Year-end reflection 2014",
@@ -218,6 +272,17 @@
       "people": [
         "Mama Elena",
         "Papa Miguel"
+      ]
+    },
+    {
+      "at": "2016-02-27",
+      "type": "method",
+      "title": "Notion export: care handover checklist (2016)",
+      "body": "Shared checklist page: medications, mood, meals, and the one-line handover note format the whole family now uses. Nurse Kim reviewed it twice.",
+      "tag": "shareable",
+      "via": "Notion (simulated)",
+      "people": [
+        "Nurse Kim"
       ]
     },
     {
@@ -252,6 +317,14 @@
         "Sofia Reyes",
         "Tomas Herrera"
       ]
+    },
+    {
+      "at": "2017-06-11",
+      "type": "finding",
+      "title": "Slack export: #care-coords thread (2017)",
+      "body": "Coordinator thread: handovers with a one-line summary cut morning calls by half. Descriptive note shared with two other wards.",
+      "tag": "shareable",
+      "via": "Slack (simulated)"
     },
     {
       "at": "2017-11-05",
@@ -289,6 +362,17 @@
       ]
     },
     {
+      "at": "2018-09-23",
+      "type": "relationship",
+      "title": "LinkedIn export: Dr Patel connection (2018)",
+      "body": "Connected with Dr Patel after the community health fair; she coordinates the clinic rota and asked for the handover checklist.",
+      "tag": "personal",
+      "via": "LinkedIn (simulated)",
+      "people": [
+        "Dr Patel"
+      ]
+    },
+    {
       "at": "2018-12-28",
       "type": "journal",
       "title": "Year-end reflection 2018",
@@ -308,6 +392,18 @@
       "people": [
         "Isabel Fuente",
         "Ramon Vega"
+      ]
+    },
+    {
+      "at": "2019-05-05",
+      "type": "document",
+      "title": "Family export: estate papers checklist (2019)",
+      "body": "Family document: wills, powers of attorney, and the safe-deposit inventory for Mama Elena and Papa Miguel. Annual review booked every spring.",
+      "tag": "personal",
+      "via": "Family (simulated)",
+      "people": [
+        "Mama Elena",
+        "Papa Miguel"
       ]
     },
     {
@@ -331,6 +427,17 @@
         "Fatima Noor",
         "Peter Novak",
         "Clara Ortiz"
+      ]
+    },
+    {
+      "at": "2020-03-29",
+      "type": "relationship",
+      "title": "Contacts export: Sister Carmen card (2020)",
+      "body": "Contact card: Sister Carmen, first call for family logistics, prefers phone over messages. Sunday table co-host since 2014.",
+      "tag": "personal",
+      "via": "Contacts (simulated)",
+      "people": [
+        "Sister Carmen"
       ]
     },
     {
@@ -367,6 +474,14 @@
       ]
     },
     {
+      "at": "2021-10-17",
+      "type": "goal-note",
+      "title": "Notion export: coordinator goals (2021)",
+      "body": "Goal page: formalize the handover method, train four new coordinators, protect one rest day weekly. Reviewed at the Sunday table monthly.",
+      "tag": "personal",
+      "via": "Notion (simulated)"
+    },
+    {
       "at": "2021-12-28",
       "type": "journal",
       "title": "Year-end reflection 2021",
@@ -390,6 +505,18 @@
       ]
     },
     {
+      "at": "2022-07-21",
+      "type": "health",
+      "title": "Gmail export: vaccination records (2022)",
+      "body": "Clinic records by email for the family: vaccination dates for Mama Elena and Papa Miguel filed with the health export.",
+      "tag": "personal",
+      "via": "Gmail (simulated)",
+      "people": [
+        "Mama Elena",
+        "Papa Miguel"
+      ]
+    },
+    {
       "at": "2022-10-30",
       "type": "finance",
       "title": "Mum’s care fund",
@@ -410,6 +537,14 @@
       "people": [
         "Fatima Noor"
       ]
+    },
+    {
+      "at": "2023-04-15",
+      "type": "finding",
+      "title": "X export: community table post (2023)",
+      "body": "Posted about the Sunday table: twenty years, four generations, one rota. Replies asked for the handover template; shared the checklist publicly.",
+      "tag": "shareable",
+      "via": "X (Twitter) (simulated)"
     },
     {
       "at": "2023-05-20",
@@ -444,6 +579,17 @@
         "Niece Lucia",
         "Mama Elena",
         "Sister Carmen"
+      ]
+    },
+    {
+      "at": "2024-08-31",
+      "type": "finance",
+      "title": "Calendar export: care budget review (2024)",
+      "body": "Quarterly care budget review block with Brother Luis: shared account, upcoming appointments, and the respite fund balance.",
+      "tag": "personal",
+      "via": "Calendar (simulated)",
+      "people": [
+        "Brother Luis"
       ]
     },
     {
@@ -485,6 +631,17 @@
       ]
     },
     {
+      "at": "2025-06-14",
+      "type": "health",
+      "title": "Apple Health export summary (2025)",
+      "body": "Health export: sleep steady at 7h since coordinating, steps from the school run with Niece Lucia. Rest day protected most weeks.",
+      "tag": "personal",
+      "via": "Apple Health (simulated)",
+      "people": [
+        "Niece Lucia"
+      ]
+    },
+    {
       "at": "2025-11-02",
       "type": "skill",
       "title": "Teaching coordination",
@@ -505,6 +662,14 @@
         "Mama Elena",
         "Papa Miguel"
       ]
+    },
+    {
+      "at": "2026-02-08",
+      "type": "finding",
+      "title": "Drive export: handover study notes (2026)",
+      "body": "Findings doc exported: wards using the one-line handover reported fewer missed medications. The method travels; the family table is where it started.",
+      "tag": "shareable",
+      "via": "Google Drive (simulated)"
     },
     {
       "at": "2026-03-15",

@@ -1,533 +1,698 @@
 {
- "id": "rosa",
- "label": "Rosa (carer \u2192 coordinator)",
- "tagline": "Two decades of care: aide, nurse, coordinator, and the Sunday table that held a whole family together.",
- "entries": [
-  {
-   "at": "2006-02-12",
-   "type": "journal",
-   "title": "Care aide, first ward",
-   "body": "Started as a hospital care aide. Night shifts, strong coffee, kind nurses. Family said I was born for this; my feet disagreed.",
-   "tag": "personal",
-   "people": [
-    "Nurse Kim"
-   ]
-  },
-  {
-   "at": "2006-12-28",
-   "type": "journal",
-   "title": "Year-end reflection 2006",
-   "body": "Year 2006: the Sunday table held. Work hard, family harder, rest scheduled like medicine.",
-   "tag": "personal",
-   "people": [
-    "Mama Elena",
-    "Sister Carmen"
-   ]
-  },
-  {
-   "at": "2007-06-03",
-   "type": "relationship",
-   "title": "Sunday lunches begin",
-   "body": "Started Sunday lunches at Mama Elena\u2019s: twelve people, one table, no phones. The family operating system.",
-   "tag": "personal",
-   "people": [
-    "Mama Elena",
-    "Papa Miguel",
-    "Brother Luis",
-    "Sister Carmen"
-   ]
-  },
-  {
-   "at": "2007-12-28",
-   "type": "journal",
-   "title": "Year-end reflection 2007",
-   "body": "Year 2007: a caring year in every direction. Roster updated, hearts too.",
-   "tag": "personal",
-   "people": [
-    "Fatima Noor"
-   ]
-  },
-  {
-   "at": "2008-04-19",
-   "type": "health",
-   "title": "Back and lifting",
-   "body": "Lifting patients wrecked my back at 24. Physio, technique, asking for help \u2014 a skill I resisted for years.",
-   "tag": "personal",
-   "people": [
-    "Dr Patel"
-   ]
-  },
-  {
-   "at": "2008-12-28",
-   "type": "journal",
-   "title": "Year-end reflection 2008",
-   "body": "Year 2008: pivots and night shifts, but lunch was at one and nobody missed it.",
-   "tag": "personal",
-   "people": [
-    "Brother Luis",
-    "Mama Elena"
-   ]
-  },
-  {
-   "at": "2009-09-27",
-   "type": "skill",
-   "title": "Medication systems",
-   "body": "Learned medication scheduling systems cold. Colour codes, double checks, calm under alarms.",
-   "tag": "shareable",
-   "people": [
-    "Nurse Kim",
-    "Fatima Noor"
-   ]
-  },
-  {
-   "at": "2009-12-28",
-   "type": "journal",
-   "title": "Year-end reflection 2009",
-   "body": "Year 2009: I learned to accept care as well as give it. Growth, Rosa-style.",
-   "tag": "personal",
-   "people": [
-    "Niece Lucia",
-    "Nephew Diego"
-   ]
-  },
-  {
-   "at": "2010-01-16",
-   "type": "journal",
-   "title": "Papa Miguel diagnosed",
-   "body": "Dad\u2019s heart diagnosis. I became the family scheduler overnight. Care is logistics plus love.",
-   "tag": "personal",
-   "people": [
-    "Papa Miguel",
-    "Mama Elena",
-    "Sister Carmen"
-   ]
-  },
-  {
-   "at": "2010-12-28",
-   "type": "journal",
-   "title": "Year-end reflection 2010",
-   "body": "Year 2010: the Sunday table held. Work hard, family harder, rest scheduled like medicine.",
-   "tag": "personal",
-   "people": [
-    "Mama Elena",
-    "Papa Miguel"
-   ]
-  },
-  {
-   "at": "2011-05-08",
-   "type": "finance",
-   "title": "Care costs spreadsheet",
-   "body": "Built the family care-cost spreadsheet everyone pretends not to need. Funerals, meds, transport: priced with love.",
-   "tag": "personal",
-   "people": [
-    "Brother Luis"
-   ]
-  },
-  {
-   "at": "2011-12-28",
-   "type": "journal",
-   "title": "Year-end reflection 2011",
-   "body": "Year 2011: a caring year in every direction. Roster updated, hearts too.",
-   "tag": "personal",
-   "people": [
-    "Mama Elena",
-    "Sister Carmen"
-   ]
-  },
-  {
-   "at": "2012-08-23",
-   "type": "goal-note",
-   "title": "Pivot: train properly",
-   "body": "Decided to train as a nurse properly, nights and weekends. The ward taught me first; school will credential it.",
-   "tag": "personal",
-   "people": [
-    "Fatima Noor"
-   ]
-  },
-  {
-   "at": "2012-12-28",
-   "type": "journal",
-   "title": "Year-end reflection 2012",
-   "body": "Year 2012: pivots and night shifts, but lunch was at one and nobody missed it.",
-   "tag": "personal",
-   "people": [
-    "Fatima Noor"
-   ]
-  },
-  {
-   "at": "2013-03-30",
-   "type": "relationship",
-   "title": "Fatima, study sister",
-   "body": "Fatima and I studied through every night class. She quizzed me on the bus; I kept her awake with empanadas.",
-   "tag": "personal",
-   "people": [
-    "Fatima Noor",
-    "Grace Ade"
-   ]
-  },
-  {
-   "at": "2013-12-28",
-   "type": "journal",
-   "title": "Year-end reflection 2013",
-   "body": "Year 2013: I learned to accept care as well as give it. Growth, Rosa-style.",
-   "tag": "personal",
-   "people": [
-    "Brother Luis",
-    "Mama Elena"
-   ]
-  },
-  {
-   "at": "2014-07-12",
-   "type": "health",
-   "title": "Burnout, recognised",
-   "body": "I cared for everyone except me. Burnout leave, six weeks. Mama Elena moved in and cared for the carer.",
-   "tag": "personal",
-   "people": [
-    "Mama Elena",
-    "Sister Carmen"
-   ]
-  },
-  {
-   "at": "2014-12-28",
-   "type": "journal",
-   "title": "Year-end reflection 2014",
-   "body": "Year 2014: the Sunday table held. Work hard, family harder, rest scheduled like medicine.",
-   "tag": "personal",
-   "people": [
-    "Niece Lucia",
-    "Nephew Diego"
-   ]
-  },
-  {
-   "at": "2015-02-21",
-   "type": "skill",
-   "title": "Qualified nurse",
-   "body": "Qualified at last, oldest in my cohort, proudest too. The pivot took five years of nights. Worth every one.",
-   "tag": "shareable",
-   "people": [
-    "Dr Patel",
-    "Nurse Kim"
-   ]
-  },
-  {
-   "at": "2015-12-28",
-   "type": "journal",
-   "title": "Year-end reflection 2015",
-   "body": "Year 2015: a caring year in every direction. Roster updated, hearts too.",
-   "tag": "personal",
-   "people": [
-    "Mama Elena",
-    "Papa Miguel"
-   ]
-  },
-  {
-   "at": "2016-06-18",
-   "type": "finding",
-   "title": "Discharge fails families",
-   "body": "Finding: discharges fail at the kitchen table, not the hospital. Families need one page, not forty.",
-   "tag": "shareable",
-   "people": [
-    "Dr Patel",
-    "Sofia Reyes"
-   ]
-  },
-  {
-   "at": "2016-12-28",
-   "type": "journal",
-   "title": "Year-end reflection 2016",
-   "body": "Year 2016: pivots and night shifts, but lunch was at one and nobody missed it.",
-   "tag": "personal",
-   "people": [
-    "Mama Elena",
-    "Sister Carmen"
-   ]
-  },
-  {
-   "at": "2017-01-29",
-   "type": "method",
-   "title": "One-page care plans",
-   "body": "Method: one-page care plans families actually use: meds, meals, red flags, who to call. Adopted ward-wide.",
-   "tag": "shareable",
-   "people": [
-    "Sofia Reyes",
-    "Tomas Herrera"
-   ]
-  },
-  {
-   "at": "2017-11-05",
-   "type": "journal",
-   "title": "Papa Miguel, goodbye",
-   "body": "Dad died at home, us around him, Sunday lunch still warm. Grief is a roster change nobody wants.",
-   "tag": "personal",
-   "people": [
-    "Mama Elena",
-    "Brother Luis",
-    "Sister Carmen",
-    "Aunt Dolores"
-   ]
-  },
-  {
-   "at": "2017-12-28",
-   "type": "journal",
-   "title": "Year-end reflection 2017",
-   "body": "Year 2017: I learned to accept care as well as give it. Growth, Rosa-style.",
-   "tag": "personal",
-   "people": [
-    "Fatima Noor"
-   ]
-  },
-  {
-   "at": "2018-05-13",
-   "type": "relationship",
-   "title": "Mama Elena moves in",
-   "body": "Mum moved in after Dad. Three generations, one bathroom, much laughter. Care became home-shaped.",
-   "tag": "personal",
-   "people": [
-    "Mama Elena",
-    "Niece Lucia",
-    "Nephew Diego"
-   ]
-  },
-  {
-   "at": "2018-12-28",
-   "type": "journal",
-   "title": "Year-end reflection 2018",
-   "body": "Year 2018: the Sunday table held. Work hard, family harder, rest scheduled like medicine.",
-   "tag": "personal",
-   "people": [
-    "Brother Luis",
-    "Mama Elena"
-   ]
-  },
-  {
-   "at": "2019-04-07",
-   "type": "research",
-   "title": "Community care models",
-   "body": "Researched community care cooperatives. Families like mine are infrastructure; policy just hasn\u2019t noticed.",
-   "tag": "shareable",
-   "people": [
-    "Isabel Fuente",
-    "Ramon Vega"
-   ]
-  },
-  {
-   "at": "2019-12-28",
-   "type": "journal",
-   "title": "Year-end reflection 2019",
-   "body": "Year 2019: a caring year in every direction. Roster updated, hearts too.",
-   "tag": "personal",
-   "people": [
-    "Niece Lucia",
-    "Nephew Diego"
-   ]
-  },
-  {
-   "at": "2020-03-22",
-   "type": "journal",
-   "title": "Pandemic ward",
-   "body": "COVID ward spring. Video calls held families together through glass. I coordinated and cried in stairwells.",
-   "tag": "personal",
-   "people": [
-    "Fatima Noor",
-    "Peter Novak",
-    "Clara Ortiz"
-   ]
-  },
-  {
-   "at": "2020-12-24",
-   "type": "health",
-   "title": "My own scare",
-   "body": "Brief hospital stay, exhaustion and infection. The cared-for carer again. Family roster activated without me asking.",
-   "tag": "personal",
-   "people": [
-    "Sister Carmen",
-    "Mama Elena",
-    "Brother Luis"
-   ]
-  },
-  {
-   "at": "2020-12-28",
-   "type": "journal",
-   "title": "Year-end reflection 2020",
-   "body": "Year 2020: pivots and night shifts, but lunch was at one and nobody missed it.",
-   "tag": "personal",
-   "people": [
-    "Mama Elena",
-    "Papa Miguel"
-   ]
-  },
-  {
-   "at": "2021-06-15",
-   "type": "goal-note",
-   "title": "Pivot: coordination",
-   "body": "Moving from bedside to care coordination: fewer shifts, wider reach. My Sunday-table skills, professionalised.",
-   "tag": "personal",
-   "people": [
-    "Isabel Fuente"
-   ]
-  },
-  {
-   "at": "2021-12-28",
-   "type": "journal",
-   "title": "Year-end reflection 2021",
-   "body": "Year 2021: I learned to accept care as well as give it. Growth, Rosa-style.",
-   "tag": "personal",
-   "people": [
-    "Mama Elena",
-    "Sister Carmen"
-   ]
-  },
-  {
-   "at": "2022-02-06",
-   "type": "method",
-   "title": "Family roster method",
-   "body": "Method: the family roster \u2014 named humans, named jobs, rest built in. Shared with every family I coordinate.",
-   "tag": "shareable",
-   "people": [
-    "Clara Ortiz",
-    "Hugo Sanz",
-    "Lena Mora"
-   ]
-  },
-  {
-   "at": "2022-10-30",
-   "type": "finance",
-   "title": "Mum\u2019s care fund",
-   "body": "Siblings pooled a care fund for Mum, transparent spreadsheet, no drama. Past-Rosa\u2019s spreadsheet obsession vindicated.",
-   "tag": "personal",
-   "people": [
-    "Brother Luis",
-    "Sister Carmen",
-    "Mama Elena"
-   ]
-  },
-  {
-   "at": "2022-12-28",
-   "type": "journal",
-   "title": "Year-end reflection 2022",
-   "body": "Year 2022: the Sunday table held. Work hard, family harder, rest scheduled like medicine.",
-   "tag": "personal",
-   "people": [
-    "Fatima Noor"
-   ]
-  },
-  {
-   "at": "2023-05-20",
-   "type": "research",
-   "title": "Co-op pilot",
-   "body": "Piloting a carers cooperative in our district: twenty families, shared respite, shared knowledge.",
-   "tag": "shareable",
-   "people": [
-    "Victor Ruiz",
-    "Nora Gil",
-    "Andres Paz"
-   ]
-  },
-  {
-   "at": "2023-12-28",
-   "type": "journal",
-   "title": "Year-end reflection 2023",
-   "body": "Year 2023: a caring year in every direction. Roster updated, hearts too.",
-   "tag": "personal",
-   "people": [
-    "Brother Luis",
-    "Mama Elena"
-   ]
-  },
-  {
-   "at": "2024-01-14",
-   "type": "relationship",
-   "title": "Lucia qualifies",
-   "body": "Niece Lucia qualified as a nurse. I pinned her badge. The family care line continues, chosen this time.",
-   "tag": "personal",
-   "people": [
-    "Niece Lucia",
-    "Mama Elena",
-    "Sister Carmen"
-   ]
-  },
-  {
-   "at": "2024-09-08",
-   "type": "finding",
-   "title": "Respite is medicine",
-   "body": "Finding across 40 families: scheduled respite prevents crisis admissions better than any leaflet. Rest is treatment.",
-   "tag": "shareable",
-   "people": [
-    "Marta Leon",
-    "Julia Sanz"
-   ]
-  },
-  {
-   "at": "2024-12-28",
-   "type": "journal",
-   "title": "Year-end reflection 2024",
-   "body": "Year 2024: pivots and night shifts, but lunch was at one and nobody missed it.",
-   "tag": "personal",
-   "people": [
-    "Niece Lucia",
-    "Nephew Diego"
-   ]
-  },
-  {
-   "at": "2025-04-19",
-   "type": "journal",
-   "title": "Mama Elena at 90",
-   "body": "Mum turned 90 at the Sunday table, 22 of us, she beat everyone at dominoes. Care returned as celebration.",
-   "tag": "personal",
-   "people": [
-    "Mama Elena",
-    "Brother Luis",
-    "Sister Carmen",
-    "Niece Lucia",
-    "Nephew Diego",
-    "Aunt Dolores",
-    "Cousin Ana"
-   ]
-  },
-  {
-   "at": "2025-11-02",
-   "type": "skill",
-   "title": "Teaching coordination",
-   "body": "Teaching care coordination to new nurses: logistics as love language, rosters as kindness.",
-   "tag": "shareable",
-   "people": [
-    "Rosa Jr",
-    "Lena Mora"
-   ]
-  },
-  {
-   "at": "2025-12-28",
-   "type": "journal",
-   "title": "Year-end reflection 2025",
-   "body": "Year 2025: I learned to accept care as well as give it. Growth, Rosa-style.",
-   "tag": "personal",
-   "people": [
-    "Mama Elena",
-    "Papa Miguel"
-   ]
-  },
-  {
-   "at": "2026-03-15",
-   "type": "journal",
-   "title": "It all threads",
-   "body": "Aide, daughter-carer, nurse, coordinator. Every pivot was care changing shape. Twenty years, one table, it works out.",
-   "tag": "personal",
-   "people": [
-    "Mama Elena",
-    "Fatima Noor",
-    "Sister Carmen"
-   ]
-  },
-  {
-   "at": "2026-12-28",
-   "type": "journal",
-   "title": "Year-end reflection 2026",
-   "body": "Year 2026: the Sunday table held. Work hard, family harder, rest scheduled like medicine.",
-   "tag": "personal",
-   "people": [
-    "Mama Elena",
-    "Sister Carmen"
-   ]
-  }
- ]
+  "id": "rosa",
+  "label": "Rosa (carer \u2192 coordinator)",
+  "tagline": "Two decades of care: aide, nurse, coordinator, and the Sunday table that held a whole family together.",
+  "entries": [
+    {
+      "at": "2006-02-12",
+      "type": "journal",
+      "title": "Care aide, first ward",
+      "body": "Started as a hospital care aide. Night shifts, strong coffee, kind nurses. Family said I was born for this; my feet disagreed.",
+      "tag": "personal",
+      "people": [
+        "Nurse Kim"
+      ]
+    },
+    {
+      "at": "2006-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2006",
+      "body": "Year 2006: the Sunday table held. Work hard, family harder, rest scheduled like medicine.",
+      "tag": "personal",
+      "people": [
+        "Mama Elena",
+        "Sister Carmen"
+      ]
+    },
+    {
+      "at": "2007-06-03",
+      "type": "relationship",
+      "title": "Sunday lunches begin",
+      "body": "Started Sunday lunches at Mama Elena\u2019s: twelve people, one table, no phones. The family operating system.",
+      "tag": "personal",
+      "people": [
+        "Mama Elena",
+        "Papa Miguel",
+        "Brother Luis",
+        "Sister Carmen"
+      ]
+    },
+    {
+      "at": "2007-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2007",
+      "body": "Year 2007: a caring year in every direction. Roster updated, hearts too.",
+      "tag": "personal",
+      "people": [
+        "Fatima Noor"
+      ]
+    },
+    {
+      "at": "2008-04-19",
+      "type": "health",
+      "title": "Back and lifting",
+      "body": "Lifting patients wrecked my back at 24. Physio, technique, asking for help \u2014 a skill I resisted for years.",
+      "tag": "personal",
+      "people": [
+        "Dr Patel"
+      ]
+    },
+    {
+      "at": "2008-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2008",
+      "body": "Year 2008: pivots and night shifts, but lunch was at one and nobody missed it.",
+      "tag": "personal",
+      "people": [
+        "Brother Luis",
+        "Mama Elena"
+      ]
+    },
+    {
+      "at": "2009-09-27",
+      "type": "skill",
+      "title": "Medication systems",
+      "body": "Learned medication scheduling systems cold. Colour codes, double checks, calm under alarms.",
+      "tag": "shareable",
+      "people": [
+        "Nurse Kim",
+        "Fatima Noor"
+      ]
+    },
+    {
+      "at": "2009-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2009",
+      "body": "Year 2009: I learned to accept care as well as give it. Growth, Rosa-style.",
+      "tag": "personal",
+      "people": [
+        "Niece Lucia",
+        "Nephew Diego"
+      ]
+    },
+    {
+      "at": "2010-01-16",
+      "type": "journal",
+      "title": "Papa Miguel diagnosed",
+      "body": "Dad\u2019s heart diagnosis. I became the family scheduler overnight. Care is logistics plus love.",
+      "tag": "personal",
+      "people": [
+        "Papa Miguel",
+        "Mama Elena",
+        "Sister Carmen"
+      ]
+    },
+    {
+      "at": "2010-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2010",
+      "body": "Year 2010: the Sunday table held. Work hard, family harder, rest scheduled like medicine.",
+      "tag": "personal",
+      "people": [
+        "Mama Elena",
+        "Papa Miguel"
+      ]
+    },
+    {
+      "at": "2011-05-08",
+      "type": "finance",
+      "title": "Care costs spreadsheet",
+      "body": "Built the family care-cost spreadsheet everyone pretends not to need. Funerals, meds, transport: priced with love.",
+      "tag": "personal",
+      "people": [
+        "Brother Luis"
+      ]
+    },
+    {
+      "at": "2011-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2011",
+      "body": "Year 2011: a caring year in every direction. Roster updated, hearts too.",
+      "tag": "personal",
+      "people": [
+        "Mama Elena",
+        "Sister Carmen"
+      ]
+    },
+    {
+      "at": "2012-08-23",
+      "type": "goal-note",
+      "title": "Pivot: train properly",
+      "body": "Decided to train as a nurse properly, nights and weekends. The ward taught me first; school will credential it.",
+      "tag": "personal",
+      "people": [
+        "Fatima Noor"
+      ]
+    },
+    {
+      "at": "2012-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2012",
+      "body": "Year 2012: pivots and night shifts, but lunch was at one and nobody missed it.",
+      "tag": "personal",
+      "people": [
+        "Fatima Noor"
+      ]
+    },
+    {
+      "at": "2013-03-30",
+      "type": "relationship",
+      "title": "Fatima, study sister",
+      "body": "Fatima and I studied through every night class. She quizzed me on the bus; I kept her awake with empanadas.",
+      "tag": "personal",
+      "people": [
+        "Fatima Noor",
+        "Grace Ade"
+      ]
+    },
+    {
+      "at": "2013-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2013",
+      "body": "Year 2013: I learned to accept care as well as give it. Growth, Rosa-style.",
+      "tag": "personal",
+      "people": [
+        "Brother Luis",
+        "Mama Elena"
+      ]
+    },
+    {
+      "at": "2014-07-12",
+      "type": "health",
+      "title": "Burnout, recognised",
+      "body": "I cared for everyone except me. Burnout leave, six weeks. Mama Elena moved in and cared for the carer.",
+      "tag": "personal",
+      "people": [
+        "Mama Elena",
+        "Sister Carmen"
+      ]
+    },
+    {
+      "at": "2014-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2014",
+      "body": "Year 2014: the Sunday table held. Work hard, family harder, rest scheduled like medicine.",
+      "tag": "personal",
+      "people": [
+        "Niece Lucia",
+        "Nephew Diego"
+      ]
+    },
+    {
+      "at": "2015-02-21",
+      "type": "skill",
+      "title": "Qualified nurse",
+      "body": "Qualified at last, oldest in my cohort, proudest too. The pivot took five years of nights. Worth every one.",
+      "tag": "shareable",
+      "people": [
+        "Dr Patel",
+        "Nurse Kim"
+      ]
+    },
+    {
+      "at": "2015-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2015",
+      "body": "Year 2015: a caring year in every direction. Roster updated, hearts too.",
+      "tag": "personal",
+      "people": [
+        "Mama Elena",
+        "Papa Miguel"
+      ]
+    },
+    {
+      "at": "2016-06-18",
+      "type": "finding",
+      "title": "Discharge fails families",
+      "body": "Finding: discharges fail at the kitchen table, not the hospital. Families need one page, not forty.",
+      "tag": "shareable",
+      "people": [
+        "Dr Patel",
+        "Sofia Reyes"
+      ]
+    },
+    {
+      "at": "2016-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2016",
+      "body": "Year 2016: pivots and night shifts, but lunch was at one and nobody missed it.",
+      "tag": "personal",
+      "people": [
+        "Mama Elena",
+        "Sister Carmen"
+      ]
+    },
+    {
+      "at": "2017-01-29",
+      "type": "method",
+      "title": "One-page care plans",
+      "body": "Method: one-page care plans families actually use: meds, meals, red flags, who to call. Adopted ward-wide.",
+      "tag": "shareable",
+      "people": [
+        "Sofia Reyes",
+        "Tomas Herrera"
+      ]
+    },
+    {
+      "at": "2017-11-05",
+      "type": "journal",
+      "title": "Papa Miguel, goodbye",
+      "body": "Dad died at home, us around him, Sunday lunch still warm. Grief is a roster change nobody wants.",
+      "tag": "personal",
+      "people": [
+        "Mama Elena",
+        "Brother Luis",
+        "Sister Carmen",
+        "Aunt Dolores"
+      ]
+    },
+    {
+      "at": "2017-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2017",
+      "body": "Year 2017: I learned to accept care as well as give it. Growth, Rosa-style.",
+      "tag": "personal",
+      "people": [
+        "Fatima Noor"
+      ]
+    },
+    {
+      "at": "2018-05-13",
+      "type": "relationship",
+      "title": "Mama Elena moves in",
+      "body": "Mum moved in after Dad. Three generations, one bathroom, much laughter. Care became home-shaped.",
+      "tag": "personal",
+      "people": [
+        "Mama Elena",
+        "Niece Lucia",
+        "Nephew Diego"
+      ]
+    },
+    {
+      "at": "2018-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2018",
+      "body": "Year 2018: the Sunday table held. Work hard, family harder, rest scheduled like medicine.",
+      "tag": "personal",
+      "people": [
+        "Brother Luis",
+        "Mama Elena"
+      ]
+    },
+    {
+      "at": "2019-04-07",
+      "type": "research",
+      "title": "Community care models",
+      "body": "Researched community care cooperatives. Families like mine are infrastructure; policy just hasn\u2019t noticed.",
+      "tag": "shareable",
+      "people": [
+        "Isabel Fuente",
+        "Ramon Vega"
+      ]
+    },
+    {
+      "at": "2019-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2019",
+      "body": "Year 2019: a caring year in every direction. Roster updated, hearts too.",
+      "tag": "personal",
+      "people": [
+        "Niece Lucia",
+        "Nephew Diego"
+      ]
+    },
+    {
+      "at": "2020-03-22",
+      "type": "journal",
+      "title": "Pandemic ward",
+      "body": "COVID ward spring. Video calls held families together through glass. I coordinated and cried in stairwells.",
+      "tag": "personal",
+      "people": [
+        "Fatima Noor",
+        "Peter Novak",
+        "Clara Ortiz"
+      ]
+    },
+    {
+      "at": "2020-12-24",
+      "type": "health",
+      "title": "My own scare",
+      "body": "Brief hospital stay, exhaustion and infection. The cared-for carer again. Family roster activated without me asking.",
+      "tag": "personal",
+      "people": [
+        "Sister Carmen",
+        "Mama Elena",
+        "Brother Luis"
+      ]
+    },
+    {
+      "at": "2020-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2020",
+      "body": "Year 2020: pivots and night shifts, but lunch was at one and nobody missed it.",
+      "tag": "personal",
+      "people": [
+        "Mama Elena",
+        "Papa Miguel"
+      ]
+    },
+    {
+      "at": "2021-06-15",
+      "type": "goal-note",
+      "title": "Pivot: coordination",
+      "body": "Moving from bedside to care coordination: fewer shifts, wider reach. My Sunday-table skills, professionalised.",
+      "tag": "personal",
+      "people": [
+        "Isabel Fuente"
+      ]
+    },
+    {
+      "at": "2021-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2021",
+      "body": "Year 2021: I learned to accept care as well as give it. Growth, Rosa-style.",
+      "tag": "personal",
+      "people": [
+        "Mama Elena",
+        "Sister Carmen"
+      ]
+    },
+    {
+      "at": "2022-02-06",
+      "type": "method",
+      "title": "Family roster method",
+      "body": "Method: the family roster \u2014 named humans, named jobs, rest built in. Shared with every family I coordinate.",
+      "tag": "shareable",
+      "people": [
+        "Clara Ortiz",
+        "Hugo Sanz",
+        "Lena Mora"
+      ]
+    },
+    {
+      "at": "2022-10-30",
+      "type": "finance",
+      "title": "Mum\u2019s care fund",
+      "body": "Siblings pooled a care fund for Mum, transparent spreadsheet, no drama. Past-Rosa\u2019s spreadsheet obsession vindicated.",
+      "tag": "personal",
+      "people": [
+        "Brother Luis",
+        "Sister Carmen",
+        "Mama Elena"
+      ]
+    },
+    {
+      "at": "2022-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2022",
+      "body": "Year 2022: the Sunday table held. Work hard, family harder, rest scheduled like medicine.",
+      "tag": "personal",
+      "people": [
+        "Fatima Noor"
+      ]
+    },
+    {
+      "at": "2023-05-20",
+      "type": "research",
+      "title": "Co-op pilot",
+      "body": "Piloting a carers cooperative in our district: twenty families, shared respite, shared knowledge.",
+      "tag": "shareable",
+      "people": [
+        "Victor Ruiz",
+        "Nora Gil",
+        "Andres Paz"
+      ]
+    },
+    {
+      "at": "2023-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2023",
+      "body": "Year 2023: a caring year in every direction. Roster updated, hearts too.",
+      "tag": "personal",
+      "people": [
+        "Brother Luis",
+        "Mama Elena"
+      ]
+    },
+    {
+      "at": "2024-01-14",
+      "type": "relationship",
+      "title": "Lucia qualifies",
+      "body": "Niece Lucia qualified as a nurse. I pinned her badge. The family care line continues, chosen this time.",
+      "tag": "personal",
+      "people": [
+        "Niece Lucia",
+        "Mama Elena",
+        "Sister Carmen"
+      ]
+    },
+    {
+      "at": "2024-09-08",
+      "type": "finding",
+      "title": "Respite is medicine",
+      "body": "Finding across 40 families: scheduled respite prevents crisis admissions better than any leaflet. Rest is treatment.",
+      "tag": "shareable",
+      "people": [
+        "Marta Leon",
+        "Julia Sanz"
+      ]
+    },
+    {
+      "at": "2024-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2024",
+      "body": "Year 2024: pivots and night shifts, but lunch was at one and nobody missed it.",
+      "tag": "personal",
+      "people": [
+        "Niece Lucia",
+        "Nephew Diego"
+      ]
+    },
+    {
+      "at": "2025-04-19",
+      "type": "journal",
+      "title": "Mama Elena at 90",
+      "body": "Mum turned 90 at the Sunday table, 22 of us, she beat everyone at dominoes. Care returned as celebration.",
+      "tag": "personal",
+      "people": [
+        "Mama Elena",
+        "Brother Luis",
+        "Sister Carmen",
+        "Niece Lucia",
+        "Nephew Diego",
+        "Aunt Dolores",
+        "Cousin Ana"
+      ]
+    },
+    {
+      "at": "2025-11-02",
+      "type": "skill",
+      "title": "Teaching coordination",
+      "body": "Teaching care coordination to new nurses: logistics as love language, rosters as kindness.",
+      "tag": "shareable",
+      "people": [
+        "Rosa Jr",
+        "Lena Mora"
+      ]
+    },
+    {
+      "at": "2025-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2025",
+      "body": "Year 2025: I learned to accept care as well as give it. Growth, Rosa-style.",
+      "tag": "personal",
+      "people": [
+        "Mama Elena",
+        "Papa Miguel"
+      ]
+    },
+    {
+      "at": "2026-03-15",
+      "type": "journal",
+      "title": "It all threads",
+      "body": "Aide, daughter-carer, nurse, coordinator. Every pivot was care changing shape. Twenty years, one table, it works out.",
+      "tag": "personal",
+      "people": [
+        "Mama Elena",
+        "Fatima Noor",
+        "Sister Carmen"
+      ]
+    },
+    {
+      "at": "2026-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2026",
+      "body": "Year 2026: the Sunday table held. Work hard, family harder, rest scheduled like medicine.",
+      "tag": "personal",
+      "people": [
+        "Mama Elena",
+        "Sister Carmen"
+      ]
+    },
+    {
+      "at": "2007-09-16",
+      "type": "document",
+      "title": "Drive export: ward rota archive (2007)",
+      "body": "Exported rota for the care ward: Sunday lunches at Mama Elena's after shift, who covers holidays, and the phone tree for emergencies.",
+      "tag": "personal",
+      "via": "Google Drive (simulated)",
+      "people": [
+        "Mama Elena"
+      ]
+    },
+    {
+      "at": "2009-04-25",
+      "type": "relationship",
+      "title": "Gmail thread: Fatima Noor training (2009)",
+      "body": "Email chain with Fatima Noor about the coordinator training: two Saturdays, a mentor assigned, exam in June. Replied with the rota swap.",
+      "tag": "personal",
+      "via": "Gmail (simulated)",
+      "people": [
+        "Fatima Noor"
+      ]
+    },
+    {
+      "at": "2011-08-08",
+      "type": "health",
+      "title": "Apple Health export summary (2011)",
+      "body": "Health export: steps high on ward days (11k average), sleep short after late shifts. Sunday rest shows as the recovery anchor.",
+      "tag": "personal",
+      "via": "Apple Health (simulated)"
+    },
+    {
+      "at": "2013-03-19",
+      "type": "finance",
+      "title": "Drive export: family support ledger (2013)",
+      "body": "Ledger export: who sent what for Papa Miguel's care, pharmacy receipts filed by month, and the shared account rules agreed at the Sunday table.",
+      "tag": "personal",
+      "via": "Google Drive (simulated)",
+      "people": [
+        "Papa Miguel"
+      ]
+    },
+    {
+      "at": "2014-12-07",
+      "type": "journal",
+      "title": "Calendar export: Sunday table (2014)",
+      "body": "Recurring Sunday lunch block: Mama Elena hosts, Brother Luis brings bread, Niece Lucia does the school run rota. Seven years without a missed month.",
+      "tag": "personal",
+      "via": "Calendar (simulated)",
+      "people": [
+        "Mama Elena",
+        "Brother Luis",
+        "Niece Lucia"
+      ]
+    },
+    {
+      "at": "2016-02-27",
+      "type": "method",
+      "title": "Notion export: care handover checklist (2016)",
+      "body": "Shared checklist page: medications, mood, meals, and the one-line handover note format the whole family now uses. Nurse Kim reviewed it twice.",
+      "tag": "shareable",
+      "via": "Notion (simulated)",
+      "people": [
+        "Nurse Kim"
+      ]
+    },
+    {
+      "at": "2017-06-11",
+      "type": "finding",
+      "title": "Slack export: #care-coords thread (2017)",
+      "body": "Coordinator thread: handovers with a one-line summary cut morning calls by half. Descriptive note shared with two other wards.",
+      "tag": "shareable",
+      "via": "Slack (simulated)"
+    },
+    {
+      "at": "2018-09-23",
+      "type": "relationship",
+      "title": "LinkedIn export: Dr Patel connection (2018)",
+      "body": "Connected with Dr Patel after the community health fair; she coordinates the clinic rota and asked for the handover checklist.",
+      "tag": "personal",
+      "via": "LinkedIn (simulated)",
+      "people": [
+        "Dr Patel"
+      ]
+    },
+    {
+      "at": "2019-05-05",
+      "type": "document",
+      "title": "Family export: estate papers checklist (2019)",
+      "body": "Family document: wills, powers of attorney, and the safe-deposit inventory for Mama Elena and Papa Miguel. Annual review booked every spring.",
+      "tag": "personal",
+      "via": "Family (simulated)",
+      "people": [
+        "Mama Elena",
+        "Papa Miguel"
+      ]
+    },
+    {
+      "at": "2020-03-29",
+      "type": "relationship",
+      "title": "Contacts export: Sister Carmen card (2020)",
+      "body": "Contact card: Sister Carmen, first call for family logistics, prefers phone over messages. Sunday table co-host since 2014.",
+      "tag": "personal",
+      "via": "Contacts (simulated)",
+      "people": [
+        "Sister Carmen"
+      ]
+    },
+    {
+      "at": "2021-10-17",
+      "type": "goal-note",
+      "title": "Notion export: coordinator goals (2021)",
+      "body": "Goal page: formalize the handover method, train four new coordinators, protect one rest day weekly. Reviewed at the Sunday table monthly.",
+      "tag": "personal",
+      "via": "Notion (simulated)"
+    },
+    {
+      "at": "2022-07-21",
+      "type": "health",
+      "title": "Gmail export: vaccination records (2022)",
+      "body": "Clinic records by email for the family: vaccination dates for Mama Elena and Papa Miguel filed with the health export.",
+      "tag": "personal",
+      "via": "Gmail (simulated)",
+      "people": [
+        "Mama Elena",
+        "Papa Miguel"
+      ]
+    },
+    {
+      "at": "2023-04-15",
+      "type": "finding",
+      "title": "X export: community table post (2023)",
+      "body": "Posted about the Sunday table: twenty years, four generations, one rota. Replies asked for the handover template; shared the checklist publicly.",
+      "tag": "shareable",
+      "via": "X (Twitter) (simulated)"
+    },
+    {
+      "at": "2024-08-31",
+      "type": "finance",
+      "title": "Calendar export: care budget review (2024)",
+      "body": "Quarterly care budget review block with Brother Luis: shared account, upcoming appointments, and the respite fund balance.",
+      "tag": "personal",
+      "via": "Calendar (simulated)",
+      "people": [
+        "Brother Luis"
+      ]
+    },
+    {
+      "at": "2025-06-14",
+      "type": "health",
+      "title": "Apple Health export summary (2025)",
+      "body": "Health export: sleep steady at 7h since coordinating, steps from the school run with Niece Lucia. Rest day protected most weeks.",
+      "tag": "personal",
+      "via": "Apple Health (simulated)",
+      "people": [
+        "Niece Lucia"
+      ]
+    },
+    {
+      "at": "2026-02-08",
+      "type": "finding",
+      "title": "Drive export: handover study notes (2026)",
+      "body": "Findings doc exported: wards using the one-line handover reported fewer missed medications. The method travels; the family table is where it started.",
+      "tag": "shareable",
+      "via": "Google Drive (simulated)"
+    }
+  ]
 }

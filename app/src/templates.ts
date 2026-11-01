@@ -36,8 +36,8 @@ export const PATH_TEMPLATES: PathTemplate[] = [
     description: 'See which relationships are warm, which have gone quiet, and who may be due a hello — descriptively, never as a score of people.',
     neededData: ['Entries that mention people, contacts (.vcf), calendars (.ics), or relationship notes'],
     suggestedQuery: 'which relationships have gone quiet?',
-    archetypeId: 'network-weaver',
-    archetypeLabel: 'Network Weaver',
+    archetypeId: 'keeper-of-threads',
+    archetypeLabel: 'Keeper of Threads',
     scaffold: ['People by recency', 'Relationships gone quiet', 'Long-running connections', 'Your own notes beside each person'],
   },
   {
@@ -54,8 +54,8 @@ export const PATH_TEMPLATES: PathTemplate[] = [
     description: 'An honest view of what you finish, what you collect, and what your shelves say about your curiosity.',
     neededData: ['Reading notes, book lists, journals, research notes, or document uploads that mention books'],
     suggestedQuery: 'what does my reading life look like?',
-    archetypeId: 'bookworm',
-    archetypeLabel: 'Bookworm / Book Hoarder',
+    archetypeId: 'margin-annotator',
+    archetypeLabel: 'Margin Annotator / Shelf Cartographer',
     scaffold: ['Finished vs collected', 'Reading vs TBR signals', 'Reading across your years', 'Descriptive patterns (no reading prescriptions)'],
   },
 ];
@@ -65,7 +65,7 @@ export function templateById(id: string | undefined): PathTemplate | undefined {
 }
 
 export function templateForArchetype(archetypeId: string): PathTemplate | undefined {
-  if (archetypeId === 'book-hoarder') return templateById('reading-life');
+  if (archetypeId === 'shelf-cartographer') return templateById('reading-life');
   return PATH_TEMPLATES.find((t) => t.archetypeId === archetypeId);
 }
 
@@ -94,7 +94,7 @@ export function suggestTemplates(entries: Entry[]): TemplateSuggestion[] {
     });
   }
   const archetypes = computeArchetypes(live, 6);
-  const weaver = archetypes.find((a) => a.id === 'network-weaver');
+  const weaver = archetypes.find((a) => a.id === 'keeper-of-threads');
   if (weaver) {
     suggestions.push({
       template: templateById('relationship-rhythms')!,
@@ -102,7 +102,7 @@ export function suggestTemplates(entries: Entry[]): TemplateSuggestion[] {
       archetypeId: weaver.id,
     });
   }
-  const reader = archetypes.find((a) => a.id === 'bookworm' || a.id === 'book-hoarder');
+  const reader = archetypes.find((a) => a.id === 'margin-annotator' || a.id === 'shelf-cartographer');
   if (reader) {
     suggestions.push({
       template: templateById('reading-life')!,

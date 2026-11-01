@@ -1,617 +1,770 @@
 {
- "id": "maya",
- "label": "Maya (teacher \u2192 researcher)",
- "tagline": "Two decades of pivots \u2014 teacher, analyst, design researcher \u2014 threaded by relentless reading.",
- "entries": [
-  {
-   "at": "2006-09-01",
-   "type": "journal",
-   "title": "First classroom",
-   "body": "First teaching job: 28 fourth-graders, one leaking ceiling, endless energy. I finished reading three novels this month just to keep up with my students.",
-   "tag": "personal",
-   "people": [
-    "Lena Cruz"
-   ]
-  },
-  {
-   "at": "2006-12-28",
-   "type": "journal",
-   "title": "Year-end reflection 2006",
-   "body": "Year 2006: tired, grateful, still reading every night before sleep.",
-   "tag": "personal",
-   "people": [
-    "Lena Cruz"
-   ]
-  },
-  {
-   "at": "2007-05-14",
-   "type": "skill",
-   "title": "Classroom storytelling",
-   "body": "Learned to teach fractions through stories. Finished reading a stack of middle-grade books for read-alouds.",
-   "tag": "shareable",
-   "people": [
-    "Marco Reyes"
-   ]
-  },
-  {
-   "at": "2007-12-28",
-   "type": "journal",
-   "title": "Year-end reflection 2007",
-   "body": "Year 2007: a pivot year. I journaled through the fear and finished reading more than I planned.",
-   "tag": "personal",
-   "people": [
-    "Marco Reyes",
-    "Lena Cruz"
-   ]
-  },
-  {
-   "at": "2008-01-20",
-   "type": "research",
-   "title": "Why kids reread",
-   "body": "Research note: children re-read favourites for mastery. Reading the same chapter aloud five times proved it. Finished two education books this winter.",
-   "tag": "shareable"
-  },
-  {
-   "at": "2008-11-02",
-   "type": "relationship",
-   "title": "Book club with Lena",
-   "body": "Monthly book club started. We finished reading a novel a month, no exceptions. Lena keeps the list honest.",
-   "tag": "personal",
-   "people": [
-    "Lena Cruz"
-   ]
-  },
-  {
-   "at": "2008-12-28",
-   "type": "journal",
-   "title": "Year-end reflection 2008",
-   "body": "Year 2008: family first, work second, books always. Finished the year mid-novel as usual.",
-   "tag": "personal",
-   "people": [
-    "Mama Rosa",
-    "Papa Joe"
-   ]
-  },
-  {
-   "at": "2009-06-15",
-   "type": "finance",
-   "title": "Loan payoff plan",
-   "body": "Student loan payoff spreadsheet: seven years if nothing breaks. Reading personal-finance books at night and actually finishing them helps.",
-   "tag": "personal"
-  },
-  {
-   "at": "2009-12-28",
-   "type": "journal",
-   "title": "Year-end reflection 2009",
-   "body": "Year 2009: learned something hard, kept the book club, kept going.",
-   "tag": "personal",
-   "people": [
-    "Priya Nair",
-    "Ana Reyes"
-   ]
-  },
-  {
-   "at": "2010-03-08",
-   "type": "journal",
-   "title": "Burnout winter",
-   "body": "I cried in the supply closet twice this term. Something has to pivot. I love the kids; the system is eating me.",
-   "tag": "personal",
-   "people": [
-    "Priya Nair"
-   ]
-  },
-  {
-   "at": "2010-09-19",
-   "type": "goal-note",
-   "title": "Pivot: learn data",
-   "body": "Decided to pivot toward education data. Finished reading a statistics primer cover to cover. Nightschool starts January.",
-   "tag": "personal"
-  },
-  {
-   "at": "2010-12-28",
-   "type": "journal",
-   "title": "Year-end reflection 2010",
-   "body": "Year 2010: tired, grateful, still reading every night before sleep.",
-   "tag": "personal",
-   "people": [
-    "Marco Reyes"
-   ]
-  },
-  {
-   "at": "2011-04-11",
-   "type": "skill",
-   "title": "Excel, then Python",
-   "body": "Picked up Python after Excel hit its limits. Finished reading the docs like a novel. First script cleaned a whole term of grades.",
-   "tag": "shareable",
-   "people": [
-    "Tom Becker"
-   ]
-  },
-  {
-   "at": "2011-10-30",
-   "type": "research",
-   "title": "Reading logs study",
-   "body": "Tracked my reading: 41 books finished this year. Reading is how I metabolise stress. Book club is now twice monthly.",
-   "tag": "shareable",
-   "people": [
-    "Lena Cruz",
-    "Marco Reyes"
-   ]
-  },
-  {
-   "at": "2011-12-28",
-   "type": "journal",
-   "title": "Year-end reflection 2011",
-   "body": "Year 2011: a pivot year. I journaled through the fear and finished reading more than I planned.",
-   "tag": "personal",
-   "people": [
-    "Lena Cruz"
-   ]
-  },
-  {
-   "at": "2012-02-14",
-   "type": "relationship",
-   "title": "Marco, properly",
-   "body": "Marco Reyes from book club asked me out between chapters. We finished reading the same poetry collection and argued happily.",
-   "tag": "personal",
-   "people": [
-    "Marco Reyes"
-   ]
-  },
-  {
-   "at": "2012-08-25",
-   "type": "health",
-   "title": "Anxiety, named",
-   "body": "Therapy started. Naming the anxiety made it smaller. Morning pages, finished daily, keep the spiral visible.",
-   "tag": "personal",
-   "people": [
-    "Grace Liu"
-   ]
-  },
-  {
-   "at": "2012-12-28",
-   "type": "journal",
-   "title": "Year-end reflection 2012",
-   "body": "Year 2012: family first, work second, books always. Finished the year mid-novel as usual.",
-   "tag": "personal",
-   "people": [
-    "Marco Reyes",
-    "Lena Cruz"
-   ]
-  },
-  {
-   "at": "2013-01-12",
-   "type": "journal",
-   "title": "Quit teaching",
-   "body": "Resigned in January, mid-year, terrified. Pivot number two. The kids wrote me a book of letters; I have read it four times.",
-   "tag": "personal",
-   "people": [
-    "Lena Cruz",
-    "Priya Nair"
-   ]
-  },
-  {
-   "at": "2013-07-07",
-   "type": "research",
-   "title": "Edtech internship",
-   "body": "Unpaid edtech internship at 29, humbling. Finished reading every onboarding doc in week one. Hunger beats pedigree.",
-   "tag": "shareable",
-   "people": [
-    "David Okafor"
-   ]
-  },
-  {
-   "at": "2013-12-28",
-   "type": "journal",
-   "title": "Year-end reflection 2013",
-   "body": "Year 2013: learned something hard, kept the book club, kept going.",
-   "tag": "personal",
-   "people": [
-    "Mama Rosa",
-    "Papa Joe"
-   ]
-  },
-  {
-   "at": "2014-03-03",
-   "type": "finding",
-   "title": "Data tells stories",
-   "body": "Finding: attendance data predicted dropout better than grades. Reading the raw notes mattered more than the dashboard.",
-   "tag": "shareable",
-   "people": [
-    "David Okafor",
-    "Sofia Lindqvist"
-   ]
-  },
-  {
-   "at": "2014-10-18",
-   "type": "finance",
-   "title": "Freelance famine",
-   "body": "Freelance data gigs, feast or famine. Three clients, one late payer. Spreadsheet and I are close now.",
-   "tag": "personal",
-   "people": [
-    "Omar Haddad"
-   ]
-  },
-  {
-   "at": "2014-12-28",
-   "type": "journal",
-   "title": "Year-end reflection 2014",
-   "body": "Year 2014: tired, grateful, still reading every night before sleep.",
-   "tag": "personal",
-   "people": [
-    "Priya Nair",
-    "Ana Reyes"
-   ]
-  },
-  {
-   "at": "2015-05-23",
-   "type": "relationship",
-   "title": "Married Marco",
-   "body": "Small wedding, library venue obviously. We finished reading our vows from index cards. Lena officiated, cried first.",
-   "tag": "personal",
-   "people": [
-    "Marco Reyes",
-    "Lena Cruz",
-    "Mama Rosa",
-    "Papa Joe"
-   ]
-  },
-  {
-   "at": "2015-11-09",
-   "type": "skill",
-   "title": "D3 and dashboards",
-   "body": "Learned D3 for a client dashboard. Reading documentation cover-to-cover is still my superpower.",
-   "tag": "shareable",
-   "people": [
-    "Sofia Lindqvist"
-   ]
-  },
-  {
-   "at": "2015-12-28",
-   "type": "journal",
-   "title": "Year-end reflection 2015",
-   "body": "Year 2015: a pivot year. I journaled through the fear and finished reading more than I planned.",
-   "tag": "personal",
-   "people": [
-    "Marco Reyes"
-   ]
-  },
-  {
-   "at": "2016-04-16",
-   "type": "goal-note",
-   "title": "Pivot: design research",
-   "body": "Dashboards inform but do not persuade. Pivoting toward design research: interviews, stories, evidence with faces.",
-   "tag": "personal",
-   "people": [
-    "Nina Petrova"
-   ]
-  },
-  {
-   "at": "2016-09-27",
-   "type": "research",
-   "title": "Interview craft",
-   "body": "Finished reading three research-methods books. Ran 20 parent interviews. Listening is a learnable skill.",
-   "tag": "shareable",
-   "people": [
-    "Nina Petrova",
-    "Chris Doyle"
-   ]
-  },
-  {
-   "at": "2016-12-28",
-   "type": "journal",
-   "title": "Year-end reflection 2016",
-   "body": "Year 2016: family first, work second, books always. Finished the year mid-novel as usual.",
-   "tag": "personal",
-   "people": [
-    "Lena Cruz"
-   ]
-  },
-  {
-   "at": "2017-02-19",
-   "type": "health",
-   "title": "Migraines and screens",
-   "body": "Migraines traced to screen marathons. Paper books after nine. Actually finished more reading once screens dimmed.",
-   "tag": "personal"
-  },
-  {
-   "at": "2017-08-14",
-   "type": "journal",
-   "title": "Laid off",
-   "body": "The startup folded in a week. Severance, shock, then a strange calm. I have pivoted before; I know the first steps now.",
-   "tag": "personal",
-   "people": [
-    "Marco Reyes",
-    "Ana Reyes"
-   ]
-  },
-  {
-   "at": "2017-12-28",
-   "type": "journal",
-   "title": "Year-end reflection 2017",
-   "body": "Year 2017: learned something hard, kept the book club, kept going.",
-   "tag": "personal",
-   "people": [
-    "Marco Reyes",
-    "Lena Cruz"
-   ]
-  },
-  {
-   "at": "2018-01-08",
-   "type": "research",
-   "title": "Independent consulting",
-   "body": "Design research consulting, first client a literacy nonprofit. Full circle: reading, data, and classrooms in one job.",
-   "tag": "shareable",
-   "people": [
-    "Ana Reyes",
-    "Ben Whitaker"
-   ]
-  },
-  {
-   "at": "2018-06-30",
-   "type": "finding",
-   "title": "Parents read the room",
-   "body": "Finding: parents judge schools in the first 90 seconds of a visit. Reading body language beat survey scores.",
-   "tag": "shareable",
-   "people": [
-    "Ben Whitaker"
-   ]
-  },
-  {
-   "at": "2018-12-28",
-   "type": "journal",
-   "title": "Year-end reflection 2018",
-   "body": "Year 2018: tired, grateful, still reading every night before sleep.",
-   "tag": "personal",
-   "people": [
-    "Mama Rosa",
-    "Papa Joe"
-   ]
-  },
-  {
-   "at": "2019-03-21",
-   "type": "method",
-   "title": "Read-aloud research sprints",
-   "body": "Method: pair every dataset with a read-aloud story session. Stakeholders remember stories; shipped as my signature workshop.",
-   "tag": "shareable",
-   "people": [
-    "Yuki Tanaka",
-    "Sarah Kim"
-   ]
-  },
-  {
-   "at": "2019-10-05",
-   "type": "relationship",
-   "title": "Aunt Clara moves in",
-   "body": "Aunt Clara moved nearby after her fall. Sunday lunches now, three generations arguing about books.",
-   "tag": "personal",
-   "people": [
-    "Aunt Clara",
-    "Mama Rosa",
-    "Marco Reyes"
-   ]
-  },
-  {
-   "at": "2019-12-28",
-   "type": "journal",
-   "title": "Year-end reflection 2019",
-   "body": "Year 2019: a pivot year. I journaled through the fear and finished reading more than I planned.",
-   "tag": "personal",
-   "people": [
-    "Priya Nair",
-    "Ana Reyes"
-   ]
-  },
-  {
-   "at": "2020-04-02",
-   "type": "journal",
-   "title": "Lockdown library",
-   "body": "Pandemic spring: our flat became a library, office, and school for the neighbours kids. Finished reading 12 novels by June.",
-   "tag": "personal",
-   "people": [
-    "Marco Reyes",
-    "Emma Wilson"
-   ]
-  },
-  {
-   "at": "2020-09-13",
-   "type": "health",
-   "title": "Long walks, audiobooks",
-   "body": "Daily walks with audiobooks finished what paper started. Anxiety quieter. Reading while moving counts.",
-   "tag": "personal",
-   "people": [
-    "Grace Liu"
-   ]
-  },
-  {
-   "at": "2020-12-28",
-   "type": "journal",
-   "title": "Year-end reflection 2020",
-   "body": "Year 2020: family first, work second, books always. Finished the year mid-novel as usual.",
-   "tag": "personal",
-   "people": [
-    "Marco Reyes"
-   ]
-  },
-  {
-   "at": "2021-02-27",
-   "type": "skill",
-   "title": "Fiction writing, badly",
-   "body": "Started writing fiction at 5am. Terrible and joyful. Finished reading two craft books to suffer better.",
-   "tag": "shareable",
-   "people": [
-    "Leo Fischer"
-   ]
-  },
-  {
-   "at": "2021-08-19",
-   "type": "goal-note",
-   "title": "Pivot: research lead",
-   "body": "Aiming for research lead within two years. The thread through every pivot: helping people read their own story clearly.",
-   "tag": "personal",
-   "people": [
-    "Sarah Kim"
-   ]
-  },
-  {
-   "at": "2021-12-28",
-   "type": "journal",
-   "title": "Year-end reflection 2021",
-   "body": "Year 2021: learned something hard, kept the book club, kept going.",
-   "tag": "personal",
-   "people": [
-    "Lena Cruz"
-   ]
-  },
-  {
-   "at": "2022-03-15",
-   "type": "research",
-   "title": "Agency offer",
-   "body": "Research lead offer from a design agency. Reading the contract twice, slowly, was the whole negotiation strategy.",
-   "tag": "shareable",
-   "people": [
-    "Kate Morgan",
-    "Ivy Chen"
-   ]
-  },
-  {
-   "at": "2022-10-22",
-   "type": "finance",
-   "title": "House deposit",
-   "body": "Deposit saved. Seven years of spreadsheets. Marco framed the first payoff chart next to our bookshelf.",
-   "tag": "personal",
-   "people": [
-    "Marco Reyes"
-   ]
-  },
-  {
-   "at": "2022-12-28",
-   "type": "journal",
-   "title": "Year-end reflection 2022",
-   "body": "Year 2022: tired, grateful, still reading every night before sleep.",
-   "tag": "personal",
-   "people": [
-    "Marco Reyes",
-    "Lena Cruz"
-   ]
-  },
-  {
-   "at": "2023-04-29",
-   "type": "method",
-   "title": "Synthesis walls",
-   "body": "Method: physical synthesis walls, every interview a card, patterns you can touch. Teams finished reading the wall before the deck.",
-   "tag": "shareable",
-   "people": [
-    "Ivy Chen",
-    "Paul Novak"
-   ]
-  },
-  {
-   "at": "2023-09-16",
-   "type": "relationship",
-   "title": "Book club at ten years",
-   "body": "Book club turned ten. 118 books finished together. Lena cried; Marco baked; I just kept reading faces.",
-   "tag": "personal",
-   "people": [
-    "Lena Cruz",
-    "Marco Reyes",
-    "Ruth Adams",
-    "Samira Khan"
-   ]
-  },
-  {
-   "at": "2023-12-28",
-   "type": "journal",
-   "title": "Year-end reflection 2023",
-   "body": "Year 2023: a pivot year. I journaled through the fear and finished reading more than I planned.",
-   "tag": "personal",
-   "people": [
-    "Mama Rosa",
-    "Papa Joe"
-   ]
-  },
-  {
-   "at": "2024-02-10",
-   "type": "journal",
-   "title": "Mama Rosa ill",
-   "body": "Mum hospitalised in February. Hospital waiting rooms: I finished reading three novels holding her hand between chapters.",
-   "tag": "personal",
-   "people": [
-    "Mama Rosa",
-    "Papa Joe",
-    "Marco Reyes"
-   ]
-  },
-  {
-   "at": "2024-08-31",
-   "type": "finding",
-   "title": "Grief and attention",
-   "body": "Finding from my own notes: grief fragments attention for months. Reading in short chapters is a kindness, not a compromise.",
-   "tag": "shareable"
-  },
-  {
-   "at": "2024-12-28",
-   "type": "journal",
-   "title": "Year-end reflection 2024",
-   "body": "Year 2024: family first, work second, books always. Finished the year mid-novel as usual.",
-   "tag": "personal",
-   "people": [
-    "Priya Nair",
-    "Ana Reyes"
-   ]
-  },
-  {
-   "at": "2025-03-08",
-   "type": "research",
-   "title": "Mentoring researchers",
-   "body": "Mentoring four junior researchers. I lend books aggressively and track who finishes reading them. Most do.",
-   "tag": "shareable",
-   "people": [
-    "Julia Ross",
-    "Noel Grant",
-    "Henry Park"
-   ]
-  },
-  {
-   "at": "2025-10-18",
-   "type": "health",
-   "title": "Strong at 43",
-   "body": "Strength training twice weekly. Sleep protected. The reading chair now has a kettlebell beside it. Balance, literally.",
-   "tag": "personal",
-   "people": [
-    "Diego Torres"
-   ]
-  },
-  {
-   "at": "2025-12-28",
-   "type": "journal",
-   "title": "Year-end reflection 2025",
-   "body": "Year 2025: learned something hard, kept the book club, kept going.",
-   "tag": "personal",
-   "people": [
-    "Marco Reyes"
-   ]
-  },
-  {
-   "at": "2026-04-25",
-   "type": "journal",
-   "title": "It threads together",
-   "body": "Teacher, analyst, researcher, writer-in-progress. None of it was linear and all of it was reading people carefully. It works out.",
-   "tag": "personal",
-   "people": [
-    "Marco Reyes",
-    "Lena Cruz"
-   ]
-  },
-  {
-   "at": "2026-12-28",
-   "type": "journal",
-   "title": "Year-end reflection 2026",
-   "body": "Year 2026: tired, grateful, still reading every night before sleep.",
-   "tag": "personal",
-   "people": [
-    "Lena Cruz"
-   ]
-  }
- ]
+  "id": "maya",
+  "label": "Maya (teacher \u2192 researcher)",
+  "tagline": "Two decades of pivots \u2014 teacher, analyst, design researcher \u2014 threaded by relentless reading.",
+  "entries": [
+    {
+      "at": "2006-09-01",
+      "type": "journal",
+      "title": "First classroom",
+      "body": "First teaching job: 28 fourth-graders, one leaking ceiling, endless energy. I finished reading three novels this month just to keep up with my students.",
+      "tag": "personal",
+      "people": [
+        "Lena Cruz"
+      ]
+    },
+    {
+      "at": "2006-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2006",
+      "body": "Year 2006: tired, grateful, still reading every night before sleep.",
+      "tag": "personal",
+      "people": [
+        "Lena Cruz"
+      ]
+    },
+    {
+      "at": "2007-05-14",
+      "type": "skill",
+      "title": "Classroom storytelling",
+      "body": "Learned to teach fractions through stories. Finished reading a stack of middle-grade books for read-alouds.",
+      "tag": "shareable",
+      "people": [
+        "Marco Reyes"
+      ]
+    },
+    {
+      "at": "2007-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2007",
+      "body": "Year 2007: a pivot year. I journaled through the fear and finished reading more than I planned.",
+      "tag": "personal",
+      "people": [
+        "Marco Reyes",
+        "Lena Cruz"
+      ]
+    },
+    {
+      "at": "2008-01-20",
+      "type": "research",
+      "title": "Why kids reread",
+      "body": "Research note: children re-read favourites for mastery. Reading the same chapter aloud five times proved it. Finished two education books this winter.",
+      "tag": "shareable"
+    },
+    {
+      "at": "2008-11-02",
+      "type": "relationship",
+      "title": "Book club with Lena",
+      "body": "Monthly book club started. We finished reading a novel a month, no exceptions. Lena keeps the list honest.",
+      "tag": "personal",
+      "people": [
+        "Lena Cruz"
+      ]
+    },
+    {
+      "at": "2008-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2008",
+      "body": "Year 2008: family first, work second, books always. Finished the year mid-novel as usual.",
+      "tag": "personal",
+      "people": [
+        "Mama Rosa",
+        "Papa Joe"
+      ]
+    },
+    {
+      "at": "2009-06-15",
+      "type": "finance",
+      "title": "Loan payoff plan",
+      "body": "Student loan payoff spreadsheet: seven years if nothing breaks. Reading personal-finance books at night and actually finishing them helps.",
+      "tag": "personal"
+    },
+    {
+      "at": "2009-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2009",
+      "body": "Year 2009: learned something hard, kept the book club, kept going.",
+      "tag": "personal",
+      "people": [
+        "Priya Nair",
+        "Ana Reyes"
+      ]
+    },
+    {
+      "at": "2010-03-08",
+      "type": "journal",
+      "title": "Burnout winter",
+      "body": "I cried in the supply closet twice this term. Something has to pivot. I love the kids; the system is eating me.",
+      "tag": "personal",
+      "people": [
+        "Priya Nair"
+      ]
+    },
+    {
+      "at": "2010-09-19",
+      "type": "goal-note",
+      "title": "Pivot: learn data",
+      "body": "Decided to pivot toward education data. Finished reading a statistics primer cover to cover. Nightschool starts January.",
+      "tag": "personal"
+    },
+    {
+      "at": "2010-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2010",
+      "body": "Year 2010: tired, grateful, still reading every night before sleep.",
+      "tag": "personal",
+      "people": [
+        "Marco Reyes"
+      ]
+    },
+    {
+      "at": "2011-04-11",
+      "type": "skill",
+      "title": "Excel, then Python",
+      "body": "Picked up Python after Excel hit its limits. Finished reading the docs like a novel. First script cleaned a whole term of grades.",
+      "tag": "shareable",
+      "people": [
+        "Tom Becker"
+      ]
+    },
+    {
+      "at": "2011-10-30",
+      "type": "research",
+      "title": "Reading logs study",
+      "body": "Tracked my reading: 41 books finished this year. Reading is how I metabolise stress. Book club is now twice monthly.",
+      "tag": "shareable",
+      "people": [
+        "Lena Cruz",
+        "Marco Reyes"
+      ]
+    },
+    {
+      "at": "2011-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2011",
+      "body": "Year 2011: a pivot year. I journaled through the fear and finished reading more than I planned.",
+      "tag": "personal",
+      "people": [
+        "Lena Cruz"
+      ]
+    },
+    {
+      "at": "2012-02-14",
+      "type": "relationship",
+      "title": "Marco, properly",
+      "body": "Marco Reyes from book club asked me out between chapters. We finished reading the same poetry collection and argued happily.",
+      "tag": "personal",
+      "people": [
+        "Marco Reyes"
+      ]
+    },
+    {
+      "at": "2012-08-25",
+      "type": "health",
+      "title": "Anxiety, named",
+      "body": "Therapy started. Naming the anxiety made it smaller. Morning pages, finished daily, keep the spiral visible.",
+      "tag": "personal",
+      "people": [
+        "Grace Liu"
+      ]
+    },
+    {
+      "at": "2012-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2012",
+      "body": "Year 2012: family first, work second, books always. Finished the year mid-novel as usual.",
+      "tag": "personal",
+      "people": [
+        "Marco Reyes",
+        "Lena Cruz"
+      ]
+    },
+    {
+      "at": "2013-01-12",
+      "type": "journal",
+      "title": "Quit teaching",
+      "body": "Resigned in January, mid-year, terrified. Pivot number two. The kids wrote me a book of letters; I have read it four times.",
+      "tag": "personal",
+      "people": [
+        "Lena Cruz",
+        "Priya Nair"
+      ]
+    },
+    {
+      "at": "2013-07-07",
+      "type": "research",
+      "title": "Edtech internship",
+      "body": "Unpaid edtech internship at 29, humbling. Finished reading every onboarding doc in week one. Hunger beats pedigree.",
+      "tag": "shareable",
+      "people": [
+        "David Okafor"
+      ]
+    },
+    {
+      "at": "2013-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2013",
+      "body": "Year 2013: learned something hard, kept the book club, kept going.",
+      "tag": "personal",
+      "people": [
+        "Mama Rosa",
+        "Papa Joe"
+      ]
+    },
+    {
+      "at": "2014-03-03",
+      "type": "finding",
+      "title": "Data tells stories",
+      "body": "Finding: attendance data predicted dropout better than grades. Reading the raw notes mattered more than the dashboard.",
+      "tag": "shareable",
+      "people": [
+        "David Okafor",
+        "Sofia Lindqvist"
+      ]
+    },
+    {
+      "at": "2014-10-18",
+      "type": "finance",
+      "title": "Freelance famine",
+      "body": "Freelance data gigs, feast or famine. Three clients, one late payer. Spreadsheet and I are close now.",
+      "tag": "personal",
+      "people": [
+        "Omar Haddad"
+      ]
+    },
+    {
+      "at": "2014-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2014",
+      "body": "Year 2014: tired, grateful, still reading every night before sleep.",
+      "tag": "personal",
+      "people": [
+        "Priya Nair",
+        "Ana Reyes"
+      ]
+    },
+    {
+      "at": "2015-05-23",
+      "type": "relationship",
+      "title": "Married Marco",
+      "body": "Small wedding, library venue obviously. We finished reading our vows from index cards. Lena officiated, cried first.",
+      "tag": "personal",
+      "people": [
+        "Marco Reyes",
+        "Lena Cruz",
+        "Mama Rosa",
+        "Papa Joe"
+      ]
+    },
+    {
+      "at": "2015-11-09",
+      "type": "skill",
+      "title": "D3 and dashboards",
+      "body": "Learned D3 for a client dashboard. Reading documentation cover-to-cover is still my superpower.",
+      "tag": "shareable",
+      "people": [
+        "Sofia Lindqvist"
+      ]
+    },
+    {
+      "at": "2015-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2015",
+      "body": "Year 2015: a pivot year. I journaled through the fear and finished reading more than I planned.",
+      "tag": "personal",
+      "people": [
+        "Marco Reyes"
+      ]
+    },
+    {
+      "at": "2016-04-16",
+      "type": "goal-note",
+      "title": "Pivot: design research",
+      "body": "Dashboards inform but do not persuade. Pivoting toward design research: interviews, stories, evidence with faces.",
+      "tag": "personal",
+      "people": [
+        "Nina Petrova"
+      ]
+    },
+    {
+      "at": "2016-09-27",
+      "type": "research",
+      "title": "Interview craft",
+      "body": "Finished reading three research-methods books. Ran 20 parent interviews. Listening is a learnable skill.",
+      "tag": "shareable",
+      "people": [
+        "Nina Petrova",
+        "Chris Doyle"
+      ]
+    },
+    {
+      "at": "2016-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2016",
+      "body": "Year 2016: family first, work second, books always. Finished the year mid-novel as usual.",
+      "tag": "personal",
+      "people": [
+        "Lena Cruz"
+      ]
+    },
+    {
+      "at": "2017-02-19",
+      "type": "health",
+      "title": "Migraines and screens",
+      "body": "Migraines traced to screen marathons. Paper books after nine. Actually finished more reading once screens dimmed.",
+      "tag": "personal"
+    },
+    {
+      "at": "2017-08-14",
+      "type": "journal",
+      "title": "Laid off",
+      "body": "The startup folded in a week. Severance, shock, then a strange calm. I have pivoted before; I know the first steps now.",
+      "tag": "personal",
+      "people": [
+        "Marco Reyes",
+        "Ana Reyes"
+      ]
+    },
+    {
+      "at": "2017-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2017",
+      "body": "Year 2017: learned something hard, kept the book club, kept going.",
+      "tag": "personal",
+      "people": [
+        "Marco Reyes",
+        "Lena Cruz"
+      ]
+    },
+    {
+      "at": "2018-01-08",
+      "type": "research",
+      "title": "Independent consulting",
+      "body": "Design research consulting, first client a literacy nonprofit. Full circle: reading, data, and classrooms in one job.",
+      "tag": "shareable",
+      "people": [
+        "Ana Reyes",
+        "Ben Whitaker"
+      ]
+    },
+    {
+      "at": "2018-06-30",
+      "type": "finding",
+      "title": "Parents read the room",
+      "body": "Finding: parents judge schools in the first 90 seconds of a visit. Reading body language beat survey scores.",
+      "tag": "shareable",
+      "people": [
+        "Ben Whitaker"
+      ]
+    },
+    {
+      "at": "2018-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2018",
+      "body": "Year 2018: tired, grateful, still reading every night before sleep.",
+      "tag": "personal",
+      "people": [
+        "Mama Rosa",
+        "Papa Joe"
+      ]
+    },
+    {
+      "at": "2019-03-21",
+      "type": "method",
+      "title": "Read-aloud research sprints",
+      "body": "Method: pair every dataset with a read-aloud story session. Stakeholders remember stories; shipped as my signature workshop.",
+      "tag": "shareable",
+      "people": [
+        "Yuki Tanaka",
+        "Sarah Kim"
+      ]
+    },
+    {
+      "at": "2019-10-05",
+      "type": "relationship",
+      "title": "Aunt Clara moves in",
+      "body": "Aunt Clara moved nearby after her fall. Sunday lunches now, three generations arguing about books.",
+      "tag": "personal",
+      "people": [
+        "Aunt Clara",
+        "Mama Rosa",
+        "Marco Reyes"
+      ]
+    },
+    {
+      "at": "2019-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2019",
+      "body": "Year 2019: a pivot year. I journaled through the fear and finished reading more than I planned.",
+      "tag": "personal",
+      "people": [
+        "Priya Nair",
+        "Ana Reyes"
+      ]
+    },
+    {
+      "at": "2020-04-02",
+      "type": "journal",
+      "title": "Lockdown library",
+      "body": "Pandemic spring: our flat became a library, office, and school for the neighbours kids. Finished reading 12 novels by June.",
+      "tag": "personal",
+      "people": [
+        "Marco Reyes",
+        "Emma Wilson"
+      ]
+    },
+    {
+      "at": "2020-09-13",
+      "type": "health",
+      "title": "Long walks, audiobooks",
+      "body": "Daily walks with audiobooks finished what paper started. Anxiety quieter. Reading while moving counts.",
+      "tag": "personal",
+      "people": [
+        "Grace Liu"
+      ]
+    },
+    {
+      "at": "2020-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2020",
+      "body": "Year 2020: family first, work second, books always. Finished the year mid-novel as usual.",
+      "tag": "personal",
+      "people": [
+        "Marco Reyes"
+      ]
+    },
+    {
+      "at": "2021-02-27",
+      "type": "skill",
+      "title": "Fiction writing, badly",
+      "body": "Started writing fiction at 5am. Terrible and joyful. Finished reading two craft books to suffer better.",
+      "tag": "shareable",
+      "people": [
+        "Leo Fischer"
+      ]
+    },
+    {
+      "at": "2021-08-19",
+      "type": "goal-note",
+      "title": "Pivot: research lead",
+      "body": "Aiming for research lead within two years. The thread through every pivot: helping people read their own story clearly.",
+      "tag": "personal",
+      "people": [
+        "Sarah Kim"
+      ]
+    },
+    {
+      "at": "2021-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2021",
+      "body": "Year 2021: learned something hard, kept the book club, kept going.",
+      "tag": "personal",
+      "people": [
+        "Lena Cruz"
+      ]
+    },
+    {
+      "at": "2022-03-15",
+      "type": "research",
+      "title": "Agency offer",
+      "body": "Research lead offer from a design agency. Reading the contract twice, slowly, was the whole negotiation strategy.",
+      "tag": "shareable",
+      "people": [
+        "Kate Morgan",
+        "Ivy Chen"
+      ]
+    },
+    {
+      "at": "2022-10-22",
+      "type": "finance",
+      "title": "House deposit",
+      "body": "Deposit saved. Seven years of spreadsheets. Marco framed the first payoff chart next to our bookshelf.",
+      "tag": "personal",
+      "people": [
+        "Marco Reyes"
+      ]
+    },
+    {
+      "at": "2022-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2022",
+      "body": "Year 2022: tired, grateful, still reading every night before sleep.",
+      "tag": "personal",
+      "people": [
+        "Marco Reyes",
+        "Lena Cruz"
+      ]
+    },
+    {
+      "at": "2023-04-29",
+      "type": "method",
+      "title": "Synthesis walls",
+      "body": "Method: physical synthesis walls, every interview a card, patterns you can touch. Teams finished reading the wall before the deck.",
+      "tag": "shareable",
+      "people": [
+        "Ivy Chen",
+        "Paul Novak"
+      ]
+    },
+    {
+      "at": "2023-09-16",
+      "type": "relationship",
+      "title": "Book club at ten years",
+      "body": "Book club turned ten. 118 books finished together. Lena cried; Marco baked; I just kept reading faces.",
+      "tag": "personal",
+      "people": [
+        "Lena Cruz",
+        "Marco Reyes",
+        "Ruth Adams",
+        "Samira Khan"
+      ]
+    },
+    {
+      "at": "2023-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2023",
+      "body": "Year 2023: a pivot year. I journaled through the fear and finished reading more than I planned.",
+      "tag": "personal",
+      "people": [
+        "Mama Rosa",
+        "Papa Joe"
+      ]
+    },
+    {
+      "at": "2024-02-10",
+      "type": "journal",
+      "title": "Mama Rosa ill",
+      "body": "Mum hospitalised in February. Hospital waiting rooms: I finished reading three novels holding her hand between chapters.",
+      "tag": "personal",
+      "people": [
+        "Mama Rosa",
+        "Papa Joe",
+        "Marco Reyes"
+      ]
+    },
+    {
+      "at": "2024-08-31",
+      "type": "finding",
+      "title": "Grief and attention",
+      "body": "Finding from my own notes: grief fragments attention for months. Reading in short chapters is a kindness, not a compromise.",
+      "tag": "shareable"
+    },
+    {
+      "at": "2024-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2024",
+      "body": "Year 2024: family first, work second, books always. Finished the year mid-novel as usual.",
+      "tag": "personal",
+      "people": [
+        "Priya Nair",
+        "Ana Reyes"
+      ]
+    },
+    {
+      "at": "2025-03-08",
+      "type": "research",
+      "title": "Mentoring researchers",
+      "body": "Mentoring four junior researchers. I lend books aggressively and track who finishes reading them. Most do.",
+      "tag": "shareable",
+      "people": [
+        "Julia Ross",
+        "Noel Grant",
+        "Henry Park"
+      ]
+    },
+    {
+      "at": "2025-10-18",
+      "type": "health",
+      "title": "Strong at 43",
+      "body": "Strength training twice weekly. Sleep protected. The reading chair now has a kettlebell beside it. Balance, literally.",
+      "tag": "personal",
+      "people": [
+        "Diego Torres"
+      ]
+    },
+    {
+      "at": "2025-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2025",
+      "body": "Year 2025: learned something hard, kept the book club, kept going.",
+      "tag": "personal",
+      "people": [
+        "Marco Reyes"
+      ]
+    },
+    {
+      "at": "2026-04-25",
+      "type": "journal",
+      "title": "It threads together",
+      "body": "Teacher, analyst, researcher, writer-in-progress. None of it was linear and all of it was reading people carefully. It works out.",
+      "tag": "personal",
+      "people": [
+        "Marco Reyes",
+        "Lena Cruz"
+      ]
+    },
+    {
+      "at": "2026-12-28",
+      "type": "journal",
+      "title": "Year-end reflection 2026",
+      "body": "Year 2026: tired, grateful, still reading every night before sleep.",
+      "tag": "personal",
+      "people": [
+        "Lena Cruz"
+      ]
+    },
+    {
+      "at": "2008-03-14",
+      "type": "research",
+      "title": "Notion export: first research notebook (2008)",
+      "body": "Exported page from an early notebook: close reading notes on three novels, margin questions in the margins, and a finished chapter summary for the book club. Reading slowly is the method.",
+      "tag": "personal",
+      "via": "Notion (simulated)"
+    },
+    {
+      "at": "2010-06-22",
+      "type": "document",
+      "title": "Drive export: thesis chapter draft (2010)",
+      "body": "Google Docs export, chapter two draft with Lena Cruz comments in the margin: tighten the claim, cite the classroom evidence, finish the literature review before August.",
+      "tag": "personal",
+      "via": "Google Drive (simulated)",
+      "people": [
+        "Lena Cruz"
+      ]
+    },
+    {
+      "at": "2012-09-05",
+      "type": "relationship",
+      "title": "Gmail thread: Marco Reyes job lead (2012)",
+      "body": "Email thread from Marco Reyes with a research-assistant posting, two time slots for a call, and a promise to introduce the hiring lead. Replied the same evening.",
+      "tag": "personal",
+      "via": "Gmail (simulated)",
+      "people": [
+        "Marco Reyes"
+      ]
+    },
+    {
+      "at": "2014-01-19",
+      "type": "journal",
+      "title": "Calendar export: book club Sundays (2014)",
+      "body": "Recurring calendar block, first Sunday monthly: book club with Ana Reyes and Priya Nair. Finished two novels this quarter; the shelf still grows faster in spring.",
+      "tag": "personal",
+      "via": "Calendar (simulated)",
+      "people": [
+        "Ana Reyes",
+        "Priya Nair"
+      ]
+    },
+    {
+      "at": "2015-05-30",
+      "type": "health",
+      "title": "Apple Health export summary (2015)",
+      "body": "Health export: StepCount records most days, sleep averaging 6h50m in May. Morning walks on teaching days show up as the steadiest activity pattern.",
+      "tag": "personal",
+      "via": "Apple Health (simulated)"
+    },
+    {
+      "at": "2016-11-12",
+      "type": "finance",
+      "title": "Drive export: household budget sheet (2016)",
+      "body": "Spreadsheet export of the household budget: rent, groceries, and a book-buying line that needs its own category. Subscriptions reviewed and two cancelled.",
+      "tag": "personal",
+      "via": "Google Drive (simulated)"
+    },
+    {
+      "at": "2017-04-08",
+      "type": "finding",
+      "title": "Slack export: #reading-circle thread (2017)",
+      "body": "Thread with Grace Liu: the teardown checklist earned three saved replies. Specific, short posts ending in one question keep earning conversations.",
+      "tag": "shareable",
+      "via": "Slack (simulated)",
+      "people": [
+        "Grace Liu"
+      ]
+    },
+    {
+      "at": "2018-08-25",
+      "type": "method",
+      "title": "GitHub export: reading-notes template (2018)",
+      "body": "Repo README for a personal reading-notes template: one question per book, margin annotations first, finished-date always recorded. Shared with two colleagues.",
+      "tag": "shareable",
+      "via": "GitHub (simulated)"
+    },
+    {
+      "at": "2019-02-17",
+      "type": "relationship",
+      "title": "LinkedIn export: Sofia Lindqvist connection (2019)",
+      "body": "New connection after the portfolio review night. Sofia Lindqvist researches learning design; follow up when the case-study draft is ready.",
+      "tag": "personal",
+      "via": "LinkedIn (simulated)",
+      "people": [
+        "Sofia Lindqvist"
+      ]
+    },
+    {
+      "at": "2020-10-03",
+      "type": "research",
+      "title": "X export: bookmarked threads (2020)",
+      "body": "Bookmarked threads on annotation practice and marginalia: saved twelve examples for the methods file. Public notes compound; drafts do not.",
+      "tag": "personal",
+      "via": "X (Twitter) (simulated)"
+    },
+    {
+      "at": "2021-05-21",
+      "type": "document",
+      "title": "Family export: Mama Rosa care rota (2021)",
+      "body": "Shared family document: Sunday lunch rota, pharmacy runs, and who drives Mama Rosa to appointments. Updated weekly by three households.",
+      "tag": "personal",
+      "via": "Family (simulated)",
+      "people": [
+        "Mama Rosa"
+      ]
+    },
+    {
+      "at": "2022-01-30",
+      "type": "relationship",
+      "title": "Contacts export: Priya Nair card (2022)",
+      "body": "Contact card: Priya Nair, product designer, prefers email, birthday in March. Coffee every few weeks since 2014.",
+      "tag": "personal",
+      "via": "Contacts (simulated)",
+      "people": [
+        "Priya Nair"
+      ]
+    },
+    {
+      "at": "2023-07-14",
+      "type": "goal-note",
+      "title": "Notion export: research leadership plan (2023)",
+      "body": "Goal page: lead a small research team within two years, mentor junior researchers, publish the annotation method. Reviewed quarterly against the calendar.",
+      "tag": "personal",
+      "via": "Notion (simulated)"
+    },
+    {
+      "at": "2024-09-19",
+      "type": "health",
+      "title": "Gmail export: clinic results letter (2024)",
+      "body": "Clinic letter received by email: blood pressure stable, vitamin D low, recheck in six months. Filed with the health export the same day.",
+      "tag": "personal",
+      "via": "Gmail (simulated)"
+    },
+    {
+      "at": "2025-03-08",
+      "type": "finding",
+      "title": "Drive export: annotation study results (2025)",
+      "body": "Findings doc: readers who annotated in the margins finished more books and recalled more after a month. Margin notes beat highlights on every delayed test.",
+      "tag": "shareable",
+      "via": "Google Drive (simulated)"
+    },
+    {
+      "at": "2026-01-25",
+      "type": "journal",
+      "title": "Slack export: design-friends crit (2026)",
+      "body": "Crit night thread with Ana Reyes: lead with the constraint, cut the second exploration, name the tradeoff. Next crit in two weeks.",
+      "tag": "personal",
+      "via": "Slack (simulated)",
+      "people": [
+        "Ana Reyes"
+      ]
+    }
+  ]
 }

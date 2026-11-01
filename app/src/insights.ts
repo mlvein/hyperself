@@ -79,12 +79,12 @@ export function buildInsights(entries: Entry[]): Insight[] {
     insights.push({
       id: `archetype:quiet:${quiet.name}`,
       severity: 'info',
-      title: `For your Network Weaver side: ${quiet.name} has gone quiet`,
+      title: `For your Keeper of Threads side: ${quiet.name} has gone quiet`,
       body: `${quiet.name} appears in ${quiet.count} entries and was last mentioned ${quiet.days} days ago. This is a descriptive recency note — only you know whether it matters.`,
       entryIds: quiet.ids.slice(0, 5),
       kinds: ['goto-library', 'acknowledge', 'expound'],
-      archetypeId: 'network-weaver',
-      archetypeLabel: 'Network Weaver',
+      archetypeId: 'keeper-of-threads',
+      archetypeLabel: 'Keeper of Threads',
     });
   }
 
@@ -95,12 +95,12 @@ export function buildInsights(entries: Entry[]): Insight[] {
     insights.push({
       id: 'archetype:reading-life',
       severity: 'info',
-      title: hoarding ? 'For your Book Hoarder side: collecting is outpacing finishing' : 'For your Bookworm side: finishing is your stronger pattern',
+      title: hoarding ? 'For your Shelf Cartographer side: collecting is outpacing finishing' : 'For your Margin Annotator side: finishing is your stronger pattern',
       body: `${readCount} reading/finishing signals and ${collectCount} collecting/TBR signals appear in your knowledgebase. The Reading Life Path keeps both visible without prescribing what to read.`,
       entryIds: entries.filter((e) => /(read|reading|finished|novel|chapter|bought|tbr|shelf|unread)/i.test(`${e.title} ${e.body}`)).slice(0, 5).map((e) => e.id),
       kinds: ['goto-library', 'acknowledge', 'expound'],
-      archetypeId: hoarding ? 'book-hoarder' : 'bookworm',
-      archetypeLabel: hoarding ? 'Book Hoarder' : 'Bookworm',
+      archetypeId: hoarding ? 'shelf-cartographer' : 'margin-annotator',
+      archetypeLabel: hoarding ? 'Shelf Cartographer' : 'Margin Annotator',
     });
   }
 

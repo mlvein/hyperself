@@ -37,6 +37,9 @@ for (const file of files) {
         throw new Error(`${file}: bad people list "${e.title}"`);
       }
     }
+    if (e.via !== undefined && (typeof e.via !== 'string' || !e.via.trim())) {
+      throw new Error(`${file}: bad via "${e.title}"`);
+    }
     if (e.tag === 'shareable' && NON_SHAREABLE.includes(e.type)) {
       throw new Error(`${file}: violates tag model "${e.title}" (${e.type}) marked shareable`);
     }

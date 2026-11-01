@@ -1,7 +1,9 @@
 // Archetypes: playful labels for synthesized behaviour patterns.
 // Rule-based over entry text + shape (never sent anywhere). Conflicting
-// pairs (e.g. Bookworm vs Book Hoarder) resolve to the stronger signal,
-// so a collector who never finishes books is never called a Bookworm.
+// pairs (e.g. Margin Annotator vs Shelf Cartographer) resolve to the
+// stronger signal, so a collector who never finishes is no annotator.
+// Labels are novel-but-familiar coinages; ids before the rename resolve
+// through LEGACY_ARCHETYPE_IDS so stored preferences survive.
 import type { Entry } from './types';
 
 export type ArchetypeTrend = 'rising' | 'steady' | 'fading' | 'emerging';
@@ -49,53 +51,53 @@ export interface ArchetypePreference {
 }
 
 export const ARCHETYPE_MEANINGS: Record<string, { meaning: string; watchFor: string }> = {
-  bookworm: {
-    meaning: 'You process life through books: you read steadily, finish what you start, and let what you read change how you work and relate. Reading is not escape for you; it is how you metabolise experience.',
-    watchFor: 'Watch for reading becoming avoidance when a decision is due; your notes usually already hold the answer.',
+  'margin-annotator': {
+    meaning: 'You think in the margins: books become conversations, finished pages turn into decisions, and your annotations are where experience gets metabolised. Reading is not escape for you; it is drafting your next move.',
+    watchFor: 'Watch for annotating instead of acting; when the margins are full, the answer is usually already written there.',
   },
-  'book-hoarder': {
-    meaning: 'You collect beginnings: shelves of bought, beloved, mostly unread books. The collection maps your curiosity and ambitions, even when finishing lags behind acquiring.',
-    watchFor: 'Watch the gap between buying and finishing; picking one spine a month turns the museum back into a library.',
+  'shelf-cartographer': {
+    meaning: 'Your shelves are a map of who you meant to become: bought and beloved beginnings that chart curiosity faster than finishing can follow. The collection is not clutter; it is an atlas of possible selves.',
+    watchFor: 'Watch the gap between mapping and travelling; pick one territory a month and actually go there.',
   },
-  'network-weaver': {
-    meaning: 'People are your infrastructure: you keep a wide web of family, close friends, and casual ties warm, and connections compound because you maintain them.',
-    watchFor: 'Watch for over-weaving; a web this wide needs a few threads you are allowed to let go quiet.',
+  'keeper-of-threads': {
+    meaning: 'You hold the threads between people: introductions remembered, birthdays kept, quiet threads gently re-tied. Your network compounds because you maintain the weave nobody else sees.',
+    watchFor: 'Watch for holding every thread yourself; some threads are allowed to rest.',
   },
-  'caretaker-anchor': {
-    meaning: 'You are the steady point others organise around: care work, health logistics, and relationship maintenance run through you, largely invisibly.',
-    watchFor: 'Anchors erode quietly; scheduled rest is part of the job, not a reward after it.',
+  'harbor-keeper': {
+    meaning: 'You are the harbor others return to: care logistics, health admin, and steady presence run through you, largely invisibly. People organise their storms around your calm.',
+    watchFor: 'Harbors need dredging too; scheduled rest is maintenance, not reward.',
   },
-  'deep-researcher': {
-    meaning: 'You go below the surface before forming a view: research and findings dominate because you would rather be accurate than fast.',
-    watchFor: 'Watch for research as procrastination; at some point the evidence is sufficient and the decision is the work.',
+  'rabbit-hole-diver': {
+    meaning: 'You follow questions past the point of politeness: one link becomes twelve tabs becomes a formed view. You would rather resurface late with treasure than skim the surface on time.',
+    watchFor: 'Watch for diving as delay; set a resurface time before the descent.',
   },
-  'method-maker': {
-    meaning: 'You turn private know-how into shared methods others can reuse. Your knowledge compounds publicly, which is why people seek you out.',
-    watchFor: 'Keep methods versioned; what worked two pivots ago may mislead someone today.',
+  'pattern-smith': {
+    meaning: 'You forge private know-how into tools others can hold: checklists, methods, and playbooks that outlive the moment you learned them. Your knowledge compounds in public.',
+    watchFor: 'Keep the forge hot but versioned; a method from two pivots ago may mislead today.',
   },
-  'serial-pivoter': {
-    meaning: 'Your life is a series of deliberate turns, not a straight line: you quit, retrain, and restart when the current shape stops fitting, and each pivot reuses the last one.',
-    watchFor: 'Name what carries over each time; your continuity is skills and people, not titles.',
+  'compass-resetter': {
+    meaning: 'When the map stops matching the territory, you reset the compass: quit, retrain, restart, and carry the bearings that matter into the next heading. Your continuity is skills and people, not titles.',
+    watchFor: 'Name what carries over at each reset; that is the thread through every heading.',
   },
-  'night-owl': {
-    meaning: 'Your thinking sharpens after dark: late-night entries show reflection and making happening when the world is quiet.',
-    watchFor: 'Protect sleep like infrastructure; tomorrow-you pays for tonight-you.',
+  'midnight-maker': {
+    meaning: 'Your workshop lights up after dark: late-night entries show making and reflecting when the world is quiet and the bench is yours alone.',
+    watchFor: 'Protect sleep like a load-bearing wall; tomorrow-you builds on tonight-you.',
   },
-  'early-riser': {
-    meaning: 'You front-load the day: early mornings hold your planning, movement, and clearest thinking before demands arrive.',
-    watchFor: 'Guard the early hours from other people scheduling over them.',
+  'first-light': {
+    meaning: 'You claim the day before it claims you: early hours hold your planning, movement, and clearest thinking, done before demands arrive.',
+    watchFor: 'Guard first light from other people scheduling over it.',
   },
-  wanderer: {
-    meaning: 'Movement is a thinking tool: new places reset your perspective and your knowledgebase is stamped with relocations and journeys.',
-    watchFor: 'Keep one anchor ritual per place so wandering stays restorative, not rootless.',
+  'restless-atlas': {
+    meaning: 'New places are how you re-index your life: relocations and journeys stamp your knowledgebase, and each return trip re-sorts what home means.',
+    watchFor: 'Keep one anchor ritual per place so the atlas stays restorative, not rootless.',
   },
-  'keeper-of-records': {
-    meaning: 'You keep the receipts, literally: documents and finances are ordered so future-you and family can find anything fast.',
-    watchFor: 'Records serve decisions; archive what no longer informs one.',
+  'archive-gardener': {
+    meaning: 'You tend records like beds in a garden: documents and finances pruned, labelled, and findable in any season. Future-you harvests what present-you files.',
+    watchFor: 'Gardens serve meals, not museums; archive what no longer feeds a decision.',
   },
-  'skill-collector': {
-    meaning: 'You acquire skills the way others acquire hobbies: broadly and joyfully, building an unusual combination over time.',
-    watchFor: 'Periodically pick one skill to take deep; breadth plus one depth is your unfair advantage.',
+  'curiosity-cabinet': {
+    meaning: 'You collect skills like specimens in a cabinet of curiosities: broadly, joyfully, in combinations nobody else has on their shelf.',
+    watchFor: 'Periodically take one specimen off the shelf and master it; breadth plus one depth is the exhibit.',
   },
 };
 
@@ -107,6 +109,13 @@ const TRAVEL_RE = /\b(flight|moved to|relocated|travel|trip|abroad|new city|visa
 
 function count(entries: Entry[], re: RegExp): number {
   return entries.filter((e) => re.test(`${e.title} ${e.body}`)).length;
+}
+
+/** Occurrence count (read-vs-collect needs density, not just entry hits). */
+function countOccurrences(entries: Entry[], re: RegExp): number {
+  const flags = re.flags.includes('g') ? re.flags : `${re.flags}g`;
+  const global = new RegExp(re.source, flags);
+  return entries.reduce((sum, e) => sum + (`${e.title} ${e.body}`.match(global)?.length ?? 0), 0);
 }
 
 function countType(entries: Entry[], types: string[]): number {
@@ -126,102 +135,102 @@ interface Rule {
 
 const RULES: Rule[] = [
   {
-    id: 'bookworm',
-    label: 'Bookworm',
-    conflictsWith: 'book-hoarder',
+    id: 'margin-annotator',
+    label: 'Margin Annotator',
+    conflictsWith: 'shelf-cartographer',
     score: (live) => {
-      const read = count(live, READ_RE);
-      const collect = count(live, COLLECT_RE);
+      const read = countOccurrences(live, READ_RE);
+      const collect = countOccurrences(live, COLLECT_RE);
       const score = read * 2 - collect;
-      return { score, evidence: `${read} reading entries vs ${collect} collecting entries` };
+      return { score, evidence: `${read} reading signals vs ${collect} collecting signals` };
     },
   },
   {
-    id: 'book-hoarder',
-    label: 'Book Hoarder',
-    conflictsWith: 'bookworm',
+    id: 'shelf-cartographer',
+    label: 'Shelf Cartographer',
+    conflictsWith: 'margin-annotator',
     score: (live) => {
-      const read = count(live, READ_RE);
-      const collect = count(live, COLLECT_RE);
+      const read = countOccurrences(live, READ_RE);
+      const collect = countOccurrences(live, COLLECT_RE);
       const score = collect * 2 - read;
-      return { score, evidence: `${collect} collecting/TBR entries vs ${read} finished-reading entries` };
+      return { score, evidence: `${collect} collecting signals vs ${read} finished-reading signals` };
     },
   },
   {
-    id: 'network-weaver',
-    label: 'Network Weaver',
+    id: 'keeper-of-threads',
+    label: 'Keeper of Threads',
     score: (live) => {
       const n = peopleCount(live);
       return { score: n >= 12 ? n : 0, evidence: `${n} people woven through the knowledgebase` };
     },
   },
   {
-    id: 'caretaker-anchor',
-    label: 'Caretaker Anchor',
+    id: 'harbor-keeper',
+    label: 'Harbor Keeper',
     score: (live) => {
       const n = countType(live, ['relationship', 'health']);
       return { score: n >= 8 ? n : 0, evidence: `${n} care/relationship entries` };
     },
   },
   {
-    id: 'deep-researcher',
-    label: 'Deep Researcher',
+    id: 'rabbit-hole-diver',
+    label: 'Rabbit-Hole Diver',
     score: (live) => {
       const n = countType(live, ['research', 'finding']);
       return { score: n >= 10 ? n : 0, evidence: `${n} research/finding entries` };
     },
   },
   {
-    id: 'method-maker',
-    label: 'Method Maker',
+    id: 'pattern-smith',
+    label: 'Pattern Smith',
     score: (live) => {
       const n = live.filter((e) => e.type === 'method' && e.tag === 'shareable').length;
       return { score: n >= 3 ? n * 2 : 0, evidence: `${n} shared methods` };
     },
   },
   {
-    id: 'serial-pivoter',
-    label: 'Serial Pivoter',
+    id: 'compass-resetter',
+    label: 'Compass Resetter',
     score: (live) => {
       const n = live.filter((e) => /pivot|quit|resign|career|new role|switched|starting over/i.test(`${e.title} ${e.body}`)).length;
       return { score: n >= 3 ? n * 2 : 0, evidence: `${n} pivot/turning-point entries` };
     },
   },
   {
-    id: 'night-owl',
-    label: 'Night Owl',
+    id: 'midnight-maker',
+    label: 'Midnight Maker',
     score: (live) => {
       const n = count(live, NIGHT_RE);
       return { score: n >= 2 ? n * 3 : 0, evidence: `${n} late-night entries` };
     },
   },
   {
-    id: 'early-riser',
-    label: 'Early Riser',
+    id: 'first-light',
+    label: 'First Light',
     score: (live) => {
       const n = count(live, EARLY_RE);
       return { score: n >= 2 ? n * 3 : 0, evidence: `${n} early-morning entries` };
     },
   },
   {
-    id: 'wanderer',
-    label: 'Wanderer',
+    id: 'restless-atlas',
+    label: 'Restless Atlas',
     score: (live) => {
       const n = count(live, TRAVEL_RE);
       return { score: n >= 3 ? n * 2 : 0, evidence: `${n} move/travel entries` };
     },
   },
   {
-    id: 'keeper-of-records',
-    label: 'Keeper of Records',
+    id: 'archive-gardener',
+    label: 'Archive Gardener',
     score: (live) => {
       const n = countType(live, ['document', 'finance']);
       return { score: n >= 8 ? n : 0, evidence: `${n} document/finance entries kept in order` };
     },
   },
   {
-    id: 'skill-collector',
-    label: 'Skill Collector',
+    id: 'curiosity-cabinet',
+    label: 'Curiosity Cabinet',
     score: (live) => {
       const n = countType(live, ['skill']);
       return { score: n >= 5 ? n : 0, evidence: `${n} skills picked up along the way` };
@@ -293,15 +302,33 @@ export function computeArchetypes(entries: Entry[], limit = 4): Archetype[] {
   return picked;
 }
 
+/** Pre-rename archetype ids → current ids (stored preferences survive). */
+export const LEGACY_ARCHETYPE_IDS: Record<string, string> = {
+  'margin-annotator': 'bookworm',
+  'shelf-cartographer': 'book-hoarder',
+  'keeper-of-threads': 'network-weaver',
+  'harbor-keeper': 'caretaker-anchor',
+  'rabbit-hole-diver': 'deep-researcher',
+  'pattern-smith': 'method-maker',
+  'compass-resetter': 'serial-pivoter',
+  'midnight-maker': 'night-owl',
+  'first-light': 'early-riser',
+  'restless-atlas': 'wanderer',
+  'archive-gardener': 'keeper-of-records',
+  'curiosity-cabinet': 'skill-collector',
+};
+
 /** Apply the user's final say: confirmed, renamed, or dismissed ("not me"). */
 export function applyArchetypePreferences(
   archetypes: Archetype[],
   preferences: Record<string, ArchetypePreference>,
 ): Archetype[] {
+  const prefFor = (id: string): ArchetypePreference | undefined =>
+    preferences[id] ?? preferences[LEGACY_ARCHETYPE_IDS[id] ?? ''];
   return archetypes
-    .filter((a) => preferences[a.id]?.status !== 'dismissed')
+    .filter((a) => prefFor(a.id)?.status !== 'dismissed')
     .map((a) => {
-      const pref = preferences[a.id];
+      const pref = prefFor(a.id);
       if (!pref) return a;
       return {
         ...a,

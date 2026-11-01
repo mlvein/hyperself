@@ -25,6 +25,11 @@ for (const file of files) {
   }
   assert.ok(kb.entries.some((e) => e.tag === 'shareable'), `${kb.id} has shareable material`);
   assert.ok(kb.entries.some((e) => (e.people ?? []).length > 0), `${kb.id} has a people network`);
+  const vias = new Set(kb.entries.map((e) => e.via).filter(Boolean));
+  assert.ok(vias.size >= 8, `${kb.id} simulates 8+ linked sources (${[...vias].join(', ')})`);
+  assert.ok(kb.entries.filter((e) => e.via).length >= 12, `${kb.id} has a substantial linked-source layer`);
+  const types = new Set(kb.entries.map((e) => e.type));
+  assert.ok(types.size >= 8, `${kb.id} spans 8+ entry types (${[...types].join(', ')})`);
   const peopleCounts = new Map();
   for (const e of kb.entries) {
     for (const p of e.people ?? []) peopleCounts.set(p, (peopleCounts.get(p) ?? 0) + 1);

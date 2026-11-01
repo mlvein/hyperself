@@ -8,7 +8,7 @@ Most personal data is fragmented across documents, statements, journals, calenda
 
 ### Knowledgebase
 
-- **Synthesis** — a profile card with archetype pills (Bookworm vs Book Hoarder, Network Weaver, Serial Pivoter, and more) and a two-sentence essence generated on-device from everything you have uploaded. Archetype cards explain the evidence behind each label, show how your archetypes changed across the years of your archive, and let you Confirm, Rename, or dismiss (“Not me”) any label — you are the final authority. Nothing diagnostic, nothing clinical.
+- **Synthesis** — a profile card with archetype pills (Margin Annotator vs Shelf Cartographer, Keeper of Threads, Compass Resetter, and more — novel coinages tied to familiar patterns, not stock labels) and a two-sentence essence generated on-device from everything you have uploaded. Archetype cards explain the evidence behind each label, show how your archetypes changed across the years of your archive, and let you Confirm, Rename, or dismiss (“Not me”) any label — you are the final authority. Nothing diagnostic, nothing clinical.
 - **Network** — a D3 graph with you at the center: uniform avatar circles (photo or initials), names on hover only, slow orbit that pauses when you drag. Person cards open a modal with your shared timeline, key moments, known-for duration (“you've known each other for X years”), and private notes. People come from tags you apply at import or upload (including on images), plus local structured extraction at ingest: people already in your knowledgebase are auto-linked when mentioned, recurring new names are cautiously auto-tagged, and entries auto-link to matching goals and evidenced skills (`src/extract.ts`, deterministic and on-device — every tag stays removable).
 - **Import & Connect** — the only place uploads and links are managed:
   - Documents: Markdown/text, CSV bank statements (review-then-import), PDF (text layer), DOCX, RTF, JSON, HTML (including Apple Journal exports), ICS calendars, VCF contacts.
@@ -24,7 +24,7 @@ Most personal data is fragmented across documents, statements, journals, calenda
 
 - Ask anything in the search bar and save the answer as a Path. No Path is pinned by default; pin one yourself and it becomes a subtab beside Insights, Templates, History, and Security.
 - New Paths first appear as **Suggested Paths on Insights**, only when you have already shared related data — nothing is pushed at you: **Finance** (from bank statements: category spend, monthly trend, recurring costs; hidden until finance data exists, descriptive only, never advice), **Health** (activity, sleep, and check-up records incl. Apple Health exports; descriptive only, never medical advice), **Relationship Rhythms** (who has gone quiet, descriptively), **Reading Life** (finished vs collected). Templates lists every template with what you have and what it still needs.
-- Insights include archetype-lensed notes (“For your Network Weaver side: Ana has gone quiet”). Expound, pin, mark reviewed, or dismiss each one — everything you approved or dismissed collects in **History**, where it can be restored.
+- Insights include archetype-lensed notes (“For your Keeper of Threads side: Ana has gone quiet”). Expound, pin, mark reviewed, or dismiss each one — everything you approved or dismissed collects in **History**, where it can be restored.
 
 ### Legacy
 

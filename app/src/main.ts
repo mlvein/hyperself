@@ -934,6 +934,8 @@ interface PersonaKB {
     body: string;
     tag: Tag;
     people?: string[];
+    /** Simulated linked source this entry arrived through, when any. */
+    via?: string;
   }>;
 }
 
@@ -942,7 +944,7 @@ async function loadPersona(id = 'maya'): Promise<string> {
   if (!res.ok) throw new Error(`Persona file missing (HTTP ${res.status}). Run npm run personas.`);
   const kb = (await res.json()) as PersonaKB & { id?: string };
   const label = kb.id ?? id;
-  if (listEntries().some((e) => e.source_label === label)) {
+  if (listEntries().some((e) => e.source_pack === label || e.source_label === label)) {
     return 'Persona already loaded — skipping to avoid duplicates.';
   }
   let personal = 0;
@@ -953,8 +955,9 @@ async function loadPersona(id = 'maya'): Promise<string> {
       type: e.type,
       body: e.body,
       tag: 'personal',
-      source: 'import',
-      source_label: label,
+      source: e.via ? 'connection' : 'import',
+      source_pack: label,
+      source_label: e.via ?? label,
       people: e.people ?? [],
       at: `${e.at}T09:00:00`,
     });

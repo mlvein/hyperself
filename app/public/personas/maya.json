@@ -52,6 +52,14 @@
       "tag": "shareable"
     },
     {
+      "at": "2008-03-14",
+      "type": "research",
+      "title": "Notion export: first research notebook (2008)",
+      "body": "Exported page from an early notebook: close reading notes on three novels, margin questions in the margins, and a finished chapter summary for the book club. Reading slowly is the method.",
+      "tag": "personal",
+      "via": "Notion (simulated)"
+    },
+    {
       "at": "2008-11-02",
       "type": "relationship",
       "title": "Book club with Lena",
@@ -98,6 +106,17 @@
       "tag": "personal",
       "people": [
         "Priya Nair"
+      ]
+    },
+    {
+      "at": "2010-06-22",
+      "type": "document",
+      "title": "Drive export: thesis chapter draft (2010)",
+      "body": "Google Docs export, chapter two draft with Lena Cruz comments in the margin: tighten the claim, cite the classroom evidence, finish the literature review before August.",
+      "tag": "personal",
+      "via": "Google Drive (simulated)",
+      "people": [
+        "Lena Cruz"
       ]
     },
     {
@@ -169,6 +188,17 @@
       ]
     },
     {
+      "at": "2012-09-05",
+      "type": "relationship",
+      "title": "Gmail thread: Marco Reyes job lead (2012)",
+      "body": "Email thread from Marco Reyes with a research-assistant posting, two time slots for a call, and a promise to introduce the hiring lead. Replied the same evening.",
+      "tag": "personal",
+      "via": "Gmail (simulated)",
+      "people": [
+        "Marco Reyes"
+      ]
+    },
+    {
       "at": "2012-12-28",
       "type": "journal",
       "title": "Year-end reflection 2012",
@@ -209,6 +239,18 @@
       "people": [
         "Mama Rosa",
         "Papa Joe"
+      ]
+    },
+    {
+      "at": "2014-01-19",
+      "type": "journal",
+      "title": "Calendar export: book club Sundays (2014)",
+      "body": "Recurring calendar block, first Sunday monthly: book club with Ana Reyes and Priya Nair. Finished two novels this quarter; the shelf still grows faster in spring.",
+      "tag": "personal",
+      "via": "Calendar (simulated)",
+      "people": [
+        "Ana Reyes",
+        "Priya Nair"
       ]
     },
     {
@@ -257,6 +299,14 @@
       ]
     },
     {
+      "at": "2015-05-30",
+      "type": "health",
+      "title": "Apple Health export summary (2015)",
+      "body": "Health export: StepCount records most days, sleep averaging 6h50m in May. Morning walks on teaching days show up as the steadiest activity pattern.",
+      "tag": "personal",
+      "via": "Apple Health (simulated)"
+    },
+    {
       "at": "2015-11-09",
       "type": "skill",
       "title": "D3 and dashboards",
@@ -298,6 +348,14 @@
       ]
     },
     {
+      "at": "2016-11-12",
+      "type": "finance",
+      "title": "Drive export: household budget sheet (2016)",
+      "body": "Spreadsheet export of the household budget: rent, groceries, and a book-buying line that needs its own category. Subscriptions reviewed and two cancelled.",
+      "tag": "personal",
+      "via": "Google Drive (simulated)"
+    },
+    {
       "at": "2016-12-28",
       "type": "journal",
       "title": "Year-end reflection 2016",
@@ -313,6 +371,17 @@
       "title": "Migraines and screens",
       "body": "Migraines traced to screen marathons. Paper books after nine. Actually finished more reading once screens dimmed.",
       "tag": "personal"
+    },
+    {
+      "at": "2017-04-08",
+      "type": "finding",
+      "title": "Slack export: #reading-circle thread (2017)",
+      "body": "Thread with Grace Liu: the teardown checklist earned three saved replies. Specific, short posts ending in one question keep earning conversations.",
+      "tag": "shareable",
+      "via": "Slack (simulated)",
+      "people": [
+        "Grace Liu"
+      ]
     },
     {
       "at": "2017-08-14",
@@ -358,6 +427,14 @@
       ]
     },
     {
+      "at": "2018-08-25",
+      "type": "method",
+      "title": "GitHub export: reading-notes template (2018)",
+      "body": "Repo README for a personal reading-notes template: one question per book, margin annotations first, finished-date always recorded. Shared with two colleagues.",
+      "tag": "shareable",
+      "via": "GitHub (simulated)"
+    },
+    {
       "at": "2018-12-28",
       "type": "journal",
       "title": "Year-end reflection 2018",
@@ -366,6 +443,17 @@
       "people": [
         "Mama Rosa",
         "Papa Joe"
+      ]
+    },
+    {
+      "at": "2019-02-17",
+      "type": "relationship",
+      "title": "LinkedIn export: Sofia Lindqvist connection (2019)",
+      "body": "New connection after the portfolio review night. Sofia Lindqvist researches learning design; follow up when the case-study draft is ready.",
+      "tag": "personal",
+      "via": "LinkedIn (simulated)",
+      "people": [
+        "Sofia Lindqvist"
       ]
     },
     {
@@ -424,6 +512,14 @@
       ]
     },
     {
+      "at": "2020-10-03",
+      "type": "research",
+      "title": "X export: bookmarked threads (2020)",
+      "body": "Bookmarked threads on annotation practice and marginalia: saved twelve examples for the methods file. Public notes compound; drafts do not.",
+      "tag": "personal",
+      "via": "X (Twitter) (simulated)"
+    },
+    {
       "at": "2020-12-28",
       "type": "journal",
       "title": "Year-end reflection 2020",
@@ -444,6 +540,17 @@
       ]
     },
     {
+      "at": "2021-05-21",
+      "type": "document",
+      "title": "Family export: Mama Rosa care rota (2021)",
+      "body": "Shared family document: Sunday lunch rota, pharmacy runs, and who drives Mama Rosa to appointments. Updated weekly by three households.",
+      "tag": "personal",
+      "via": "Family (simulated)",
+      "people": [
+        "Mama Rosa"
+      ]
+    },
+    {
       "at": "2021-08-19",
       "type": "goal-note",
       "title": "Pivot: research lead",
@@ -461,6 +568,17 @@
       "tag": "personal",
       "people": [
         "Lena Cruz"
+      ]
+    },
+    {
+      "at": "2022-01-30",
+      "type": "relationship",
+      "title": "Contacts export: Priya Nair card (2022)",
+      "body": "Contact card: Priya Nair, product designer, prefers email, birthday in March. Coffee every few weeks since 2014.",
+      "tag": "personal",
+      "via": "Contacts (simulated)",
+      "people": [
+        "Priya Nair"
       ]
     },
     {
@@ -507,6 +625,14 @@
       ]
     },
     {
+      "at": "2023-07-14",
+      "type": "goal-note",
+      "title": "Notion export: research leadership plan (2023)",
+      "body": "Goal page: lead a small research team within two years, mentor junior researchers, publish the annotation method. Reviewed quarterly against the calendar.",
+      "tag": "personal",
+      "via": "Notion (simulated)"
+    },
+    {
       "at": "2023-09-16",
       "type": "relationship",
       "title": "Book club at ten years",
@@ -550,6 +676,14 @@
       "tag": "shareable"
     },
     {
+      "at": "2024-09-19",
+      "type": "health",
+      "title": "Gmail export: clinic results letter (2024)",
+      "body": "Clinic letter received by email: blood pressure stable, vitamin D low, recheck in six months. Filed with the health export the same day.",
+      "tag": "personal",
+      "via": "Gmail (simulated)"
+    },
+    {
       "at": "2024-12-28",
       "type": "journal",
       "title": "Year-end reflection 2024",
@@ -573,6 +707,14 @@
       ]
     },
     {
+      "at": "2025-03-08",
+      "type": "finding",
+      "title": "Drive export: annotation study results (2025)",
+      "body": "Findings doc: readers who annotated in the margins finished more books and recalled more after a month. Margin notes beat highlights on every delayed test.",
+      "tag": "shareable",
+      "via": "Google Drive (simulated)"
+    },
+    {
       "at": "2025-10-18",
       "type": "health",
       "title": "Strong at 43",
@@ -590,6 +732,17 @@
       "tag": "personal",
       "people": [
         "Marco Reyes"
+      ]
+    },
+    {
+      "at": "2026-01-25",
+      "type": "journal",
+      "title": "Slack export: design-friends crit (2026)",
+      "body": "Crit night thread with Ana Reyes: lead with the constraint, cut the second exploration, name the tradeoff. Next crit in two weeks.",
+      "tag": "personal",
+      "via": "Slack (simulated)",
+      "people": [
+        "Ana Reyes"
       ]
     },
     {
