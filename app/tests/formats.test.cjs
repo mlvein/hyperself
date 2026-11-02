@@ -1,6 +1,6 @@
 // Common-format parsers: RTF, JSON exports, ICS calendars, VCF contacts.
 const assert = require('node:assert/strict');
-const { rtfToText, jsonToText, parseIcs, parseVcf, isDocumentFilename, mboxToText, healthXmlToText, stripJsAssignment, unzipTextEntries, pdfPasswordKind } = require('../.test-compiled/formats.js');
+const { rtfToText, jsonToText, parseIcs, parseVcf, isDocumentFilename, mboxToText, healthXmlToText, stripJsAssignment, unzipTextEntries, pdfPasswordKind, needsOcrFallback, OCR_MAX_PAGES } = require('../.test-compiled/formats.js');
 
 assert.ok(isDocumentFilename('labs.PDF') && isDocumentFilename('calendar.ics'), 'new formats accepted');
 assert.ok(isDocumentFilename('takeout.zip') && isDocumentFilename('mail.mbox') && isDocumentFilename('export.xml') && isDocumentFilename('tweets.js'), 'export formats accepted');
@@ -56,6 +56,22 @@ console.log('formats OK: rtf, json exports, ics events, vcf contacts');
   assert.ok(main.includes('askPdfPassword') && main.includes('extractPdfText'), 'unlock flow wired');
   assert.ok(!/localStorage\.setItem\([^)]*[Pp]assword/.test(main), 'password is never persisted');
   console.log('pdf password OK: classification, modal, memory-only password');
+}
+
+// --- scanned PDFs: OCR fallback decision + wiring ---
+{
+  assert.ok(needsOcrFallback(''), 'empty text needs OCR');
+  assert.ok(needsOcrFallback('  \n  '), 'whitespace-only needs OCR');
+  assert.ok(needsOcrFallback('tiny'), 'near-empty text needs OCR');
+  assert.ok(!needsOcrFallback('This PDF has a real text layer with plenty of words.'), 'real text layer skips OCR');
+  assert.ok(OCR_MAX_PAGES >= 1 && OCR_MAX_PAGES <= 20, 'OCR page cap is bounded');
+  const fs = require('node:fs');
+  const path = require('node:path');
+  const main = fs.readFileSync(path.join(__dirname, '..', 'src', 'main.ts'), 'utf8');
+  const formats = fs.readFileSync(path.join(__dirname, '..', 'src', 'formats.ts'), 'utf8');
+  assert.ok(main.includes('pdfToOcrText') && main.includes('needsOcrFallback'), 'OCR fallback wired into extraction');
+  assert.ok(formats.includes('ocrImageBlob'), 'OCR reuses the on-device image OCR engine');
+  console.log('scanned pdf OK: OCR fallback decision, page cap, wiring');
 }
 
 // --- export formats: mbox, health XML, X-archive JS, ZIP unpacking ---

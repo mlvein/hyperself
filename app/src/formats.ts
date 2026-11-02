@@ -285,7 +285,58 @@ interface PdfDocLike {
   numPages: number;
   getPage: (n: number) => Promise<{
     getTextContent: () => Promise<{ items: Array<Record<string, unknown>> }>;
+    getViewport: (opts: { scale: number }) => { width: number; height: number };
+    render: (opts: { canvasContext: CanvasRenderingContext2D; viewport: { width: number; height: number } }) => { promise: Promise<void> };
   }>;
+}
+
+/** Below this much extracted text, a PDF is treated as scanned/image-only. */
+export const OCR_TEXT_THRESHOLD = 20;
+export const OCR_MAX_PAGES = 8;
+
+export function needsOcrFallback(text: string): boolean {
+  return text.trim().length < OCR_TEXT_THRESHOLD;
+}
+
+/**
+ * Scanned-PDF fallback: render pages to images and OCR them on-device
+ * (Tesseract via image.ts). Capped pages keep a huge scan from wedging
+ * the tab; the cap is reported through onProgress.
+ */
+export async function pdfToOcrText(
+  blob: Blob,
+  password?: string,
+  onProgress?: (text: string) => void,
+): Promise<string> {
+  const pdfjs = (await import('pdfjs-dist')) as unknown as {
+    GlobalWorkerOptions: { workerSrc: string };
+    getDocument: (src: { data: ArrayBuffer; password?: string }) => { promise: Promise<PdfDocLike> };
+  };
+  const workerMod = (await import('pdfjs-dist/build/pdf.worker.min.mjs?url')) as unknown as { default: string };
+  pdfjs.GlobalWorkerOptions.workerSrc = workerMod.default;
+  const doc = await pdfjs.getDocument({ data: await blob.arrayBuffer(), password }).promise;
+  const { ocrImageBlob } = await import('./image');
+  const pages = Math.min(doc.numPages, OCR_MAX_PAGES);
+  const texts: string[] = [];
+  for (let i = 1; i <= pages; i += 1) {
+    onProgress?.(`Reading scanned page ${i} of ${pages} on-device (OCR)…`);
+    const page = await doc.getPage(i);
+    const viewport = page.getViewport({ scale: 2 });
+    const canvas = document.createElement('canvas');
+    canvas.width = Math.ceil(viewport.width);
+    canvas.height = Math.ceil(viewport.height);
+    const ctx = canvas.getContext('2d');
+    if (!ctx) continue;
+    await page.render({ canvasContext: ctx, viewport }).promise;
+    const png = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, 'image/png'));
+    if (!png) continue;
+    const text = await ocrImageBlob(png);
+    if (text.trim()) texts.push(text.trim());
+  }
+  if (doc.numPages > OCR_MAX_PAGES) {
+    onProgress?.(`Scanned PDF has ${doc.numPages} pages; OCR read the first ${OCR_MAX_PAGES}.`);
+  }
+  return texts.join('\n\n');
 }
 
 /** DOCX text via mammoth (dynamic import). */

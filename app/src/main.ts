@@ -51,7 +51,7 @@ import { embedEntry, embedText, hydrateVectors, loadVectors } from './embeddings
 import { hashContent, ingestDoc } from './ingest';
 import { diffFolder, isSyncablePath, nextManifest } from './foldersync';
 import { isHtmlFilename, parseJournalHtml } from './html';
-import { docxToText, extensionOf, healthXmlToText, jsonToText, mboxToText, parseIcs, parseVcf, pdfPasswordKind, pdfToText, rtfToText, unzipTextEntries } from './formats';
+import { docxToText, extensionOf, healthXmlToText, jsonToText, mboxToText, needsOcrFallback, parseIcs, parseVcf, pdfPasswordKind, pdfToOcrText, pdfToText, rtfToText, unzipTextEntries } from './formats';
 import { EXPORT_GUIDES } from './guides';
 import { isAudioFilename, isAudioMime, transcribeAudioBlob } from './transcribe';
 import { isImageFilename, isImageMime, ocrImageBlob, parseExifDate } from './image';
@@ -543,12 +543,22 @@ el<HTMLInputElement>('pdfPasswordInput').addEventListener('keydown', (ev) => {
 });
 
 /** Extract PDF text, asking for a password (up to 3 tries) when needed. */
-async function extractPdfText(file: File): Promise<string> {
+async function extractPdfText(file: File, note?: HTMLElement): Promise<string> {
   let password: string | undefined;
   let wrong = false;
   for (let attempt = 0; attempt < 3; attempt += 1) {
     try {
-      return await pdfToText(file, undefined, password);
+      const text = await pdfToText(file, undefined, password);
+      if (!needsOcrFallback(text)) return text;
+      // No usable text layer: scanned/image-only PDF — OCR the pages.
+      try {
+        const ocr = await pdfToOcrText(file, password, (status) => {
+          if (note) note.textContent = `${file.name}: ${status}`;
+        });
+        return ocr.trim().length > text.trim().length ? ocr : text;
+      } catch {
+        return text; // OCR unavailable: keep whatever the text layer gave.
+      }
     } catch (err) {
       const kind = pdfPasswordKind(err);
       if (!kind) throw err;
@@ -617,7 +627,7 @@ async function ingestFormattedFile(file: File, label: string): Promise<number> {
     return created;
   }
   if (ext === 'pdf') {
-    const text = await extractPdfText(file);
+    const text = await extractPdfText(file, note);
     if (!text.trim()) throw new Error('no text layer');
     return ingestDoc(label, text, { ownership: currentOwnership() }).created;
   }
@@ -649,7 +659,7 @@ async function ingestFiles(
         // as CSV; other PDFs ingest as documents. Extract once so a
         // password-protected file never prompts twice.
         try {
-          const text = await extractPdfText(file);
+          const text = await extractPdfText(file, note);
           if (!text.trim()) continue;
           if (looksLikePdfStatement(text, file.name)) {
             const parsed = parsePdfStatement(text);
