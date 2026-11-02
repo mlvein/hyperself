@@ -362,6 +362,19 @@ OLLAMA_ORIGINS=http://localhost:5173 ollama serve</pre>
       </div>
     </div>
 
+    <div id="pdfPasswordModal" class="overlay" hidden>
+      <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="pdfPasswordTitle">
+        <h2 id="pdfPasswordTitle">Password-protected PDF</h2>
+        <p class="hint"><strong id="pdfPasswordFile"></strong> needs its password to be read. The password is used only to open this file on this device — it is never stored, logged, or sent anywhere.</p>
+        <label>PDF password <input id="pdfPasswordInput" type="password" autocomplete="off" /></label>
+        <p id="pdfPasswordError" class="hint" aria-live="polite"></p>
+        <div class="row">
+          <button type="button" id="pdfPasswordUnlockBtn">Unlock &amp; import</button>
+          <button type="button" id="pdfPasswordCancelBtn" class="linklike">Skip this file</button>
+        </div>
+      </div>
+    </div>
+
     <div id="linkModal" class="overlay" hidden>
       <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="linkModalTitle">
         <h2 id="linkModalTitle">Link an account</h2>

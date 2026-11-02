@@ -246,15 +246,31 @@ export async function unzipTextEntries(blob: Blob): Promise<ArchiveTextEntry[]> 
 }
 
 /** PDF text via pdf.js (dynamic import; text-layer PDFs only). */
-export async function pdfToText(blob: Blob, onProgress?: (text: string) => void): Promise<string> {
+export type PdfPasswordKind = 'needs-password' | 'wrong-password';
+
+/** Classify pdf.js password failures so the UI can ask and retry. */
+export function pdfPasswordKind(err: unknown): PdfPasswordKind | null {
+  const e = err as { name?: string; code?: number; message?: string } | null;
+  if (!e) return null;
+  if (e.name === 'PasswordException' || /password/i.test(e.message ?? '')) {
+    return e.code === 2 ? 'wrong-password' : 'needs-password';
+  }
+  return null;
+}
+
+export async function pdfToText(
+  blob: Blob,
+  onProgress?: (text: string) => void,
+  password?: string,
+): Promise<string> {
   const pdfjs = (await import('pdfjs-dist')) as unknown as {
     GlobalWorkerOptions: { workerSrc: string };
-    getDocument: (src: { data: ArrayBuffer }) => { promise: Promise<PdfDocLike> };
+    getDocument: (src: { data: ArrayBuffer; password?: string }) => { promise: Promise<PdfDocLike> };
   };
   const worker = (await import('pdfjs-dist/build/pdf.worker.min.mjs?url')) as unknown as { default: string };
   pdfjs.GlobalWorkerOptions.workerSrc = worker.default;
   onProgress?.('Reading PDF on-device…');
-  const doc = await pdfjs.getDocument({ data: await blob.arrayBuffer() }).promise;
+  const doc = await pdfjs.getDocument({ data: await blob.arrayBuffer(), password }).promise;
   const pages: string[] = [];
   for (let i = 1; i <= doc.numPages; i += 1) {
     const page = await doc.getPage(i);

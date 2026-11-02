@@ -51,7 +51,7 @@ import { embedEntry, embedText, hydrateVectors, loadVectors } from './embeddings
 import { hashContent, ingestDoc } from './ingest';
 import { diffFolder, isSyncablePath, nextManifest } from './foldersync';
 import { isHtmlFilename, parseJournalHtml } from './html';
-import { docxToText, extensionOf, healthXmlToText, jsonToText, mboxToText, parseIcs, parseVcf, pdfToText, rtfToText, unzipTextEntries } from './formats';
+import { docxToText, extensionOf, healthXmlToText, jsonToText, mboxToText, parseIcs, parseVcf, pdfPasswordKind, pdfToText, rtfToText, unzipTextEntries } from './formats';
 import { EXPORT_GUIDES } from './guides';
 import { isAudioFilename, isAudioMime, transcribeAudioBlob } from './transcribe';
 import { isImageFilename, isImageMime, ocrImageBlob, parseExifDate } from './image';
@@ -507,6 +507,60 @@ el<HTMLInputElement>('attestCheck').addEventListener('change', () => {
   localStorage.setItem(ATTEST_KEY, attested() ? '1' : '0');
 });
 
+// --- Password-protected PDFs: ask in-app, password lives only in memory ---
+let pdfPasswordResolve: ((value: string | null) => void) | null = null;
+
+function askPdfPassword(filename: string, wrong: boolean): Promise<string | null> {
+  return new Promise((resolve) => {
+    pdfPasswordResolve = resolve;
+    el('pdfPasswordFile').textContent = filename;
+    el('pdfPasswordError').textContent = wrong ? 'That password did not open it. Try again, or skip this file.' : '';
+    const input = el<HTMLInputElement>('pdfPasswordInput');
+    input.value = '';
+    el('pdfPasswordModal').hidden = false;
+    input.focus();
+  });
+}
+
+function settlePdfPassword(value: string | null): void {
+  el('pdfPasswordModal').hidden = true;
+  el<HTMLInputElement>('pdfPasswordInput').value = '';
+  const resolve = pdfPasswordResolve;
+  pdfPasswordResolve = null;
+  resolve?.(value);
+}
+
+el('pdfPasswordUnlockBtn').addEventListener('click', () => {
+  settlePdfPassword(el<HTMLInputElement>('pdfPasswordInput').value);
+});
+el('pdfPasswordCancelBtn').addEventListener('click', () => settlePdfPassword(null));
+el('pdfPasswordModal').addEventListener('click', (ev) => {
+  if (ev.target === el('pdfPasswordModal')) settlePdfPassword(null);
+});
+el<HTMLInputElement>('pdfPasswordInput').addEventListener('keydown', (ev) => {
+  if (ev.key === 'Enter') settlePdfPassword((ev.target as HTMLInputElement).value);
+  if (ev.key === 'Escape') settlePdfPassword(null);
+});
+
+/** Extract PDF text, asking for a password (up to 3 tries) when needed. */
+async function extractPdfText(file: File): Promise<string> {
+  let password: string | undefined;
+  let wrong = false;
+  for (let attempt = 0; attempt < 3; attempt += 1) {
+    try {
+      return await pdfToText(file, undefined, password);
+    } catch (err) {
+      const kind = pdfPasswordKind(err);
+      if (!kind) throw err;
+      wrong = kind === 'wrong-password';
+      const entered = await askPdfPassword(file.name, wrong);
+      if (entered === null) throw new Error('password skipped');
+      password = entered;
+    }
+  }
+  throw new Error('password attempts exhausted');
+}
+
 /** Ingest already-extracted text by extension (uploads and ZIP members share this). */
 async function ingestTextContent(label: string, ext: string, raw: string): Promise<number> {
   if (ext === 'ics') {
@@ -563,7 +617,7 @@ async function ingestFormattedFile(file: File, label: string): Promise<number> {
     return created;
   }
   if (ext === 'pdf') {
-    const text = await pdfToText(file, (status) => { note.textContent = `${file.name}: ${status}`; });
+    const text = await extractPdfText(file);
     if (!text.trim()) throw new Error('no text layer');
     return ingestDoc(label, text, { ownership: currentOwnership() }).created;
   }
@@ -592,9 +646,11 @@ async function ingestFiles(
       }
       if (/\.pdf$/i.test(file.name) || file.type === 'application/pdf') {
         // Bank-statement PDFs go through the same review-then-import flow
-        // as CSV; other PDFs fall through to document ingest below.
+        // as CSV; other PDFs ingest as documents. Extract once so a
+        // password-protected file never prompts twice.
         try {
-          const text = await pdfToText(file);
+          const text = await extractPdfText(file);
+          if (!text.trim()) continue;
           if (looksLikePdfStatement(text, file.name)) {
             const parsed = parsePdfStatement(text);
             if (parsed.parsedRows > 0) {
@@ -602,7 +658,7 @@ async function ingestFiles(
               continue;
             }
           }
-          total += await ingestFormattedFile(file, file.name);
+          total += ingestDoc(file.name, text, { ownership: currentOwnership() }).created;
           continue;
         } catch {
           // Unreadable PDF: skipped like any other unreadable file.

@@ -1,6 +1,6 @@
 // Common-format parsers: RTF, JSON exports, ICS calendars, VCF contacts.
 const assert = require('node:assert/strict');
-const { rtfToText, jsonToText, parseIcs, parseVcf, isDocumentFilename, mboxToText, healthXmlToText, stripJsAssignment, unzipTextEntries } = require('../.test-compiled/formats.js');
+const { rtfToText, jsonToText, parseIcs, parseVcf, isDocumentFilename, mboxToText, healthXmlToText, stripJsAssignment, unzipTextEntries, pdfPasswordKind } = require('../.test-compiled/formats.js');
 
 assert.ok(isDocumentFilename('labs.PDF') && isDocumentFilename('calendar.ics'), 'new formats accepted');
 assert.ok(isDocumentFilename('takeout.zip') && isDocumentFilename('mail.mbox') && isDocumentFilename('export.xml') && isDocumentFilename('tweets.js'), 'export formats accepted');
@@ -39,6 +39,24 @@ assert.equal(contacts[0].name, 'Priya Nair');
 assert.equal(contacts[0].org, 'Design Co');
 
 console.log('formats OK: rtf, json exports, ics events, vcf contacts');
+
+// --- password-protected PDFs: failure classification + in-app unlock wiring ---
+{
+  assert.equal(pdfPasswordKind({ name: 'PasswordException', code: 1 }), 'needs-password', 'pdf.js needs-password classified');
+  assert.equal(pdfPasswordKind({ name: 'PasswordException', code: 2 }), 'wrong-password', 'pdf.js wrong-password classified');
+  assert.equal(pdfPasswordKind(new Error('No password given')), 'needs-password', 'message fallback classified');
+  assert.equal(pdfPasswordKind(new Error('corrupt file')), null, 'unrelated errors not classified');
+  assert.equal(pdfPasswordKind(null), null, 'null safe');
+  const fs = require('node:fs');
+  const path = require('node:path');
+  const html = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
+  const main = fs.readFileSync(path.join(__dirname, '..', 'src', 'main.ts'), 'utf8');
+  assert.ok(html.includes('id="pdfPasswordModal"') && html.includes('id="pdfPasswordInput"'), 'password modal present with masked input');
+  assert.ok(html.includes('never stored, logged, or sent'), 'modal states the password handling honestly');
+  assert.ok(main.includes('askPdfPassword') && main.includes('extractPdfText'), 'unlock flow wired');
+  assert.ok(!/localStorage\.setItem\([^)]*[Pp]assword/.test(main), 'password is never persisted');
+  console.log('pdf password OK: classification, modal, memory-only password');
+}
 
 // --- export formats: mbox, health XML, X-archive JS, ZIP unpacking ---
 {
