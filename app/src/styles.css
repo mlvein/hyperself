@@ -149,6 +149,13 @@ button, input, textarea, select { font-family: var(--font-body); }
 @media (max-width: 860px) {
   .network-card { width: calc(100vw - 40px); margin-left: calc(50% - (100vw - 40px) / 2); }
 }
+.timeline-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.75rem 0; }
+.tl-tag { font-size: 0.78rem; border: 1px solid var(--line); border-radius: 999px; padding: 0.15rem 0.6rem; background: var(--wash); }
+.tl-tag-spike { border-color: var(--text-warning); background: var(--status-warning-background); }
+.tl-tag-gap, .tl-tag-lull { border-color: var(--border-accent); background: var(--status-info-background); }
+.tl-tag-people { border-color: var(--text-success); background: var(--status-success-background); }
+.gap-card { border-style: dashed; margin-top: 1rem; }
+.gap-card textarea, .card textarea { width: 100%; }
 .network-stage { position: relative; }
 .view-search.network-search {
   position: absolute;

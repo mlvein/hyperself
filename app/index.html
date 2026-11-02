@@ -33,6 +33,7 @@
       <div id="subnav-knowledge" class="subnav" role="tablist" aria-label="Knowledgebase sections">
         <button type="button" data-sub="library" class="active"><span data-i18n="sub.synthesis">Synthesis</span></button>
         <button type="button" data-sub="network"><span data-i18n="sub.network">Network</span></button>
+        <button type="button" data-sub="timeline"><span data-i18n="sub.timeline">Timeline</span></button>
         <button type="button" data-sub="import"><span data-i18n="sub.import">Import &amp; Connect</span></button>
         <button type="button" data-sub="security" class="subnav-action sec-tab">
           <img src="/assets/hyperself/icons/shield-check.svg" width="18" height="18" alt="" />
@@ -118,6 +119,36 @@
           </div>
           <p class="hint">People synthesized across your knowledgebase. Click a card for their story.</p>
           <div id="personList" class="people-grid"></div>
+        </div>
+
+        <div id="sub-timeline" hidden>
+          <div class="card">
+            <h2>Timeline</h2>
+            <p class="hint">Your knowledgebase over time. Summarized groups entries into periods with analysis tags; Uploaded data lists everything in date order.</p>
+            <div class="row" role="tablist" aria-label="Timeline view">
+              <button type="button" class="small tl-mode active" data-timeline-mode="summary">Summarized</button>
+              <button type="button" class="small tl-mode" data-timeline-mode="uploaded">Uploaded data</button>
+              <span id="timelineMeta" class="hint"></span>
+            </div>
+            <div id="timelineTags" class="timeline-tags"></div>
+            <div id="timelineSummary"></div>
+            <div id="timelineUploaded" hidden></div>
+          </div>
+          <div class="card">
+            <h3>Add a memory</h3>
+            <p class="hint">Type it, or use the microphone and Hyperself will transcribe it on this device. Memories are personal entries, dated when you say they happened.</p>
+            <div class="row">
+              <label>Title <input id="tlNewTitle" placeholder="e.g. The winter in Lisbon" /></label>
+              <label>Date <input id="tlNewDate" type="date" /></label>
+            </div>
+            <textarea id="tlNewBody" rows="3" placeholder="What happened? Who was there? What did it change?"></textarea>
+            <div class="row">
+              <button type="button" id="tlMicBtn" class="small" data-mic-for="tlNewBody">Use microphone</button>
+              <button type="button" id="tlAddBtn">Add memory</button>
+              <span id="tlNote" class="hint" aria-live="polite"></span>
+            </div>
+          </div>
+          <div id="timelineGaps"></div>
         </div>
 
         <div id="sub-import" hidden>
@@ -310,6 +341,10 @@
           <p>On-device synthesis then reads across that archive: a profile with archetypes you can confirm, rename, or reject; a Network of the people who appear across your entries; and Security findings scanned locally. Nothing personal is uploaded — there is no account and no server holding your archive.</p>
         </div>
         <div class="card">
+          <h2>Timeline &amp; memories</h2>
+          <p>The Timeline (Knowledgebase → Timeline) shows your archive over time: a Summarized view grouped by period with tags for spikes, lulls, dominant types, and when you met people — or Uploaded data, everything in date order. Long gaps (a year at first, finer as your archive grows) come with a prompt to add a memory from that time, typed or dictated by microphone and transcribed on this device. Memories are personal entries dated inside the gap, so your timeline fills in as you remember.</p>
+        </div>
+        <div class="card">
           <h2>Paths: surfaced when they make sense</h2>
           <p>Paths are focused views over your knowledge — Finance, Health, Relationship Rhythms, Reading Life, and Paths you save from your own searches. A Path is never pinned for you and never pushed at you. New Paths first appear as <strong>Suggested Paths</strong> on Insights, only when your knowledge is already ready for them (for example, enough finance entries for Finance, or enough people mentioned for Relationship Rhythms). Starting one adds it to Your Paths; dismissing or approving an insight records it in History, where it can be restored.</p>
           <p>Paths describe what your data shows. They never give financial or medical advice, diagnoses, or counseling.</p>
@@ -322,7 +357,7 @@
           <h2>Privacy: two tags govern everything</h2>
           <p>Every entry is <strong>personal</strong> or <strong>shareable</strong>. Personal entries never leave this device, and sensitive kinds — health, finance, journal, relationship, and document entries — can never be made shareable. Shareable entries are the only ones that can enter an exported knowledge pack, and packs are hash-verified on import. Your whole archive, personal entries included, can be exported as one encrypted backup protected by its own passphrase, and restored on any install.</p>
         </div>
-<div class="card">
+        <div class="card">
           <h2>Knowledge packs</h2>
           <p>In Legacy you can keep several knowledge packs, each with its own settings: name, author, version, and curation. Curate a pack to only your expertise — findings, methods, research, and skill-evidenced entries — or include every shareable entry. Pin the packs you maintain and they appear as tabs in Legacy, like pinned Paths. Exporting rebuilds the file from your current entries with the same settings, so updating a pack you have shared is one click; the card shows when it was last exported and with how many entries.</p>
         </div>

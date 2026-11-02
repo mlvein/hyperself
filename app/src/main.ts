@@ -81,6 +81,7 @@ import {
   runAccountScan,
 } from './connections';
 import { runKnowledgeSearch } from './search';
+import { buildTimeline, type TimelineGap } from './timeline';
 import { applyLocale, isLocale, loadLocale, saveLocale, t, type Locale } from './i18n';
 import { analyzeKnowledgebase, buildEssence, buildSynthesisCards, buildWhatMatters } from './analysis';
 import { scanEntry } from './security';
@@ -2236,12 +2237,172 @@ function renderAll(): void {
   renderSecurity();
   renderPaths();
   renderPacks();
+  renderTimeline();
 }
+
+// --- Timeline (summarized periods, analysis tags, gap prompts, mic) ---
+
+let timelineMode: 'summary' | 'uploaded' = 'summary';
+let currentGaps: TimelineGap[] = [];
+function renderTimeline(): void {
+  const entries = listEntries();
+  const tl = buildTimeline(entries);
+  currentGaps = tl.gaps;
+  el('timelineMeta').textContent = entries.length
+    ? `${entries.length} entries · by ${tl.granularity} · gaps flagged at ${tl.gapThresholdMonths}+ silent months`
+    : 'No entries yet.';
+  el('timelineTags').innerHTML = tl.tags.length
+    ? tl.tags
+        .map((t) => `<span class="tl-tag tl-tag-${t.kind}" title="${escapeHtml(t.detail)}">${escapeHtml(t.label)}</span>`)
+        .join('')
+    : '<p class="hint">No patterns flagged yet — add more knowledge and spikes, lulls, and gaps will surface here.</p>';
+  const maxTotal = Math.max(1, ...tl.periods.map((p) => p.total));
+  el('timelineSummary').innerHTML = tl.periods.length
+    ? [...tl.periods]
+        .reverse()
+        .map(
+          (p) => `<div class="budget-row tl-period"><span>${escapeHtml(p.label)}</span><span class="budget-bar"><span style="width:${Math.round((p.total / maxTotal) * 100)}%"></span></span><strong>${p.total}</strong><span class="meta">${p.dominantType ? escapeHtml(p.dominantType) : '—'}${p.peopleMet.length ? ` · met ${p.peopleMet.map(escapeHtml).join(', ')}` : ''}</span></div>`,
+        )
+        .join('')
+    : '<p class="hint">Nothing to chart yet — import knowledge in Import &amp; Connect.</p>';
+  const sorted = entries.slice().sort((a, b) => b.created_at.localeCompare(a.created_at));
+  el('timelineUploaded').innerHTML = sorted.length
+    ? sorted
+        .map(
+          (e) => `<div class="item"><header><h3>${escapeHtml(e.title)}</h3><span class="meta">${escapeHtml(e.created_at.slice(0, 10))} · ${escapeHtml(e.type)} · ${escapeHtml(e.tag)}</span></header><p class="meta">${escapeHtml(e.body.slice(0, 160))}${e.body.length > 160 ? '…' : ''}</p></div>`,
+        )
+        .join('')
+    : '<p class="hint">No uploads yet.</p>';
+  el('timelineSummary').hidden = timelineMode !== 'summary';
+  el('timelineUploaded').hidden = timelineMode !== 'uploaded';
+  document
+    .querySelectorAll('[data-timeline-mode]')
+    .forEach((b) => b.classList.toggle('active', (b as HTMLElement).dataset.timelineMode === timelineMode));
+  el('timelineGaps').innerHTML = tl.gaps.length
+    ? tl.gaps
+        .map((gap, i) => {
+          const mid = new Date((Date.parse(gap.from) + Date.parse(gap.to)) / 2).toISOString().slice(0, 10);
+          return `<div class="card gap-card">
+      <h3>A quiet stretch: ${escapeHtml(gap.label)}</h3>
+      <p class="hint">Hyperself has nothing recorded for about ${gap.months} months here. What was happening then? Add a memory — even a rough one — and Hyperself will help you keep it. It is saved as a personal entry, dated inside the gap.</p>
+      <div class="row"><label>Date <input type="date" id="gapDate-${i}" value="${mid}" /></label></div>
+      <textarea id="gapBody-${i}" rows="3" placeholder="What do you remember from ${escapeHtml(gap.label)}?"></textarea>
+      <div class="row">
+        <button type="button" class="small" data-mic-for="gapBody-${i}">Use microphone</button>
+        <button type="button" data-gap-add="${i}">Add memory to fill this gap</button>
+        <span id="gapNote-${i}" class="hint" aria-live="polite"></span>
+      </div>
+    </div>`;
+        })
+        .join('')
+    : '';
+  const dateInput = el<HTMLInputElement>('tlNewDate');
+  if (!dateInput.value) dateInput.value = new Date().toISOString().slice(0, 10);
+}
+
+el('sub-timeline').addEventListener('click', (ev) => {
+  const modeBtn = (ev.target as HTMLElement).closest<HTMLElement>('[data-timeline-mode]');
+  if (modeBtn) {
+    timelineMode = modeBtn.dataset.timelineMode === 'uploaded' ? 'uploaded' : 'summary';
+    renderTimeline();
+    return;
+  }
+  const gapBtn = (ev.target as HTMLElement).closest<HTMLElement>('[data-gap-add]');
+  if (gapBtn) {
+    const i = Number(gapBtn.dataset.gapAdd);
+    const gap = currentGaps[i];
+    const body = el<HTMLTextAreaElement>(`gapBody-${i}`).value.trim();
+    const note = el(`gapNote-${i}`);
+    if (!gap || !body) {
+      note.textContent = 'Write or dictate a memory first.';
+      return;
+    }
+    const date = el<HTMLInputElement>(`gapDate-${i}`).value || new Date((Date.parse(gap.from) + Date.parse(gap.to)) / 2).toISOString().slice(0, 10);
+    createEntry({
+      title: `Memory — ${gap.label}`,
+      type: 'journal',
+      body,
+      tag: 'personal',
+      source: 'typed',
+      at: `${date}T12:00:00.000Z`,
+    });
+    note.textContent = 'Saved. Hyperself will remember this with you.';
+    renderAll();
+  }
+});
+
+el('tlAddBtn').addEventListener('click', () => {
+  const note = el('tlNote');
+  const title = el<HTMLInputElement>('tlNewTitle').value.trim();
+  const body = el<HTMLTextAreaElement>('tlNewBody').value.trim();
+  if (!title || !body) {
+    note.textContent = 'Give the memory a title and a few words first.';
+    return;
+  }
+  const date = el<HTMLInputElement>('tlNewDate').value || new Date().toISOString().slice(0, 10);
+  createEntry({ title, type: 'journal', body, tag: 'personal', source: 'typed', at: `${date}T12:00:00.000Z` });
+  el<HTMLInputElement>('tlNewTitle').value = '';
+  el<HTMLTextAreaElement>('tlNewBody').value = '';
+  note.textContent = 'Saved as a personal memory.';
+  renderAll();
+});
+
+// Microphone input: records on-device, transcribes with the local
+// Whisper pipeline, and appends text to the target field. Nothing is
+// uploaded; browsers without mic support get a plain explanation.
+let micState: { recorder: MediaRecorder; stream: MediaStream; btn: HTMLButtonElement; target: HTMLTextAreaElement } | null = null;
+
+async function toggleMic(btn: HTMLButtonElement): Promise<void> {
+  const target = document.getElementById(btn.dataset.micFor ?? '') as HTMLTextAreaElement | null;
+  if (!target) return;
+  if (micState) {
+    micState.recorder.stop();
+    return;
+  }
+  if (!navigator.mediaDevices?.getUserMedia || typeof MediaRecorder === 'undefined') {
+    el('tlNote').textContent = 'Microphone input is not available in this browser — typing works everywhere.';
+    return;
+  }
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    const recorder = new MediaRecorder(stream);
+    const chunks: Blob[] = [];
+    recorder.addEventListener('dataavailable', (ev) => chunks.push(ev.data));
+    recorder.addEventListener('stop', () => {
+      stream.getTracks().forEach((t) => t.stop());
+      btn.textContent = 'Use microphone';
+      const state = micState;
+      micState = null;
+      if (!state) return;
+      void transcribeAudioBlob(new Blob(chunks, { type: recorder.mimeType || 'audio/webm' }), (status) => {
+        el('tlNote').textContent = status;
+      })
+        .then((text) => {
+          state.target.value = `${state.target.value}${state.target.value && text ? ' ' : ''}${text}`.trim();
+          el('tlNote').textContent = 'Transcribed on this device. Edit freely, then save.';
+        })
+        .catch((err: unknown) => {
+          el('tlNote').textContent = err instanceof Error ? err.message : 'Transcription failed.';
+        });
+    });
+    micState = { recorder, stream, btn, target };
+    btn.textContent = 'Stop recording';
+    el('tlNote').textContent = 'Recording… choose Stop recording when you are done.';
+    recorder.start();
+  } catch {
+    el('tlNote').textContent = 'Microphone access was not granted — typing works everywhere.';
+  }
+}
+
+el('sub-timeline').addEventListener('click', (ev) => {
+  const btn = (ev.target as HTMLElement).closest<HTMLButtonElement>('[data-mic-for]');
+  if (btn) void toggleMic(btn);
+});
 
 // --- Submenus (strip at the top of the main view) ---
 
 const SUB_PANES: Record<string, Record<string, string>> = {
-  knowledge: { library: 'sub-library', network: 'sub-network', import: 'sub-import', security: 'sub-security' },
+  knowledge: { library: 'sub-library', network: 'sub-network', timeline: 'sub-timeline', import: 'sub-import', security: 'sub-security' },
   paths: { insights: 'sub-insights', templates: 'sub-templates', history: 'sub-history', security: 'sub-security-paths', path: 'sub-path-detail' },
   legacy: { export: 'sub-export' },
 };
