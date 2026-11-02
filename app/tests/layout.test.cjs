@@ -71,7 +71,8 @@ assert.ok(
 );
 assert.ok(main.includes('mountSearch'), 'search is mounted per view');
 assert.ok(main.includes('data-search-slot'), 'mounting uses the view slots');
-assert.ok(main.includes('Search insights and Paths'), 'Paths view gets its own search placeholder');
+const i18n = fs.readFileSync(path.join(root, 'src', 'i18n.ts'), 'utf8');
+assert.ok(i18n.includes('Search insights and Paths'), 'Paths view gets its own search placeholder');
 assert.ok(main.includes("mountSearch(view)"), 'view switching remounts the search bar');
 
 console.log('layout OK: sidebar shell, Settings at bottom, model selection in Settings, per-view search');

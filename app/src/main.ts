@@ -73,6 +73,7 @@ import {
   runAccountScan,
 } from './connections';
 import { runKnowledgeSearch } from './search';
+import { applyLocale, isLocale, loadLocale, saveLocale, t, type Locale } from './i18n';
 import { analyzeKnowledgebase, buildEssence, buildSynthesisCards, buildWhatMatters } from './analysis';
 import { scanEntry } from './security';
 import {
@@ -190,11 +191,8 @@ function escapeHtml(text: string): string {
 
 // --- Tabs ---
 
-const SEARCH_PLACEHOLDERS: Record<string, string> = {
-  knowledge: 'Ask your knowledgebase…',
-  paths: 'Search insights and Paths — or ask your knowledgebase…',
-  legacy: 'Ask your knowledgebase…',
-};
+let activeLocale: Locale = loadLocale();
+let currentView = 'knowledge';
 
 /** One search bar for the whole app: it is moved (never duplicated) into
  * the active view's slot at the top of that view, with a per-view hint.
@@ -206,10 +204,14 @@ function mountSearch(view: string): void {
   const home = document.getElementById('searchHome');
   (slot ?? home)?.appendChild(bar);
   const input = document.getElementById('globalSearch') as HTMLInputElement | null;
-  if (input) input.placeholder = SEARCH_PLACEHOLDERS[view] ?? SEARCH_PLACEHOLDERS.knowledge;
+  if (input) {
+    const key = view === 'paths' || view === 'legacy' ? `search.${view}` : 'search.knowledge';
+    input.placeholder = t(activeLocale, key);
+  }
 }
 
 function showView(view: string): void {
+  currentView = view;
   mountSearch(view);
   document
     .querySelectorAll('.tabs button')
@@ -232,6 +234,17 @@ document.getElementById('settingsLegacyBtn')?.addEventListener('click', () => sh
 document.getElementById('settingsSecurityBtn')?.addEventListener('click', () => {
   showView('knowledge');
   showSub('knowledge', 'security');
+});
+
+// --- Language (Settings): chrome only; entries are never translated ---
+applyLocale(activeLocale);
+document.getElementById('languageSelect')?.addEventListener('change', (ev) => {
+  const value = (ev.target as HTMLSelectElement).value;
+  if (!isLocale(value)) return;
+  activeLocale = value;
+  saveLocale(activeLocale);
+  applyLocale(activeLocale);
+  mountSearch(currentView);
 });
 
 // --- Header greeting ---

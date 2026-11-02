@@ -18,31 +18,31 @@
         <span id="offlineBadge" class="badge-offline" hidden>Offline · on-device</span>
       </div>
       <nav class="tabs sidebar-nav" aria-label="Main menu">
-        <button type="button" data-view="knowledge" class="active">Knowledgebase</button>
-        <button type="button" data-view="paths">Paths <span id="pathsBadge" class="badge" hidden>0</span></button>
-        <button type="button" data-view="legacy">Legacy</button>
+        <button type="button" data-view="knowledge" class="active"><span data-i18n="nav.knowledge">Knowledgebase</span></button>
+        <button type="button" data-view="paths"><span data-i18n="nav.paths">Paths</span> <span id="pathsBadge" class="badge" hidden>0</span></button>
+        <button type="button" data-view="legacy"><span data-i18n="nav.legacy">Legacy</span></button>
       </nav>
       <div id="subnav-knowledge" class="subnav" role="tablist" aria-label="Knowledgebase sections">
-        <button type="button" data-sub="library" class="active">Synthesis</button>
-        <button type="button" data-sub="network">Network</button>
-        <button type="button" data-sub="import">Import &amp; Connect</button>
+        <button type="button" data-sub="library" class="active"><span data-i18n="sub.synthesis">Synthesis</span></button>
+        <button type="button" data-sub="network"><span data-i18n="sub.network">Network</span></button>
+        <button type="button" data-sub="import"><span data-i18n="sub.import">Import &amp; Connect</span></button>
         <button type="button" data-sub="security" class="sec-tab">
           <img src="/assets/hyperself/icons/shield-check.svg" width="18" height="18" alt="" />
-          Security <span id="secBadge" class="badge" hidden>0</span>
+          <span data-i18n="sub.security">Security</span> <span id="secBadge" class="badge" hidden>0</span>
         </button>
       </div>
       <div id="subnav-paths" class="subnav" role="tablist" aria-label="Paths sections" hidden>
-        <button type="button" data-sub="insights" class="active">Insights</button>
+        <button type="button" data-sub="insights" class="active"><span data-i18n="sub.insights">Insights</span></button>
         <span id="pinnedPathTabs"></span>
-        <button type="button" data-sub="templates">Templates</button>
-        <button type="button" data-sub="history">History</button>
-        <button type="button" data-sub="security" class="sec-tab">Security <span id="secBadgePaths" class="badge" hidden>0</span></button>
+        <button type="button" data-sub="templates"><span data-i18n="sub.templates">Templates</span></button>
+        <button type="button" data-sub="history"><span data-i18n="sub.history">History</span></button>
+        <button type="button" data-sub="security" class="sec-tab"><span data-i18n="sub.security">Security</span> <span id="secBadgePaths" class="badge" hidden>0</span></button>
       </div>
       <div id="subnav-legacy" class="subnav" role="tablist" aria-label="Legacy sections" hidden>
-        <button type="button" data-sub="export" class="active">Export</button>
+        <button type="button" data-sub="export" class="active"><span data-i18n="sub.export">Export</span></button>
       </div>
       <div class="sidebar-footer">
-        <button type="button" id="settingsNavBtn" data-view="settings">Settings</button>
+        <button type="button" id="settingsNavBtn" data-view="settings"><span data-i18n="nav.settings">Settings</span></button>
       </div>
     </aside>
 
@@ -56,7 +56,7 @@
           aria-label="Search your knowledgebase"
           autocomplete="off"
         />
-        <button type="button" id="globalSearchBtn">Search</button>
+        <button type="button" id="globalSearchBtn" data-i18n="search.button">Search</button>
       </div>
     </div>
 
@@ -86,7 +86,7 @@
                 </div>
               </div>
             </div>
-            <p class="hint model-status-line">Local model: <span id="synthesisModelLabel">checking…</span> <button type="button" id="openSettingsBtn" class="linklike">Change in Settings</button></p>
+            <p class="hint model-status-line"><span data-i18n="synth.model">Local model:</span> <span id="synthesisModelLabel">checking…</span> <button type="button" id="openSettingsBtn" class="linklike" data-i18n="synth.change">Change in Settings</button></p>
             <div id="synthesisCards" class="list"></div>
             <p class="hint">Looking for something specific? Ask in the search bar above.</p>
           </div>
@@ -292,7 +292,7 @@
 
       <section id="view-settings" hidden aria-label="Settings">
         <div class="card">
-          <h2>Local model — on this device</h2>
+          <h2 data-i18n="settings.model">Local model — on this device</h2>
           <p class="hint">Synthesis runs on a model served on this device (Ollama, llama.cpp, or vLLM). Light tier (a 3B model, about 2 GB) suits laptops and smaller machines; deep tier (Muse Glimmer 30B) needs roughly 24 GB+ of RAM. The app only ever calls the endpoint below on this machine — no data leaves this device. If the server is off, templated local drafts are used instead.</p>
           <div class="row">
             <button type="button" id="glimmerTierLight" class="small">Use light — llama3.2:3b (laptops)</button>
@@ -328,16 +328,22 @@ OLLAMA_ORIGINS=http://localhost:5173 ollama serve</pre>
           </details>
         </div>
         <div class="card">
-          <h2>Privacy &amp; your data</h2>
+          <h2 data-i18n="settings.privacy">Privacy &amp; your data</h2>
           <p class="hint">Personal entries are stored on this device only and are never sent over the network. Augmented Paths (optional, paid) send only a derived pattern profile you preview and approve — never entries, names, or text.</p>
           <div class="row">
-            <button type="button" id="settingsSecurityBtn" class="small">Open Security</button>
-            <button type="button" id="settingsLegacyBtn" class="small">Export, packs &amp; backup</button>
+            <button type="button" id="settingsSecurityBtn" class="small" data-i18n="settings.openSecurity">Open Security</button>
+            <button type="button" id="settingsLegacyBtn" class="small" data-i18n="settings.openLegacy">Export, packs &amp; backup</button>
           </div>
         </div>
         <div class="card">
-          <h2>Language</h2>
-          <p class="hint">Hyperself is currently available in English. More languages are planned — your entries are never translated or sent anywhere for translation.</p>
+          <h2 data-i18n="settings.language">Language</h2>
+          <label><span data-i18n="settings.languageLabel">Interface language</span>
+            <select id="languageSelect">
+              <option value="en">English</option>
+              <option value="es">Español</option>
+            </select>
+          </label>
+          <p class="hint" data-i18n="settings.languageNote">Choose the interface language. Your entries are never translated or sent anywhere, and synthesis prompts stay in English for now.</p>
         </div>
       </section>
     </main>

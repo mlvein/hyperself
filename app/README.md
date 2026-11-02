@@ -27,7 +27,7 @@ The app probes the endpoint at load and auto-connects when the server appears (`
 
 ## What's real
 
-- IA: sidebar navigation — Knowledgebase (Synthesis + Network + Import & Connect + Security) · Paths (Insights, Suggested Paths, Templates, History, Security) · Legacy (packs) · Settings at the sidebar bottom (local model, privacy shortcuts, language)
+- IA: sidebar navigation — Knowledgebase (Synthesis + Network + Import & Connect + Security) · Paths (Insights, Suggested Paths, Templates, History, Security) · Legacy (packs) · Settings at the sidebar bottom (local model, privacy shortcuts, interface language: English / Español for UI chrome — entries are never translated)
 - Ingestion-only Library: uploads, simulated connections, and persona files feed entries; the user curates tags (`personal` default; journal/health/finance/relationship/document can never be shareable) — no manual journaling
 - Formats: MD/TXT/CSV (bank statements, review-then-import), PDF text layer, DOCX, RTF, JSON, HTML (incl. Apple Journal), ICS, VCF; audio via on-device Whisper; images via Tesseract OCR + EXIF dating; folder sync with hash dedupe
 - Vault (`src/vault.ts`): AES-GCM sealed storage, PIN (PBKDF2) unwrap, optional WebAuthn PRF biometrics
