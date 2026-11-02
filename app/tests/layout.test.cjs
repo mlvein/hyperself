@@ -55,4 +55,23 @@ assert.ok(css.includes('.sidebar {'), 'sidebar styles present');
 assert.ok(css.includes('.sidebar-footer'), 'Settings pinned via sidebar footer');
 assert.ok(css.includes('@media (max-width: 860px)'), 'small-screen collapse present');
 
-console.log('layout OK: sidebar shell, Settings at bottom, model selection in Settings');
+// --- Step 2: one search, relocated to the top of each main view ---
+// Exactly one search input exists; it is moved (not duplicated) per view.
+assert.equal((html.match(/id="globalSearch"/g) ?? []).length, 1, 'exactly one search input');
+assert.ok(!html.includes('content-topbar'), 'search no longer lives in a global top bar');
+for (const view of ['knowledge', 'paths', 'legacy']) {
+  const section = slice(`id="view-${view}"`, view === 'legacy' ? 'id="view-settings"' : `id="view-${view === 'knowledge' ? 'paths' : 'legacy'}"`);
+  assert.ok(section.includes(`data-search-slot="${view}"`), `${view} view has a search slot at its top`);
+}
+// On Synthesis the slot sits above the overview (profile) card.
+const libraryTop = slice('id="view-knowledge"', 'id="sub-security"');
+assert.ok(
+  libraryTop.indexOf('data-search-slot="knowledge"') < libraryTop.indexOf('id="profileCard"'),
+  'search sits on top of the Synthesis overview card',
+);
+assert.ok(main.includes('mountSearch'), 'search is mounted per view');
+assert.ok(main.includes('data-search-slot'), 'mounting uses the view slots');
+assert.ok(main.includes('Search insights and Paths'), 'Paths view gets its own search placeholder');
+assert.ok(main.includes("mountSearch(view)"), 'view switching remounts the search bar');
+
+console.log('layout OK: sidebar shell, Settings at bottom, model selection in Settings, per-view search');

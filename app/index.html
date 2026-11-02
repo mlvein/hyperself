@@ -47,7 +47,7 @@
     </aside>
 
     <div class="content-col">
-    <header class="content-topbar">
+    <div id="searchHome" hidden>
       <div class="searchbar" role="search">
         <input
           id="globalSearch"
@@ -58,12 +58,13 @@
         />
         <button type="button" id="globalSearchBtn">Search</button>
       </div>
-    </header>
+    </div>
 
     <div id="searchResults" class="search-results" hidden></div>
 
     <main>
       <section id="view-knowledge" aria-label="Knowledgebase">
+        <div class="view-search" data-search-slot="knowledge"></div>
         <div id="sub-library">
           <div id="kbEmpty" class="card">
             <h2>Nothing to synthesize yet</h2>
@@ -174,6 +175,7 @@
       </section>
 
       <section id="view-paths" hidden aria-label="Paths">
+        <div class="view-search" data-search-slot="paths"></div>
         <div id="pathsEmpty" class="card" hidden>
           <h2>No Paths yet</h2>
           <p class="hint">Paths grow from your knowledgebase, and yours is empty. Import documents or link an app to begin.</p>
@@ -251,6 +253,7 @@
       </section>
 
       <section id="view-legacy" hidden aria-label="Legacy">
+        <div class="view-search" data-search-slot="legacy"></div>
         <div id="sub-export">
         <div class="card">
           <h2>Export knowledge pack</h2>

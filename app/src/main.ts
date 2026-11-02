@@ -190,7 +190,27 @@ function escapeHtml(text: string): string {
 
 // --- Tabs ---
 
+const SEARCH_PLACEHOLDERS: Record<string, string> = {
+  knowledge: 'Ask your knowledgebase…',
+  paths: 'Search insights and Paths — or ask your knowledgebase…',
+  legacy: 'Ask your knowledgebase…',
+};
+
+/** One search bar for the whole app: it is moved (never duplicated) into
+ * the active view's slot at the top of that view, with a per-view hint.
+ * Views without a slot (Settings) park it in its hidden home. */
+function mountSearch(view: string): void {
+  const bar = document.querySelector('.searchbar');
+  if (!bar) return;
+  const slot = document.querySelector(`[data-search-slot="${view}"]`);
+  const home = document.getElementById('searchHome');
+  (slot ?? home)?.appendChild(bar);
+  const input = document.getElementById('globalSearch') as HTMLInputElement | null;
+  if (input) input.placeholder = SEARCH_PLACEHOLDERS[view] ?? SEARCH_PLACEHOLDERS.knowledge;
+}
+
 function showView(view: string): void {
+  mountSearch(view);
   document
     .querySelectorAll('.tabs button')
     .forEach((b) => b.classList.toggle('active', (b as HTMLElement).dataset.view === view));
@@ -1138,7 +1158,7 @@ el('devPanel').addEventListener('click', (ev) => {
     .catch(() => renderAll());
 });
 
-// --- Top search (local knowledgebase Q&A) ---
+// --- Per-view search (one bar at the top of each view; local Q&A) ---
 
 async function runTopSearch(): Promise<void> {
   const box = el('searchResults');
