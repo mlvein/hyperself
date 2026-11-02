@@ -47,7 +47,7 @@ Synthesis drafts come from a model served on this device, over an OpenAI-compati
 
 ## Legacy
 
-Export a hash-verified knowledge pack of shareable entries only, import packs from others, and ask questions answered on-device from pack entries alone. Personal entries can never enter a pack.
+Keep several knowledge packs, each with its own settings — name, author, version, and curation. Curate a pack to only your expertise: findings, methods, research, and skill-evidenced entries (anything linked to a skill you have evidenced). Or include every shareable entry. Pin the packs you maintain and they appear as tabs in Legacy, exactly like pinned Paths. Exporting rebuilds the pack file from your current entries with the same settings, and the card remembers when it was last exported and with how many entries — so updating a pack you have shared is one click. Packs are hash-verified snapshots of shareable entries only; personal entries can never enter one. Import packs from others, and ask questions answered on-device from pack entries alone.
 
 ## Language
 

@@ -99,7 +99,8 @@ button, input, textarea, select { font-family: var(--font-body); }
   background: var(--wash);
 }
 .submenu-strip .subnav { margin-bottom: 0; flex: 1; }
-.submenu-strip #pinnedPathTabs { display: inline-flex; gap: 0.25rem; flex-wrap: wrap; }
+.submenu-strip #pinnedPathTabs, .submenu-strip #pinnedPackTabs { display: inline-flex; gap: 0.25rem; flex-wrap: wrap; }
+.pack-selected { border-color: var(--border-accent); background: var(--wash); }
 .submenu-strip[hidden] { display: none; }
 .sidebar-footer { margin-top: auto; border-top: 1px solid var(--line); padding-top: 0.75rem; }
 .sidebar-footer button {

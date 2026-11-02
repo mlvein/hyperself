@@ -21,8 +21,14 @@ import {
   addPersonNote,
   listPersonNotes,
   activateVault,
+  createKnowledgePack,
   createSavedPath,
+  deleteKnowledgePack,
   deleteEntriesByLabel,
+  listKnowledgePacks,
+  recordPackExport,
+  setKnowledgePackPinned,
+  updateKnowledgePack,
   getFolderManifest,
   setFolderManifest,
   deleteSavedPath,
@@ -33,7 +39,7 @@ import {
   hydrateStore,
   setArchetypePreference,
 } from './store';
-import { PackError, exportPackText, importPackText } from './pack';
+import { PackError, curatedPackEntries, exportPackText, importPackText } from './pack';
 import { createBackup, restoreBackup } from './backup';
 import {
   DEFAULT_AUGMENTED_CONFIG,
@@ -1333,43 +1339,145 @@ el('synthesisCards').addEventListener('click', (ev) => {
   renderAll();
 });
 
-// --- Packs ---
+// --- Knowledge packs (curated per-pack settings; pinned like Paths) ---
 
-el('exportBtn').addEventListener('click', () => {
-  const log = el('packLog');
-  void (async () => {
-    try {
-      const risky = listEntries().filter(
-        (e) => e.tag === 'shareable' && scanEntry(e, getProfile()?.name).some((f) => f.level === 'high'),
+let selectedPackId: string | null = null;
+
+function renderPacks(): void {
+  const packs = listKnowledgePacks();
+  const entries = listEntries();
+  const shareableTotal = curatedPackEntries(entries, {}).length;
+  el('packConfigList').innerHTML = packs.length
+    ? packs
+        .map((p) => {
+          const count = curatedPackEntries(entries, { expertiseOnly: p.expertiseOnly }).length;
+          return `<article class="item ${p.id === selectedPackId ? 'pack-selected' : ''}" data-pack-card="${p.id}">
+      <header><h3>${escapeHtml(p.name)}</h3><span class="meta">${p.pinned ? 'Pinned · ' : ''}v${escapeHtml(p.version)}${p.lastExportedAt ? ` · last exported ${escapeHtml(p.lastExportedAt.slice(0, 10))} (${p.lastEntryCount} entries)` : ' · never exported'}</span></header>
+      <div class="row">
+        <label>Pack name <input data-pack-name="${p.id}" value="${escapeHtml(p.name)}" /></label>
+        <label>Author label <input data-pack-author="${p.id}" value="${escapeHtml(p.author)}" placeholder="anonymous" /></label>
+        <label>Version <input data-pack-version="${p.id}" value="${escapeHtml(p.version)}" /></label>
+      </div>
+      <label class="check-row"><input type="checkbox" data-pack-expertise="${p.id}" ${p.expertiseOnly ? 'checked' : ''} /> Expertise only — findings, methods, research &amp; skill-evidenced entries</label>
+      <p class="meta">${count} of ${shareableTotal} shareable ${shareableTotal === 1 ? 'entry' : 'entries'} would be exported now.</p>
+      <div class="row">
+        <button type="button" class="small" data-pack-save="${p.id}">Save settings</button>
+        <button type="button" class="small" data-pack-export="${p.id}">Export pack</button>
+        <button type="button" class="small" data-pack-pin="${p.id}">${p.pinned ? 'Unpin' : 'Pin'}</button>
+        <button type="button" class="small danger" data-pack-delete="${p.id}">Delete</button>
+      </div>
+    </article>`;
+        })
+        .join('')
+    : '<p class="hint">No packs yet. Create one above — it starts curated to your expertise.</p>';
+  // Pinned packs become subtabs in the Legacy strip, like pinned Paths.
+  el('pinnedPackTabs').innerHTML = packs
+    .filter((p) => p.pinned)
+    .map((p) => `<button type="button" data-sub="pack" data-pack-id="${p.id}">${escapeHtml(p.name)}</button>`)
+    .join('');
+}
+
+async function exportKnowledgePack(packId: string): Promise<void> {
+  const log = el('packExportLog');
+  const pack = listKnowledgePacks().find((p) => p.id === packId);
+  if (!pack) return;
+  try {
+    const curated = curatedPackEntries(listEntries(), { expertiseOnly: pack.expertiseOnly });
+    const risky = curated.filter((e) => scanEntry(e, getProfile()?.name).some((f) => f.level === 'high'));
+    if (risky.length > 0) {
+      const proceed = confirm(
+        `${risky.length} ${risky.length === 1 ? 'entry has' : 'entries have'} HIGH severity findings:\n` +
+          risky.map((e) => `• ${e.title}`).join('\n') +
+          '\n\nExport anyway?',
       );
-      if (risky.length > 0) {
-        const proceed = confirm(
-          `${risky.length} shareable ${risky.length === 1 ? 'entry has' : 'entries have'} HIGH severity findings:\n` +
-            risky.map((e) => `• ${e.title}`).join('\n') +
-            '\n\nExport anyway?',
-        );
-        if (!proceed) {
-          log.textContent = 'Export cancelled: review high-severity findings in Paths first.';
-          return;
-        }
+      if (!proceed) {
+        log.textContent = 'Export cancelled: review high-severity findings first.';
+        return;
       }
-      const { filename, json } = await exportPackText(
-        listEntries(),
-        el<HTMLInputElement>('packAuthor').value,
-        el<HTMLInputElement>('packVersion').value,
-      );
-      const blob = new Blob([json], { type: 'application/json' });
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = filename;
-      a.click();
-      URL.revokeObjectURL(a.href);
-      log.textContent = `Exported ${filename} (${JSON.parse(json).manifest.entry_count} entries).`;
-    } catch (err) {
-      log.textContent = err instanceof Error ? err.message : 'Export failed.';
     }
-  })();
+    const { filename, json } = await exportPackText(listEntries(), pack.author, pack.version, {
+      expertiseOnly: pack.expertiseOnly,
+    });
+    const blob = new Blob([json], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = filename;
+    a.click();
+    URL.revokeObjectURL(a.href);
+    const count = (JSON.parse(json) as { manifest: { entry_count: number } }).manifest.entry_count;
+    recordPackExport(pack.id, count);
+    log.textContent = `Exported ${filename} (${count} entries) for “${pack.name}”. Export again any time to update it.`;
+    renderPacks();
+  } catch (err) {
+    log.textContent = err instanceof Error ? err.message : 'Export failed.';
+  }
+}
+
+el('createPackBtn').addEventListener('click', () => {
+  const note = el('packCreateNote');
+  try {
+    const pack = createKnowledgePack({ name: el<HTMLInputElement>('newPackName').value });
+    el<HTMLInputElement>('newPackName').value = '';
+    selectedPackId = pack.id;
+    note.textContent = `Created “${pack.name}” — curated to your expertise. Adjust its settings below, then Export pack.`;
+    renderPacks();
+  } catch (err) {
+    note.textContent = err instanceof Error ? err.message : 'Could not create that pack.';
+  }
 });
+
+el('packConfigList').addEventListener('click', (ev) => {
+  const target = ev.target as HTMLElement;
+  const saveBtn = target.closest<HTMLElement>('[data-pack-save]');
+  const exportBtn = target.closest<HTMLElement>('[data-pack-export]');
+  const pinBtn = target.closest<HTMLElement>('[data-pack-pin]');
+  const deleteBtn = target.closest<HTMLElement>('[data-pack-delete]');
+  const id = saveBtn?.dataset.packSave ?? exportBtn?.dataset.packExport ?? pinBtn?.dataset.packPin ?? deleteBtn?.dataset.packDelete;
+  if (!id) return;
+  if (saveBtn) {
+    try {
+      updateKnowledgePack(id, {
+        name: document.querySelector<HTMLInputElement>(`[data-pack-name="${id}"]`)?.value ?? '',
+        author: document.querySelector<HTMLInputElement>(`[data-pack-author="${id}"]`)?.value ?? '',
+        version: document.querySelector<HTMLInputElement>(`[data-pack-version="${id}"]`)?.value ?? '',
+        expertiseOnly: document.querySelector<HTMLInputElement>(`[data-pack-expertise="${id}"]`)?.checked ?? false,
+      });
+      el('packExportLog').textContent = 'Pack settings saved.';
+      renderPacks();
+    } catch (err) {
+      el('packExportLog').textContent = err instanceof Error ? err.message : 'Could not save settings.';
+    }
+  } else if (exportBtn) {
+    void exportKnowledgePack(id);
+  } else if (pinBtn) {
+    const pack = listKnowledgePacks().find((p) => p.id === id);
+    if (pack) setKnowledgePackPinned(id, !pack.pinned);
+    renderPacks();
+  } else if (deleteBtn) {
+    const pack = listKnowledgePacks().find((p) => p.id === id);
+    if (pack && confirm(`Delete the “${pack.name}” pack definition? Exported files are not affected.`)) {
+      deleteKnowledgePack(id);
+      if (selectedPackId === id) selectedPackId = null;
+      renderPacks();
+    }
+  }
+});
+
+el('packConfigList').addEventListener('change', (ev) => {
+  const box = (ev.target as HTMLElement).closest<HTMLInputElement>('[data-pack-expertise]');
+  if (!box?.dataset.packExpertise) return;
+  updateKnowledgePack(box.dataset.packExpertise, { expertiseOnly: box.checked });
+  renderPacks();
+});
+
+function selectPack(id: string): void {
+  selectedPackId = id;
+  renderPacks();
+  document
+    .querySelectorAll('#pinnedPackTabs button')
+    .forEach((b) => b.classList.toggle('active', (b as HTMLElement).dataset.packId === id));
+  document.querySelector(`[data-pack-card="${id}"]`)?.scrollIntoView({ block: 'nearest' });
+}
 
 el('importBtn').addEventListener('click', () => {
   const log = el('packLog');
@@ -2127,6 +2235,7 @@ function renderAll(): void {
   renderGreeting();
   renderSecurity();
   renderPaths();
+  renderPacks();
 }
 
 // --- Submenus (strip at the top of the main view) ---
@@ -2160,6 +2269,11 @@ el('subnavBar').addEventListener('click', (ev) => {
   if (group === 'paths' && name === 'path' && btn.dataset.pathId) {
     showSub('paths', 'path', btn.dataset.pathId);
     renderTemplateDetail(btn.dataset.pathId);
+    return;
+  }
+  if (group === 'legacy' && name === 'pack' && btn.dataset.packId) {
+    showSub('legacy', 'export');
+    selectPack(btn.dataset.packId);
     return;
   }
   showSub(group, name);

@@ -102,6 +102,24 @@ export interface SavedPath {
   created_at: string;
 }
 
+/** A user-curated knowledge pack definition (Legacy). The pack file is
+ * regenerated from live entries on each export; this record is its
+ * settings, so updating a pack is one click with the same curation. */
+export interface KnowledgePack {
+  id: string;
+  name: string;
+  author: string;
+  version: string;
+  /** True: only expertise entries (findings/methods/research/skills or
+   * skill-evidenced). False: every shareable entry. */
+  expertiseOnly: boolean;
+  pinned: boolean;
+  created_at: string;
+  updated_at: string;
+  lastExportedAt: string | null;
+  lastEntryCount: number | null;
+}
+
 export interface PackEntrySummary {
   entry_id: string;
   type: EntryType;

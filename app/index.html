@@ -48,6 +48,7 @@
       </div>
       <div id="subnav-legacy" class="subnav" role="tablist" aria-label="Legacy sections" hidden>
         <button type="button" data-sub="export" class="active"><span data-i18n="sub.export">Export</span></button>
+        <span id="pinnedPackTabs"></span>
       </div>
     </div>
     <div id="searchHome" hidden>
@@ -266,13 +267,15 @@
         <div class="view-search" data-search-slot="legacy"></div>
         <div id="sub-export">
         <div class="card">
-          <h2>Export knowledge pack</h2>
-          <p class="hint">Exports shareable entries only, with a hash-verified manifest. Personal entries never leave. You'll be asked before exporting entries with high-severity findings.</p>
+          <h2>Your knowledge packs</h2>
+          <p class="hint">Each pack is a curated, hash-verified snapshot of shareable entries only — personal entries never leave. Curate a pack to just your expertise (findings, methods, research, and skill-evidenced entries), pin the ones you maintain, and re-export to update: the file is rebuilt from your current entries with the same settings. You'll be asked before exporting entries with high-severity findings.</p>
           <div class="row">
-            <label>Author label <input id="packAuthor" placeholder="anonymous" /></label>
-            <label>Version <input id="packVersion" placeholder="0.1.0" /></label>
+            <label>New pack name <input id="newPackName" placeholder="e.g. Research methods" /></label>
+            <button type="button" id="createPackBtn" class="small">Create pack</button>
           </div>
-          <button type="button" id="exportBtn">Export pack</button>
+          <p id="packCreateNote" class="hint" aria-live="polite"></p>
+          <div id="packConfigList" class="list"></div>
+          <pre id="packExportLog" class="log" aria-live="polite"></pre>
         </div>
         <div class="card">
           <h2>Import knowledge pack</h2>
@@ -318,6 +321,10 @@
         <div class="card">
           <h2>Privacy: two tags govern everything</h2>
           <p>Every entry is <strong>personal</strong> or <strong>shareable</strong>. Personal entries never leave this device, and sensitive kinds — health, finance, journal, relationship, and document entries — can never be made shareable. Shareable entries are the only ones that can enter an exported knowledge pack, and packs are hash-verified on import. Your whole archive, personal entries included, can be exported as one encrypted backup protected by its own passphrase, and restored on any install.</p>
+        </div>
+<div class="card">
+          <h2>Knowledge packs</h2>
+          <p>In Legacy you can keep several knowledge packs, each with its own settings: name, author, version, and curation. Curate a pack to only your expertise — findings, methods, research, and skill-evidenced entries — or include every shareable entry. Pin the packs you maintain and they appear as tabs in Legacy, like pinned Paths. Exporting rebuilds the file from your current entries with the same settings, so updating a pack you have shared is one click; the card shows when it was last exported and with how many entries.</p>
         </div>
         <div class="card">
           <h2>Local models</h2>

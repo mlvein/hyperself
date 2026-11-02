@@ -13,6 +13,7 @@ import type {
   EntryType,
   Goal,
   GoalStatus,
+  KnowledgePack,
   OwnershipKind,
   PackEntryPayload,
   SavedPath,
@@ -55,6 +56,7 @@ function normalizeDb(parsed: Partial<DB> | null | undefined): DB {
     folderFiles: p.folderFiles ?? {},
     archetypePrefs: p.archetypePrefs ?? {},
     profilePhoto: typeof p.profilePhoto === 'string' ? p.profilePhoto : null,
+    knowledgePacks: p.knowledgePacks ?? [],
   };
 }
 
@@ -135,12 +137,14 @@ interface DB {
   /** One downsized profile-picture copy (data URL), or null. Kept in
    * the DB so OPFS, vault encryption, and backups cover it. */
   profilePhoto: string | null;
+  /** User-curated knowledge pack definitions (Legacy). */
+  knowledgePacks: KnowledgePack[];
 }
 
 export class StoreError extends Error {}
 
 function emptyDB(): DB {
-  return { entries: [], goals: [], checkins: [], skills: [], personNotes: {}, savedPaths: [], folderFiles: {}, archetypePrefs: {}, profilePhoto: null };
+  return { entries: [], goals: [], checkins: [], skills: [], personNotes: {}, savedPaths: [], folderFiles: {}, archetypePrefs: {}, profilePhoto: null, knowledgePacks: [] };
 }
 
 function loadLegacy(): DB {
@@ -584,6 +588,83 @@ export function setSavedPathPinned(id: string, pinned: boolean): SavedPath {
   path.pinned = pinned;
   save(db);
   return path;
+}
+
+// --- Knowledge packs (curated, pinnable pack definitions for Legacy) ---
+
+export function listKnowledgePacks(): KnowledgePack[] {
+  return [...load().knowledgePacks].sort((a, b) =>
+    a.pinned === b.pinned ? (a.created_at < b.created_at ? 1 : -1) : a.pinned ? -1 : 1,
+  );
+}
+
+export function createKnowledgePack(input: { name: string; author?: string; version?: string; expertiseOnly?: boolean }): KnowledgePack {
+  const name = input.name.trim().slice(0, 80);
+  if (!name) throw new StoreError('Pack name is required.');
+  const db = load();
+  const pack: KnowledgePack = {
+    id: uid(),
+    name,
+    author: (input.author ?? '').trim().slice(0, 80),
+    version: (input.version ?? '').trim().slice(0, 20) || '0.1.0',
+    expertiseOnly: input.expertiseOnly ?? true,
+    pinned: false,
+    created_at: now(),
+    updated_at: now(),
+    lastExportedAt: null,
+    lastEntryCount: null,
+  };
+  db.knowledgePacks.push(pack);
+  save(db);
+  return pack;
+}
+
+export function updateKnowledgePack(
+  id: string,
+  patch: Partial<Pick<KnowledgePack, 'name' | 'author' | 'version' | 'expertiseOnly'>>,
+): KnowledgePack {
+  const db = load();
+  const pack = db.knowledgePacks.find((p) => p.id === id);
+  if (!pack) throw new StoreError('Pack not found.');
+  if (patch.name !== undefined) {
+    const name = patch.name.trim().slice(0, 80);
+    if (!name) throw new StoreError('Pack name is required.');
+    pack.name = name;
+  }
+  if (patch.author !== undefined) pack.author = patch.author.trim().slice(0, 80);
+  if (patch.version !== undefined) pack.version = patch.version.trim().slice(0, 20) || pack.version;
+  if (patch.expertiseOnly !== undefined) pack.expertiseOnly = patch.expertiseOnly;
+  pack.updated_at = now();
+  save(db);
+  return pack;
+}
+
+export function deleteKnowledgePack(id: string): void {
+  const db = load();
+  db.knowledgePacks = db.knowledgePacks.filter((p) => p.id !== id);
+  save(db);
+}
+
+export function setKnowledgePackPinned(id: string, pinned: boolean): KnowledgePack {
+  const db = load();
+  const pack = db.knowledgePacks.find((p) => p.id === id);
+  if (!pack) throw new StoreError('Pack not found.');
+  pack.pinned = pinned;
+  pack.updated_at = now();
+  save(db);
+  return pack;
+}
+
+/** Remember an export so re-exporting an updated pack stays one click. */
+export function recordPackExport(id: string, entryCount: number): KnowledgePack {
+  const db = load();
+  const pack = db.knowledgePacks.find((p) => p.id === id);
+  if (!pack) throw new StoreError('Pack not found.');
+  pack.lastExportedAt = now();
+  pack.lastEntryCount = entryCount;
+  pack.updated_at = now();
+  save(db);
+  return pack;
 }
 
 // --- Archetype preferences (user is final authority on labels) ---

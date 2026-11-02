@@ -14,15 +14,38 @@ async function sha256Hex(text: string): Promise<string> {
     .join('');
 }
 
+/** Entry types that count as the user's expertise on their own, plus
+ * any entry evidenced by a linked skill. */
+export const EXPERTISE_TYPES: readonly string[] = ['finding', 'method', 'research', 'skill'];
+
+export function isExpertiseEntry(entry: Entry): boolean {
+  return EXPERTISE_TYPES.includes(entry.type) || (entry.skill_ids?.length ?? 0) > 0;
+}
+
+export interface PackCuration {
+  expertiseOnly?: boolean;
+}
+
+/** Shareable-only first (personal never enters a pack), then curation. */
+export function curatedPackEntries(entries: Entry[], curation: PackCuration = {}): Entry[] {
+  const shareable = entries.filter((e) => e.deleted_at === null && e.tag === 'shareable');
+  return curation.expertiseOnly ? shareable.filter(isExpertiseEntry) : shareable;
+}
+
 export async function exportPackText(
   entries: Entry[],
   authorLabel: string,
   version: string,
+  curation: PackCuration = {},
 ): Promise<{ filename: string; json: string }> {
   const label = authorLabel.trim() || 'anonymous';
-  const shareable = entries.filter((e) => e.deleted_at === null && e.tag === 'shareable');
+  const shareable = curatedPackEntries(entries, curation);
   if (shareable.length === 0) {
-    throw new PackError('Nothing to export: no entries are tagged shareable.');
+    throw new PackError(
+      curation.expertiseOnly
+        ? 'Nothing to export: no shareable entries match this pack’s expertise curation. Mark findings or methods shareable, or turn off expertise-only.'
+        : 'Nothing to export: no entries are tagged shareable.',
+    );
   }
   const payloads: PackEntryPayload[] = shareable.map((e) => ({
     id: e.id,
