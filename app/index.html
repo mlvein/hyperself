@@ -10,17 +10,44 @@
     <link rel="stylesheet" href="/src/styles.css" />
   </head>
   <body>
-    <header class="topbar">
+    <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
       <div class="brand">
         <img src="/assets/hyperself/artwork/hyperself-wordmark.svg" width="104" height="32" alt="Hyperself" />
         <span id="userGreeting" class="hint"></span>
         <span id="offlineBadge" class="badge-offline" hidden>Offline · on-device</span>
       </div>
-      <nav class="tabs" aria-label="Main menu">
+      <nav class="tabs sidebar-nav" aria-label="Main menu">
         <button type="button" data-view="knowledge" class="active">Knowledgebase</button>
         <button type="button" data-view="paths">Paths <span id="pathsBadge" class="badge" hidden>0</span></button>
         <button type="button" data-view="legacy">Legacy</button>
       </nav>
+      <div id="subnav-knowledge" class="subnav" role="tablist" aria-label="Knowledgebase sections">
+        <button type="button" data-sub="library" class="active">Synthesis</button>
+        <button type="button" data-sub="network">Network</button>
+        <button type="button" data-sub="import">Import &amp; Connect</button>
+        <button type="button" data-sub="security" class="sec-tab">
+          <img src="/assets/hyperself/icons/shield-check.svg" width="18" height="18" alt="" />
+          Security <span id="secBadge" class="badge" hidden>0</span>
+        </button>
+      </div>
+      <div id="subnav-paths" class="subnav" role="tablist" aria-label="Paths sections" hidden>
+        <button type="button" data-sub="insights" class="active">Insights</button>
+        <span id="pinnedPathTabs"></span>
+        <button type="button" data-sub="templates">Templates</button>
+        <button type="button" data-sub="history">History</button>
+        <button type="button" data-sub="security" class="sec-tab">Security <span id="secBadgePaths" class="badge" hidden>0</span></button>
+      </div>
+      <div id="subnav-legacy" class="subnav" role="tablist" aria-label="Legacy sections" hidden>
+        <button type="button" data-sub="export" class="active">Export</button>
+      </div>
+      <div class="sidebar-footer">
+        <button type="button" id="settingsNavBtn" data-view="settings">Settings</button>
+      </div>
+    </aside>
+
+    <div class="content-col">
+    <header class="content-topbar">
       <div class="searchbar" role="search">
         <input
           id="globalSearch"
@@ -32,28 +59,6 @@
         <button type="button" id="globalSearchBtn">Search</button>
       </div>
     </header>
-
-    <div id="subnavBar" class="submenu-strip">
-      <div id="subnav-knowledge" class="subnav" role="tablist" aria-label="Knowledgebase sections">
-        <button type="button" data-sub="library" class="active">Synthesis</button>
-        <button type="button" data-sub="network">Network</button>
-        <button type="button" data-sub="import">Import &amp; Connect</button>
-        <button type="button" data-sub="security" class="subnav-action sec-tab">
-          <img src="/assets/hyperself/icons/shield-check.svg" width="18" height="18" alt="" />
-          Security <span id="secBadge" class="badge" hidden>0</span>
-        </button>
-      </div>
-      <div id="subnav-paths" class="subnav" role="tablist" aria-label="Paths sections" hidden>
-        <button type="button" data-sub="insights" class="active">Insights</button>
-        <span id="pinnedPathTabs"></span>
-        <button type="button" data-sub="templates" class="subnav-action">Templates</button>
-        <button type="button" data-sub="history">History</button>
-        <button type="button" data-sub="security" class="sec-tab">Security <span id="secBadgePaths" class="badge" hidden>0</span></button>
-      </div>
-      <div id="subnav-legacy" class="subnav" role="tablist" aria-label="Legacy sections" hidden>
-        <button type="button" data-sub="export" class="active">Export</button>
-      </div>
-    </div>
 
     <div id="searchResults" class="search-results" hidden></div>
 
@@ -80,44 +85,9 @@
                 </div>
               </div>
             </div>
+            <p class="hint model-status-line">Local model: <span id="synthesisModelLabel">checking…</span> <button type="button" id="openSettingsBtn" class="linklike">Change in Settings</button></p>
             <div id="synthesisCards" class="list"></div>
             <p class="hint">Looking for something specific? Ask in the search bar above.</p>
-          </div>
-          <div class="card">
-            <h2>Local model — on this device</h2>
-            <p class="hint">Synthesis runs on a model served on this device (Ollama, llama.cpp, or vLLM). Light tier (a 3B model, about 2 GB) suits laptops and smaller machines; deep tier (Muse Glimmer 30B) needs roughly 24 GB+ of RAM. The app only ever calls the endpoint below on this machine — no data leaves this device. If the server is off, templated local drafts are used instead.</p>
-            <div class="row">
-              <button type="button" id="glimmerTierLight" class="small">Use light — llama3.2:3b (laptops)</button>
-              <button type="button" id="glimmerTierDeep" class="small">Use deep — Muse Glimmer (24 GB+ RAM)</button>
-            </div>
-            <div class="row">
-              <label>Endpoint
-                <input type="text" id="glimmerEndpoint" size="32" spellcheck="false" />
-              </label>
-              <label>Model
-                <input type="text" id="glimmerModel" size="18" spellcheck="false" />
-              </label>
-              <button type="button" id="glimmerSaveBtn" class="small">Save &amp; reconnect</button>
-              <button type="button" id="glimmerCheckBtn" class="small">Check connection</button>
-            </div>
-            <p id="glimmerStatus" class="hint" aria-live="polite"></p>
-            <details id="glimmerSetup">
-              <summary>Set up deep synthesis</summary>
-              <p class="hint">Deep synthesis needs the free Ollama app and the Muse Glimmer model running on this device. Once set up, it starts with your computer — there is nothing to redo.</p>
-              <ol class="hint">
-                <li>Install Ollama from ollama.com and open it once.</li>
-                <li>Copy the commands below, paste them into Terminal (macOS) or Command Prompt (Windows), and press Enter. The first line downloads the model (about 17–20 GB, once only).</li>
-                <li>Come back here and choose Check connection.</li>
-              </ol>
-              <pre id="glimmerCommands">ollama pull llama3.2:3b
-# Machines with 24 GB+ RAM can use the deep tier instead: ollama pull muse-glimmer
-OLLAMA_ORIGINS=http://localhost:5173 ollama serve</pre>
-              <div class="row">
-                <button type="button" id="glimmerCopyBtn" class="small">Copy commands</button>
-                <span id="glimmerCopyStatus" class="hint" aria-live="polite"></span>
-              </div>
-              <p class="hint">Keep the Terminal window open while you use deep synthesis. Your entries are only ever sent to this device — the commands above let this app talk to the model on your own machine.</p>
-            </details>
           </div>
         </div>
 
@@ -236,7 +206,7 @@ OLLAMA_ORIGINS=http://localhost:5173 ollama serve</pre>
           </div>
           <div id="sub-path-detail" hidden>
             <div id="budgetDetail"></div>
-            <p class="hint">Pinned Paths live in the Paths sub-menu above. Unpin from Your Paths to remove a subtab.</p>
+            <p class="hint">Pinned Paths live in the sidebar under Paths. Unpin from Your Paths to remove one.</p>
             <div class="card" id="augmentedCard" hidden>
               <h2>Augmented Path <span class="meta">paid · online · optional</span></h2>
               <p class="hint">Frontier online reasoning over how you learn and research. Only a derived pattern profile is sent — counts and pattern labels, no entries, names, or text — only when you approve the exact payload. This profile describes your patterns; it is minimized, not anonymous.</p>
@@ -316,7 +286,60 @@ OLLAMA_ORIGINS=http://localhost:5173 ollama serve</pre>
         </div>
         </div>
       </section>
+
+      <section id="view-settings" hidden aria-label="Settings">
+        <div class="card">
+          <h2>Local model — on this device</h2>
+          <p class="hint">Synthesis runs on a model served on this device (Ollama, llama.cpp, or vLLM). Light tier (a 3B model, about 2 GB) suits laptops and smaller machines; deep tier (Muse Glimmer 30B) needs roughly 24 GB+ of RAM. The app only ever calls the endpoint below on this machine — no data leaves this device. If the server is off, templated local drafts are used instead.</p>
+          <div class="row">
+            <button type="button" id="glimmerTierLight" class="small">Use light — llama3.2:3b (laptops)</button>
+            <button type="button" id="glimmerTierDeep" class="small">Use deep — Muse Glimmer (24 GB+ RAM)</button>
+          </div>
+          <div class="row">
+            <label>Endpoint
+              <input type="text" id="glimmerEndpoint" size="32" spellcheck="false" />
+            </label>
+            <label>Model
+              <input type="text" id="glimmerModel" size="18" spellcheck="false" />
+            </label>
+            <button type="button" id="glimmerSaveBtn" class="small">Save &amp; reconnect</button>
+            <button type="button" id="glimmerCheckBtn" class="small">Check connection</button>
+          </div>
+          <p id="glimmerStatus" class="hint" aria-live="polite"></p>
+          <details id="glimmerSetup">
+            <summary>Set up deep synthesis</summary>
+            <p class="hint">Deep synthesis needs the free Ollama app and the Muse Glimmer model running on this device. Once set up, it starts with your computer — there is nothing to redo.</p>
+            <ol class="hint">
+              <li>Install Ollama from ollama.com and open it once.</li>
+              <li>Copy the commands below, paste them into Terminal (macOS) or Command Prompt (Windows), and press Enter. The first line downloads the model (about 17–20 GB, once only).</li>
+              <li>Come back here and choose Check connection.</li>
+            </ol>
+            <pre id="glimmerCommands">ollama pull llama3.2:3b
+# Machines with 24 GB+ RAM can use the deep tier instead: ollama pull muse-glimmer
+OLLAMA_ORIGINS=http://localhost:5173 ollama serve</pre>
+            <div class="row">
+              <button type="button" id="glimmerCopyBtn" class="small">Copy commands</button>
+              <span id="glimmerCopyStatus" class="hint" aria-live="polite"></span>
+            </div>
+            <p class="hint">Keep the Terminal window open while you use deep synthesis. Your entries are only ever sent to this device — the commands above let this app talk to the model on your own machine.</p>
+          </details>
+        </div>
+        <div class="card">
+          <h2>Privacy &amp; your data</h2>
+          <p class="hint">Personal entries are stored on this device only and are never sent over the network. Augmented Paths (optional, paid) send only a derived pattern profile you preview and approve — never entries, names, or text.</p>
+          <div class="row">
+            <button type="button" id="settingsSecurityBtn" class="small">Open Security</button>
+            <button type="button" id="settingsLegacyBtn" class="small">Export, packs &amp; backup</button>
+          </div>
+        </div>
+        <div class="card">
+          <h2>Language</h2>
+          <p class="hint">Hyperself is currently available in English. More languages are planned — your entries are never translated or sent anywhere for translation.</p>
+        </div>
+      </section>
     </main>
+    </div>
+    </div>
 
     <button type="button" id="devGear" aria-label="Demo controls" title="Demo controls">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06A1.7 1.7 0 0 0 15 19.4a1.7 1.7 0 0 0-1 1.55V21a2 2 0 1 1-4 0v-.09A1.7 1.7 0 0 0 9 19.4a1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-1.55-1H3a2 2 0 1 1 0-4h.09A1.7 1.7 0 0 0 4.6 9a1.7 1.7 0 0 0-.34-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-1.55V3a2 2 0 1 1 4 0v.09a1.7 1.7 0 0 0 1 1.51 1.7 1.7 0 0 0 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.7 1.7 0 0 0 19.4 9c.24.6.86 1 1.51 1H21a2 2 0 1 1 0 4h-.09a1.7 1.7 0 0 0-1.51 1Z"/></svg>

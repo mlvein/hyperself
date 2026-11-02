@@ -23,11 +23,11 @@ ollama pull muse-glimmer
 OLLAMA_ORIGINS=http://localhost:5173 ollama serve
 ```
 
-The app probes the endpoint at load and auto-connects when the server appears (`src/engine.ts`: `ReconnectingEngine`); endpoint/model are configurable in Synthesis → “Local model — Muse Glimmer” and persist locally. With no server, `StubEngine` produces templated drafts from retrieved entries. In-browser Transformers.js still handles MiniLM embeddings and Whisper transcription.
+The app probes the endpoint at load and auto-connects when the server appears (`src/engine.ts`: `ReconnectingEngine`); endpoint/model are configurable in Settings → “Local model — on this device” (sidebar, bottom) and persist locally; Synthesis shows the active model with a link to Settings. With no server, `StubEngine` produces templated drafts from retrieved entries. In-browser Transformers.js still handles MiniLM embeddings and Whisper transcription.
 
 ## What's real
 
-- IA: Knowledgebase (Synthesis + Network + Import & Connect + Security) · Paths (Insights, Suggested Paths, Templates, History, Security) · Legacy (packs)
+- IA: sidebar navigation — Knowledgebase (Synthesis + Network + Import & Connect + Security) · Paths (Insights, Suggested Paths, Templates, History, Security) · Legacy (packs) · Settings at the sidebar bottom (local model, privacy shortcuts, language)
 - Ingestion-only Library: uploads, simulated connections, and persona files feed entries; the user curates tags (`personal` default; journal/health/finance/relationship/document can never be shareable) — no manual journaling
 - Formats: MD/TXT/CSV (bank statements, review-then-import), PDF text layer, DOCX, RTF, JSON, HTML (incl. Apple Journal), ICS, VCF; audio via on-device Whisper; images via Tesseract OCR + EXIF dating; folder sync with hash dedupe
 - Vault (`src/vault.ts`): AES-GCM sealed storage, PIN (PBKDF2) unwrap, optional WebAuthn PRF biometrics

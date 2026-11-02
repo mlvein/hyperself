@@ -1,8 +1,8 @@
 // UI wiring. Cloud key lives in module memory only — never persisted.
 //
-// IA: main menu (Knowledgebase / Paths / Legacy) lives in the header;
-// the submenu strip sits in the old tab-bar position and shows the
-// active section's subsections. Knowledgebase shows AI synthesis only
+// IA: main menu (Knowledgebase / Paths / Legacy) lives in the sidebar,
+// with the active section's subsections nested under it and Settings
+// pinned at the sidebar bottom. Knowledgebase shows AI synthesis only
 // (raw entries are never listed), Network owns people tagging after
 // synthesis, Paths shows local insights, Legacy handles packs.
 import {
@@ -46,7 +46,7 @@ import {
   setAugmentedKey,
   type DerivedLearningProfile,
 } from './augmented';
-import { StubEngine, cleanDraftText, initLocalEngine, isPromptLeak, loadGlimmerConfig, probeGlimmer, saveGlimmerConfig, type LocalEngine } from './engine';
+import { StubEngine, cleanDraftText, initLocalEngine, isPromptLeak, loadGlimmerConfig, probeGlimmer, saveGlimmerConfig, tierLabel, type LocalEngine } from './engine';
 import { embedEntry, embedText, hydrateVectors, loadVectors } from './embeddings';
 import { hashContent, ingestDoc } from './ingest';
 import { diffFolder, isSyncablePath, nextManifest } from './foldersync';
@@ -92,11 +92,19 @@ import type { Entry, EntryType, Tag } from './types';
 
 let engine: LocalEngine = new StubEngine();
 
+function renderSynthesisModelLabel(): void {
+  const label = document.getElementById('synthesisModelLabel');
+  if (!label) return;
+  const cfg = loadGlimmerConfig();
+  label.textContent = `${cfg.model} · ${tierLabel(cfg.model)} · ${cfg.endpoint}`;
+}
+
 async function connectEngine(): Promise<void> {
   const status = document.getElementById('glimmerStatus');
   const { engine: ready, notice } = await initLocalEngine();
   engine = ready;
   if (status) status.textContent = notice;
+  renderSynthesisModelLabel();
   synthesisKey = ''; // force re-synthesis with the (possibly new) engine
 }
 
@@ -186,17 +194,24 @@ function showView(view: string): void {
   document
     .querySelectorAll('.tabs button')
     .forEach((b) => b.classList.toggle('active', (b as HTMLElement).dataset.view === view));
+  el('settingsNavBtn').classList.toggle('active', view === 'settings');
   for (const section of document.querySelectorAll('main > section')) {
     (section as HTMLElement).hidden = section.id !== `view-${view}`;
   }
   for (const id of ['knowledge', 'legacy', 'paths']) {
     el(`subnav-${id}`).hidden = id !== view;
   }
-  el('subnavBar').hidden = false;
 }
 
 document.querySelectorAll<HTMLButtonElement>('.tabs button').forEach((btn) => {
   btn.addEventListener('click', () => showView(btn.dataset.view ?? 'knowledge'));
+});
+el('settingsNavBtn').addEventListener('click', () => showView('settings'));
+document.getElementById('openSettingsBtn')?.addEventListener('click', () => showView('settings'));
+document.getElementById('settingsLegacyBtn')?.addEventListener('click', () => showView('legacy'));
+document.getElementById('settingsSecurityBtn')?.addEventListener('click', () => {
+  showView('knowledge');
+  showSub('knowledge', 'security');
 });
 
 // --- Header greeting ---
@@ -1509,7 +1524,7 @@ function renderSavedPaths(): void {
   badge.textContent = String(count);
   badge.title = `${displaySaved.length} saved · ${visible.length} suggested`;
 
-  // Pinned Paths become subtabs in the Paths submenu strip.
+  // Pinned Paths become entries in the sidebar under Paths.
   const pinned = displaySaved.filter((x) => x.pinned);
   el('pinnedPathTabs').innerHTML = pinned
     .map((x) => `<button type="button" data-sub="path" data-path-id="${x.id}">${escapeHtml(pathDisplayName(x))}</button>`)
@@ -2042,7 +2057,7 @@ function renderAll(): void {
   renderPaths();
 }
 
-// --- Submenus (strip in the old tab-bar position) ---
+// --- Submenus (nested in the sidebar under the active view) ---
 
 const SUB_PANES: Record<string, Record<string, string>> = {
   knowledge: { library: 'sub-library', network: 'sub-network', import: 'sub-import', security: 'sub-security' },
@@ -2064,7 +2079,7 @@ function showSub(view: string, name: string, pathId?: string): void {
   }
 }
 
-el('subnavBar').addEventListener('click', (ev) => {
+el('sidebar').addEventListener('click', (ev) => {
   const btn = (ev.target as HTMLElement).closest('button[data-sub]') as HTMLButtonElement | null;
   if (!btn) return;
   const group = btn.closest('.subnav')?.id.replace('subnav-', '') ?? 'knowledge';

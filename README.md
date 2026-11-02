@@ -55,7 +55,7 @@ ollama pull llama3.2:3b   # light tier, ~2 GB — right for most laptops
 OLLAMA_ORIGINS=http://localhost:5173 ollama serve
 ```
 
-The app connects automatically (Synthesis → “Local model — Muse Glimmer” shows setup help). With no server running, drafts fall back to templated local text — every other feature works regardless.
+The app connects automatically (Settings → “Local model — on this device”, at the bottom of the sidebar, shows setup help; Synthesis shows the active model). With no server running, drafts fall back to templated local text — every other feature works regardless.
 
 Demo personas (Maya, Daniel, Rosa — 20-year non-linear arcs, 26–29-person networks) load from the gear menu (bottom-right, or Ctrl/Cmd+Shift+D). Demo script: `docs/DEMO_SCRIPT.md`.
 
