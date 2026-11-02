@@ -90,9 +90,17 @@ button, input, textarea, select { font-family: var(--font-body); }
 }
 .sidebar-nav { flex-direction: column; align-items: stretch; flex-wrap: nowrap; }
 .sidebar-nav button { text-align: left; width: 100%; }
-.sidebar .subnav { flex-direction: column; align-items: stretch; flex-wrap: nowrap; margin: -0.25rem 0 0.25rem 0.75rem; }
-.sidebar .subnav button { text-align: left; width: 100%; }
-.sidebar .subnav #pinnedPathTabs { display: flex; flex-direction: column; gap: 0.25rem; }
+.submenu-strip {
+  display: flex;
+  align-items: center;
+  min-height: 51px;
+  padding: 8px 24px;
+  border-bottom: 1px solid var(--line);
+  background: var(--wash);
+}
+.submenu-strip .subnav { margin-bottom: 0; flex: 1; }
+.submenu-strip #pinnedPathTabs { display: inline-flex; gap: 0.25rem; flex-wrap: wrap; }
+.submenu-strip[hidden] { display: none; }
 .sidebar-footer { margin-top: auto; border-top: 1px solid var(--line); padding-top: 0.75rem; }
 .sidebar-footer button {
   width: 100%;
@@ -113,9 +121,6 @@ button, input, textarea, select { font-family: var(--font-body); }
   .sidebar { width: auto; height: auto; position: static; border-right: none; border-bottom: 1px solid var(--line); }
   .sidebar-nav { flex-direction: row; flex-wrap: wrap; }
   .sidebar-nav button { width: auto; }
-  .sidebar .subnav { flex-direction: row; flex-wrap: wrap; margin-left: 0; }
-  .sidebar .subnav button { width: auto; }
-  .sidebar .subnav #pinnedPathTabs { flex-direction: row; flex-wrap: wrap; }
   .sidebar-footer { margin-top: 0; }
   .sidebar-footer button { width: auto; }
 }
@@ -144,7 +149,8 @@ button, input, textarea, select { font-family: var(--font-body); }
 .view-search.network-search {
   position: absolute;
   top: 12px;
-  left: 12px;
+  left: 50%;
+  transform: translateX(-50%);
   width: min(520px, calc(100% - 24px));
   z-index: 6;
   padding: 0;
@@ -339,12 +345,13 @@ button.small { padding: 0.2rem 0.6rem; font-size: 0.85rem; }
 /* Person details: on wide screens a right-hand drawer sliding in;
    on smaller screens the default centered overlay on solid navy stays. */
 @media (min-width: 861px) {
-  #personModal { justify-content: flex-end; align-items: stretch; padding: 0; }
+  #personModal { justify-content: flex-end; align-items: stretch; padding: 0; background: transparent; }
   #personModal .dialog {
     width: 420px;
     max-width: 420px;
     height: 100%;
     max-height: none;
+    border-left: 1px solid var(--line);
     border-radius: 12px 0 0 12px;
     animation: person-drawer-in 220ms ease;
   }

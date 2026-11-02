@@ -21,11 +21,18 @@ function slice(from, to) {
 // Sidebar shell: brand, primary nav, nested subnavs, Settings at bottom.
 assert.ok(html.includes('class="sidebar"'), 'sidebar shell present');
 assert.ok(html.includes('id="settingsNavBtn"'), 'Settings button present');
-assert.ok(
-  html.indexOf('id="settingsNavBtn"') > html.indexOf('id="subnav-legacy"'),
-  'Settings sits below the main nav groups (sidebar bottom)',
-);
-assert.ok(!html.includes('subnavBar') && !html.includes('class="topbar"'), 'old topbar/submenu strip gone');
+{
+  const asideHtml = html.slice(html.indexOf('<aside'), html.indexOf('</aside>'));
+  assert.ok(
+    asideHtml.indexOf('id="settingsNavBtn"') > asideHtml.indexOf('sidebar-nav'),
+    'Settings sits below the main nav (sidebar bottom)',
+  );
+}
+assert.ok(html.includes('id="subnavBar"'), 'submenu strip is back at the top of the main view');
+assert.ok(html.indexOf('id="subnavBar"') < html.indexOf('<main>'), 'submenu strip sits above the main view');
+const aside = slice('<aside', '</aside>');
+assert.ok(!aside.includes('data-sub='), 'submenus no longer live in the sidebar');
+assert.ok(html.includes('data-sub="security" class="subnav-action'), 'Security sits at the right end of the submenu');
 assert.ok(html.includes('id="sidebar"'), 'sidebar id wired for the delegated subnav listener');
 
 // Settings view owns the model selection.
@@ -47,8 +54,8 @@ assert.ok(main.includes("showView('settings')"), 'Settings navigation wired');
 assert.ok(main.includes('settingsNavBtn'), 'Settings button active state handled');
 assert.ok(main.includes('renderSynthesisModelLabel'), 'Synthesis model label rendered');
 assert.ok(main.includes('tierLabel'), 'model label includes the tier');
-assert.ok(main.includes("el('sidebar').addEventListener"), 'subnav clicks delegated from the sidebar');
-assert.ok(!main.includes('subnavBar'), 'no stale subnavBar wiring');
+assert.ok(main.includes("el('subnavBar').addEventListener"), 'subnav clicks delegated from the strip');
+assert.ok(main.includes("el('subnavBar').hidden"), 'submenu strip hides on views without submenus');
 
 // Styles: fixed desktop sidebar that collapses on small screens.
 assert.ok(css.includes('.sidebar {'), 'sidebar styles present');
@@ -96,5 +103,14 @@ assert.ok(main.includes('function openSelfProfileModal'), 'self profile modal im
 assert.ok(main.includes('if (d.center)'), 'center node click is handled');
 assert.ok(main.includes('openSelfProfileModal();'), 'center click opens the self profile');
 assert.ok(main.includes('Your timeline'), 'self profile shows the user timeline');
+
+// Wide-screen person drawer: no opaque scrim, so the Network stays
+// visible underneath; the Network search is centered and headerless.
+const wideDrawer = css.slice(css.indexOf('@media (min-width: 861px)'), css.indexOf('@keyframes person-drawer-in'));
+assert.ok(/#personModal\s*\{[^}]*background:\s*transparent/.test(wideDrawer), 'wide drawer has no blue scrim');
+assert.ok(!html.includes('<h2>Your network</h2>'), 'Network header removed');
+assert.ok(!html.includes('You are the center.'), 'Network description removed');
+const netSearch = css.slice(css.indexOf('.view-search.network-search'));
+assert.ok(netSearch.includes('left: 50%') && netSearch.includes('translateX(-50%)'), 'Network search is centered over the graph');
 
 console.log('layout OK: sidebar shell, Settings at bottom, model selection in Settings, per-view search');

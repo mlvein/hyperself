@@ -1,8 +1,8 @@
 // UI wiring. Cloud key lives in module memory only — never persisted.
 //
-// IA: main menu (Knowledgebase / Paths / Legacy) lives in the sidebar,
-// with the active section's subsections nested under it and Settings
-// pinned at the sidebar bottom. Knowledgebase shows AI synthesis only
+// IA: main menu (Knowledgebase / Paths / Legacy) lives in the sidebar
+// with Settings pinned at its bottom; the active view's subsections
+// sit in a strip at the top of the main view. Knowledgebase shows AI synthesis only
 // (raw entries are never listed), Network owns people tagging after
 // synthesis, Paths shows local insights, Legacy handles packs.
 import {
@@ -228,6 +228,7 @@ function showView(view: string): void {
   for (const id of ['knowledge', 'legacy', 'paths']) {
     el(`subnav-${id}`).hidden = id !== view;
   }
+  el('subnavBar').hidden = view === 'settings';
 }
 
 document.querySelectorAll<HTMLButtonElement>('.tabs button').forEach((btn) => {
@@ -2095,7 +2096,7 @@ function renderAll(): void {
   renderPaths();
 }
 
-// --- Submenus (nested in the sidebar under the active view) ---
+// --- Submenus (strip at the top of the main view) ---
 
 const SUB_PANES: Record<string, Record<string, string>> = {
   knowledge: { library: 'sub-library', network: 'sub-network', import: 'sub-import', security: 'sub-security' },
@@ -2118,7 +2119,7 @@ function showSub(view: string, name: string, pathId?: string): void {
   if (view === 'knowledge') mountSearch(name === 'network' ? 'network' : 'knowledge');
 }
 
-el('sidebar').addEventListener('click', (ev) => {
+el('subnavBar').addEventListener('click', (ev) => {
   const btn = (ev.target as HTMLElement).closest('button[data-sub]') as HTMLButtonElement | null;
   if (!btn) return;
   const group = btn.closest('.subnav')?.id.replace('subnav-', '') ?? 'knowledge';
