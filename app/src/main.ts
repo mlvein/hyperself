@@ -2227,6 +2227,47 @@ function renderPersonTimeline(name: string): void {
     .text((d) => d.at.slice(0, 4));
 }
 
+/** Clicking the center ("You") node: your own profile card — archetypes,
+ * the synthesized blurb, knowledge stats, and your own timeline. It
+ * reuses the person modal, so wide screens get the same right drawer. */
+function openSelfProfileModal(): void {
+  modalPerson = '';
+  const entries = listEntries()
+    .slice()
+    .sort((a, b) => a.created_at.localeCompare(b.created_at));
+  const name = getProfile()?.name ?? 'You';
+  el('personModalName').textContent = name;
+  const pills = visibleArchetypes()
+    .map((a) => `<span class="archetype-pill">${escapeHtml(a.label)}</span>`)
+    .join(' ');
+  const blurb = el('profileBlurb').textContent?.trim() ?? '';
+  const typeCounts = new Map<string, number>();
+  for (const e of entries) typeCounts.set(e.type, (typeCounts.get(e.type) ?? 0) + 1);
+  const typeLine = [...typeCounts.entries()].map(([k, v]) => `${k}: ${v}`).join(' · ');
+  const first = entries[0]?.created_at.slice(0, 10);
+  const last = entries[entries.length - 1]?.created_at.slice(0, 10);
+  const range = first && last ? (first === last ? ` on ${first}` : ` from ${first} to ${last}`) : '';
+  const recent = entries.slice(-15).reverse();
+  const timeline = recent.length
+    ? recent
+        .map(
+          (e) =>
+            `<p class="meta">• ${escapeHtml(e.created_at.slice(0, 10))} — ${escapeHtml(e.title)} <span>· ${escapeHtml(e.type)} · ${escapeHtml(e.tag)}</span></p>`,
+        )
+        .join('')
+    : '<p class="hint">No entries yet — import knowledge and your timeline will appear here.</p>';
+  el('personModalBody').innerHTML =
+    (pills ? `<p><span class="tagrow">${pills}</span></p>` : '') +
+    (blurb ? `<p>${escapeHtml(blurb)}</p>` : '') +
+    `<p>${entries.length} ${entries.length === 1 ? 'entry' : 'entries'} in your knowledgebase${range}, ` +
+    `connecting ${listPeople().length} ${listPeople().length === 1 ? 'person' : 'people'}.</p>` +
+    (typeLine ? `<p class="meta">${escapeHtml(typeLine)}</p>` : '') +
+    `<h3 class="ov-sub">Your timeline</h3>${timeline}` +
+    (entries.length > recent.length ? `<p class="hint">Showing the ${recent.length} most recent of ${entries.length} entries.</p>` : '') +
+    '<p class="hint">Everything here is synthesized on this device from your own entries.</p>';
+  el('personModal').hidden = false;
+}
+
 function openPersonModal(name: string): void {
   modalPerson = name;
   const ctx = personContext(listEntries(), name);
@@ -2381,7 +2422,11 @@ function renderNetworkGraph(entries: Entry[]): void {
     .text((d) => d.label);
   node.append('title').text((d) => d.label);
   node.on('click', (_ev, d) => {
-    if ((d as SimNode & { __moved?: boolean }).__moved || d.center) return;
+    if ((d as SimNode & { __moved?: boolean }).__moved) return;
+    if (d.center) {
+      openSelfProfileModal();
+      return;
+    }
     openPersonModal(d.label);
   });
   const reducedMotion =

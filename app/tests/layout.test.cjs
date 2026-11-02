@@ -90,4 +90,11 @@ assert.ok(wide.includes('translateX') || css.includes('person-drawer-in'), 'draw
 assert.ok(main.includes("'network'"), 'subnav switching mounts search on Network');
 assert.ok(i18n.includes("'search.network'"), 'network search placeholder is localized');
 
+// Center ("You") node opens your own profile card with your timeline,
+// reusing the same modal/drawer as person details.
+assert.ok(main.includes('function openSelfProfileModal'), 'self profile modal implemented');
+assert.ok(main.includes('if (d.center)'), 'center node click is handled');
+assert.ok(main.includes('openSelfProfileModal();'), 'center click opens the self profile');
+assert.ok(main.includes('Your timeline'), 'self profile shows the user timeline');
+
 console.log('layout OK: sidebar shell, Settings at bottom, model selection in Settings, per-view search');
