@@ -99,11 +99,14 @@
         </div>
 
         <div id="sub-network" hidden>
-          <div class="card">
+          <div class="card network-card">
             <h2>Your network</h2>
             <p class="hint">You are the center. People connect through entries that mention them together. Drag to rearrange; click a person for context. The graph updates automatically as your knowledgebase grows.</p>
-            <div id="networkGraph" class="network-graph" aria-label="Network graph"></div>
-            <p id="networkGraphEmpty" class="hint">No people yet — add knowledge in Import &amp; Connect and people will appear here.</p>
+            <div class="network-stage">
+              <div class="view-search network-search" data-search-slot="network"></div>
+              <div id="networkGraph" class="network-graph" aria-label="Network graph"></div>
+              <p id="networkGraphEmpty" class="hint">No people yet — add knowledge in Import &amp; Connect and people will appear here.</p>
+            </div>
           </div>
           <p class="hint">People synthesized across your knowledgebase. Click a card for their story.</p>
           <div id="personList" class="people-grid"></div>

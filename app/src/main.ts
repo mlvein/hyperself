@@ -205,14 +205,19 @@ function mountSearch(view: string): void {
   (slot ?? home)?.appendChild(bar);
   const input = document.getElementById('globalSearch') as HTMLInputElement | null;
   if (input) {
-    const key = view === 'paths' || view === 'legacy' ? `search.${view}` : 'search.knowledge';
+    const key = view === 'paths' || view === 'legacy' || view === 'network' ? `search.${view}` : 'search.knowledge';
     input.placeholder = t(activeLocale, key);
   }
 }
 
+/** On Knowledgebase, the Network sub-view has its own overlaid search. */
+function searchTargetFor(view: string): string {
+  return view === 'knowledge' && !el('sub-network').hidden ? 'network' : view;
+}
+
 function showView(view: string): void {
   currentView = view;
-  mountSearch(view);
+  mountSearch(searchTargetFor(view));
   document
     .querySelectorAll('.tabs button')
     .forEach((b) => b.classList.toggle('active', (b as HTMLElement).dataset.view === view));
@@ -244,7 +249,7 @@ document.getElementById('languageSelect')?.addEventListener('change', (ev) => {
   activeLocale = value;
   saveLocale(activeLocale);
   applyLocale(activeLocale);
-  mountSearch(currentView);
+  mountSearch(searchTargetFor(currentView));
 });
 
 // --- Header greeting ---
@@ -2110,6 +2115,7 @@ function showSub(view: string, name: string, pathId?: string): void {
   for (const [key, id] of Object.entries(panes)) {
     el(id).hidden = key !== name;
   }
+  if (view === 'knowledge') mountSearch(name === 'network' ? 'network' : 'knowledge');
 }
 
 el('sidebar').addEventListener('click', (ev) => {
@@ -2290,7 +2296,7 @@ function renderNetworkGraph(entries: Entry[]): void {
   if (networkTimer) networkTimer.stop();
   if (graph.nodes.length <= 1) return;
   const width = Math.max(320, host.clientWidth || 760);
-  const height = 420;
+  const height = Math.round(Math.min(560, Math.max(420, width * 0.45)));
   const nodes: SimNode[] = graph.nodes.map((node) => ({
     ...node,
     ...(savedPositions.get(node.id) ?? {}),
@@ -2397,6 +2403,13 @@ function renderNetworkGraph(entries: Entry[]): void {
     node.attr('transform', (d) => `translate(${d.x ?? 0},${d.y ?? 0})`);
   });
 }
+
+let networkResizeTimer: ReturnType<typeof setTimeout> | undefined;
+window.addEventListener('resize', () => {
+  if (el('sub-network').hidden) return;
+  clearTimeout(networkResizeTimer);
+  networkResizeTimer = setTimeout(() => renderNetworkGraph(listEntries()), 200);
+});
 
 el('personList').addEventListener('click', (ev) => {
   const card = (ev.target as HTMLElement).closest('[data-person-card]');

@@ -132,6 +132,30 @@ button, input, textarea, select { font-family: var(--font-body); }
   font-size: 0.8rem; border-radius: 999px; padding: 0.15rem 0.6rem;
   border: 1px solid var(--text-success); background: var(--status-success-background); color: var(--text-success); font-weight: 600;
 }
+/* Network breaks out of the 860px content column to the full content
+   width (viewport minus the 248px sidebar, with 20px gutters a side). */
+@media (min-width: 861px) {
+  .network-card { width: calc(100vw - 288px); margin-left: calc(50% - (100vw - 288px) / 2); }
+}
+@media (max-width: 860px) {
+  .network-card { width: calc(100vw - 40px); margin-left: calc(50% - (100vw - 40px) / 2); }
+}
+.network-stage { position: relative; }
+.view-search.network-search {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  width: min(520px, calc(100% - 24px));
+  z-index: 6;
+  padding: 0;
+  background: transparent;
+}
+.network-search .searchbar {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 6px;
+}
 .network-graph { min-height: 120px; }
 .network-graph svg { width: 100%; height: auto; display: block; }
 .network-graph text { fill: var(--ink); pointer-events: none; }
@@ -311,6 +335,26 @@ button.small { padding: 0.2rem 0.6rem; font-size: 0.85rem; }
   padding: 24px;
   max-height: 90vh;
   overflow: auto;
+}
+/* Person details: on wide screens a right-hand drawer sliding in;
+   on smaller screens the default centered overlay on solid navy stays. */
+@media (min-width: 861px) {
+  #personModal { justify-content: flex-end; align-items: stretch; padding: 0; }
+  #personModal .dialog {
+    width: 420px;
+    max-width: 420px;
+    height: 100%;
+    max-height: none;
+    border-radius: 12px 0 0 12px;
+    animation: person-drawer-in 220ms ease;
+  }
+}
+@keyframes person-drawer-in {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  #personModal .dialog { animation: none; }
 }
 #onboarding { padding-top: 146px; }
 #onboarding .dialog { max-width: 600px; padding: 28px; }

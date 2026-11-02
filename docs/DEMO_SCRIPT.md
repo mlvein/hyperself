@@ -44,7 +44,7 @@ Run the full script **3 times** on the exact demo build before demo day. Any fai
 - [ ] `cd app && npm test` — all suites green on this machine.
 - [ ] `npm run build && npm run preview` — rehearse against the **production build**, not `npm run dev`.
 - [ ] Start the local model server: `OLLAMA_ORIGINS=* ollama serve` with `muse-glimmer` pulled, and warm it (`curl localhost:11434/v1/models`) so the first synthesis is not a cold start. In the app, confirm Settings (sidebar, bottom) → "Local model — on this device" reports connected; Synthesis shows the active model under the profile card.
-- [ ] Load the preview URL once **online**: let the service worker install (`hyperself-v6` cache) and pre-warm the in-browser Whisper assets. The Budgeting beat itself needs no model at all; with the Glimmer server stopped, drafts honestly fall back to templated local text.
+- [ ] Load the preview URL once **online**: let the service worker install (`hyperself-v7` cache) and pre-warm the in-browser Whisper assets. The Budgeting beat itself needs no model at all; with the Glimmer server stopped, drafts honestly fall back to templated local text.
 - [ ] Create the vault; enroll **both** PIN and biometrics on the demo machine/browser profile.
 - [ ] Copy `demo/demo-statement.csv` somewhere one click away; close unrelated tabs/apps.
 - [ ] Charge + plug in; disable OS notifications/sleep.

@@ -73,6 +73,21 @@ assert.ok(main.includes('mountSearch'), 'search is mounted per view');
 assert.ok(main.includes('data-search-slot'), 'mounting uses the view slots');
 const i18n = fs.readFileSync(path.join(root, 'src', 'i18n.ts'), 'utf8');
 assert.ok(i18n.includes('Search insights and Paths'), 'Paths view gets its own search placeholder');
-assert.ok(main.includes("mountSearch(view)"), 'view switching remounts the search bar');
+assert.ok(main.includes('mountSearch(searchTargetFor(view))'), 'view switching remounts the search bar');
+
+// --- Network: full-width graph, overlaid search, wide-screen drawer ---
+const network = slice('id="sub-network"', 'id="sub-import"');
+assert.ok(network.includes('data-search-slot="network"'), 'Network has its own overlaid search slot');
+assert.ok(network.includes('network-stage'), 'graph stage positions the overlay search');
+assert.ok(network.includes('network-card'), 'network card can break out full-width');
+assert.ok(css.includes('.network-card'), 'full-bleed network card styles present');
+assert.ok(css.includes('100vw - 288px'), 'desktop breakout accounts for the 248px sidebar + gutters');
+assert.ok(css.includes('.network-search'), 'overlaid network search styled');
+assert.ok(css.includes('@media (min-width: 861px)'), 'wide-screen breakpoint present');
+const wide = css.slice(css.indexOf('@media (min-width: 861px)'));
+assert.ok(wide.includes('#personModal'), 'person modal becomes a right drawer on wide screens');
+assert.ok(wide.includes('translateX') || css.includes('person-drawer-in'), 'drawer slides in from the right');
+assert.ok(main.includes("'network'"), 'subnav switching mounts search on Network');
+assert.ok(i18n.includes("'search.network'"), 'network search placeholder is localized');
 
 console.log('layout OK: sidebar shell, Settings at bottom, model selection in Settings, per-view search');
