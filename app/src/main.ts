@@ -2244,36 +2244,149 @@ function renderAll(): void {
 
 let timelineMode: 'summary' | 'uploaded' = 'summary';
 let currentGaps: TimelineGap[] = [];
+let timelineTypeFilter = 'all';
+let timelineTagFilter: string | null = null;
+let selectedPeriodKey: string | null = null;
+
+/** D3 bar chart over timeline periods: axis component below, counts
+ * scaled, horizontally scrollable, click a bar to inspect the period. */
+function renderTimelineChart(tl: ReturnType<typeof buildTimeline>, entries: Entry[]): void {
+  const host = el('timelineChart');
+  host.innerHTML = '';
+  const detail = el('timelineDetail');
+  if (!tl.periods.length) {
+    detail.innerHTML = '<p class="hint">Nothing to chart yet — import knowledge in Import &amp; Connect.</p>';
+    return;
+  }
+  const valueOf = (p: (typeof tl.periods)[number]): number =>
+    timelineTypeFilter === 'all' ? p.total : (p.byType[timelineTypeFilter] ?? 0);
+  const spikeStarts = new Set(tl.tags.filter((t) => t.kind === 'spike').map((t) => t.from));
+  const gapKeys = new Set<string>();
+  for (const gap of tl.gaps) {
+    for (const p of tl.periods) if (p.start >= gap.from && p.start < gap.to) gapKeys.add(p.key);
+  }
+  const taggedKeys = new Set<string>();
+  if (timelineTagFilter) {
+    for (const t of tl.tags.filter((x) => x.kind === timelineTagFilter)) {
+      for (const p of tl.periods) if (p.start >= t.from && p.start < t.to) taggedKeys.add(p.key);
+    }
+  }
+  const pxPerPeriod = tl.granularity === 'month' ? 54 : tl.granularity === 'quarter' ? 96 : 132;
+  const margin = { top: 20, right: 16, bottom: 58, left: 38 };
+  const innerWidth = Math.max(host.clientWidth || 640, tl.periods.length * pxPerPeriod);
+  const innerHeight = 210;
+  const width = innerWidth + margin.left + margin.right;
+  const height = innerHeight + margin.top + margin.bottom;
+  const x = d3.scaleBand<string>().domain(tl.periods.map((p) => p.key)).range([0, innerWidth]).padding(0.15);
+  const y = d3.scaleLinear().domain([0, Math.max(1, ...tl.periods.map(valueOf))]).nice().range([innerHeight, 0]);
+  const labelOf = new Map(tl.periods.map((p) => [p.key, p.label]));
+  const svg = d3.select(host).append('svg')
+    .attr('width', width)
+    .attr('height', height)
+    .attr('role', 'img')
+    .attr('aria-label', 'Knowledgebase timeline chart');
+  const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
+  const tickEvery = Math.max(1, Math.ceil(tl.periods.length / Math.max(6, Math.floor(innerWidth / 90))));
+  const xAxis = d3.axisBottom(x)
+    .tickValues(tl.periods.filter((_, i) => i % tickEvery === 0).map((p) => p.key))
+    .tickFormat((key) => labelOf.get(key) ?? key)
+    .tickSizeOuter(0);
+  g.append('g')
+    .attr('transform', `translate(0,${innerHeight})`)
+    .call(xAxis)
+    .selectAll('text')
+    .attr('transform', 'rotate(-32)')
+    .style('text-anchor', 'end');
+  g.append('g').call(d3.axisLeft(y).ticks(5).tickSizeOuter(0));
+  g.selectAll('rect.tl-bar')
+    .data(tl.periods)
+    .join('rect')
+    .attr('class', 'tl-bar')
+    .attr('x', (p) => x(p.key) ?? 0)
+    .attr('y', (p) => y(valueOf(p)))
+    .attr('width', x.bandwidth())
+    .attr('height', (p) => innerHeight - y(valueOf(p)))
+    .attr('fill', (p) => (gapKeys.has(p.key) && p.total === 0 ? '#ebebf3' : spikeStarts.has(p.start) ? '#ffc508' : '#05006d'))
+    .attr('stroke', (p) => (p.key === selectedPeriodKey ? '#05006d' : 'none'))
+    .attr('stroke-width', (p) => (p.key === selectedPeriodKey ? 2.5 : 0))
+    .style('opacity', (p) => (!timelineTagFilter || taggedKeys.has(p.key) ? 1 : 0.22))
+    .on('click', (_ev, p) => {
+      selectedPeriodKey = selectedPeriodKey === p.key ? null : p.key;
+      renderTimeline();
+    })
+    .append('title')
+    .text((p) => `${p.label}: ${valueOf(p)} entries${p.dominantType ? ` · mostly ${p.dominantType}` : ''}${p.peopleMet.length ? ` · met ${p.peopleMet.join(', ')}` : ''}`);
+  g.selectAll('circle.tl-met')
+    .data(tl.periods.filter((p) => p.peopleMet.length))
+    .join('circle')
+    .attr('class', 'tl-met')
+    .attr('cx', (p) => (x(p.key) ?? 0) + x.bandwidth() / 2)
+    .attr('cy', (p) => Math.max(6, y(valueOf(p)) - 8))
+    .attr('r', 3.5)
+    .attr('fill', '#1f4d30');
+  const selected = tl.periods.find((p) => p.key === selectedPeriodKey);
+  if (!selected) {
+    detail.innerHTML = '<p class="hint">Click any period to see its entries, dominant type, and who you met then.</p>';
+    return;
+  }
+  const inPeriod = entries
+    .filter((e) => e.created_at >= selected.start && e.created_at < selected.end)
+    .filter((e) => timelineTypeFilter === 'all' || e.type === timelineTypeFilter)
+    .slice()
+    .sort((a, b) => a.created_at.localeCompare(b.created_at));
+  const typeLine = Object.entries(selected.byType).map(([k, v]) => `${k}: ${v}`).join(' · ');
+  detail.innerHTML = `<div class="item">
+    <header><h3>${escapeHtml(selected.label)}</h3><span class="meta">${selected.total} ${selected.total === 1 ? 'entry' : 'entries'}${selected.dominantType ? ` · mostly ${escapeHtml(selected.dominantType)}` : ''}</span></header>
+    ${typeLine ? `<p class="meta">${escapeHtml(typeLine)}</p>` : ''}
+    ${selected.peopleMet.length ? `<p class="meta">First met: ${selected.peopleMet.map(escapeHtml).join(', ')}</p>` : ''}
+    ${inPeriod.length ? inPeriod.map((e) => `<p class="meta">• ${escapeHtml(e.created_at.slice(0, 10))} — ${escapeHtml(e.title)} <span>· ${escapeHtml(e.type)}</span></p>`).join('') : '<p class="hint">No entries match the current type filter in this period.</p>'}
+  </div>`;
+}
+
 function renderTimeline(): void {
   const entries = listEntries();
   const tl = buildTimeline(entries);
   currentGaps = tl.gaps;
   el('timelineMeta').textContent = entries.length
-    ? `${entries.length} entries · by ${tl.granularity} · gaps flagged at ${tl.gapThresholdMonths}+ silent months`
+    ? `${entries.length} entries · by ${tl.granularity} · gaps flagged at ${tl.gapThresholdMonths}+ silent months · scroll sideways, click a period`
     : 'No entries yet.';
+  // Type filter toggles: All plus every type actually present.
+  const types = [...new Set(entries.map((e) => e.type))].sort();
+  if (timelineTypeFilter !== 'all' && !types.includes(timelineTypeFilter as Entry['type'])) timelineTypeFilter = 'all';
+  el('timelineTypeFilters').innerHTML = ['all', ...types]
+    .map(
+      (t) => `<button type="button" class="small tl-filter ${timelineTypeFilter === t ? 'active' : ''}" data-type-filter="${t}">${t === 'all' ? 'All types' : escapeHtml(t)}</button>`,
+    )
+    .join('');
+  // Analysis tags double as filter toggles.
+  const kinds = [...new Set(tl.tags.map((t) => t.kind))];
   el('timelineTags').innerHTML = tl.tags.length
-    ? tl.tags
+    ? kinds
+        .map(
+          (k) => `<button type="button" class="tl-tag tl-tag-${k} ${timelineTagFilter === k ? 'active' : ''}" data-tag-filter="${k}">${k}</button>`,
+        )
+        .join('') +
+      tl.tags
+        .filter((t) => !timelineTagFilter || t.kind === timelineTagFilter)
         .map((t) => `<span class="tl-tag tl-tag-${t.kind}" title="${escapeHtml(t.detail)}">${escapeHtml(t.label)}</span>`)
         .join('')
     : '<p class="hint">No patterns flagged yet — add more knowledge and spikes, lulls, and gaps will surface here.</p>';
-  const maxTotal = Math.max(1, ...tl.periods.map((p) => p.total));
-  el('timelineSummary').innerHTML = tl.periods.length
-    ? [...tl.periods]
-        .reverse()
-        .map(
-          (p) => `<div class="budget-row tl-period"><span>${escapeHtml(p.label)}</span><span class="budget-bar"><span style="width:${Math.round((p.total / maxTotal) * 100)}%"></span></span><strong>${p.total}</strong><span class="meta">${p.dominantType ? escapeHtml(p.dominantType) : '—'}${p.peopleMet.length ? ` · met ${p.peopleMet.map(escapeHtml).join(', ')}` : ''}</span></div>`,
-        )
-        .join('')
-    : '<p class="hint">Nothing to chart yet — import knowledge in Import &amp; Connect.</p>';
-  const sorted = entries.slice().sort((a, b) => b.created_at.localeCompare(a.created_at));
+  renderTimelineChart(tl, entries);
+  const selected = tl.periods.find((p) => p.key === selectedPeriodKey);
+  const sorted = entries
+    .filter((e) => timelineTypeFilter === 'all' || e.type === timelineTypeFilter)
+    .filter((e) => !selected || (e.created_at >= selected.start && e.created_at < selected.end))
+    .slice()
+    .sort((a, b) => b.created_at.localeCompare(a.created_at));
   el('timelineUploaded').innerHTML = sorted.length
     ? sorted
         .map(
           (e) => `<div class="item"><header><h3>${escapeHtml(e.title)}</h3><span class="meta">${escapeHtml(e.created_at.slice(0, 10))} · ${escapeHtml(e.type)} · ${escapeHtml(e.tag)}</span></header><p class="meta">${escapeHtml(e.body.slice(0, 160))}${e.body.length > 160 ? '…' : ''}</p></div>`,
         )
         .join('')
-    : '<p class="hint">No uploads yet.</p>';
-  el('timelineSummary').hidden = timelineMode !== 'summary';
+    : '<p class="hint">No entries match the current filters.</p>';
+  el('timelineChart').parentElement!.hidden = timelineMode !== 'summary';
+  el('timelineDetail').hidden = timelineMode !== 'summary';
   el('timelineUploaded').hidden = timelineMode !== 'uploaded';
   document
     .querySelectorAll('[data-timeline-mode]')
@@ -2301,6 +2414,19 @@ function renderTimeline(): void {
 }
 
 el('sub-timeline').addEventListener('click', (ev) => {
+  const typeBtn = (ev.target as HTMLElement).closest<HTMLElement>('[data-type-filter]');
+  if (typeBtn) {
+    timelineTypeFilter = typeBtn.dataset.typeFilter ?? 'all';
+    renderTimeline();
+    return;
+  }
+  const tagBtn = (ev.target as HTMLElement).closest<HTMLElement>('[data-tag-filter]');
+  if (tagBtn) {
+    const kind = tagBtn.dataset.tagFilter ?? null;
+    timelineTagFilter = timelineTagFilter === kind ? null : kind;
+    renderTimeline();
+    return;
+  }
   const modeBtn = (ev.target as HTMLElement).closest<HTMLElement>('[data-timeline-mode]');
   if (modeBtn) {
     timelineMode = modeBtn.dataset.timelineMode === 'uploaded' ? 'uploaded' : 'summary';

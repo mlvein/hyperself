@@ -154,6 +154,16 @@ button, input, textarea, select { font-family: var(--font-body); }
 .tl-tag-spike { border-color: var(--text-warning); background: var(--status-warning-background); }
 .tl-tag-gap, .tl-tag-lull { border-color: var(--border-accent); background: var(--status-info-background); }
 .tl-tag-people { border-color: var(--text-success); background: var(--status-success-background); }
+.timeline-scroll { overflow-x: auto; overflow-y: hidden; border: 1px solid var(--line); border-radius: 8px; }
+.timeline-scroll svg { display: block; }
+.timeline-scroll text { fill: var(--ink); font-size: 11px; }
+.tl-bar { cursor: pointer; }
+.tl-bar:hover { opacity: 0.75; }
+.tl-filter-row { display: inline-flex; gap: 0.35rem; flex-wrap: wrap; }
+.tl-filter.active, button.tl-tag.active { outline: 2px solid var(--action-primary); outline-offset: 1px; font-weight: 700; }
+button.tl-tag { color: var(--ink); min-height: auto; cursor: pointer; font-size: 0.78rem; }
+button.tl-mode.active { background: var(--bg); color: var(--ink); border-color: var(--line); font-weight: 700; }
+#timelineDetail { margin-top: 0.75rem; }
 .gap-card { border-style: dashed; margin-top: 1rem; }
 .gap-card textarea, .card textarea { width: 100%; }
 .network-stage { position: relative; }

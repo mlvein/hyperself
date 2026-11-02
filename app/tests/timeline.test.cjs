@@ -76,4 +76,19 @@ assert.ok(main.includes('transcribeAudioBlob'), 'mic uses on-device transcriptio
 assert.ok(main.includes('getUserMedia'), 'mic capture wired');
 assert.ok(main.includes("type: 'journal'"), 'gap memories are journal entries');
 
+// Redesign contract: D3 axis chart, horizontal scroll, filters.
+assert.ok(html.includes('id="timelineChart"'), 'D3 chart host present');
+assert.ok(html.includes('timeline-scroll'), 'chart scrolls horizontally');
+assert.ok(html.includes('id="timelineDetail"'), 'selected-period detail panel present');
+assert.ok(html.includes('id="timelineTypeFilters"'), 'entry-type filter toggles present');
+assert.ok(main.includes('data-tag-filter='), 'analysis-tag filter toggles present');
+assert.ok(main.includes('axisBottom'), 'chart uses the D3 axis component');
+assert.ok(main.includes('scaleBand') && main.includes('scaleLinear'), 'chart uses D3 scales');
+assert.ok(main.includes('selectedPeriodKey'), 'period selection is interactive');
+assert.ok(main.includes('timelineTypeFilter'), 'type filtering is wired');
+assert.ok(main.includes('timelineTagFilter'), 'tag filtering is wired');
+const css = fs.readFileSync(path.join(root, 'src', 'styles.css'), 'utf8');
+assert.ok(css.includes('overflow-x: auto'), 'scroll container styles present');
+assert.ok(css.includes('.tl-bar'), 'interactive bar styles present');
+
 console.log('timeline OK: spikes, lulls, gaps, type mix, people met, adaptive granularity');
