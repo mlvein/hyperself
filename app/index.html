@@ -77,7 +77,13 @@
           </div>
           <div id="kbSynthesis" hidden>
             <div id="profileCard" class="card profile-card">
-              <div id="profileAvatar" class="profile-avatar" aria-label="Profile photo slot" title="Profile photo">?</div>
+              <div class="profile-side">
+                <div id="profileAvatar" class="profile-avatar" aria-label="Profile photo slot" title="Profile photo">?</div>
+                <button type="button" id="profilePhotoBtn" class="small">Upload photo</button>
+                <button type="button" id="profilePhotoRemoveBtn" class="small linklike" hidden>Remove</button>
+                <input type="file" id="profilePhotoInput" accept="image/*" hidden />
+                <p id="profilePhotoNote" class="hint" aria-live="polite"></p>
+              </div>
               <div class="profile-main">
                 <div id="archetypePills" class="tagrow" aria-label="Archetypes"></div>
                 <p id="profileBlurb" class="profile-blurb">Your archetypes and story will appear here as Hyperself synthesizes your knowledge.</p>

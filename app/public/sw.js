@@ -1,6 +1,6 @@
 // Hyperself service worker: offline-first app shell.
 // Bump CACHE_VERSION on every release that must evict old shells.
-const CACHE_VERSION = 'hyperself-v9';
+const CACHE_VERSION = 'hyperself-v10';
 const SHELL = [
   '/',
   '/index.html',

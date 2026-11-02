@@ -10,6 +10,8 @@ import {
   clearAll,
   createEntry,
   getProfile,
+  getProfilePhoto,
+  setProfilePhoto,
   insertImported,
   listEntries,
   listPeople,
@@ -54,7 +56,7 @@ import { isHtmlFilename, parseJournalHtml } from './html';
 import { docxToText, extensionOf, healthXmlToText, jsonToText, mboxToText, needsOcrFallback, parseIcs, parseVcf, pdfPasswordKind, pdfToOcrText, pdfToText, rtfToText, unzipTextEntries } from './formats';
 import { EXPORT_GUIDES } from './guides';
 import { isAudioFilename, isAudioMime, transcribeAudioBlob } from './transcribe';
-import { isImageFilename, isImageMime, ocrImageBlob, parseExifDate } from './image';
+import { fileToProfilePhoto, isImageFilename, isImageMime, ocrImageBlob, parseExifDate } from './image';
 import { budgetInsights, looksLikePdfStatement, monthlyTotals, parsePdfStatement, parseStatement, recurringCosts, summarizeTransactions, transactionsFromEntries, type StatementParse } from './budget';
 import { PATH_TEMPLATES, availablePathCount, healthSummary, isBudgetingQuery, isHealthQuery, readingLifeSummary, relationshipRhythms, suggestTemplates, templateById, templateForArchetype, templateReadiness, visibleSuggestedTemplates } from './templates';
 import {
@@ -331,9 +333,38 @@ function renderProfileCard(blurb: string): void {
       '<span class="hint archetype-note">Playful patterns from your data — not labels, not diagnoses.</span>',
     );
   }
-  el('profileAvatar').textContent = name ? name.slice(0, 1).toUpperCase() : '?';
+  const photo = getProfilePhoto();
+  el('profileAvatar').innerHTML = photo
+    ? `<img src="${photo}" alt="Profile photo" />`
+    : escapeHtml(name ? name.slice(0, 1).toUpperCase() : '?');
+  el('profilePhotoRemoveBtn').hidden = !photo;
   el('profileBlurb').textContent = limitTwoSentences(blurb);
 }
+
+// Profile picture: one downsized copy stored in the DB (see store.ts).
+// The picked file itself is never referenced after this handler runs.
+el('profilePhotoBtn').addEventListener('click', () => el('profilePhotoInput').click());
+el('profilePhotoRemoveBtn').addEventListener('click', () => {
+  setProfilePhoto(null);
+  el('profilePhotoNote').textContent = 'Profile photo removed.';
+  renderAll();
+});
+el<HTMLInputElement>('profilePhotoInput').addEventListener('change', (ev) => {
+  const input = ev.target as HTMLInputElement;
+  const file = input.files?.[0];
+  input.value = '';
+  if (!file) return;
+  void fileToProfilePhoto(file)
+    .then((dataUrl) => {
+      setProfilePhoto(dataUrl);
+      el('profilePhotoNote').textContent = 'Profile photo saved on this device.';
+      renderAll();
+    })
+    .catch((err: unknown) => {
+      el('profilePhotoNote').textContent =
+        err instanceof Error ? err.message : 'That image could not be used as a profile photo.';
+    });
+});
 
 function renderSynthesisCards(_overviewBody = ''): void {
   void _overviewBody;
@@ -2257,7 +2288,9 @@ function openSelfProfileModal(): void {
         )
         .join('')
     : '<p class="hint">No entries yet — import knowledge and your timeline will appear here.</p>';
+  const selfPhoto = getProfilePhoto();
   el('personModalBody').innerHTML =
+    (selfPhoto ? `<p><img class="self-photo" src="${selfPhoto}" alt="Profile photo" /></p>` : '') +
     (pills ? `<p><span class="tagrow">${pills}</span></p>` : '') +
     (blurb ? `<p>${escapeHtml(blurb)}</p>` : '') +
     `<p>${entries.length} ${entries.length === 1 ? 'entry' : 'entries'} in your knowledgebase${range}, ` +
@@ -2341,6 +2374,7 @@ function renderNetworkGraph(entries: Entry[]): void {
   const height = Math.round(Math.min(560, Math.max(420, width * 0.45)));
   const nodes: SimNode[] = graph.nodes.map((node) => ({
     ...node,
+    photo: node.center ? getProfilePhoto() ?? undefined : undefined,
     ...(savedPositions.get(node.id) ?? {}),
   }));
   const links = graph.links.map((l) => ({ ...l })) as unknown as Array<{

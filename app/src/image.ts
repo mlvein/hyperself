@@ -12,6 +12,25 @@ export function isImageMime(type: string): boolean {
   return type.startsWith('image/');
 }
 
+/** Downscale an uploaded picture to a small square data URL for use as
+ * the profile photo. One saved copy at 256px — the original file and any
+ * external source are never referenced afterwards. */
+export async function fileToProfilePhoto(file: Blob, size = 256): Promise<string> {
+  const bitmap = await createImageBitmap(file);
+  try {
+    const side = Math.min(bitmap.width, bitmap.height);
+    const canvas = document.createElement('canvas');
+    canvas.width = size;
+    canvas.height = size;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) throw new Error('Canvas unavailable for profile photo.');
+    ctx.drawImage(bitmap, (bitmap.width - side) / 2, (bitmap.height - side) / 2, side, side, 0, 0, size, size);
+    return canvas.toDataURL('image/jpeg', 0.85);
+  } finally {
+    bitmap.close();
+  }
+}
+
 function readAscii(view: DataView, offset: number, length: number): string {
   let out = '';
   for (let i = 0; i < length; i += 1) out += String.fromCharCode(view.getUint8(offset + i));

@@ -54,6 +54,7 @@ function normalizeDb(parsed: Partial<DB> | null | undefined): DB {
     savedPaths: p.savedPaths ?? [],
     folderFiles: p.folderFiles ?? {},
     archetypePrefs: p.archetypePrefs ?? {},
+    profilePhoto: typeof p.profilePhoto === 'string' ? p.profilePhoto : null,
   };
 }
 
@@ -131,12 +132,15 @@ interface DB {
   savedPaths: SavedPath[];
   folderFiles: Record<string, string>;
   archetypePrefs: Record<string, ArchetypePreference>;
+  /** One downsized profile-picture copy (data URL), or null. Kept in
+   * the DB so OPFS, vault encryption, and backups cover it. */
+  profilePhoto: string | null;
 }
 
 export class StoreError extends Error {}
 
 function emptyDB(): DB {
-  return { entries: [], goals: [], checkins: [], skills: [], personNotes: {}, savedPaths: [], folderFiles: {}, archetypePrefs: {} };
+  return { entries: [], goals: [], checkins: [], skills: [], personNotes: {}, savedPaths: [], folderFiles: {}, archetypePrefs: {}, profilePhoto: null };
 }
 
 function loadLegacy(): DB {
@@ -239,6 +243,30 @@ export function setProfile(name: string): Profile {
   const profile = { name: trimmed };
   localStorage.setItem(PROFILE_KEY, JSON.stringify(profile));
   return profile;
+}
+
+// --- Profile picture (one downsized copy in the DB; never a reference) ---
+
+export const MAX_PROFILE_PHOTO_CHARS = 300_000;
+const PROFILE_PHOTO_RE = /^data:image\/(?:png|jpe?g|webp);base64,[A-Za-z0-9+/=]+$/;
+
+export function isProfilePhotoDataUrl(value: string): boolean {
+  return PROFILE_PHOTO_RE.test(value);
+}
+
+export function getProfilePhoto(): string | null {
+  const photo = load().profilePhoto;
+  return photo && isProfilePhotoDataUrl(photo) ? photo : null;
+}
+
+export function setProfilePhoto(dataUrl: string | null): void {
+  if (dataUrl !== null) {
+    if (!isProfilePhotoDataUrl(dataUrl)) throw new StoreError('Profile photo must be an image (PNG, JPEG, or WebP).');
+    if (dataUrl.length > MAX_PROFILE_PHOTO_CHARS) throw new StoreError('Profile photo is too large after resizing.');
+  }
+  const db = load();
+  db.profilePhoto = dataUrl;
+  save(db);
 }
 
 // --- Entries ---
