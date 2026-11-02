@@ -4,7 +4,7 @@ Post-demo-freeze parking lot (per AGENTS.md: anything new after scope freeze lan
 
 ## Deferred from demo week
 
-- **PDF bank statement parsing** — CSV tells the same demo story; add pdf.js on-device extraction + the same parse-review step when prioritized.
+- ~~**PDF bank statement parsing**~~ — shipped: statement-like PDFs (detected by filename or dated money segments) route through the same review-then-import flow as CSV (`parsePdfStatement` in `app/src/budget.ts`); other PDFs still ingest as documents.
 - ~~**Health template**~~ — shipped: Health Path (descriptive trends only, never medical advice; health entries always personal). See `app/src/templates.ts` `healthSummary`.
 - **More Path templates** — only Budgeting shipped; add one at a time with a real fixture each.
 - **Native packaging** (Tauri/Electron) — PWA-installable won for the demo; revisit for filesystem storage, larger quotas, OS keychain.

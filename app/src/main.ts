@@ -55,7 +55,7 @@ import { docxToText, extensionOf, healthXmlToText, jsonToText, mboxToText, parse
 import { EXPORT_GUIDES } from './guides';
 import { isAudioFilename, isAudioMime, transcribeAudioBlob } from './transcribe';
 import { isImageFilename, isImageMime, ocrImageBlob, parseExifDate } from './image';
-import { budgetInsights, monthlyTotals, parseStatement, recurringCosts, summarizeTransactions, transactionsFromEntries, type StatementParse } from './budget';
+import { budgetInsights, looksLikePdfStatement, monthlyTotals, parsePdfStatement, parseStatement, recurringCosts, summarizeTransactions, transactionsFromEntries, type StatementParse } from './budget';
 import { PATH_TEMPLATES, availablePathCount, healthSummary, isBudgetingQuery, isHealthQuery, readingLifeSummary, relationshipRhythms, suggestTemplates, templateById, templateForArchetype, templateReadiness, visibleSuggestedTemplates } from './templates';
 import {
   biometricAvailable,
@@ -589,6 +589,25 @@ async function ingestFiles(
       if (/\.csv$/i.test(file.name) || file.type === 'text/csv') {
         showStatementReview(file.name, parseStatement(await file.text()));
         continue;
+      }
+      if (/\.pdf$/i.test(file.name) || file.type === 'application/pdf') {
+        // Bank-statement PDFs go through the same review-then-import flow
+        // as CSV; other PDFs fall through to document ingest below.
+        try {
+          const text = await pdfToText(file);
+          if (looksLikePdfStatement(text, file.name)) {
+            const parsed = parsePdfStatement(text);
+            if (parsed.parsedRows > 0) {
+              showStatementReview(file.name, parsed);
+              continue;
+            }
+          }
+          total += await ingestFormattedFile(file, file.name);
+          continue;
+        } catch {
+          // Unreadable PDF: skipped like any other unreadable file.
+          continue;
+        }
       }
       if (isHtmlFilename(file.name)) {
         const page = parseJournalHtml(await file.text(), file.name);
@@ -1441,7 +1460,7 @@ function renderBudgetDetail(pathId: string): void {
   const tx = transactionsFromEntries(listEntries());
   if (tx.length === 0) {
     host.innerHTML =
-      '<article class="item"><header><h3>Finance</h3></header><p class="hint">No statement data yet. Import a bank statement (CSV) via Upload documents in Import & Connect and this Path fills in automatically.</p></article>';
+      '<article class="item"><header><h3>Finance</h3></header><p class="hint">No statement data yet. Import a bank statement (CSV or PDF) via Upload documents in Import & Connect and this Path fills in automatically.</p></article>';
     return;
   }
   const summary = summarizeTransactions(tx);

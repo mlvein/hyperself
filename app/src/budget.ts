@@ -82,7 +82,11 @@ function parseDate(raw: string): string | null {
     return `${y}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
   }
   const parsed = Date.parse(text);
-  if (!Number.isNaN(parsed)) return new Date(parsed).toISOString().slice(0, 10);
+  if (!Number.isNaN(parsed)) {
+    // Local components: toISOString would shift the calendar day by timezone.
+    const d = new Date(parsed);
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+  }
   return null;
 }
 
@@ -162,6 +166,77 @@ export function parseStatement(text: string): StatementParse {
     parsedRows: transactions.length,
     unparsedRows: unparsed,
     columns,
+  };
+}
+
+// --- PDF statements: pdf.js gives space-joined page text, so transactions
+// are recovered from date-anchored segments ("01 Mar 2025 DESC -4.50 1,200.00").
+
+const PDF_DATE =
+  /(\d{1,2}[/.-]\d{1,2}[/.-]\d{2,4}|\d{1,2}\s+(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\s+\d{4}|(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\s+\d{1,2},?\s+\d{4})/gi;
+const MONEY = /\(?-?\$?[\d,]+\.\d{2}\)?\s*(?:CR|DR)?/gi;
+
+/** Segments of PDF text, each starting at a date (pdf text has few newlines). */
+export function pdfStatementSegments(text: string): string[] {
+  const flat = text.replace(/\s+/g, ' ');
+  const starts: number[] = [];
+  for (const match of flat.matchAll(PDF_DATE)) {
+    if (match.index !== undefined) starts.push(match.index);
+  }
+  return starts.map((at, i) => flat.slice(at, starts[i + 1] ?? flat.length).trim()).filter(Boolean);
+}
+
+/** True when the text carries at least 3 dated money segments. */
+export function looksLikePdfStatement(text: string, filename = ''): boolean {
+  if (/\b(bank|statement|account summary|current account|savings account)\b/i.test(filename)) return true;
+  const segments = pdfStatementSegments(text);
+  const withMoney = segments.filter((s) => (s.match(MONEY) ?? []).length >= 1).length;
+  return withMoney >= 3 && /\b(balance|statement|account)\b/i.test(text);
+}
+
+export function parsePdfStatement(text: string): StatementParse {
+  const segments = pdfStatementSegments(text);
+  const transactions: Transaction[] = [];
+  let unparsed = 0;
+  for (const segment of segments) {
+    const dateMatch = segment.match(PDF_DATE);
+    const date = dateMatch ? parseDate(dateMatch[0]) : null;
+    const money = [...segment.matchAll(MONEY)];
+    if (!date || money.length === 0) {
+      unparsed += 1;
+      continue;
+    }
+    // Layout is DATE DESCRIPTION AMOUNT [BALANCE]: the amount comes first.
+    const amountToken = money[0][0];
+    let amount = parseAmount(amountToken.replace(/\s*(CR|DR)$/i, ''));
+    if (amount === null) {
+      unparsed += 1;
+      continue;
+    }
+    const afterDate = segment.slice((dateMatch?.[0].length ?? 0));
+    const descEnd = afterDate.indexOf(money[0][0]);
+    const description = (descEnd >= 0 ? afterDate.slice(0, descEnd) : afterDate)
+      .replace(/\s+/g, ' ')
+      .trim()
+      .slice(0, 120);
+    if (!description) {
+      unparsed += 1;
+      continue;
+    }
+    if (amount > 0) {
+      // Unsigned PDF amounts: credits say so, everything else is money out.
+      const credit = /\b(CR|credit|deposit|salary|payroll|refund|interest)\b/i.test(segment);
+      amount = credit ? amount : -amount;
+    }
+    transactions.push({ date, description, amount, category: categorize(description, amount) });
+  }
+  transactions.sort((a, b) => (a.date < b.date ? -1 : 1));
+  return {
+    transactions,
+    totalRows: segments.length,
+    parsedRows: transactions.length,
+    unparsedRows: unparsed,
+    columns: { date: 'PDF statement', description: 'PDF statement', amount: 'PDF statement' },
   };
 }
 

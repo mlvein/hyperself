@@ -1,6 +1,6 @@
 // Focused test: statement CSV parsing — flexible headers, honest stats.
 const assert = require('node:assert/strict');
-const { parseCsv, parseStatement, categorize, summarizeTransactions } = require('../.test-compiled/budget.js');
+const { parseCsv, parseStatement, categorize, summarizeTransactions, parsePdfStatement, looksLikePdfStatement } = require('../.test-compiled/budget.js');
 
 const quoted = parseCsv('a,"b, with comma",c\r\n1,"say ""hi""",3');
 assert.equal(quoted[0][1], 'b, with comma', 'quoted commas survive');
@@ -59,4 +59,28 @@ console.log('budget OK: CSV quoting, flexible columns, honest unparsed count, ca
   assert.ok(notes.some((n) => /rose|fell|steady/.test(n)), 'month trend insight');
   assert.ok(notes.every((n) => !/you should|cut |stop |avoid /i.test(n)), 'descriptive only, never prescriptive');
   console.log('budget analytics OK: monthly trend, recurring costs, descriptive insights');
+}
+
+// --- PDF statements: date-anchored segments from pdf.js page text ---
+{
+  const pdfText = [
+    'Example Bank Current Account Statement Account number 12345678 Statement period March 2025 Opening balance 1,000.00',
+    '01 Mar 2025 STARBUCKS COFFEE -4.50 995.50',
+    '03 Mar 2025 TESCO SUPERMARKET 42.10 953.40',
+    '15 Mar 2025 SALARY ACME LTD 2,500.00 CR 3,453.40',
+    '20 Mar 2025 UBER TRIP -12.30 3,441.10 Closing balance 3,441.10',
+  ].join(' ');
+  assert.ok(looksLikePdfStatement(pdfText), 'statement text detected');
+  assert.ok(looksLikePdfStatement('', 'my bank statement.pdf'), 'statement filename detected');
+  assert.ok(!looksLikePdfStatement('A short essay about spring. 01 Mar 2025 was a nice day.'), 'essay is not a statement');
+  const parsed = parsePdfStatement(pdfText);
+  assert.ok(parsed.parsedRows >= 4, `pdf transactions parsed (${parsed.parsedRows})`);
+  const coffee = parsed.transactions.find((t) => /STARBUCKS/.test(t.description));
+  assert.ok(coffee && coffee.amount === -4.5 && coffee.date === '2025-03-01', 'signed debit parsed with date');
+  const salary = parsed.transactions.find((t) => /SALARY/.test(t.description));
+  assert.ok(salary && salary.amount === 2500, 'CR credit parsed as money in');
+  const tesco = parsed.transactions.find((t) => /TESCO/.test(t.description));
+  assert.ok(tesco && tesco.amount === -42.1, 'unsigned amount defaults to money out');
+  assert.equal(parsePdfStatement('No transactions here at all.').parsedRows, 0, 'non-statement PDF parses zero, falls through to document ingest');
+  console.log('pdf statements OK: segments, signed/CR/unsigned amounts, honest zero');
 }
