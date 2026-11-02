@@ -1,17 +1,15 @@
 # Hyperself: Figma Design Handoff
 
+This document is the design handoff for Hyperself: the visual system, screen inventory, and exact copy from the Figma design, written for anyone implementing or reviewing the interface. For how the shipped app behaves today, see [docs/DESIGN.md](docs/DESIGN.md); this handoff remains the source of truth for visual fidelity.
+
 ## 1. Authority and Scope
 
-Inspected on **2026-10-30**. Visual source of truth: Figma file `KD1Kg3NcRyUu87S2u3XLOF`, screen page `0:1`, design-system page `3:53635`.
-This handoff describes the inspected design and exported reference bundle, not a verified application implementation.
-The previous handoff cited `app/` and `docs/DESIGN.md`; neither is verified here and neither overrides the inspected Figma for visual fidelity.
-No Figma changes are part of this documentation update.
+Inspected on **2026-10-30**. Visual source of truth: the Hyperself Figma file (screen page `0:1`, design-system page `3:53635`).
+This handoff describes the inspected design and its exported reference material. Where the implementation has since evolved (navigation layout, Settings, languages), [docs/DESIGN.md](docs/DESIGN.md) describes the current behavior; the Figma still governs look and feel.
 
-- There are **35 actual desktop screen/state frames**, each 1200px wide; heights vary with content. Do not force all screens into a 900px viewport.
-- `docs/hyperself-assets/data/screens.json` is the complete exported screen tree, including exact text, node IDs, positions, dimensions, styles, and variable bindings.
-- `data/design-system.json` records resolved variables, shared text styles, component inventory, and foundation notes. Paths in this document beginning with `data/`, `icons/`, `artwork/`, or `references/` are relative to `docs/hyperself-assets/` unless stated otherwise.
-- `tokens.css` is the CSS source for the exported palette and geometry tokens; its colors are resolved Figma variables rounded to 8-bit hex.
-- `data/references.json` maps the 35 screen nodes to PNG references. `data/assets.json` and root `manifest.json` map asset paths to source IDs, dimensions, and SHA-256 values where applicable.
+- There are **35 desktop screen/state frames**, each 1200px wide; heights vary with content. Do not force all screens into a 900px viewport.
+- The design was exported with a complete screen tree (exact text, node IDs, positions, dimensions, styles, and variable bindings), a design-system inventory, and PNG references for every screen. The runtime assets from that export (icons, artwork, wordmark, fonts) live in `app/public/assets/hyperself/`; the raw export bundle itself is not kept in this repository, and the screen inventory in §4 below records what it contained.
+- The exported palette and geometry tokens were resolved Figma variables rounded to 8-bit hex; they are now the CSS custom properties at the top of `app/src/styles.css`.
 - Static layouts, status copy, and exported assets do **not** verify backend behavior, encryption, privacy guarantees, offline operation, live integrations, or working interactions.
 
 ## 2. Product and Navigation
@@ -19,7 +17,7 @@ No Figma changes are part of this documentation update.
 Hyperself is designed as a local-first personal knowledge and AI workspace. Knowledge arrives through documents, audio, images, folders, linked sources, and personas rather than mandatory journaling.
 The intended privacy model distinguishes `personal` material from explicitly approved `shareable` material. Paths and Legacy are intended to use approved shareable knowledge; a screen saying so is not proof of enforcement.
 
-- Header: plain **Hyperself** wordmark, Knowledgebase / Paths / Legacy navigation, right-hand search, and an offline badge where shown.
+- Header: plain **Hyperself** wordmark, Knowledgebase / Paths / Legacy navigation, right-hand search, and an offline badge where shown. (Current app: the main menu and Settings live in a sidebar, subsections sit in a strip at the top of each view, and the single search bar moves to the top of each view — see [docs/DESIGN.md](docs/DESIGN.md).)
 - Search placeholder: "Ask your knowledgebase…". The illustrated search state uses an audio-budget query and transcript results.
 - Knowledgebase submenu: Synthesis / Network / Import & Connect, with Security aligned right.
 - Paths submenu: Insights / pinned saved-Path tabs, with Templates and Security at the right. Only **Relationship Rhythms** is pinned in the illustrated populated states.
@@ -65,13 +63,13 @@ Shared styles use **150% line height** and zero letter spacing. Do not replace d
 | Pills / avatars | Fully rounded; use individual exported dimensions |
 | People cards | 118 x 157px, 44px initials avatar; graph person nodes are 40px diameter |
 
-**All ten modal scrims are solid, opaque navy**, not translucent backdrops. Do not show dimmed underlying content through them.
+**Modal scrims in the design are solid, opaque navy**, not translucent backdrops. (Current app: this holds on smaller screens; on wide screens the person/profile panel is a right-hand drawer with no scrim, so the Network graph stays visible underneath.)
 The five source tiles are not equal-sized: four **268 x 218px** tiles form a 2-by-2 block on the left; the **260 x 448px** account tile on the right spans **two rows**, with 12px gaps.
 These are desktop observations, not a delivered mobile breakpoint specification. Preserve hierarchy when implementing responsive layouts and explicitly QA mobile behavior rather than claiming mobile screens were designed.
 
 ## 4. Screen Index
 
-Every row is a separate Figma screen/state frame on page `0:1`. PNG filenames below share the prefix **`docs/hyperself-assets/references/`**.
+Every row is a separate Figma screen/state frame on page `0:1`. The PNG filenames below are the reference snapshots from the design export (kept with the Figma source, not in this repository).
 All widths are 1200px; the height column is in pixels. Use these PNGs for QA, not as runtime page backgrounds.
 
 | # | Screen / state | Node ID | Height | Reference PNG filename |
@@ -227,7 +225,7 @@ SVG colors are baked into exported fill/stroke attributes. CSS `color` on an `<i
 Font delivery includes **Inter Latin variable 400–700** and **Momo Trust Display Regular Latin WOFF2**, `fonts.css`, and OFL license files. Fonts are downloaded from public Google Fonts, **not extracted from Figma**.
 Exact download URLs and checksums are in `data/fonts.json`; matching family names does not establish identical font-binary versions to those used by Figma.
 Keep the supplied licenses with redistributed fonts. These are Latin subsets; additional languages require appropriately licensed extra subsets and glyph-coverage testing. Do not assume full multilingual coverage.
-Copy `docs/hyperself-assets/` unchanged to the site's `public/assets/hyperself/` directory so relative font filenames continue to resolve. Serve the files locally rather than relying on Google Fonts at runtime.
+The exported assets live in `app/public/assets/hyperself/` in this repository, so relative font filenames resolve locally. Serve the files locally rather than relying on Google Fonts at runtime.
 
 ```html
 <link rel="stylesheet" href="/assets/hyperself/tokens.css">
@@ -249,26 +247,12 @@ button, input, textarea { font-family: var(--font-body); }
 
 Use actual text for accessible control labels and meaningful alt text for informative thumbnails; decorative icons get empty alt text. Set heading sizes per screen rather than inheriting browser defaults.
 If an offline core loop is required, include the local fonts, SVGs, CSS, and required application code/model assets in the offline caching strategy and test cold/warm offline behavior. Exporting assets alone does not supply this.
-The JSON and PNG references contain **sample personal data**. They are build references, not a user's vault: never auto-import or autoload them into real workspaces. Production fixture handling must be explicit.
+The JSON and PNG references contain **fictional sample data** (the Maya persona and her network, invented for design and demo purposes). They are build references, not a real user's vault: never auto-import or autoload them into real workspaces. Production fixture handling must be explicit.
 
-## 10. Export Maintenance and Engineering Boundaries
+## 10. Keeping the Design and App in Sync
 
-Within an **authenticated Figma workspace**, the exporter workflow is:
+Re-exports happen from the Figma workspace (the exporter is a build-time tool and is not part of this repository or the app's runtime). After any re-export, reconcile the screen inventory, reference dimensions, resolved tokens, and asset/font manifests against this handoff, and update the runtime assets in `app/public/assets/hyperself/` deliberately — never copy stale hashes or variant suffixes into code.
 
-```sh
-node docs/export-hyperself-assets.mjs inventory
-node docs/export-hyperself-assets.mjs assets
-node docs/export-hyperself-assets.mjs references
-node docs/export-hyperself-assets.mjs fonts
-node docs/export-hyperself-assets.mjs all
-```
+The product requirements the design expresses — personal-by-default ingestion, explicit shareable approval, no personal data in exports, local processing, an encrypted local vault, and offline operation — are implemented and tested in the app; [docs/DESIGN.md](docs/DESIGN.md) and [docs/EVALS.md](docs/EVALS.md) describe how each is verified. This handoff on its own is a design reference, not a claim about runtime behavior.
 
-Use the updated exporter that includes `fonts` mode for font delivery. These are export/build-maintenance commands, not an ordinary site's installation or runtime dependency.
-Reference exports currently **skip existing PNG files**. A rerun is not proof that cached images reflect current Figma; remove the relevant old reference PNGs before requesting fresh snapshots. Do not assume a `--refresh` option exists.
-After changes, reconcile screen inventory, reference dimensions/paths, resolved tokens, asset/font manifests, and this handoff. Consult manifests instead of copying stale hashes or variant suffixes into code.
-
-Preserved original product requirements, **not observed implemented guarantees**: personal-by-default ingestion; explicit shareable approval; no personal exports; reference ownership excluded from self-inference; local OCR/transcription/inference; hash dedupe/tombstones; pack verification and pack-only answers; encrypted local vault and genuine biometric key unwrapping; locked-state data suppression; offline PWA operation.
-Also intended: keyboard/overlay dialog closing, persistent notes and Path changes, drag/hover graph behavior, reduced-motion support, replayable/skippable onboarding with returning-workspace suppression, and explicit failure reasons. Exports do not establish any of these interactions.
-The earlier implementation ideas (D3 graph/orbit, Whisper, Tesseract.js, WebAuthn PRF, service-worker caching, persona/demo controls) require engineering validation and are not claims that dependencies or backend systems are present.
-No separate design is delivered for custom Path creation, archetype rename results, completed generic upload, finished folder sync, or mobile breakpoints. Do not invent those states while calling them inspected Figma.
-Real account integrations, native mobile, dark mode, and runtime security/privacy verification are outside the observed design delivery. The current Figma **does** have local linked components, variables, and shared text styles; the old claim that a Figma component system was out of scope is obsolete.
+Not covered by the original design delivery: custom Path creation, a finished generic-upload state, finished folder-sync screens, and mobile breakpoints. The app implements these by extending the same visual system; treat this document as their style reference, not their specification.
