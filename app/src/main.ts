@@ -224,19 +224,21 @@ function showView(view: string): void {
     .querySelectorAll('.tabs button')
     .forEach((b) => b.classList.toggle('active', (b as HTMLElement).dataset.view === view));
   el('settingsNavBtn').classList.toggle('active', view === 'settings');
+  el('guideNavBtn').classList.toggle('active', view === 'guide');
   for (const section of document.querySelectorAll('main > section')) {
     (section as HTMLElement).hidden = section.id !== `view-${view}`;
   }
   for (const id of ['knowledge', 'legacy', 'paths']) {
     el(`subnav-${id}`).hidden = id !== view;
   }
-  el('subnavBar').hidden = view === 'settings';
+  el('subnavBar').hidden = view === 'settings' || view === 'guide';
 }
 
 document.querySelectorAll<HTMLButtonElement>('.tabs button').forEach((btn) => {
   btn.addEventListener('click', () => showView(btn.dataset.view ?? 'knowledge'));
 });
 el('settingsNavBtn').addEventListener('click', () => showView('settings'));
+el('guideNavBtn').addEventListener('click', () => showView('guide'));
 document.getElementById('openSettingsBtn')?.addEventListener('click', () => showView('settings'));
 document.getElementById('settingsLegacyBtn')?.addEventListener('click', () => showView('legacy'));
 document.getElementById('settingsSecurityBtn')?.addEventListener('click', () => {

@@ -23,6 +23,7 @@
         <button type="button" data-view="legacy"><span data-i18n="nav.legacy">Legacy</span></button>
       </nav>
       <div class="sidebar-footer">
+        <button type="button" id="guideNavBtn" data-view="guide"><span data-i18n="nav.guide">Guide</span></button>
         <button type="button" id="settingsNavBtn" data-view="settings"><span data-i18n="nav.settings">Settings</span></button>
       </div>
     </aside>
@@ -296,6 +297,35 @@
           <button type="button" id="packAskBtn">Ask</button>
           <pre id="packAskOut" class="log" aria-live="polite"></pre>
         </div>
+        </div>
+      </section>
+
+      <section id="view-guide" hidden aria-label="Guide">
+        <div class="card">
+          <h2>How Hyperself works</h2>
+          <p>Hyperself brings the archive you already have — documents, bank statements, journals, photos, recordings, calendars, and contacts — together in one place on your device. You never have to journal by hand: everything arrives through Import &amp; Connect as uploads, folder syncs, or exports you download from your other services (per-service guides are listed there). Each item is classified by you as Mine, Shared with me, or Reference; Reference material stays searchable but never shapes your Synthesis.</p>
+          <p>On-device synthesis then reads across that archive: a profile with archetypes you can confirm, rename, or reject; a Network of the people who appear across your entries; and Security findings scanned locally. Nothing personal is uploaded — there is no account and no server holding your archive.</p>
+        </div>
+        <div class="card">
+          <h2>Paths: surfaced when they make sense</h2>
+          <p>Paths are focused views over your knowledge — Finance, Health, Relationship Rhythms, Reading Life, and Paths you save from your own searches. A Path is never pinned for you and never pushed at you. New Paths first appear as <strong>Suggested Paths</strong> on Insights, only when your knowledge is already ready for them (for example, enough finance entries for Finance, or enough people mentioned for Relationship Rhythms). Starting one adds it to Your Paths; dismissing or approving an insight records it in History, where it can be restored.</p>
+          <p>Paths describe what your data shows. They never give financial or medical advice, diagnoses, or counseling.</p>
+        </div>
+        <div class="card">
+          <h2>Augmented Paths (optional, online)</h2>
+          <p>For deeper reasoning about how you learn, research, and work, a Path can be augmented by a frontier online model. This is optional and off until you use it. Hyperself first builds a derived pattern profile — archetype labels, skill counts, and reading/research pattern labels. It never includes entries, names, or text. You preview the exact payload, approve it for that one destination, and supply your own provider key, which is kept for the session only. You can revoke consent and forget the key at any time from the Path.</p>
+        </div>
+        <div class="card">
+          <h2>Privacy: two tags govern everything</h2>
+          <p>Every entry is <strong>personal</strong> or <strong>shareable</strong>. Personal entries never leave this device, and sensitive kinds — health, finance, journal, relationship, and document entries — can never be made shareable. Shareable entries are the only ones that can enter an exported knowledge pack, and packs are hash-verified on import. Your whole archive, personal entries included, can be exported as one encrypted backup protected by its own passphrase, and restored on any install.</p>
+        </div>
+        <div class="card">
+          <h2>Local models</h2>
+          <p>Synthesis drafts come from a model served on this device: a light tier (a small 3B model, about 2 GB) for laptops and smaller machines, or a deep tier (Muse Glimmer 30B) on machines with roughly 24 GB or more of RAM. Choose the model in Settings, at the bottom of the sidebar; Synthesis shows which model is active. If no model server is running, Hyperself uses templated local drafts and every other feature still works. Embeddings and audio transcription run in the browser, also on-device.</p>
+        </div>
+        <div class="card">
+          <h2>Language</h2>
+          <p>The interface is available in English and Spanish, switchable in Settings. Your entries are never translated or sent anywhere for translation, and synthesis prompts stay in English for now.</p>
         </div>
       </section>
 

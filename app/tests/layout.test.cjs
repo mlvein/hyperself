@@ -113,4 +113,18 @@ assert.ok(!html.includes('You are the center.'), 'Network description removed');
 const netSearch = css.slice(css.indexOf('.view-search.network-search'));
 assert.ok(netSearch.includes('left: 50%') && netSearch.includes('translateX(-50%)'), 'Network search is centered over the graph');
 
+// In-app Guide: long-form descriptions live in a sidebar Guide view.
+assert.ok(html.includes('id="guideNavBtn"'), 'Guide button in the sidebar');
+assert.ok(html.includes('id="view-guide"'), 'Guide view present');
+{
+  const asideHtml = html.slice(html.indexOf('<aside'), html.indexOf('</aside>'));
+  assert.ok(asideHtml.indexOf('id="guideNavBtn"') < asideHtml.indexOf('id="settingsNavBtn"'), 'Guide sits just above Settings in the sidebar');
+  assert.ok(asideHtml.indexOf('id="guideNavBtn"') > asideHtml.indexOf('sidebar-nav'), 'Guide sits below the main menu');
+}
+const guide = slice('id="view-guide"', 'id="view-settings"');
+assert.ok(guide.includes('Augmented Paths'), 'Guide explains Augmented Paths');
+assert.ok(guide.includes('Suggested Paths'), 'Guide explains Path surfacing');
+assert.ok(main.includes("showView('guide')"), 'Guide navigation wired');
+assert.ok(main.includes('guideNavBtn'), 'Guide button active state handled');
+
 console.log('layout OK: sidebar shell, Settings at bottom, model selection in Settings, per-view search');
