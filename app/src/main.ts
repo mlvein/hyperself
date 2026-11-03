@@ -214,7 +214,7 @@ function mountSearch(view: string): void {
   (slot ?? home)?.appendChild(bar);
   const input = document.getElementById('globalSearch') as HTMLInputElement | null;
   if (input) {
-    const key = view === 'paths' || view === 'legacy' || view === 'network' ? `search.${view}` : 'search.knowledge';
+    const key = view === 'paths' || view === 'legacy' || view === 'network' || view === 'timeline' ? `search.${view}` : 'search.knowledge';
     input.placeholder = t(activeLocale, key);
   }
 }
@@ -238,7 +238,7 @@ function showView(view: string): void {
   for (const id of ['knowledge', 'legacy', 'paths']) {
     el(`subnav-${id}`).hidden = id !== view;
   }
-  el('subnavBar').hidden = view === 'settings' || view === 'guide';
+  el('subnavBar').hidden = view === 'settings' || view === 'guide' || view === 'timeline';
 }
 
 document.querySelectorAll<HTMLButtonElement>('.tabs button').forEach((btn) => {
@@ -2256,9 +2256,8 @@ let currentTags: TimelineTag[] = [];
 function renderTimelineChart(tl: ReturnType<typeof buildTimeline>, entries: Entry[]): void {
   const host = el('timelineChart');
   host.innerHTML = '';
-  const detail = el('timelineDetail');
   if (!tl.periods.length) {
-    detail.innerHTML = '<p class="hint">Nothing to chart yet — import knowledge in Import &amp; Connect.</p>';
+    host.innerHTML = '<p class="hint">Nothing to chart yet — import knowledge in Import &amp; Connect.</p>';
     return;
   }
   const valueOf = (p: (typeof tl.periods)[number]): number =>
@@ -2314,8 +2313,9 @@ function renderTimelineChart(tl: ReturnType<typeof buildTimeline>, entries: Entr
     .attr('stroke-width', (p) => (p.key === selectedPeriodKey ? 2.5 : 0))
     .style('opacity', (p) => (!timelineTagFilter || taggedKeys.has(p.key) ? 1 : 0.22))
     .on('click', (_ev, p) => {
-      selectedPeriodKey = selectedPeriodKey === p.key ? null : p.key;
+      selectedPeriodKey = p.key;
       renderTimeline();
+      openPeriodModal(p, entries);
     })
     .append('title')
     .text((p) => `${p.label}: ${valueOf(p)} entries${p.dominantType ? ` · mostly ${p.dominantType}` : ''}${p.peopleMet.length ? ` · met ${p.peopleMet.join(', ')}` : ''}`);
@@ -2341,23 +2341,6 @@ function renderTimelineChart(tl: ReturnType<typeof buildTimeline>, entries: Entr
     .attr('cy', (p) => Math.max(6, y(valueOf(p)) - 8))
     .attr('r', 3.5)
     .attr('fill', '#1f4d30');
-  const selected = tl.periods.find((p) => p.key === selectedPeriodKey);
-  if (!selected) {
-    detail.innerHTML = '<p class="hint">Click any period to see its entries, dominant type, and who you met then.</p>';
-    return;
-  }
-  const inPeriod = entries
-    .filter((e) => e.created_at >= selected.start && e.created_at < selected.end)
-    .filter((e) => timelineTypeFilter === 'all' || e.type === timelineTypeFilter)
-    .slice()
-    .sort((a, b) => a.created_at.localeCompare(b.created_at));
-  const typeLine = Object.entries(selected.byType).map(([k, v]) => `${k}: ${v}`).join(' · ');
-  detail.innerHTML = `<div class="item">
-    <header><h3>${escapeHtml(selected.label)}</h3><span class="meta">${selected.total} ${selected.total === 1 ? 'entry' : 'entries'}${selected.dominantType ? ` · mostly ${escapeHtml(selected.dominantType)}` : ''}</span></header>
-    ${typeLine ? `<p class="meta">${escapeHtml(typeLine)}</p>` : ''}
-    ${selected.peopleMet.length ? `<p class="meta">First met: ${selected.peopleMet.map(escapeHtml).join(', ')}</p>` : ''}
-    ${inPeriod.length ? inPeriod.map((e) => `<p class="meta">• ${escapeHtml(e.created_at.slice(0, 10))} — ${escapeHtml(e.title)} <span>· ${escapeHtml(e.type)}</span></p>`).join('') : '<p class="hint">No entries match the current type filter in this period.</p>'}
-  </div>`;
 }
 
 function renderTimeline(): void {
@@ -2382,7 +2365,7 @@ function renderTimeline(): void {
     )
     .join('');
   // Analysis tags double as filter toggles.
-  const kinds = [...new Set(tl.tags.map((t) => t.kind))];
+  const kinds = [...new Set(tl.tags.map((t) => t.kind))].filter((kind) => kind !== 'people');
   el('timelineTags').innerHTML = tl.tags.length
     ? kinds
         .map(
@@ -2391,7 +2374,7 @@ function renderTimeline(): void {
         .join('') +
       tl.tags
         .map((t, i) => ({ t, i }))
-        .filter(({ t }) => !timelineTagFilter || t.kind === timelineTagFilter)
+        .filter(({ t }) => t.kind !== 'people' && (!timelineTagFilter || t.kind === timelineTagFilter))
         .map(({ t, i }) => `<button type="button" class="tl-tag tl-tag-${t.kind}" data-tag-open="${i}" title="${escapeHtml(t.detail)}">${escapeHtml(t.label)}</button>`)
         .join('')
     : '<p class="hint">No patterns flagged yet — add more knowledge and spikes, lulls, and gaps will surface here.</p>';
@@ -2410,31 +2393,49 @@ function renderTimeline(): void {
         .join('')
     : '<p class="hint">No entries match the current filters.</p>';
   el('timelineChart').parentElement!.hidden = timelineMode !== 'summary';
-  el('timelineDetail').hidden = timelineMode !== 'summary';
   el('timelineUploaded').hidden = timelineMode !== 'uploaded';
   document
     .querySelectorAll('[data-timeline-mode]')
     .forEach((b) => b.classList.toggle('active', (b as HTMLElement).dataset.timelineMode === timelineMode));
-  el('timelineGaps').innerHTML = tl.gaps.length
-    ? tl.gaps
-        .map((gap, i) => {
-          const mid = new Date((Date.parse(gap.from) + Date.parse(gap.to)) / 2).toISOString().slice(0, 10);
-          return `<div class="card gap-card">
-      <h3>A quiet stretch: ${escapeHtml(gap.label)}</h3>
-      <p class="hint">Hyperself has nothing recorded for about ${gap.months} months here. What was happening then? Add a memory — even a rough one — and Hyperself will help you keep it. It is saved as a personal entry, dated inside the gap.</p>
-      <div class="row"><label>Date <input type="date" id="gapDate-${i}" value="${mid}" /></label></div>
-      <textarea id="gapBody-${i}" rows="3" placeholder="What do you remember from ${escapeHtml(gap.label)}?"></textarea>
-      <div class="row">
-        <button type="button" class="small" data-mic-for="gapBody-${i}">Use microphone</button>
-        <button type="button" data-gap-add="${i}">Add memory to fill this gap</button>
-        <span id="gapNote-${i}" class="hint" aria-live="polite"></span>
-      </div>
-    </div>`;
-        })
-        .join('')
-    : '';
-  const dateInput = el<HTMLInputElement>('tlNewDate');
-  if (!dateInput.value) dateInput.value = new Date().toISOString().slice(0, 10);
+}
+
+/** The gap-memory form now lives inside the modal (the cards below
+ * the graph are gone): date inside the stretch, dictated or typed. */
+let modalGapRange: { from: string; to: string; label: string } | null = null;
+
+function gapMemoryForm(from: string, to: string): string {
+  const mid = new Date((Date.parse(from) + Date.parse(to)) / 2).toISOString().slice(0, 10);
+  return `<h3 class="ov-sub">Add a memory from then</h3>
+    <div class="row"><label>Date <input type="date" id="modalGapDate" value="${mid}" /></label></div>
+    <textarea id="modalGapBody" rows="3" placeholder="What do you remember? Type it, or use the microphone."></textarea>
+    <div class="row">
+      <button type="button" class="small" data-mic-for="modalGapBody">Use microphone</button>
+      <button type="button" data-modal-gap-save="1">Add memory</button>
+    </div>
+    <p id="micNote" class="hint" aria-live="polite"></p>`;
+}
+
+/** Clicking a period bar opens the same side drawer as Network people:
+ * entries, type mix, and the people first met then — people details
+ * live here now, not as pills under the graph. */
+function openPeriodModal(period: ReturnType<typeof buildTimeline>['periods'][number], entries: Entry[]): void {
+  el('timelineModalTitle').textContent = period.label;
+  const inPeriod = entries
+    .filter((e) => e.created_at >= period.start && e.created_at < period.end)
+    .filter((e) => timelineTypeFilter === 'all' || e.type === timelineTypeFilter)
+    .slice()
+    .sort((a, b) => a.created_at.localeCompare(b.created_at));
+  const typeLine = Object.entries(period.byType).map(([k, v]) => `${k}: ${v}`).join(' · ');
+  modalGapRange = period.total === 0 ? { from: period.start, to: period.end, label: period.label } : null;
+  el('timelineModalBody').innerHTML =
+    `<p>${period.total} ${period.total === 1 ? 'entry' : 'entries'}${period.dominantType ? ` · mostly ${escapeHtml(period.dominantType)}` : ''}</p>` +
+    (typeLine ? `<p class="meta">${escapeHtml(typeLine)}</p>` : '') +
+    (period.peopleMet.length ? `<h3 class="ov-sub">People you met</h3><p>${period.peopleMet.map(escapeHtml).join(', ')}</p>` : '') +
+    (inPeriod.length
+      ? `<h3 class="ov-sub">Entries</h3>` + inPeriod.map((e) => `<p class="meta">• ${escapeHtml(e.created_at.slice(0, 10))} — ${escapeHtml(e.title)} <span>· ${escapeHtml(e.type)} · ${escapeHtml(e.tag)}</span></p>`).join('')
+      : '<p class="hint">Nothing recorded in this period yet.</p>') +
+    (modalGapRange ? gapMemoryForm(modalGapRange.from, modalGapRange.to) : '');
+  el('timelineModal').hidden = false;
 }
 
 /** Clicking an analysis tag opens its side drawer (same pattern as the
@@ -2458,7 +2459,13 @@ function openTimelineTagModal(tag: TimelineTag): void {
     (inRange.length
       ? inRange.slice(0, 30).map((e) => `<p class="meta">• ${escapeHtml(e.created_at.slice(0, 10))} — ${escapeHtml(e.title)} <span>· ${escapeHtml(e.type)} · ${escapeHtml(e.tag)}</span></p>`).join('') +
         (inRange.length > 30 ? `<p class="hint">…and ${inRange.length - 30} more. Filter by type on the chart to narrow this down.</p>` : '')
-      : '<p class="hint">No entries in this stretch — that silence is exactly what the tag is pointing at. Add a memory from the gap prompt below the chart.</p>');
+      : '<p class="hint">No entries in this stretch — that silence is exactly what the tag is pointing at. Use the form below — Hyperself will help you keep it.</p>');
+  if (tag.kind === 'gap') {
+    modalGapRange = { from: tag.from, to: tag.to, label: tag.label.replace(/^Gap: /, '') };
+    el('timelineModalBody').innerHTML += gapMemoryForm(tag.from, tag.to);
+  } else {
+    modalGapRange = null;
+  }
   el('timelineModal').hidden = false;
 }
 
@@ -2468,7 +2475,35 @@ function closeTimelineModal(): void {
 
 el('timelineModalClose').addEventListener('click', closeTimelineModal);
 el('timelineModal').addEventListener('click', (ev) => {
-  if (ev.target === el('timelineModal')) closeTimelineModal();
+  const target = ev.target as HTMLElement;
+  if (target === el('timelineModal')) {
+    closeTimelineModal();
+    return;
+  }
+  const micBtn = target.closest<HTMLButtonElement>('[data-mic-for]');
+  if (micBtn) {
+    void toggleMic(micBtn);
+    return;
+  }
+  if (target.closest('[data-modal-gap-save]') && modalGapRange) {
+    const body = el<HTMLTextAreaElement>('modalGapBody').value.trim();
+    const note = document.getElementById('micNote');
+    if (!body) {
+      if (note) note.textContent = 'Write or dictate a memory first.';
+      return;
+    }
+    const date = el<HTMLInputElement>('modalGapDate').value || new Date().toISOString().slice(0, 10);
+    createEntry({
+      title: `Memory — ${modalGapRange.label}`,
+      type: 'journal',
+      body,
+      tag: 'personal',
+      source: 'typed',
+      at: `${date}T12:00:00.000Z`,
+    });
+    closeTimelineModal();
+    renderAll();
+  }
 });
 document.addEventListener('keydown', (ev) => {
   if (ev.key === 'Escape' && !el('timelineModal').hidden) closeTimelineModal();
@@ -2515,49 +2550,17 @@ el('sub-timeline').addEventListener('click', (ev) => {
     renderTimeline();
     return;
   }
-  const gapBtn = (ev.target as HTMLElement).closest<HTMLElement>('[data-gap-add]');
-  if (gapBtn) {
-    const i = Number(gapBtn.dataset.gapAdd);
-    const gap = currentGaps[i];
-    const body = el<HTMLTextAreaElement>(`gapBody-${i}`).value.trim();
-    const note = el(`gapNote-${i}`);
-    if (!gap || !body) {
-      note.textContent = 'Write or dictate a memory first.';
-      return;
-    }
-    const date = el<HTMLInputElement>(`gapDate-${i}`).value || new Date((Date.parse(gap.from) + Date.parse(gap.to)) / 2).toISOString().slice(0, 10);
-    createEntry({
-      title: `Memory — ${gap.label}`,
-      type: 'journal',
-      body,
-      tag: 'personal',
-      source: 'typed',
-      at: `${date}T12:00:00.000Z`,
-    });
-    note.textContent = 'Saved. Hyperself will remember this with you.';
-    renderAll();
-  }
-});
-
-el('tlAddBtn').addEventListener('click', () => {
-  const note = el('tlNote');
-  const title = el<HTMLInputElement>('tlNewTitle').value.trim();
-  const body = el<HTMLTextAreaElement>('tlNewBody').value.trim();
-  if (!title || !body) {
-    note.textContent = 'Give the memory a title and a few words first.';
-    return;
-  }
-  const date = el<HTMLInputElement>('tlNewDate').value || new Date().toISOString().slice(0, 10);
-  createEntry({ title, type: 'journal', body, tag: 'personal', source: 'typed', at: `${date}T12:00:00.000Z` });
-  el<HTMLInputElement>('tlNewTitle').value = '';
-  el<HTMLTextAreaElement>('tlNewBody').value = '';
-  note.textContent = 'Saved as a personal memory.';
-  renderAll();
 });
 
 // Microphone input: records on-device, transcribes with the local
 // Whisper pipeline, and appends text to the target field. Nothing is
 // uploaded; browsers without mic support get a plain explanation.
+
+function setMicNote(text: string): void {
+  const note = document.getElementById('micNote');
+  if (note) note.textContent = text;
+}
+
 let micState: { recorder: MediaRecorder; stream: MediaStream; btn: HTMLButtonElement; target: HTMLTextAreaElement } | null = null;
 
 async function toggleMic(btn: HTMLButtonElement): Promise<void> {
@@ -2568,7 +2571,7 @@ async function toggleMic(btn: HTMLButtonElement): Promise<void> {
     return;
   }
   if (!navigator.mediaDevices?.getUserMedia || typeof MediaRecorder === 'undefined') {
-    el('tlNote').textContent = 'Microphone input is not available in this browser — typing works everywhere.';
+    setMicNote('Microphone input is not available in this browser — typing works everywhere.');
     return;
   }
   try {
@@ -2583,22 +2586,22 @@ async function toggleMic(btn: HTMLButtonElement): Promise<void> {
       micState = null;
       if (!state) return;
       void transcribeAudioBlob(new Blob(chunks, { type: recorder.mimeType || 'audio/webm' }), (status) => {
-        el('tlNote').textContent = status;
+        setMicNote(status);
       })
         .then((text) => {
           state.target.value = `${state.target.value}${state.target.value && text ? ' ' : ''}${text}`.trim();
-          el('tlNote').textContent = 'Transcribed on this device. Edit freely, then save.';
+          setMicNote('Transcribed on this device. Edit freely, then save.');
         })
         .catch((err: unknown) => {
-          el('tlNote').textContent = err instanceof Error ? err.message : 'Transcription failed.';
+          setMicNote(err instanceof Error ? err.message : 'Transcription failed.');
         });
     });
     micState = { recorder, stream, btn, target };
     btn.textContent = 'Stop recording';
-    el('tlNote').textContent = 'Recording… choose Stop recording when you are done.';
+    setMicNote('Recording… choose Stop recording when you are done.');
     recorder.start();
   } catch {
-    el('tlNote').textContent = 'Microphone access was not granted — typing works everywhere.';
+    setMicNote('Microphone access was not granted — typing works everywhere.');
   }
 }
 
@@ -2610,7 +2613,7 @@ el('sub-timeline').addEventListener('click', (ev) => {
 // --- Submenus (strip at the top of the main view) ---
 
 const SUB_PANES: Record<string, Record<string, string>> = {
-  knowledge: { library: 'sub-library', network: 'sub-network', timeline: 'sub-timeline', import: 'sub-import', security: 'sub-security' },
+  knowledge: { library: 'sub-library', network: 'sub-network', import: 'sub-import', security: 'sub-security' },
   paths: { insights: 'sub-insights', templates: 'sub-templates', history: 'sub-history', security: 'sub-security-paths', path: 'sub-path-detail' },
   legacy: { export: 'sub-export' },
 };

@@ -2,6 +2,8 @@
 
 This document is the design handoff for Hyperself: the visual system, screen inventory, and exact copy from the Figma design, written for anyone implementing or reviewing the interface. For how the shipped app behaves today, see [docs/DESIGN.md](docs/DESIGN.md); this handoff remains the source of truth for visual fidelity.
 
+**Handoff status (updated November 2026):** the app has evolved well past the inspected frames — sidebar navigation with Settings and Guide, per-view search, an interactive Timeline, curated knowledge packs, profile photos, and a Spanish interface are all implemented and described in §11. Those implementations extend the visual system below but have not been designed in Figma; §12 lists what a designer should review, decide, and deliver to bring the Figma back in sync. Nothing in §11 changes the tokens or geometry in §3 unless explicitly stated.
+
 ## 1. Authority and Scope
 
 Inspected on **2026-10-30**. Visual source of truth: the Hyperself Figma file (screen page `0:1`, design-system page `3:53635`).
@@ -17,11 +19,12 @@ This handoff describes the inspected design and its exported reference material.
 Hyperself is designed as a local-first personal knowledge and AI workspace. Knowledge arrives through documents, audio, images, folders, linked sources, and personas rather than mandatory journaling.
 The intended privacy model distinguishes `personal` material from explicitly approved `shareable` material. Paths and Legacy are intended to use approved shareable knowledge; a screen saying so is not proof of enforcement.
 
-- Header: plain **Hyperself** wordmark, Knowledgebase / Paths / Legacy navigation, right-hand search, and an offline badge where shown. (Current app: the main menu and Settings live in a sidebar, subsections sit in a strip at the top of each view, and the single search bar moves to the top of each view — see [docs/DESIGN.md](docs/DESIGN.md).)
-- Search placeholder: "Ask your knowledgebase…". The illustrated search state uses an audio-budget query and transcript results.
-- Knowledgebase submenu: Synthesis / Network / Import & Connect, with Security aligned right.
-- Paths submenu: Insights / pinned saved-Path tabs, with Templates and Security at the right. Only **Relationship Rhythms** is pinned in the illustrated populated states.
-- Legacy submenu: Export. The pane contains export, import, and pack-only question sections, not three separate navigation destinations.
+- Original design: a header with the plain **Hyperself** wordmark, Knowledgebase / Paths / Legacy navigation, right-hand search, and an offline badge where shown.
+- **Current app (see §11):** the main menu lives in a 248px sidebar — wordmark, greeting, and offline badge at top; Knowledgebase / Paths / Legacy below; **Guide** and **Settings** pinned at the sidebar bottom. Each view's subsections sit in a horizontal strip at the top of the main view, with Security at the right end. On small screens the sidebar collapses into a wrapping top block.
+- Search: one search bar for the whole app, moved to the top of each main view (above the overview card on Synthesis; centered over the graph on Network). Placeholder: "Ask your knowledgebase…", with per-view variants ("Search people in your network…" on Network). The illustrated search state uses an audio-budget query and transcript results.
+- Knowledgebase submenu: Synthesis / Network / Import & Connect, with Security aligned right. Timeline graduated to its own main sidebar view (between Knowledgebase and Paths) and is not in the inspected frames.
+- Paths submenu: Insights / pinned saved-Path tabs, Templates, History, with Security at the right. Nothing is pinned by default in the current app; new Paths appear first as Suggested Paths on Insights. Only **Relationship Rhythms** is pinned in the illustrated populated states.
+- Legacy submenu: Export, plus pinned knowledge-pack tabs (see §11). The pane contains export, import, and pack-only question sections, not three separate navigation destinations.
 - The Paths badge counts saved Paths plus ready suggestions: initially **3 = 2 saved + 1 Reading Life suggestion**; after starting Reading Life, **3 = 3 saved + 0 suggestions**. Do not count only pinned tabs or double-count a started suggestion.
 - Security badge **1** counts the one actionable high-severity finding, not all insight cards. Clear/empty states must not keep a stale actionable badge.
 - "Offline · on-device" is a designed state label, not evidence that a service worker or airplane-mode workflow has been tested.
@@ -64,12 +67,14 @@ Shared styles use **150% line height** and zero letter spacing. Do not replace d
 | People cards | 118 x 157px, 44px initials avatar; graph person nodes are 40px diameter |
 
 **Modal scrims in the design are solid, opaque navy**, not translucent backdrops. (Current app: this holds on smaller screens; on wide screens the person/profile panel is a right-hand drawer with no scrim, so the Network graph stays visible underneath.)
+
+Implemented geometry since the inspection (same tokens, new layout facts a designer should adopt or revise): sidebar **248px**, sticky full-height, collapsing to a top block at ≤860px; submenu strip restored at the top of the main view (51px, wash background); Network and Timeline cards **break out of the 860px column** to viewport width minus sidebar and 20px gutters; Timeline plot is **280px** tall inside a horizontally scrollable viewport with per-period widths of 34–132px by granularity; person/profile and timeline-tag panels are **420px right-hand drawers** (12px left radius, 1px left border, 220ms slide-in, no scrim) at ≥861px and the original navy overlay below that; search over Network is centered, max 520px wide, floating 12px over the graph; profile avatars accept a user photo (square-cropped, circular mask) with the initials fallback unchanged.
 The five source tiles are not equal-sized: four **268 x 218px** tiles form a 2-by-2 block on the left; the **260 x 448px** account tile on the right spans **two rows**, with 12px gaps.
 These are desktop observations, not a delivered mobile breakpoint specification. Preserve hierarchy when implementing responsive layouts and explicitly QA mobile behavior rather than claiming mobile screens were designed.
 
 ## 4. Screen Index
 
-Every row is a separate Figma screen/state frame on page `0:1`. The PNG filenames below are the reference snapshots from the design export (kept with the Figma source, not in this repository).
+Every row is a separate Figma screen/state frame on page `0:1`. The PNG filenames below are the reference snapshots from the design export (kept with the Figma source, not in this repository). These 35 frames predate the implementation updates in §11 — Timeline, Settings, Guide, knowledge-pack configuration, the sidebar shell, and the drawers have no frames yet and are the first thing a design pass should add (§12).
 All widths are 1200px; the height column is in pixels. Use these PNGs for QA, not as runtime page backgrounds.
 
 | # | Screen / state | Node ID | Height | Reference PNG filename |
@@ -115,7 +120,7 @@ All widths are 1200px; the height column is in pixels. Use these PNGs for QA, no
 ### Synthesis
 
 Stack: profile card, archetype era timeline, three archetype cards, then People at the center / Care & wellbeing / Money & paperwork thematic cards.
-The profile is **Maya**, with a circular **M** initials avatar, confirmed Bookworm / Network Weaver / Deep Researcher pills, an essence paragraph, interests, and 28 key people.
+The profile is **Maya**, with a circular **M** initials avatar, confirmed Bookworm / Network Weaver / Deep Researcher pills, an essence paragraph, interests, and 28 key people. (Current app: the avatar accepts a user-uploaded profile photo — square-cropped to a 256px copy stored locally — and the archetype set has since been renamed in the app, e.g. Bookworm became the Margin Annotator vs Shelf Cartographer pair; see [docs/DESIGN.md](docs/DESIGN.md). The frames below record the original design content.)
 Essence: "You turn curiosity into understanding and make room for others along the way. Moving from teaching into research, you’re building a life where careful inquiry can have a wider impact."
 Interests: reading, learning sciences, community. Disclaimer: "Playful patterns from your data — not labels, not diagnoses."
 
@@ -134,6 +139,7 @@ Empty state routes to Import & Connect; loading says "Synthesizing who you are f
 
 The screen contains "Your network", a user-centered graph, explanatory copy, and a wrapping grid of **28 people**, not photographic portraits.
 Graph nodes and people cards use initials; names, counts, connecting lines, timeline dots, and bars should remain structured DOM/SVG rather than flattened screenshots.
+(Current app: the graph card is full-width with **no header or description**, the search bar floats centered over the graph, the centre node shows the user's uploaded profile photo when set, person details open in the 420px right-hand drawer from §3 (navy overlay on small screens), and clicking the centre circle opens the user's own profile card with archetypes, essence, and their timeline in the same drawer.)
 Priya Shah has **64 entries = Calendar 28 + Documents 31 + Images 5**, a **12-year** relationship, and **24 shared moments, 2014–2026**.
 Shared connections: **Jonah Reed 12**, **Elena Rossi 8**, **Sam Okafor 5** shared entries. Do not confuse these with their whole-person entry counts.
 Dialog hierarchy: person heading and duration, entry-type pills, Relationships, You + Priya timeline, Key moments, dated Notes, and note composer.
@@ -256,3 +262,75 @@ Re-exports happen from the Figma workspace (the exporter is a build-time tool an
 The product requirements the design expresses — personal-by-default ingestion, explicit shareable approval, no personal data in exports, local processing, an encrypted local vault, and offline operation — are implemented and tested in the app; [docs/DESIGN.md](docs/DESIGN.md) and [docs/EVALS.md](docs/EVALS.md) describe how each is verified. This handoff on its own is a design reference, not a claim about runtime behavior.
 
 Not covered by the original design delivery: custom Path creation, a finished generic-upload state, finished folder-sync screens, and mobile breakpoints. The app implements these by extending the same visual system; treat this document as their style reference, not their specification.
+
+## 11. Implementation Updates Since the 2026-10-30 Inspection
+
+Everything below is implemented, tested, and shipped in the app. None of it has Figma frames yet; each item notes the design decision a handoff should confirm or revise.
+
+### Navigation shell (replaces the header design)
+
+- 248px sidebar: wordmark, greeting, offline badge; Knowledgebase / Paths / Legacy; Guide and Settings pinned at the bottom. Subsections returned to a horizontal strip at the top of the main view after a period nested in the sidebar — the strip layout (Security at the right end) matches the original submenu intent better at current scale. Collapse behavior at ≤860px is implemented, not designed.
+- **Settings** (sidebar bottom): local model selection — light/deep tier buttons, endpoint, model, connection status, setup disclosure — plus privacy shortcuts and the language switcher. Synthesis keeps a one-line "Local model: … · Change in Settings" status.
+- **Guide** (just above Settings): long-form explanations — how Hyperself works, Paths surfacing, Augmented Paths consent, privacy tags, knowledge packs, Timeline, models, language. Mirrors `docs/GUIDE.md`.
+
+### Search
+
+- One search bar, moved (never duplicated) to the top of each main view; sticky on Synthesis above the overview card; centered and floating over the Network graph; per-view placeholders; typed queries survive view switches. Results still render above the content with Save-as-Path.
+
+### Network (extends frames 2–3)
+
+- Full-bleed graph card, no header/description, taller simulation area, resize-aware. Centre node carries the user's profile photo; person and self details use the right-hand drawer (wide) / navy overlay (small) pattern from §3.
+
+### Timeline (new view; no frames)
+
+- Timeline is its own main sidebar view, between Knowledgebase and Paths (it began as a Knowledgebase subtab). Summarized: full-bleed interactive D3 bar chart (axis component, count labels, gridlines) — spike periods yellow, silent gap periods pale, green dot where a person was first met; horizontally scrollable at fixed per-period widths. Uploaded data: every entry in date order.
+- Analysis tags as chips below the chart: spike, lull, gap, type-mix ("Mostly research in Jun 2024"), and people-met. Kind toggles dim non-matching periods; type toggles rescale the chart to one entry type; type toggles and zoom controls float over the graph.
+- Zoom: Years → Quarters → Months → Days, capped at 1,200 periods so long archives stop at a legible level.
+- Clicking a period or a **tag** opens its details in the same 420px drawer pattern — including the people first met in that stretch, who no longer appear as pills under the graph. There are no cards below the graph.
+- Gap prompts: silent stretches at/over the threshold (12 months, tightening to 6 then 3 as the archive grows) are tagged as gaps; clicking the tag (or a silent period) opens the drawer with a memory form — typed or dictated by microphone (on-device transcription) — saved as a personal entry dated inside the gap.
+
+### Legacy: curated knowledge packs (extends frame 18)
+
+- Multiple named packs, each with settings: name, author label, version, and **Expertise only** curation (findings, methods, research, skills, and skill-evidenced entries) or all shareable entries. Live "N of M shareable would be exported" counts; last-exported date and count are remembered, so updating a shared pack is one click. Pinned packs appear as Legacy subtabs, mirroring pinned Paths. The one-off author/version export form is gone.
+
+### Profile photo
+
+- Upload/remove on the Synthesis profile card; square center-crop to a 256px JPEG copy stored in the local database (covered by vault encryption and backups); the source file is never referenced. Shown on the overview avatar, the Network centre node, and the self profile drawer. Initials fallback unchanged.
+
+### Interface language
+
+- English / Spanish switcher in Settings. Chrome strings only (navigation, submenus, Settings, search, Guide headings are static English in-app); user entries are never translated, and synthesis prompts remain English — the Settings note says exactly that in both languages. Spanish label lengths have not been design-reviewed (see §12).
+
+### Paths (confirms frames 13–17 with changes)
+
+- Nothing pinned by default, Finance included. Suggested Paths on Insights with readiness gating; History (approved + dismissed, restorable) beside Templates; augmented (online, derived-profile-only, exact-payload consent) detail for eligible Paths.
+
+## 12. Design Handoff Prep
+
+For the designer picking this up: the goal is to bring Figma back in sync with the shipped app without breaking the visual system in §3. Work through this list in order.
+
+**New frames to design (in priority order)**
+
+1. App shell: sidebar (expanded + ≤860px collapsed), submenu strip with pinned Path/pack tabs, Settings, and Guide — empty, populated, and Spanish-label states.
+2. Timeline: summarized chart at year/quarter/month/day densities, overlay filter and zoom states, selected-period detail, tag drawer, gap prompt cards (including the zero-gap and empty-archive states), Add-a-memory with recording/transcribing states.
+3. Network as shipped: full-bleed graph, centered floating search, self profile drawer, photo vs initials centre node.
+4. Legacy pack configuration: pack cards (never exported / exported / pinned / selected), expertise toggle on/off counts, create-pack flow, delete confirmation.
+5. Profile photo: upload affordance, replace/remove, and the avatar in its three homes (overview, graph centre, self drawer).
+
+**Decisions needed (implemented defaults to confirm or revise)**
+
+- Full-bleed breakout for Network/Timeline cards vs the 860px column — keep, or design a max-width?
+- 420px no-scrim drawer on wide screens vs the original opaque navy scrim — the app chose visibility of the graph underneath; confirm for Timeline tags as well as people.
+- Zoom cap (1,200 periods) and per-period widths (34–132px); day-level tick labeling on dense archives.
+- Overlay controls floating on the graph (Network search, Timeline filters/zoom) vs docked toolbars.
+- Spanish string lengths in the sidebar and strip; whether Templates/History/Security need shorter Spanish labels.
+- Gap-prompt tone and placement: dashed card below the chart, one per gap — confirm it invites rather than nags.
+
+**Handoff checklist**
+
+- [ ] New frames above added to the Figma screen page, named to match §4's convention, and appended to the §4 index with node IDs and heights.
+- [ ] Tokens unchanged, or any change recorded in §3 with resolved values.
+- [ ] Drawer, overlay, and full-bleed behaviors specified as states, not just statics (hover, selected period, recording, transcribing, disabled zoom ends).
+- [ ] Mobile (≤860px) states for every new frame — this is still the largest designed-vs-implemented gap.
+- [ ] This document updated: §4 index extended, §11 items marked designed, §12 decisions recorded with outcomes.
+- [ ] `docs/DESIGN.md` and this handoff agree; where they differ, the difference is called out rather than silent.

@@ -65,12 +65,12 @@ assert.equal(gapThresholdFor(250), 3);
 const root = path.join(__dirname, '..');
 const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 const main = fs.readFileSync(path.join(root, 'src', 'main.ts'), 'utf8');
-assert.ok(html.includes('data-sub="timeline"'), 'Timeline in the Knowledgebase submenu');
-assert.ok(html.includes('id="sub-timeline"'), 'timeline pane present');
+assert.ok(html.includes('data-view="timeline"'), 'Timeline in the main sidebar');
+assert.ok(html.includes('id="view-timeline"'), 'timeline view present');
 assert.ok(html.includes('data-timeline-mode="summary"') && html.includes('data-timeline-mode="uploaded"'), 'summarized/uploaded toggle');
 assert.ok(html.includes('id="timelineTags"'), 'analysis tags surface');
-assert.ok(html.includes('id="timelineGaps"'), 'gap prompts surface');
-assert.ok(html.includes('data-mic-for='), 'microphone buttons attached to inputs');
+assert.ok(main.includes('currentGaps'), 'gap prompts surface via tags');
+assert.ok(main.includes('data-mic-for='), 'microphone buttons attached to inputs');
 assert.ok(main.includes('buildTimeline'), 'timeline analysis wired');
 assert.ok(main.includes('transcribeAudioBlob'), 'mic uses on-device transcription');
 assert.ok(main.includes('getUserMedia'), 'mic capture wired');
@@ -79,7 +79,7 @@ assert.ok(main.includes("type: 'journal'"), 'gap memories are journal entries');
 // Redesign contract: D3 axis chart, horizontal scroll, filters.
 assert.ok(html.includes('id="timelineChart"'), 'D3 chart host present');
 assert.ok(html.includes('timeline-scroll'), 'chart scrolls horizontally');
-assert.ok(html.includes('id="timelineDetail"'), 'selected-period detail panel present');
+assert.ok(!html.includes('id="timelineDetail"'), 'period details moved into the modal');
 assert.ok(html.includes('id="timelineTypeFilters"'), 'entry-type filter toggles present');
 assert.ok(main.includes('data-tag-filter='), 'analysis-tag filter toggles present');
 assert.ok(main.includes('axisBottom'), 'chart uses the D3 axis component');
@@ -115,5 +115,21 @@ assert.ok(main.includes('openTimelineTagModal'), 'tag modal implemented');
 assert.ok(main.includes('timelineZoom'), 'zoom state wired');
 assert.ok(css.includes('.timeline-card'), 'full-bleed timeline styles present');
 assert.ok(css.includes('#timelineModal'), 'timeline drawer styles present');
+
+// Timeline is a main sidebar view; bottom cards and people pills are
+// gone — period and people details appear only in the click modal.
+{
+  const nav = html.slice(html.indexOf('sidebar-nav'), html.indexOf('</nav>'));
+  assert.ok(nav.indexOf('data-view="knowledge"') < nav.indexOf('data-view="timeline"'), 'Timeline below Knowledgebase in the sidebar');
+  assert.ok(nav.indexOf('data-view="timeline"') < nav.indexOf('data-view="paths"'), 'Timeline above Paths in the sidebar');
+}
+assert.ok(html.includes('id="view-timeline"'), 'Timeline is its own main view');
+assert.ok(!html.includes('data-sub="timeline"'), 'Timeline no longer a Knowledgebase subtab');
+assert.ok(!html.includes('id="timelineGaps"'), 'gap cards below the graph removed');
+assert.ok(!html.includes('id="tlAddBtn"'), 'bottom Add-a-memory card removed');
+assert.ok(!html.includes('id="timelineDetail"'), 'inline period detail card removed');
+assert.ok(main.includes('openPeriodModal'), 'clicking a period opens the modal');
+assert.ok(main.includes('modalGapBody'), 'gap memories are added from the modal');
+assert.ok(main.includes("kind !== 'people'"), 'people pills no longer render as chips');
 
 console.log('timeline OK: spikes, lulls, gaps, type mix, people met, adaptive granularity');
