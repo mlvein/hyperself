@@ -4,6 +4,8 @@ This document is the design handoff for Hyperself: the visual system, screen inv
 
 **Handoff status (updated November 2026):** the app has evolved well past the inspected frames — sidebar navigation with Settings and Guide, per-view search, an interactive Timeline, curated knowledge packs, profile photos, and a Spanish interface are all implemented and described in §11. Those implementations extend the visual system below but have not been designed in Figma; §12 lists what a designer should review, decide, and deliver to bring the Figma back in sync. Nothing in §11 changes the tokens or geometry in §3 unless explicitly stated.
 
+**Latest change:** Timeline has been promoted from a Knowledgebase subtab to its own main sidebar view (between Knowledgebase and Paths). The cards that used to sit below its graph — period detail, gap prompts, Add-a-memory — and the people pills under the graph are removed; period, people, and gap-memory details now appear only in the side drawer on click. See §11 Timeline and the updated §12 work list.
+
 ## 1. Authority and Scope
 
 Inspected on **2026-10-30**. Visual source of truth: the Hyperself Figma file (screen page `0:1`, design-system page `3:53635`).
@@ -20,8 +22,8 @@ Hyperself is designed as a local-first personal knowledge and AI workspace. Know
 The intended privacy model distinguishes `personal` material from explicitly approved `shareable` material. Paths and Legacy are intended to use approved shareable knowledge; a screen saying so is not proof of enforcement.
 
 - Original design: a header with the plain **Hyperself** wordmark, Knowledgebase / Paths / Legacy navigation, right-hand search, and an offline badge where shown.
-- **Current app (see §11):** the main menu lives in a 248px sidebar — wordmark, greeting, and offline badge at top; Knowledgebase / Paths / Legacy below; **Guide** and **Settings** pinned at the sidebar bottom. Each view's subsections sit in a horizontal strip at the top of the main view, with Security at the right end. On small screens the sidebar collapses into a wrapping top block.
-- Search: one search bar for the whole app, moved to the top of each main view (above the overview card on Synthesis; centered over the graph on Network). Placeholder: "Ask your knowledgebase…", with per-view variants ("Search people in your network…" on Network). The illustrated search state uses an audio-budget query and transcript results.
+- **Current app (see §11):** the main menu lives in a 248px sidebar — wordmark, greeting, and offline badge at top; Knowledgebase / **Timeline** / Paths / Legacy below; **Guide** and **Settings** pinned at the sidebar bottom. Each view's subsections sit in a horizontal strip at the top of the main view, with Security at the right end; the strip hides on Timeline, Guide, and Settings. On small screens the sidebar collapses into a wrapping top block.
+- Search: one search bar for the whole app, moved to the top of each main view (above the overview card on Synthesis; centered over the graph on Network; at the top of Timeline). Placeholder: "Ask your knowledgebase…", with per-view variants ("Search people in your network…" on Network, "Search your timeline…" on Timeline). The illustrated search state uses an audio-budget query and transcript results.
 - Knowledgebase submenu: Synthesis / Network / Import & Connect, with Security aligned right. Timeline graduated to its own main sidebar view (between Knowledgebase and Paths) and is not in the inspected frames.
 - Paths submenu: Insights / pinned saved-Path tabs, Templates, History, with Security at the right. Nothing is pinned by default in the current app; new Paths appear first as Suggested Paths on Insights. Only **Relationship Rhythms** is pinned in the illustrated populated states.
 - Legacy submenu: Export, plus pinned knowledge-pack tabs (see §11). The pane contains export, import, and pack-only question sections, not three separate navigation destinations.
@@ -68,7 +70,7 @@ Shared styles use **150% line height** and zero letter spacing. Do not replace d
 
 **Modal scrims in the design are solid, opaque navy**, not translucent backdrops. (Current app: this holds on smaller screens; on wide screens the person/profile panel is a right-hand drawer with no scrim, so the Network graph stays visible underneath.)
 
-Implemented geometry since the inspection (same tokens, new layout facts a designer should adopt or revise): sidebar **248px**, sticky full-height, collapsing to a top block at ≤860px; submenu strip restored at the top of the main view (51px, wash background); Network and Timeline cards **break out of the 860px column** to viewport width minus sidebar and 20px gutters; Timeline plot is **280px** tall inside a horizontally scrollable viewport with per-period widths of 34–132px by granularity; person/profile and timeline-tag panels are **420px right-hand drawers** (12px left radius, 1px left border, 220ms slide-in, no scrim) at ≥861px and the original navy overlay below that; search over Network is centered, max 520px wide, floating 12px over the graph; profile avatars accept a user photo (square-cropped, circular mask) with the initials fallback unchanged.
+Implemented geometry since the inspection (same tokens, new layout facts a designer should adopt or revise): sidebar **248px**, sticky full-height, collapsing to a top block at ≤860px; submenu strip restored at the top of the main view (51px, wash background); Network and Timeline cards **break out of the 860px column** to viewport width minus sidebar and 20px gutters; Timeline plot is **280px** tall inside a horizontally scrollable viewport with per-period widths of 34–132px by granularity; person/profile, timeline-period, and timeline-tag panels are **420px right-hand drawers** (12px left radius, 1px left border, 220ms slide-in, no scrim) at ≥861px and the original navy overlay below that; search over Network is centered, max 520px wide, floating 12px over the graph; profile avatars accept a user photo (square-cropped, circular mask) with the initials fallback unchanged.
 The five source tiles are not equal-sized: four **268 x 218px** tiles form a 2-by-2 block on the left; the **260 x 448px** account tile on the right spans **two rows**, with 12px gaps.
 These are desktop observations, not a delivered mobile breakpoint specification. Preserve hierarchy when implementing responsive layouts and explicitly QA mobile behavior rather than claiming mobile screens were designed.
 
@@ -284,7 +286,7 @@ Everything below is implemented, tested, and shipped in the app. None of it has 
 ### Timeline (new view; no frames)
 
 - Timeline is its own main sidebar view, between Knowledgebase and Paths (it began as a Knowledgebase subtab). Summarized: full-bleed interactive D3 bar chart (axis component, count labels, gridlines) — spike periods yellow, silent gap periods pale, green dot where a person was first met; horizontally scrollable at fixed per-period widths. Uploaded data: every entry in date order.
-- Analysis tags as chips below the chart: spike, lull, gap, type-mix ("Mostly research in Jun 2024"), and people-met. Kind toggles dim non-matching periods; type toggles rescale the chart to one entry type; type toggles and zoom controls float over the graph.
+- Analysis tags as chips below the chart: spike, lull, gap, and type-mix ("Mostly research in Jun 2024") only. There are deliberately **no people pills**: a green dot on the chart marks a first meeting, and who was met appears only inside the period drawer on click. Kind toggles dim non-matching periods; type toggles rescale the chart to one entry type; type toggles and zoom controls float over the graph.
 - Zoom: Years → Quarters → Months → Days, capped at 1,200 periods so long archives stop at a legible level.
 - Clicking a period or a **tag** opens its details in the same 420px drawer pattern — including the people first met in that stretch, who no longer appear as pills under the graph. There are no cards below the graph.
 - Gap prompts: silent stretches at/over the threshold (12 months, tightening to 6 then 3 as the archive grows) are tagged as gaps; clicking the tag (or a silent period) opens the drawer with a memory form — typed or dictated by microphone (on-device transcription) — saved as a personal entry dated inside the gap.
@@ -311,8 +313,8 @@ For the designer picking this up: the goal is to bring Figma back in sync with t
 
 **New frames to design (in priority order)**
 
-1. App shell: sidebar (expanded + ≤860px collapsed), submenu strip with pinned Path/pack tabs, Settings, and Guide — empty, populated, and Spanish-label states.
-2. Timeline: summarized chart at year/quarter/month/day densities, overlay filter and zoom states, selected-period detail, tag drawer, gap prompt cards (including the zero-gap and empty-archive states), Add-a-memory with recording/transcribing states.
+1. App shell: sidebar with the four-item main menu — Knowledgebase / **Timeline** / Paths / Legacy — (expanded + ≤860px collapsed), submenu strip with pinned Path/pack tabs, Settings, and Guide — empty, populated, and Spanish-label states.
+2. Timeline as a main view: summarized chart at year/quarter/month/day densities with overlay filter and zoom states; period drawer and tag drawer (including the people-met section that replaced the pills); gap-memory form inside the drawer with recording/transcribing states; zero-gap and empty-archive states. No frames for anything below the graph — by design there is nothing there; confirm that emptiness reads as intentional.
 3. Network as shipped: full-bleed graph, centered floating search, self profile drawer, photo vs initials centre node.
 4. Legacy pack configuration: pack cards (never exported / exported / pinned / selected), expertise toggle on/off counts, create-pack flow, delete confirmation.
 5. Profile photo: upload affordance, replace/remove, and the avatar in its three homes (overview, graph centre, self drawer).
@@ -324,7 +326,8 @@ For the designer picking this up: the goal is to bring Figma back in sync with t
 - Zoom cap (1,200 periods) and per-period widths (34–132px); day-level tick labeling on dense archives.
 - Overlay controls floating on the graph (Network search, Timeline filters/zoom) vs docked toolbars.
 - Spanish string lengths in the sidebar and strip; whether Templates/History/Security need shorter Spanish labels.
-- Gap-prompt tone and placement: dashed card below the chart, one per gap — confirm it invites rather than nags.
+- Gap-memory tone inside the drawer: the form opens on a gap tag or silent period — confirm it invites rather than nags, and that hiding it behind a click doesn't bury the feature.
+- People discoverability without pills: a 3.5px green dot plus drawer content is the only signal that a period holds a first meeting — confirm that is findable enough, or design a stronger affordance.
 
 **Handoff checklist**
 
