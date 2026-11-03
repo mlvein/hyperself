@@ -122,22 +122,26 @@
         </div>
 
         <div id="sub-timeline" hidden>
-          <div class="card">
-            <h2>Timeline</h2>
-            <p class="hint">Your knowledgebase over time. Summarized groups entries into periods with analysis tags; Uploaded data lists everything in date order.</p>
+          <div class="card timeline-card">
             <div class="row" role="tablist" aria-label="Timeline view">
               <button type="button" class="small tl-mode active" data-timeline-mode="summary">Summarized</button>
               <button type="button" class="small tl-mode" data-timeline-mode="uploaded">Uploaded data</button>
               <span id="timelineMeta" class="hint"></span>
             </div>
-            <div class="row tl-filter-bar">
-              <span class="hint">Filter by type</span>
-              <span id="timelineTypeFilters" class="tl-filter-row"></span>
+            <div class="timeline-stage">
+              <div class="timeline-overlay">
+                <span id="timelineTypeFilters" class="tl-filter-row"></span>
+                <span class="tl-zoom">
+                  <button type="button" id="tlZoomOut" class="small" aria-label="Zoom out">−</button>
+                  <span id="tlZoomLabel" class="hint">Months</span>
+                  <button type="button" id="tlZoomIn" class="small" aria-label="Zoom in">+</button>
+                </span>
+              </div>
+              <div class="timeline-scroll">
+                <div id="timelineChart"></div>
+              </div>
             </div>
             <div id="timelineTags" class="timeline-tags"></div>
-            <div class="timeline-scroll">
-              <div id="timelineChart"></div>
-            </div>
             <div id="timelineDetail"></div>
             <div id="timelineUploaded" hidden></div>
           </div>
@@ -479,6 +483,14 @@ OLLAMA_ORIGINS=http://localhost:5173 ollama serve</pre>
         <h2 id="personModalName">Person</h2>
         <div id="personModalBody"></div>
         <p><button type="button" id="personModalClose" class="linklike">Close</button></p>
+      </div>
+    </div>
+
+    <div id="timelineModal" class="overlay" hidden>
+      <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="timelineModalTitle">
+        <h2 id="timelineModalTitle">Timeline</h2>
+        <div id="timelineModalBody"></div>
+        <p><button type="button" id="timelineModalClose" class="linklike">Close</button></p>
       </div>
     </div>
 

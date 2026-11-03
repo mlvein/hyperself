@@ -91,4 +91,29 @@ const css = fs.readFileSync(path.join(root, 'src', 'styles.css'), 'utf8');
 assert.ok(css.includes('overflow-x: auto'), 'scroll container styles present');
 assert.ok(css.includes('.tl-bar'), 'interactive bar styles present');
 
+// Zoom levels: an explicit granularity override goes down to days.
+{
+  const entries = [];
+  for (let d = 1; d <= 10; d += 1) entries.push(entry(`d${d}`, `2024-06-${String(d).padStart(2, '0')}T00:00:00.000Z`));
+  const daily = buildTimeline(entries, 'day');
+  assert.equal(daily.granularity, 'day', 'day override honored');
+  assert.equal(daily.periods.length, 10, 'one period per day');
+  const yearly = buildTimeline(entries, 'year');
+  assert.equal(yearly.periods.length, 1, 'year override buckets together');
+  const capped = buildTimeline([entry('a', '2010-01-05T00:00:00.000Z'), entry('b', '2026-01-05T00:00:00.000Z')], 'day');
+  assert.notEqual(capped.granularity, 'day', 'day view is capped on very long spans');
+}
+
+// Expanded interactive view contract.
+assert.ok(html.includes('timeline-card'), 'timeline card can break out full-width');
+assert.ok(html.includes('timeline-stage'), 'chart stage for overlay controls');
+assert.ok(html.includes('timeline-overlay'), 'filters overlay the graph');
+assert.ok(html.includes('id="tlZoomIn"') && html.includes('id="tlZoomOut"'), 'zoom controls present');
+assert.ok(html.includes('id="timelineModal"'), 'tag side modal present');
+assert.ok(main.includes('data-tag-open'), 'clicking a tag opens the modal');
+assert.ok(main.includes('openTimelineTagModal'), 'tag modal implemented');
+assert.ok(main.includes('timelineZoom'), 'zoom state wired');
+assert.ok(css.includes('.timeline-card'), 'full-bleed timeline styles present');
+assert.ok(css.includes('#timelineModal'), 'timeline drawer styles present');
+
 console.log('timeline OK: spikes, lulls, gaps, type mix, people met, adaptive granularity');

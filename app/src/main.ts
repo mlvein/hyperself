@@ -81,7 +81,7 @@ import {
   runAccountScan,
 } from './connections';
 import { runKnowledgeSearch } from './search';
-import { buildTimeline, type TimelineGap } from './timeline';
+import { GRANULARITY_LEVELS, buildTimeline, type TimelineGap, type TimelineGranularity, type TimelineTag } from './timeline';
 import { applyLocale, isLocale, loadLocale, saveLocale, t, type Locale } from './i18n';
 import { analyzeKnowledgebase, buildEssence, buildSynthesisCards, buildWhatMatters } from './analysis';
 import { scanEntry } from './security';
@@ -2247,6 +2247,9 @@ let currentGaps: TimelineGap[] = [];
 let timelineTypeFilter = 'all';
 let timelineTagFilter: string | null = null;
 let selectedPeriodKey: string | null = null;
+let timelineZoom: TimelineGranularity | null = null;
+let currentGranularity: TimelineGranularity = 'month';
+let currentTags: TimelineTag[] = [];
 
 /** D3 bar chart over timeline periods: axis component below, counts
  * scaled, horizontally scrollable, click a bar to inspect the period. */
@@ -2271,10 +2274,10 @@ function renderTimelineChart(tl: ReturnType<typeof buildTimeline>, entries: Entr
       for (const p of tl.periods) if (p.start >= t.from && p.start < t.to) taggedKeys.add(p.key);
     }
   }
-  const pxPerPeriod = tl.granularity === 'month' ? 54 : tl.granularity === 'quarter' ? 96 : 132;
-  const margin = { top: 20, right: 16, bottom: 58, left: 38 };
+  const pxPerPeriod = tl.granularity === 'day' ? 34 : tl.granularity === 'month' ? 54 : tl.granularity === 'quarter' ? 96 : 132;
+  const margin = { top: 26, right: 16, bottom: 58, left: 38 };
   const innerWidth = Math.max(host.clientWidth || 640, tl.periods.length * pxPerPeriod);
-  const innerHeight = 210;
+  const innerHeight = 280;
   const width = innerWidth + margin.left + margin.right;
   const height = innerHeight + margin.top + margin.bottom;
   const x = d3.scaleBand<string>().domain(tl.periods.map((p) => p.key)).range([0, innerWidth]).padding(0.15);
@@ -2316,6 +2319,20 @@ function renderTimelineChart(tl: ReturnType<typeof buildTimeline>, entries: Entr
     })
     .append('title')
     .text((p) => `${p.label}: ${valueOf(p)} entries${p.dominantType ? ` · mostly ${p.dominantType}` : ''}${p.peopleMet.length ? ` · met ${p.peopleMet.join(', ')}` : ''}`);
+  g.selectAll('text.tl-value')
+    .data(tl.periods.filter((p) => valueOf(p) > 0))
+    .join('text')
+    .attr('class', 'tl-value')
+    .attr('x', (p) => (x(p.key) ?? 0) + x.bandwidth() / 2)
+    .attr('y', (p) => y(valueOf(p)) - 4)
+    .attr('text-anchor', 'middle')
+    .attr('font-size', '10px')
+    .text((p) => valueOf(p));
+  g.append('g')
+    .attr('class', 'tl-grid')
+    .call(d3.axisLeft(y).ticks(5).tickSize(-innerWidth).tickFormat(() => ''))
+    .selectAll('line')
+    .attr('stroke', '#ebebf3');
   g.selectAll('circle.tl-met')
     .data(tl.periods.filter((p) => p.peopleMet.length))
     .join('circle')
@@ -2345,8 +2362,14 @@ function renderTimelineChart(tl: ReturnType<typeof buildTimeline>, entries: Entr
 
 function renderTimeline(): void {
   const entries = listEntries();
-  const tl = buildTimeline(entries);
+  const tl = buildTimeline(entries, timelineZoom ?? undefined);
   currentGaps = tl.gaps;
+  currentTags = tl.tags;
+  currentGranularity = tl.granularity;
+  const levelIdx = GRANULARITY_LEVELS.indexOf(tl.granularity);
+  el('tlZoomLabel').textContent = `${tl.granularity === 'day' ? 'Days' : tl.granularity === 'month' ? 'Months' : tl.granularity === 'quarter' ? 'Quarters' : 'Years'}${timelineZoom ? '' : ' (auto)'}`;
+  (el('tlZoomIn') as HTMLButtonElement).disabled = levelIdx >= GRANULARITY_LEVELS.length - 1;
+  (el('tlZoomOut') as HTMLButtonElement).disabled = levelIdx <= 0;
   el('timelineMeta').textContent = entries.length
     ? `${entries.length} entries · by ${tl.granularity} · gaps flagged at ${tl.gapThresholdMonths}+ silent months · scroll sideways, click a period`
     : 'No entries yet.';
@@ -2367,8 +2390,9 @@ function renderTimeline(): void {
         )
         .join('') +
       tl.tags
-        .filter((t) => !timelineTagFilter || t.kind === timelineTagFilter)
-        .map((t) => `<span class="tl-tag tl-tag-${t.kind}" title="${escapeHtml(t.detail)}">${escapeHtml(t.label)}</span>`)
+        .map((t, i) => ({ t, i }))
+        .filter(({ t }) => !timelineTagFilter || t.kind === timelineTagFilter)
+        .map(({ t, i }) => `<button type="button" class="tl-tag tl-tag-${t.kind}" data-tag-open="${i}" title="${escapeHtml(t.detail)}">${escapeHtml(t.label)}</button>`)
         .join('')
     : '<p class="hint">No patterns flagged yet — add more knowledge and spikes, lulls, and gaps will surface here.</p>';
   renderTimelineChart(tl, entries);
@@ -2413,7 +2437,65 @@ function renderTimeline(): void {
   if (!dateInput.value) dateInput.value = new Date().toISOString().slice(0, 10);
 }
 
+/** Clicking an analysis tag opens its side drawer (same pattern as the
+ * Network person drawer: right side on wide screens, navy overlay on
+ * smaller screens). */
+function openTimelineTagModal(tag: TimelineTag): void {
+  el('timelineModalTitle').textContent = tag.label;
+  const inRange = listEntries()
+    .filter((e) => e.created_at >= tag.from && e.created_at < tag.to)
+    .slice()
+    .sort((a, b) => a.created_at.localeCompare(b.created_at));
+  const typeLine = [...inRange.reduce((m, e) => m.set(e.type, (m.get(e.type) ?? 0) + 1), new Map<string, number>()).entries()]
+    .map(([k, v]) => `${k}: ${v}`)
+    .join(' · ');
+  const people = [...new Set(inRange.flatMap((e) => e.people ?? []))].sort();
+  el('timelineModalBody').innerHTML =
+    `<p>${escapeHtml(tag.detail)}</p>` +
+    (typeLine ? `<p class="meta">${escapeHtml(typeLine)}</p>` : '') +
+    (people.length ? `<p class="meta">People here: ${people.map(escapeHtml).join(', ')}</p>` : '') +
+    `<h3 class="ov-sub">In this stretch</h3>` +
+    (inRange.length
+      ? inRange.slice(0, 30).map((e) => `<p class="meta">• ${escapeHtml(e.created_at.slice(0, 10))} — ${escapeHtml(e.title)} <span>· ${escapeHtml(e.type)} · ${escapeHtml(e.tag)}</span></p>`).join('') +
+        (inRange.length > 30 ? `<p class="hint">…and ${inRange.length - 30} more. Filter by type on the chart to narrow this down.</p>` : '')
+      : '<p class="hint">No entries in this stretch — that silence is exactly what the tag is pointing at. Add a memory from the gap prompt below the chart.</p>');
+  el('timelineModal').hidden = false;
+}
+
+function closeTimelineModal(): void {
+  el('timelineModal').hidden = true;
+}
+
+el('timelineModalClose').addEventListener('click', closeTimelineModal);
+el('timelineModal').addEventListener('click', (ev) => {
+  if (ev.target === el('timelineModal')) closeTimelineModal();
+});
+document.addEventListener('keydown', (ev) => {
+  if (ev.key === 'Escape' && !el('timelineModal').hidden) closeTimelineModal();
+});
+
+el('tlZoomIn').addEventListener('click', () => {
+  const idx = GRANULARITY_LEVELS.indexOf(currentGranularity);
+  if (idx < GRANULARITY_LEVELS.length - 1) {
+    timelineZoom = GRANULARITY_LEVELS[idx + 1];
+    renderTimeline();
+  }
+});
+el('tlZoomOut').addEventListener('click', () => {
+  const idx = GRANULARITY_LEVELS.indexOf(currentGranularity);
+  if (idx > 0) {
+    timelineZoom = GRANULARITY_LEVELS[idx - 1];
+    renderTimeline();
+  }
+});
+
 el('sub-timeline').addEventListener('click', (ev) => {
+  const openBtn = (ev.target as HTMLElement).closest<HTMLElement>('[data-tag-open]');
+  if (openBtn) {
+    const tag = currentTags[Number(openBtn.dataset.tagOpen)];
+    if (tag) openTimelineTagModal(tag);
+    return;
+  }
   const typeBtn = (ev.target as HTMLElement).closest<HTMLElement>('[data-type-filter]');
   if (typeBtn) {
     timelineTypeFilter = typeBtn.dataset.typeFilter ?? 'all';

@@ -5,7 +5,10 @@
 // prompts to fill gaps get more granular the more data there is.
 import type { Entry } from './types';
 
-export type TimelineGranularity = 'month' | 'quarter' | 'year';
+export type TimelineGranularity = 'day' | 'month' | 'quarter' | 'year';
+
+/** Zoom levels from coarsest to finest. */
+export const GRANULARITY_LEVELS: TimelineGranularity[] = ['year', 'quarter', 'month', 'day'];
 
 export interface TimelinePeriod {
   key: string;
@@ -48,11 +51,17 @@ export function gapThresholdFor(entryCount: number): number {
 }
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-const BUCKET_MONTHS: Record<TimelineGranularity, number> = { month: 1, quarter: 3, year: 12 };
+const BUCKET_MONTHS: Record<TimelineGranularity, number> = { day: 1 / 30.44, month: 1, quarter: 3, year: 12 };
+const MAX_PERIODS = 1200;
 
 function bucketOf(date: Date, granularity: TimelineGranularity): { key: string; start: Date; label: string } {
   const y = date.getUTCFullYear();
   const m = date.getUTCMonth();
+  if (granularity === 'day') {
+    const d = date.getUTCDate();
+    const key = `${y}-${String(m + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+    return { key, start: new Date(Date.UTC(y, m, d)), label: `${d} ${MONTHS[m]} ${y}` };
+  }
   if (granularity === 'year') return { key: `${y}`, start: new Date(Date.UTC(y, 0, 1)), label: `${y}` };
   if (granularity === 'quarter') {
     const q = Math.floor(m / 3);
@@ -65,7 +74,9 @@ function bucketOf(date: Date, granularity: TimelineGranularity): { key: string; 
   };
 }
 
-function addMonths(date: Date, months: number): Date {
+function addBucket(date: Date, granularity: TimelineGranularity): Date {
+  if (granularity === 'day') return new Date(date.getTime() + 86_400_000);
+  const months = granularity === 'year' ? 12 : granularity === 'quarter' ? 3 : 1;
   return new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth() + months, 1));
 }
 
@@ -76,18 +87,22 @@ function median(values: number[]): number {
   return sorted.length % 2 ? sorted[mid] : (sorted[mid - 1] + sorted[mid]) / 2;
 }
 
-export function buildTimeline(entries: Entry[]): Timeline {
+export function buildTimeline(entries: Entry[], preferred?: TimelineGranularity): Timeline {
   const live = entries
     .filter((e) => e.deleted_at === null)
     .slice()
     .sort((a, b) => a.created_at.localeCompare(b.created_at));
   const gapThresholdMonths = gapThresholdFor(live.length);
-  if (!live.length) return { granularity: 'month', gapThresholdMonths, periods: [], gaps: [], tags: [] };
+  if (!live.length) return { granularity: preferred ?? 'month', gapThresholdMonths, periods: [], gaps: [], tags: [] };
 
   const first = new Date(live[0].created_at);
   const last = new Date(live[live.length - 1].created_at);
   const spanMonths = (last.getUTCFullYear() - first.getUTCFullYear()) * 12 + (last.getUTCMonth() - first.getUTCMonth()) + 1;
-  const granularity: TimelineGranularity = spanMonths <= 36 ? 'month' : spanMonths <= 144 ? 'quarter' : 'year';
+  let granularity: TimelineGranularity = preferred ?? (spanMonths <= 36 ? 'month' : spanMonths <= 144 ? 'quarter' : 'year');
+  // Zooming in is capped: never build an unreadable wall of periods.
+  while (spanMonths / BUCKET_MONTHS[granularity] > MAX_PERIODS && granularity !== 'year') {
+    granularity = GRANULARITY_LEVELS[Math.max(0, GRANULARITY_LEVELS.indexOf(granularity) - 1)];
+  }
   const bucketMonths = BUCKET_MONTHS[granularity];
 
   // First mention of each person, across the whole archive.
@@ -108,7 +123,7 @@ export function buildTimeline(entries: Entry[]): Timeline {
       key: b.key,
       label: b.label,
       start: b.start.toISOString(),
-      end: addMonths(b.start, bucketMonths).toISOString(),
+      end: addBucket(b.start, granularity).toISOString(),
       total: 0,
       byType: {},
       dominantType: null,
@@ -116,7 +131,7 @@ export function buildTimeline(entries: Entry[]): Timeline {
     };
     periods.push(period);
     byKey.set(period.key, period);
-    cursor = addMonths(cursor, bucketMonths);
+    cursor = addBucket(cursor, granularity);
   }
   for (const e of live) {
     const period = byKey.get(bucketOf(new Date(e.created_at), granularity).key);

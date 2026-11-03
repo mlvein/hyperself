@@ -144,11 +144,39 @@ button, input, textarea, select { font-family: var(--font-body); }
 /* Network breaks out of the 860px content column to the full content
    width (viewport minus the 248px sidebar, with 20px gutters a side). */
 @media (min-width: 861px) {
-  .network-card { width: calc(100vw - 288px); margin-left: calc(50% - (100vw - 288px) / 2); }
+  .network-card, .timeline-card { width: calc(100vw - 288px); margin-left: calc(50% - (100vw - 288px) / 2); }
 }
 @media (max-width: 860px) {
-  .network-card { width: calc(100vw - 40px); margin-left: calc(50% - (100vw - 40px) / 2); }
+  .network-card, .timeline-card { width: calc(100vw - 40px); margin-left: calc(50% - (100vw - 40px) / 2); }
 }
+.timeline-stage { position: relative; }
+.timeline-overlay {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  z-index: 6;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  pointer-events: none;
+}
+.timeline-overlay > * { pointer-events: auto; }
+.timeline-overlay .tl-filter-row, .timeline-overlay .tl-zoom {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 6px;
+  display: inline-flex;
+  gap: 0.35rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.tl-zoom button:disabled { opacity: 0.4; cursor: default; }
+.tl-value { fill: var(--ink); pointer-events: none; }
+.tl-grid line { pointer-events: none; }
 .timeline-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.75rem 0; }
 .tl-tag { font-size: 0.78rem; border: 1px solid var(--line); border-radius: 999px; padding: 0.15rem 0.6rem; background: var(--wash); }
 .tl-tag-spike { border-color: var(--text-warning); background: var(--status-warning-background); }
@@ -366,7 +394,16 @@ button.small { padding: 0.2rem 0.6rem; font-size: 0.85rem; }
 /* Person details: on wide screens a right-hand drawer sliding in;
    on smaller screens the default centered overlay on solid navy stays. */
 @media (min-width: 861px) {
-  #personModal { justify-content: flex-end; align-items: stretch; padding: 0; background: transparent; }
+  #personModal, #timelineModal { justify-content: flex-end; align-items: stretch; padding: 0; background: transparent; }
+  #timelineModal .dialog {
+    width: 420px;
+    max-width: 420px;
+    height: 100%;
+    max-height: none;
+    border-left: 1px solid var(--line);
+    border-radius: 12px 0 0 12px;
+    animation: person-drawer-in 220ms ease;
+  }
   #personModal .dialog {
     width: 420px;
     max-width: 420px;
@@ -382,7 +419,7 @@ button.small { padding: 0.2rem 0.6rem; font-size: 0.85rem; }
   to { transform: translateX(0); }
 }
 @media (prefers-reduced-motion: reduce) {
-  #personModal .dialog { animation: none; }
+  #personModal .dialog, #timelineModal .dialog { animation: none; }
 }
 #onboarding { padding-top: 146px; }
 #onboarding .dialog { max-width: 600px; padding: 28px; }

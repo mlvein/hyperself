@@ -107,7 +107,7 @@ assert.ok(main.includes('Your timeline'), 'self profile shows the user timeline'
 // Wide-screen person drawer: no opaque scrim, so the Network stays
 // visible underneath; the Network search is centered and headerless.
 const wideDrawer = css.slice(css.indexOf('@media (min-width: 861px)'), css.indexOf('@keyframes person-drawer-in'));
-assert.ok(/#personModal\s*\{[^}]*background:\s*transparent/.test(wideDrawer), 'wide drawer has no blue scrim');
+assert.ok(/#personModal[^{]*\{[^}]*background:\s*transparent/.test(wideDrawer), 'wide drawer has no blue scrim');
 assert.ok(!html.includes('<h2>Your network</h2>'), 'Network header removed');
 assert.ok(!html.includes('You are the center.'), 'Network description removed');
 const netSearch = css.slice(css.indexOf('.view-search.network-search'));
