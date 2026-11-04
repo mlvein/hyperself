@@ -1,6 +1,6 @@
 // Hyperself service worker: offline-first app shell.
 // Bump CACHE_VERSION on every release that must evict old shells.
-const CACHE_VERSION = 'hyperself-v16';
+const CACHE_VERSION = 'hyperself-v18';
 const SHELL = [
   '/',
   '/index.html',
@@ -8,6 +8,14 @@ const SHELL = [
   '/icons/icon-192.png',
   '/icons/icon-512.png',
   '/assets/hyperself/artwork/hyperself-wordmark.svg',
+  '/assets/hyperself/artwork/hyperself-icon-anim-reveal.svg',
+  '/assets/hyperself/icons/brand-signature.svg',
+  '/assets/hyperself/icons/brand-knowledgebase.svg',
+  '/assets/hyperself/icons/brand-timeline.svg',
+  '/assets/hyperself/icons/brand-paths.svg',
+  '/assets/hyperself/icons/brand-legacy.svg',
+  '/assets/hyperself/icons/brand-guide.svg',
+  '/assets/hyperself/icons/brand-settings.svg',
   '/assets/hyperself/icons/shield-check.svg',
   '/assets/hyperself/icons/link.svg',
   '/assets/hyperself/icons/file-text.svg',

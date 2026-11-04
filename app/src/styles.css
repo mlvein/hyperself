@@ -455,19 +455,14 @@ button:disabled { opacity: 0.45; cursor: default; }
 }
 .lock-dialog { text-align: center; display: flex; flex-direction: column; align-items: center; }
 .lock-dialog .lock-wordmark { display: block; margin: 0 auto 8px; width: 240px; max-width: 80%; height: auto; }
-.lock-dialog h2 { text-align: center; }
 .lock-dialog label { align-items: center; text-align: center; width: 100%; max-width: 320px; }
 .lock-dialog label input { text-align: center; width: 100%; }
 .lock-dialog .row { justify-content: center; }
 .lock-dialog .hint, .lock-dialog .error { text-align: center; }
+.lock-anim { display: block; width: 140px; height: auto; margin: 4px auto; }
 .lock-loading { display: flex; flex-direction: column; align-items: center; gap: 8px; margin: 12px auto; }
 .lock-loading[hidden] { display: none; }
-.lock-loading img { display: block; width: 96px; height: auto; margin: 0 auto; animation: lock-reveal 1.4s ease-in-out infinite; }
 .lock-loading p { margin: 0; }
-@keyframes lock-reveal { 0%, 100% { opacity: 0.35; transform: scale(0.96); } 50% { opacity: 1; transform: scale(1); } }
-@media (prefers-reduced-motion: reduce) {
-  .lock-loading img { animation: none; }
-}
 #onboarding { padding-top: 146px; }
 #onboarding .dialog { max-width: 600px; padding: 28px; }
 .dialog h2 { margin-top: 0; }

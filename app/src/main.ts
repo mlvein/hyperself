@@ -3066,7 +3066,6 @@ function finishUnlock(): void {
 
 function showLockGate(): void {
   const setupMode = !hasVault();
-  el('lockTitle').textContent = setupMode ? 'Create your vault' : 'Unlock Hyperself';
   el('lockHint').textContent = setupMode
     ? 'Choose a PIN. Your knowledge will be encrypted on this device; add biometrics after setup if you like.'
     : 'Your knowledge is encrypted on this device.';
