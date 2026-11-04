@@ -43,7 +43,9 @@ assert.equal(store.getProfilePhoto(), tiny, 'photo survives a database restore')
 const html = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
 const main = fs.readFileSync(path.join(__dirname, '..', 'src', 'main.ts'), 'utf8');
 assert.ok(html.includes('id="profilePhotoInput"'), 'profile photo upload input present');
-assert.ok(html.includes('id="profilePhotoBtn"'), 'upload control on the overview card');
+assert.ok(!html.includes('id="profilePhotoBtn"'), 'no upload button on the overview card');
+assert.ok(html.includes('id="profilePhotoModal"'), 'avatar opens an upload/edit photo modal');
+assert.ok(main.includes('openProfilePhotoModal'), 'avatar click opens the photo modal');
 assert.ok(main.includes('fileToProfilePhoto'), 'uploads are downsized before storing');
 assert.ok(main.includes('getProfilePhoto'), 'UI reads the stored photo');
 assert.ok(main.includes('center ? getProfilePhoto()'), 'network center node uses the photo');

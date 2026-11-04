@@ -354,17 +354,42 @@ function renderProfileCard(blurb: string): void {
   el('profileAvatar').innerHTML = photo
     ? `<img src="${photo}" alt="Profile photo" />`
     : escapeHtml(name ? name.slice(0, 1).toUpperCase() : '?');
-  el('profilePhotoRemoveBtn').hidden = !photo;
   el('profileBlurb').textContent = limitTwoSentences(blurb);
 }
 
 // Profile picture: one downsized copy stored in the DB (see store.ts).
 // The picked file itself is never referenced after this handler runs.
-el('profilePhotoBtn').addEventListener('click', () => el('profilePhotoInput').click());
-el('profilePhotoRemoveBtn').addEventListener('click', () => {
+// Clicking the avatar opens the upload/edit modal (no upload button).
+function openProfilePhotoModal(): void {
+  const photo = getProfilePhoto();
+  const name = getProfile()?.name ?? '';
+  el('profilePhotoPreview').innerHTML = photo
+    ? `<img src="${photo}" alt="Current profile photo" />`
+    : `<span class="preview-initial" aria-hidden="true">${escapeHtml(name ? name.slice(0, 1).toUpperCase() : '?')}</span>`;
+  el('profilePhotoUploadBtn').textContent = photo ? 'Replace photo' : 'Upload photo';
+  el('profilePhotoModalRemoveBtn').hidden = !photo;
+  el('profilePhotoModal').hidden = false;
+}
+function closeProfilePhotoModal(): void {
+  el('profilePhotoModal').hidden = true;
+}
+el('profileAvatar').addEventListener('click', openProfilePhotoModal);
+el('profileAvatar').addEventListener('keydown', (ev) => {
+  if (ev.key === 'Enter' || ev.key === ' ') {
+    ev.preventDefault();
+    openProfilePhotoModal();
+  }
+});
+el('profilePhotoUploadBtn').addEventListener('click', () => el('profilePhotoInput').click());
+el('profilePhotoModalRemoveBtn').addEventListener('click', () => {
   setProfilePhoto(null);
   el('profilePhotoNote').textContent = 'Profile photo removed.';
   renderAll();
+  openProfilePhotoModal();
+});
+el('profilePhotoModalClose').addEventListener('click', closeProfilePhotoModal);
+el('profilePhotoModal').addEventListener('click', (ev) => {
+  if (ev.target === el('profilePhotoModal')) closeProfilePhotoModal();
 });
 el<HTMLInputElement>('profilePhotoInput').addEventListener('change', (ev) => {
   const input = ev.target as HTMLInputElement;
@@ -376,6 +401,7 @@ el<HTMLInputElement>('profilePhotoInput').addEventListener('change', (ev) => {
       setProfilePhoto(dataUrl);
       el('profilePhotoNote').textContent = 'Profile photo saved on this device.';
       renderAll();
+      openProfilePhotoModal();
     })
     .catch((err: unknown) => {
       el('profilePhotoNote').textContent =
