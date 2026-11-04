@@ -64,6 +64,7 @@
           autocomplete="off"
         />
         <button type="button" id="globalSearchBtn" data-i18n="search.button">Search</button>
+        <div id="searchSuggestions" class="search-suggestions" role="listbox" aria-label="People suggestions" hidden></div>
       </div>
     </div>
 
@@ -99,6 +100,11 @@
                   <p id="synthesisProgressText" class="hint" aria-live="polite"></p>
                 </div>
               </div>
+            </div>
+            <div id="archetypeSpiderCard" class="card">
+              <h3>Archetype affinity</h3>
+              <div id="archetypeSpider"></div>
+              <p class="hint">How strongly each pattern shows up in your knowledge (0–100).</p>
             </div>
             <p class="hint model-status-line"><span data-i18n="synth.model">Local model:</span> <span id="synthesisModelLabel">checking…</span> <button type="button" id="openSettingsBtn" class="linklike" data-i18n="synth.change">Change in Settings</button></p>
             <div id="synthesisTimelineCard" class="card synth-timeline-card" role="button" tabindex="0" aria-label="Open Timeline">

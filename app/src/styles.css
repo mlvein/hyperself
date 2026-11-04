@@ -594,7 +594,20 @@ button:disabled { opacity: 0.45; cursor: default; }
 
 
 
-.searchbar { display: flex; gap: 0.5rem; flex: 0 1 auto; margin-left: auto; align-items: center; }
+.searchbar { position: relative; display: flex; gap: 0.5rem; flex: 0 1 auto; margin-left: auto; align-items: center; }
+.search-suggestions {
+  position: absolute; top: calc(100% + 4px); left: 0; right: 0; z-index: 30;
+  background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 4px;
+}
+.search-suggestions[hidden] { display: none; }
+.search-suggestion {
+  display: flex; align-items: center; gap: 10px; width: 100%;
+  padding: 8px 10px; border: none; border-radius: 6px; background: none;
+  color: var(--ink); cursor: pointer; text-align: left; min-height: auto;
+}
+.search-suggestion:hover, .search-suggestion.active { background: var(--status-info-background); }
+.search-suggestion .person-avatar { width: 32px; height: 32px; font-size: 11px; }
+.search-suggestion .suggestion-meta { margin-left: auto; }
 .searchbar input { width: 300px; height: 41px; min-height: 41px; flex: none; margin-bottom: 0; border-radius: 6px; }
 @media (max-width: 720px) { .searchbar input { width: 100%; } .searchbar { flex: 1 1 100%; } }
 
@@ -622,6 +635,10 @@ button:disabled { opacity: 0.45; cursor: default; }
 .synth-timeline-card:hover { border-color: var(--ink); }
 .synth-timeline-card h3 { margin: 0 0 8px; }
 #synthesisTimeline svg { width: 100%; height: auto; display: block; }
+#archetypeSpiderCard { margin-bottom: 16px; }
+#archetypeSpiderCard h3 { margin: 0 0 8px; }
+#archetypeSpider svg { width: 100%; max-width: 520px; height: auto; display: block; margin: 0 auto; }
+#archetypeSpider text { fill: var(--ink); font-size: 11px; }
 .arch-detail-row { display: grid; grid-template-columns: 110px 1fr 44px; gap: 8px; align-items: center; font-size: 13px; margin: 4px 0; }
 .badge-offline {
   font-size: 12px; line-height: 1.5; border-radius: 999px; padding: 3px 8px;

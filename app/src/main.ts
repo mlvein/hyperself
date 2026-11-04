@@ -97,7 +97,7 @@ import {
 } from './insights';
 import * as d3 from 'd3';
 import { CENTER_ID, buildNetwork, personContext } from './network';
-import { applyArchetypePreferences, computeArchetypeTimeline, computeArchetypes } from './archetypes';
+import { applyArchetypePreferences, computeArchetypeTimeline, computeArchetypes, type Archetype } from './archetypes';
 import type { Entry, EntryType, Tag } from './types';
 
 let engine: LocalEngine = new StubEngine();
@@ -388,6 +388,7 @@ function renderSynthesisCards(_overviewBody = ''): void {
   const a = currentAnalysis();
   const cards = buildSynthesisCards(listEntries(), a);
   const available = visibleArchetypes(8);
+  renderArchetypeSpider(available);
   const badge = el('archetypesBadge');
   badge.hidden = available.length === 0;
   badge.textContent = String(available.length);
@@ -1283,9 +1284,105 @@ async function runTopSearch(): Promise<void> {
 }
 
 el('globalSearchBtn').addEventListener('click', runTopSearch);
+
+// People-in-network suggestions: name matches from the Network rollup,
+// shown as you type; selecting one opens that person's card.
+let currentSuggestions: Array<{ name: string; entryIds: string[] }> = [];
+let suggestionIndex = -1;
+
+function hideSearchSuggestions(): void {
+  el('searchSuggestions').hidden = true;
+  el('searchSuggestions').innerHTML = '';
+  currentSuggestions = [];
+  suggestionIndex = -1;
+}
+
+function renderSearchSuggestions(): void {
+  const query = el<HTMLInputElement>('globalSearch').value.trim().toLowerCase();
+  const box = el('searchSuggestions');
+  if (!query) {
+    hideSearchSuggestions();
+    return;
+  }
+  currentSuggestions = listPeople()
+    .filter((p) => p.name.toLowerCase().includes(query))
+    .slice(0, 6);
+  suggestionIndex = -1;
+  if (!currentSuggestions.length) {
+    box.hidden = true;
+    box.innerHTML = '';
+    return;
+  }
+  box.innerHTML =
+    '<p class="hint" style="margin:4px 10px">People in your network</p>' +
+    currentSuggestions
+      .map(
+        (p, i) => `<button type="button" class="search-suggestion" role="option" data-suggestion="${i}" aria-selected="${i === suggestionIndex}">
+          <span class="person-avatar" aria-hidden="true">${escapeHtml(initialsOf(p.name))}</span>
+          <span>${escapeHtml(p.name)}</span>
+          <span class="meta suggestion-meta">${p.entryIds.length} ${p.entryIds.length === 1 ? 'entry' : 'entries'}</span>
+        </button>`,
+      )
+      .join('');
+  box.hidden = false;
+}
+
+function paintSuggestionSelection(): void {
+  el('searchSuggestions')
+    .querySelectorAll('.search-suggestion')
+    .forEach((row, i) => {
+      row.classList.toggle('active', i === suggestionIndex);
+      row.setAttribute('aria-selected', String(i === suggestionIndex));
+    });
+}
+
+function selectSuggestion(index: number): void {
+  const person = currentSuggestions[index];
+  if (!person) return;
+  hideSearchSuggestions();
+  openPersonModal(person.name);
+}
+
+el<HTMLInputElement>('globalSearch').addEventListener('input', renderSearchSuggestions);
+el('searchSuggestions').addEventListener('mousedown', (ev) => {
+  const row = (ev.target as HTMLElement).closest('[data-suggestion]');
+  if (!row) return;
+  ev.preventDefault();
+  selectSuggestion(Number(row.getAttribute('data-suggestion')));
+});
+document.addEventListener('click', (ev) => {
+  const bar = document.querySelector('.searchbar');
+  if (bar && !bar.contains(ev.target as Node)) hideSearchSuggestions();
+});
+
 el<HTMLInputElement>('globalSearch').addEventListener('keydown', (ev) => {
-  if (ev.key === 'Enter') runTopSearch();
+  const open = !el('searchSuggestions').hidden && currentSuggestions.length > 0;
+  if (ev.key === 'ArrowDown' && open) {
+    ev.preventDefault();
+    suggestionIndex = (suggestionIndex + 1) % currentSuggestions.length;
+    paintSuggestionSelection();
+    return;
+  }
+  if (ev.key === 'ArrowUp' && open) {
+    ev.preventDefault();
+    suggestionIndex = (suggestionIndex - 1 + currentSuggestions.length) % currentSuggestions.length;
+    paintSuggestionSelection();
+    return;
+  }
+  if (ev.key === 'Enter') {
+    if (open && suggestionIndex >= 0) {
+      ev.preventDefault();
+      selectSuggestion(suggestionIndex);
+      return;
+    }
+    hideSearchSuggestions();
+    runTopSearch();
+  }
   if (ev.key === 'Escape') {
+    if (open) {
+      hideSearchSuggestions();
+      return;
+    }
     el<HTMLInputElement>('globalSearch').value = '';
     el('searchResults').hidden = true;
   }
@@ -2300,6 +2397,126 @@ function renderSynthesisTimelineOverview(entries: Entry[]): void {
     .text(`${tl.periods[0].label} – ${tl.periods[tl.periods.length - 1].label}`);
 }
 
+/** D3 spider (radar) chart on Synthesis: one axis per archetype,
+ * radius = affinity (strength 0-100). Needs 3+ archetypes to read.
+ * Design follows Nadieh Bremer's smoothed radar redesign (MIT,
+ * gist.github.com/nbremer/21746a9668ffdf6d8242): circular grid,
+ * smoothed closed blob, glow stroke, wrapped axis labels, and
+ * invisible hover circles with a value tooltip — adapted to D3 v7
+ * and the Hyperself palette. Credit: Nadieh Bremer | Visual Cinnamon. */
+function renderArchetypeSpider(archetypes: Archetype[]): void {
+  const card = el('archetypeSpiderCard');
+  const host = el('archetypeSpider');
+  host.innerHTML = '';
+  card.hidden = archetypes.length < 3;
+  if (archetypes.length < 3) return;
+  const size = 440;
+  const radius = 130;
+  const cx = size / 2;
+  const cy = size / 2;
+  const angleSlice = (Math.PI * 2) / archetypes.length;
+  const rScale = d3.scaleLinear().range([0, radius]).domain([0, 100]);
+  const point = (i: number, v: number): [number, number] => [
+    cx + rScale(v) * Math.cos(angleSlice * i - Math.PI / 2),
+    cy + rScale(v) * Math.sin(angleSlice * i - Math.PI / 2),
+  ];
+  const svg = d3.select(host).append('svg')
+    .attr('viewBox', `0 0 ${size} ${size}`)
+    .attr('role', 'img')
+    .attr('aria-label', `Archetype affinity: ${archetypes.map((a) => `${a.label} ${a.strength}`).join(', ')}`);
+  const defs = svg.append('defs');
+  const glow = defs.append('filter').attr('id', 'spider-glow');
+  glow.append('feGaussianBlur').attr('stdDeviation', '2.5').attr('result', 'coloredBlur');
+  const merge = glow.append('feMerge');
+  merge.append('feMergeNode').attr('in', 'coloredBlur');
+  merge.append('feMergeNode').attr('in', 'SourceGraphic');
+  // Circular grid, outermost first, with level labels up the top axis.
+  for (const ring of [100, 75, 50, 25]) {
+    svg.append('circle')
+      .attr('cx', cx).attr('cy', cy).attr('r', rScale(ring))
+      .attr('fill', '#d2d1e5').attr('fill-opacity', 0.18)
+      .attr('stroke', '#d2d1e5')
+      .attr('filter', 'url(#spider-glow)');
+    svg.append('text')
+      .attr('x', cx + 4).attr('y', cy - rScale(ring))
+      .attr('font-size', '10px').attr('fill', '#585875')
+      .text(String(ring));
+  }
+  const axis = svg.selectAll('g.spider-axis')
+    .data(archetypes)
+    .join('g')
+    .attr('class', 'spider-axis');
+  axis.append('line')
+    .attr('x1', cx).attr('y1', cy)
+    .attr('x2', (_a, i) => point(i, 100)[0])
+    .attr('y2', (_a, i) => point(i, 100)[1])
+    .attr('stroke', '#ffffff').attr('stroke-width', 2);
+  axis.append('text')
+    .attr('x', (_a, i) => point(i, 125)[0])
+    .attr('y', (_a, i) => point(i, 125)[1])
+    .attr('text-anchor', 'middle').attr('dy', '0.35em')
+    .attr('font-size', '11px')
+    .each(function (a) {
+      // Wrap long labels onto two tspans (~70px), per the reference.
+      const words = a.label.split(/\s+/);
+      const elText = d3.select(this);
+      if (words.length < 2) {
+        elText.text(a.label);
+        return;
+      }
+      const mid = Math.ceil(words.length / 2);
+      elText.text(null);
+      elText.append('tspan').attr('x', elText.attr('x')).attr('dy', '-0.35em').text(words.slice(0, mid).join(' '));
+      elText.append('tspan').attr('x', elText.attr('x')).attr('dy', '1.1em').text(words.slice(mid).join(' '));
+    });
+  // Smoothed closed blob (cardinal-closed in the reference).
+  const radarLine = d3.lineRadial<Archetype>()
+    .radius((a) => rScale(a.strength))
+    .angle((_a, i) => i * angleSlice)
+    .curve(d3.curveCatmullRomClosed);
+  svg.append('path')
+    .datum(archetypes)
+    .attr('transform', `translate(${cx},${cy})`)
+    .attr('d', radarLine)
+    .attr('fill', '#a59acb').attr('fill-opacity', 0.35)
+    .on('mouseover', function () { d3.select(this).transition().duration(200).attr('fill-opacity', 0.7); })
+    .on('mouseout', function () { d3.select(this).transition().duration(200).attr('fill-opacity', 0.35); });
+  svg.append('path')
+    .datum(archetypes)
+    .attr('transform', `translate(${cx},${cy})`)
+    .attr('d', radarLine)
+    .attr('fill', 'none')
+    .attr('stroke', '#05006d').attr('stroke-width', 2)
+    .attr('filter', 'url(#spider-glow)');
+  svg.selectAll('circle.spider-dot')
+    .data(archetypes)
+    .join('circle')
+    .attr('cx', (a, i) => point(i, a.strength)[0])
+    .attr('cy', (a, i) => point(i, a.strength)[1])
+    .attr('r', 4)
+    .attr('fill', '#05006d').attr('fill-opacity', 0.8);
+  // Invisible larger hover circles drive the value tooltip.
+  const tooltip = svg.append('text')
+    .attr('font-size', '12px').attr('font-weight', 700).attr('fill', '#05006d')
+    .style('opacity', 0);
+  svg.selectAll('circle.spider-hit')
+    .data(archetypes)
+    .join('circle')
+    .attr('cx', (a, i) => point(i, a.strength)[0])
+    .attr('cy', (a, i) => point(i, a.strength)[1])
+    .attr('r', 10)
+    .attr('fill', 'none')
+    .style('pointer-events', 'all')
+    .on('mouseover', function (_ev, a) {
+      const [x, y] = point(archetypes.indexOf(a), a.strength);
+      tooltip
+        .attr('x', x - 10).attr('y', y - 10)
+        .text(`${a.label} · ${a.strength}/100`);
+      tooltip.transition().duration(200).style('opacity', 1);
+    })
+    .on('mouseout', () => { tooltip.transition().duration(200).style('opacity', 0); });
+}
+
 el('synthesisTimelineCard').addEventListener('click', () => showView('timeline'));
 el('synthesisTimelineCard').addEventListener('keydown', (ev) => {
   if (ev.key === 'Enter' || ev.key === ' ') {
@@ -2773,8 +2990,6 @@ interface SimNode {
 
 const savedPositions = new Map<string, { x: number; y: number }>();
 let networkSim: d3.Simulation<SimNode, undefined> | undefined;
-let networkTimer: d3.Timer | undefined;
-let orbitDragging = false;
 
 let modalPerson = '';
 
@@ -2937,7 +3152,6 @@ function renderNetworkGraph(entries: Entry[]): void {
   el('networkGraphEmpty').hidden = graph.nodes.length > 1;
   host.innerHTML = '';
   if (networkSim) networkSim.stop();
-  if (networkTimer) networkTimer.stop();
   if (graph.nodes.length <= 1) return;
   const width = Math.max(320, host.clientWidth || 760);
   const height = Math.round(Math.min(560, Math.max(420, width * 0.45)));
@@ -2951,28 +3165,39 @@ function renderNetworkGraph(entries: Entry[]): void {
     target: string | SimNode;
     weight: number;
   }>;
+  // Structure follows Observable's Force-directed graph component
+  // (@d3/force-directed-graph-component): centered viewBox, link /
+  // charge / x / y forces, sqrt link widths, drag reheats the sim,
+  // and the whole graph zooms/pans. Hyperself keeps 40px avatars
+  // (Figma) instead of the component's 5px dots.
   const svg = d3.select(host).append('svg')
-    .attr('viewBox', `0 0 ${width} ${height}`)
+    .attr('viewBox', `${-width / 2} ${-height / 2} ${width} ${height}`)
     .attr('role', 'img')
     .attr('aria-label', `Network graph centered on ${centerLabel}`);
-  const orbit = svg.append('g');
-  let orbitAngle = 0;
-  const link = orbit.append('g').selectAll('line').data(links).join('line')
+  const root = svg.append('g');
+  svg.call(
+    d3.zoom<SVGSVGElement, unknown>()
+      .scaleExtent([0.4, 2.5])
+      .on('zoom', (ev) => root.attr('transform', ev.transform.toString())),
+  );
+  const link = root.append('g')
     .attr('stroke', '#d2d1e5')
-    .attr('stroke-width', (d) => Math.min(4, 1 + d.weight * 0.5));
+    .attr('stroke-opacity', 0.6)
+    .selectAll('line').data(links).join('line')
+    .attr('stroke-width', (d) => Math.sqrt(d.weight));
   const sim = d3.forceSimulation<SimNode>(nodes)
-    .force('link', d3.forceLink<SimNode, (typeof links)[number]>(links).id((d) => d.id).distance(130))
+    .force('link', d3.forceLink<SimNode, (typeof links)[number]>(links).id((d) => d.id).distance(120))
     .force('charge', d3.forceManyBody().strength(-260))
-    .force('center', d3.forceCenter(width / 2, height / 2))
-    .force('collide', d3.forceCollide<SimNode>().radius(28));
+    .force('x', d3.forceX(0))
+    .force('y', d3.forceY(0))
+    .force('collide', d3.forceCollide<SimNode>().radius(30));
   networkSim = sim;
-  const node = orbit.append('g').selectAll<SVGGElement, SimNode>('g').data(nodes).join('g')
+  const node = root.append('g').selectAll<SVGGElement, SimNode>('g').data(nodes).join('g')
     .attr('class', 'node')
     .attr('cursor', 'pointer')
     .call(
       d3.drag<SVGGElement, SimNode>()
         .on('start', (ev, d) => {
-          orbitDragging = true;
           if (!ev.active) sim.alphaTarget(0.3).restart();
           d.fx = d.x; d.fy = d.y;
           (d as SimNode & { __moved?: boolean }).__moved = false;
@@ -2983,9 +3208,8 @@ function renderNetworkGraph(entries: Entry[]): void {
           savedPositions.set(d.id, { x: ev.x, y: ev.y });
         })
         .on('end', (ev, d) => {
-          orbitDragging = false;
           if (!ev.active) sim.alphaTarget(0);
-          if (!d.center) { d.fx = null; d.fy = null; }
+          d.fx = null; d.fy = null;
         }),
     );
   const AVATAR_R = 20;
@@ -3032,16 +3256,6 @@ function renderNetworkGraph(entries: Entry[]): void {
       return;
     }
     openPersonModal(d.label);
-  });
-  const reducedMotion =
-    typeof window !== 'undefined' &&
-    typeof window.matchMedia === 'function' &&
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  networkTimer = d3.timer(() => {
-    if (orbitDragging || reducedMotion) return;
-    orbitAngle = (orbitAngle + 0.02) % 360;
-    orbit.attr('transform', `rotate(${orbitAngle} ${width / 2} ${height / 2})`);
-    node.selectAll('text').attr('transform', `rotate(${-orbitAngle})`);
   });
   sim.on('tick', () => {
     link

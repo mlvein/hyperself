@@ -49,6 +49,17 @@ assert.ok(main.includes("archetypes: 'sub-archetypes'"), 'archetypes pane wired 
 assert.ok(html.includes('id="synthesisTimeline"'), 'Synthesis timeline overview present');
 assert.ok(main.includes('renderSynthesisTimelineOverview'), 'Synthesis timeline overview rendered');
 assert.ok(main.includes("showView('timeline')"), 'overview opens the Timeline view');
+assert.ok(html.includes('id="archetypeSpider"'), 'Synthesis spider chart present');
+assert.ok(main.includes('renderArchetypeSpider'), 'spider chart rendered from archetypes');
+assert.ok(main.includes("d3.forceX(0)") && main.includes("d3.forceY(0)"), 'network uses component forceX/forceY centering');
+assert.ok(main.includes('Math.sqrt(d.weight)'), 'network link width is sqrt(weight) per the component');
+assert.ok(main.includes('d3.zoom'), 'network graph zooms/pans per the component');
+assert.ok(!main.includes('orbitAngle'), 'continuous orbit rotation removed per the component');
+assert.ok(html.includes('id="searchSuggestions"'), 'search people suggestions dropdown present');
+assert.ok(main.includes('renderSearchSuggestions'), 'people suggestions rendered as you type');
+assert.ok(main.includes('listPeople()'), 'suggestions come from the network rollup');
+assert.ok(main.includes('openPersonModal(person.name)'), 'selecting a suggestion opens the person');
+assert.ok(main.includes('a.strength'), 'spider radius uses archetype affinity (strength)');
 assert.ok(html.includes('data-sub="security" class="subnav-action'), 'Security sits at the right end of the submenu');
 assert.ok(html.includes('id="sidebar"'), 'sidebar id wired for the delegated subnav listener');
 
