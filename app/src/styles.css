@@ -489,7 +489,9 @@ button:disabled { opacity: 0.45; cursor: default; }
 .lock-dialog label { align-items: center; text-align: center; width: 100%; max-width: 320px; }
 .lock-dialog label input { text-align: center; width: 100%; }
 .lock-dialog .row { justify-content: center; }
-.lock-dialog .row button { flex: 1 1 0; max-width: 240px; }
+.lock-dialog .row button { flex: 1 1 0; max-width: 240px; white-space: nowrap; }
+.lock-dialog .row button.icon-only { flex: 0 0 auto; align-self: stretch; width: 60px; max-width: none; padding: 8px 0; }
+.lock-dialog .row button.icon-only img { display: block; margin: 0 auto; }
 .lock-dialog .hint, .lock-dialog .error { text-align: center; }
 .lock-anim { display: block; width: 140px; height: auto; margin: 4px auto; }
 .lock-loading { display: flex; flex-direction: column; align-items: center; gap: 8px; margin: 12px auto; }
@@ -539,7 +541,7 @@ button:disabled { opacity: 0.45; cursor: default; }
 .add-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .import-layout {
   display: grid;
-  grid-template-columns: 268px 268px 260px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   grid-template-rows: 218px 218px;
   gap: 16px;
   align-items: stretch;
@@ -725,6 +727,20 @@ button:disabled { opacity: 0.45; cursor: default; }
 .fin-tip-sub { margin-top: 0.45rem; font-weight: 700; }
 .fin-data-list { margin-top: 0.75rem; }
 .fin-data-list summary { cursor: pointer; font-weight: 600; margin-bottom: 0.4rem; }
+.has-loader { position: relative; }
+.screen-loader {
+  position: absolute; inset: 0; z-index: 5;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.75rem;
+  background: rgba(248, 247, 251, 0.88); border-radius: inherit; text-align: center;
+}
+.screen-loader.leaving { opacity: 0; transition: opacity 0.35s ease; }
+.screen-loader-anim { width: 96px; height: auto; display: block; }
+.flash-reveal > * { animation: revealIn 0.5s ease; }
+@keyframes revealIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .screen-loader.leaving { transition: none; }
+  .flash-reveal > * { animation: none; }
+}
 @media (prefers-reduced-motion: reduce) {
   .fin-bar, .fin-line, .fin-cum-line { transition: none; }
 }

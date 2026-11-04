@@ -155,4 +155,15 @@ assert.ok(guide.includes('Suggested Paths'), 'Guide explains Path surfacing');
 assert.ok(main.includes("showView('guide')"), 'Guide navigation wired');
 assert.ok(main.includes('guideNavBtn'), 'Guide button active state handled');
 
+// Brand preloader: animated mark overlays async screens, content reveals gently.
+for (const marker of ['showScreenLoader', 'hideScreenLoader', 'flashReveal', 'SCREEN_LOADER_MIN_MS', 'hyperself-icon-anim-reveal.svg']) {
+  assert.ok(main.includes(marker), `preloader wired: ${marker}`);
+}
+assert.ok(main.includes("showScreenLoader(el('profileCard')"), 'synthesis overlays the profile card');
+for (const marker of ['.screen-loader', '.has-loader', '.flash-reveal', 'revealIn', '.screen-loader-anim']) {
+  assert.ok(css.includes(marker), `preloader styled: ${marker}`);
+}
+assert.ok(css.includes('prefers-reduced-motion') && css.includes('.flash-reveal'), 'reveal respects reduced motion');
+console.log('loader OK: animated preloader overlays + smooth reveal');
+
 console.log('layout OK: sidebar shell, Settings at bottom, model selection in Settings, per-view search');

@@ -26,6 +26,8 @@ Hyperself's approach is deliberately quiet. No Path is pinned by default and not
 
 Insights include archetype-lensed notes ("For your Keeper of Threads side: Ana has gone quiet"). Expound, pin, mark reviewed, or dismiss each one; everything approved or dismissed collects in History, where it can be restored. Paths describe what your data shows — never financial or medical advice, diagnoses, or counseling.
 
+Muse Glimmer is the voice of Paths, and it only ever speaks from the entries in front of it. Saved answers and search replies are drafted from the retrieved entries (at most a handful, named in the reply); Expound widens an insight using just that insight's related entries; questions over an imported Legacy pack are answered from pack entries alone. The counting is never the model's job — totals, trends, recurring costs, and relationship recency are computed deterministically, and Glimmer narrates the result. With no model server running, the same places fall back to templated local text, so a Path never goes silent — it just speaks more plainly.
+
 A note on words: locally, Paths and synthesis read across *all* the knowledge you chose to bring into Hyperself, including personal entries, because processing happens on your device. The personal/shareable tag governs what may *leave* the device, below — not what local features may use.
 
 ## Augmented Paths (optional, online)

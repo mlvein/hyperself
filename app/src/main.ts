@@ -465,6 +465,55 @@ function mattersLine(entries: Entry[]): string {
   return parts.length ? parts.join('  ·  ') : matters.headline;
 }
 
+const SCREEN_LOADER_MIN_MS = 500;
+
+/** Brand preloader overlay: the animated Hyperself mark over a card or
+ * screen while async work runs. The overlay stays up for a beat after the
+ * work lands so the reveal feels smooth instead of snapping in. */
+function showScreenLoader(host: HTMLElement, text = 'Loading…'): void {
+  if (host.querySelector(':scope > .screen-loader')) return;
+  host.classList.add('has-loader');
+  const loader = document.createElement('div');
+  loader.className = 'screen-loader';
+  loader.setAttribute('role', 'status');
+  const img = document.createElement('img');
+  img.src = (import.meta.env.BASE_URL || '/') + 'assets/hyperself/artwork/hyperself-icon-anim-reveal.svg';
+  img.alt = '';
+  img.setAttribute('aria-hidden', 'true');
+  img.className = 'screen-loader-anim';
+  const label = document.createElement('p');
+  label.className = 'hint';
+  label.textContent = text;
+  loader.append(img, label);
+  loader.setAttribute('data-shown-at', String(Date.now()));
+  host.append(loader);
+}
+
+function hideScreenLoader(host: HTMLElement): void {
+  const loader = host.querySelector<HTMLElement>(':scope > .screen-loader');
+  if (!loader) return;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const elapsed = Date.now() - Number(loader.getAttribute('data-shown-at') || '0');
+  const wait = reduce ? 0 : Math.max(0, SCREEN_LOADER_MIN_MS - elapsed);
+  window.setTimeout(() => {
+    loader.classList.add('leaving');
+    window.setTimeout(() => {
+      loader.remove();
+      if (!host.querySelector(':scope > .screen-loader')) host.classList.remove('has-loader');
+      flashReveal(host);
+    }, reduce ? 0 : 350);
+  }, wait);
+}
+
+/** Gentle fade-up over freshly rendered content (sync re-renders). */
+function flashReveal(host: HTMLElement): void {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  host.classList.remove('flash-reveal');
+  void host.offsetWidth;
+  host.classList.add('flash-reveal');
+  window.setTimeout(() => host.classList.remove('flash-reveal'), 550);
+}
+
 function setSynthProgress(percent: number, text: string): void {
   const wrap = el('synthesisProgress');
   wrap.hidden = false;
@@ -485,6 +534,7 @@ async function maybeSynthesize(entries: Entry[]): Promise<void> {
   if (synthesizing || key === synthesisKey) return;
   synthesizing = true;
   synthesisKey = key;
+  showScreenLoader(el('profileCard'), 'Reading your archive…');
   const status = el('synthesisStatus');
   status.textContent = 'Synthesizing…';
   status.classList.add('loading');
@@ -531,6 +581,7 @@ async function maybeSynthesize(entries: Entry[]): Promise<void> {
   } finally {
     status.classList.remove('loading');
     synthesizing = false;
+    hideScreenLoader(el('profileCard'));
     setSynthProgress(100, 'Done.');
     setTimeout(hideSynthProgress, 900);
     const gs = document.getElementById('glimmerStatus');
@@ -781,6 +832,8 @@ async function ingestFiles(
   input: HTMLInputElement,
 ): Promise<void> {
   tile.disabled = true;
+  const importCard = tile.closest('.card');
+  if (importCard) showScreenLoader(importCard as HTMLElement, 'Uploading…');
   note.textContent = 'Uploading…';
   let total = 0;
   for (const file of Array.from(files)) {
@@ -826,6 +879,7 @@ async function ingestFiles(
   }
   tile.disabled = false;
   input.value = '';
+  if (importCard) hideScreenLoader(importCard as HTMLElement);
   if (!attested() && total > 0) {
     note.textContent += ' Tip: tick the attestation above to record that these are yours to keep.';
   }
@@ -1108,7 +1162,9 @@ dropZone.addEventListener('drop', (ev) => {
 });
 
 el('imageImportBtn').addEventListener('click', () => {
-  if (pendingImages.length === 0) return;
+  const imageDialog = document.querySelector('#imageModal .dialog') as HTMLElement | null;
+  if (imageDialog) showScreenLoader(imageDialog, 'Reading your images…');
+  if (pendingImages.length === 0) { if (imageDialog) hideScreenLoader(imageDialog); return; }
   const note = el('imageModalNote');
   const btn = el<HTMLButtonElement>('imageImportBtn');
   const manualPerson = el<HTMLInputElement>('imagePersonInput').value.trim();
@@ -1149,6 +1205,7 @@ el('imageImportBtn').addEventListener('click', () => {
       }
     }
     btn.disabled = false;
+    if (imageDialog) hideScreenLoader(imageDialog);
     if (done > 0) {
       el('imageNote').textContent = notes.join(' ');
       closeImageModal();
@@ -1169,6 +1226,8 @@ el<HTMLInputElement>('audioFileInput').addEventListener('change', () => {
   if (!input.files || input.files.length === 0) return;
   const note = el('audioNote');
   const tile = el<HTMLButtonElement>('audioUploadTile');
+  const audioCard = tile.closest('.card');
+  if (audioCard) showScreenLoader(audioCard as HTMLElement, 'Transcribing…');
   void (async () => {
     tile.disabled = true;
     let done = 0;
@@ -1194,6 +1253,7 @@ el<HTMLInputElement>('audioFileInput').addEventListener('change', () => {
     }
     tile.disabled = false;
     input.value = '';
+    if (audioCard) hideScreenLoader(audioCard as HTMLElement);
     if (done > 0) renderAll();
   })();
 });
@@ -2194,6 +2254,10 @@ function renderBudgetDetail(pathId: string): void {
   drawFinanceOverview(host, ftx);
   drawFinanceEvolution(host, ftx);
   drawFinanceCumulative(host, ftx);
+  for (const id of ['finOverviewScroll', 'finEvolutionScroll', 'finCumulativeScroll']) {
+    const scroller = document.getElementById(id);
+    if (scroller) flashReveal(scroller);
+  }
 }
 
 
@@ -2996,6 +3060,7 @@ function renderTimeline(): void {
         .join('')
     : '<p class="hint">No patterns flagged yet — add more knowledge and spikes, lulls, and gaps will surface here.</p>';
   renderTimelineChart(tl, entries);
+  flashReveal(el('timelineChart'));
   const selected = tl.periods.find((p) => p.key === selectedPeriodKey);
   const sorted = entries
     .filter((e) => timelineTypeFilter === 'all' || e.type === timelineTypeFilter)

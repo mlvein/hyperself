@@ -42,7 +42,7 @@ This is enforced in code, not just documented: the engine allowlist refuses any 
 - **Synthesis** — a profile with archetypes you can confirm, rename, or reject, and an essence written on-device from everything you brought.
 - **Network** — a full-width graph with you at the center; click a person (or the center circle, for your own timeline) for shared history and private notes.
 - **Import & Connect** — documents, statements, audio, images, folders, and per-service export guides for when an account can't link. Everything is parsed on your device.
-- **Paths** — Finance, Health, Relationship Rhythms, Reading Life, and Paths saved from your own searches. Suggested only when your data supports them; descriptive only, never advice.
+- **Paths** — Finance, Health, Relationship Rhythms, Reading Life, and Paths saved from your own searches. Suggested only when your data supports them; descriptive only, never advice. Wherever a Path needs words — saved answers, Expound on an insight, questions over an imported pack — Muse Glimmer drafts them on-device from the entries behind that Path, citing what it used. The numbers (totals, trends, recurring costs) are computed by plain code, so the model narrates but never invents them.
 - **Augmented Paths** — optional online depth from Meta's Muse Spark (Meta Model API) over a derived pattern profile you preview and approve. Never entries, names, or text.
 - **Legacy** — hash-verified packs of shareable entries only, plus an encrypted whole-archive backup only you can open.
 

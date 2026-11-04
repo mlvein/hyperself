@@ -36,7 +36,7 @@ A voiceover script for a 3-minute commercial, not a stage demo. One calm voice, 
 >
 > No account. No cloud holding your years. Just your fingerprint… and it's open.
 >
-> It reads what you give it, carefully. Eighteen transactions of eighteen — and it shows you, before anything is kept.
+> It reads what you give it, carefully. Eighteen of eighteen — shown to you before anything is kept.
 
 ### 0:42–1:08 — The machine that reads a life
 
@@ -80,11 +80,11 @@ A voiceover script for a 3-minute commercial, not a stage demo. One calm voice, 
 
 > Some answers deserve to stay.
 >
-> Ask where your money goes… and it becomes a Path — yours to return to, as your life keeps arriving.
+> Ask where your money goes… and it becomes a Path — yours to return to.
 >
 > In. Out. What remains. The shape of your years, spending by spending.
 >
-> It never arrives uninvited. And it describes, honestly — it never tells you what to do.
+> It never arrives uninvited. And it describes, honestly — it never tells you what to do. The numbers are counted by plain code; the voice reading them is Muse Glimmer, speaking only from what's in front of it.
 
 ### 2:12–2:34 — What you choose to pass on
 
