@@ -4,6 +4,190 @@
   "tagline": "Two decades of pivots — teacher, analyst, design researcher — threaded by relentless reading.",
   "entries": [
     {
+      "at": "1998-09-06",
+      "type": "journal",
+      "title": "First day at Northbank School",
+      "body": "Started at Northbank as a pupil, not a teacher. The library corner became my seat within a week; I finished my first chapter book there.",
+      "tag": "personal",
+      "people": [
+        "Aunt Clara"
+      ]
+    },
+    {
+      "at": "1999-05-18",
+      "type": "skill",
+      "title": "Library monitor",
+      "body": "Made library monitor: shelving, stamping, recommending. Learned that finishing a series makes you the person others ask.",
+      "tag": "personal",
+      "people": [
+        "Lena Cruz"
+      ]
+    },
+    {
+      "at": "2000-03-11",
+      "type": "health",
+      "title": "Broken wrist, playground fall",
+      "body": "Fell off the climbing frame; wrist in a cast for six weeks. Reading one-handed slowed me down and annoyed me more than the fall.",
+      "tag": "personal",
+      "people": [
+        "Mama Rosa"
+      ]
+    },
+    {
+      "at": "2000-11-02",
+      "type": "relationship",
+      "title": "Reading club with Lena",
+      "body": "Started a two-person reading club with Lena Cruz: same book, different bookmarks, long arguments about endings.",
+      "tag": "personal",
+      "people": [
+        "Lena Cruz"
+      ]
+    },
+    {
+      "at": "2001-06-24",
+      "type": "finance",
+      "title": "First savings account",
+      "body": "Opened a first savings account with birthday money and a paper passbook. Watched the balance like it was a story still being written.",
+      "tag": "personal",
+      "people": [
+        "Papa Joe"
+      ]
+    },
+    {
+      "at": "2002-04-15",
+      "type": "document",
+      "title": "School prize letter",
+      "body": "Letter from Northbank: prize for the year-end essay on why libraries matter. Kept folded inside the winning book.",
+      "tag": "personal",
+      "people": [
+        "Aunt Clara"
+      ]
+    },
+    {
+      "at": "2002-10-07",
+      "type": "journal",
+      "title": "Choosing subjects",
+      "body": "Chose literature and history. Teachers said teaching might suit me; I pretended not to be pleased.",
+      "tag": "personal",
+      "people": [
+        "Mama Rosa"
+      ]
+    },
+    {
+      "at": "2003-05-29",
+      "type": "skill",
+      "title": "Debate team, first win",
+      "body": "Won a first debate arguing that every classroom needs a library corner. Finished three books that month preparing.",
+      "tag": "personal",
+      "people": [
+        "Lena Cruz"
+      ]
+    },
+    {
+      "at": "2003-12-19",
+      "type": "health",
+      "title": "Winter flu, week in bed",
+      "body": "A week in bed with flu and a stack of paperbacks. Sleep, soup, and slow chapters.",
+      "tag": "personal",
+      "people": [
+        "Mama Rosa"
+      ]
+    },
+    {
+      "at": "2004-02-14",
+      "type": "finance",
+      "title": "Weekend job at the bookshop",
+      "body": "Started Saturday shifts at the neighbourhood bookshop. First wages went mostly back into the till, via the staff discount.",
+      "tag": "personal",
+      "people": [
+        "Papa Joe"
+      ]
+    },
+    {
+      "at": "2004-09-21",
+      "type": "journal",
+      "title": "University begins",
+      "body": "First term studying education and literature. The reading lists felt like a door opening rather than homework.",
+      "tag": "personal",
+      "people": [
+        "Lena Cruz"
+      ]
+    },
+    {
+      "at": "2005-03-08",
+      "type": "document",
+      "title": "Teaching placement offer",
+      "body": "Offer letter for a first school placement next year. Read it three times, then filed it with the prize letter from 2002.",
+      "tag": "personal",
+      "people": [
+        "Aunt Clara"
+      ]
+    },
+    {
+      "at": "2005-08-26",
+      "type": "relationship",
+      "title": "Summer with the reading club",
+      "body": "The reading club survived university timetables: four of us, one book a month, finished more often than not.",
+      "tag": "personal",
+      "people": [
+        "Lena Cruz",
+        "Ana Reyes"
+      ]
+    },
+    {
+      "at": "2005-12-30",
+      "type": "journal",
+      "title": "Year-end reflection 2005",
+      "body": "Year 2005: student, bookseller, almost-teacher. The through-line is still the library corner.",
+      "tag": "personal",
+      "people": [
+        "Lena Cruz"
+      ]
+    },
+    {
+      "at": "2006-02-11",
+      "type": "document",
+      "title": "Certificate and letters file (2006)",
+      "body": "Filed this year's certificates, offer letters, and references together. Paper first, scanned to Drive the same evening.",
+      "tag": "personal",
+      "people": [
+        "Priya Nair"
+      ],
+      "via": "Google Drive (simulated)"
+    },
+    {
+      "at": "2006-04-12",
+      "type": "research",
+      "title": "Reading notes on collaborative reading (2006)",
+      "body": "Term-time reading on collaborative reading: what the studies claim, what my classroom notes say, and where they disagree. Finished two key papers and argued with both.",
+      "tag": "shareable",
+      "people": [
+        "Priya Nair"
+      ],
+      "via": "Notion (simulated)"
+    },
+    {
+      "at": "2006-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Grace Liu (2006)",
+      "body": "Long conversation with Grace Liu about work, books, and what changed this year. These mid-year talks keep the friendship — and several projects — honest.",
+      "tag": "personal",
+      "people": [
+        "Grace Liu"
+      ]
+    },
+    {
+      "at": "2006-08-19",
+      "type": "finding",
+      "title": "Finding: collaborative reading in practice (2006)",
+      "body": "Across this year's classes and projects, collaborative reading worked best when pupils chose their own texts first. The pattern held in 3 of 5 groups observed.",
+      "tag": "shareable",
+      "people": [
+        "Grace Liu"
+      ],
+      "via": "Google Drive (simulated)"
+    },
+    {
       "at": "2006-09-01",
       "type": "journal",
       "title": "First classroom",
@@ -14,10 +198,37 @@
       ]
     },
     {
+      "at": "2006-09-14",
+      "type": "health",
+      "title": "Health record (2006)",
+      "body": "First-year teaching: voice strain and early nights. Sleep kept short by marking; walks to school were the exercise.",
+      "tag": "personal"
+    },
+    {
+      "at": "2006-10-05",
+      "type": "method",
+      "title": "Method note: collaborative reading routine (2006)",
+      "body": "A repeatable routine for collaborative reading: short reading bursts, paired talk, one written line to finish. Simple enough to survive a busy week.",
+      "tag": "shareable",
+      "people": [
+        "Priya Nair"
+      ]
+    },
+    {
       "at": "2006-12-28",
       "type": "journal",
       "title": "Year-end reflection 2006",
       "body": "Year 2006: tired, grateful, still reading every night before sleep.",
+      "tag": "personal",
+      "people": [
+        "Lena Cruz"
+      ]
+    },
+    {
+      "at": "2007-04-12",
+      "type": "research",
+      "title": "Reading notes on classroom discussion (2007)",
+      "body": "Term-time reading on classroom discussion: what the studies claim, what my classroom notes say, and where they disagree. Finished two key papers and argued with both.",
       "tag": "personal",
       "people": [
         "Lena Cruz"
@@ -32,6 +243,40 @@
       "people": [
         "Marco Reyes"
       ]
+    },
+    {
+      "at": "2007-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Tom Becker (2007)",
+      "body": "Long conversation with Tom Becker about work, books, and what changed this year. These mid-year talks keep the friendship — and several projects — honest.",
+      "tag": "personal",
+      "people": [
+        "Tom Becker"
+      ]
+    },
+    {
+      "at": "2007-08-19",
+      "type": "finding",
+      "title": "Finding: classroom discussion in practice (2007)",
+      "body": "Across this year's classes and projects, classroom discussion worked best when pupils chose their own texts first. The pattern held in 4 of 6 groups observed.",
+      "tag": "shareable",
+      "people": [
+        "Tom Becker"
+      ]
+    },
+    {
+      "at": "2007-09-14",
+      "type": "health",
+      "title": "Health record (2007)",
+      "body": "Check-up: all routine. Started a Sunday walking habit that outlasted every gym membership since.",
+      "tag": "personal"
+    },
+    {
+      "at": "2007-12-15",
+      "type": "goal-note",
+      "title": "Goals review (2007)",
+      "body": "Year-end goals review: read more widely than deeply for once, protect sleep, and keep one project small enough to finish.",
+      "tag": "personal"
     },
     {
       "at": "2007-12-28",
@@ -60,6 +305,53 @@
       "via": "Notion (simulated)"
     },
     {
+      "at": "2008-04-12",
+      "type": "research",
+      "title": "Reading notes on learning analytics (2008)",
+      "body": "Term-time reading on learning analytics: what the studies claim, what my classroom notes say, and where they disagree. Finished two key papers and argued with both.",
+      "tag": "shareable",
+      "people": [
+        "Marco Reyes"
+      ]
+    },
+    {
+      "at": "2008-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Sofia Lindqvist (2008)",
+      "body": "Long conversation with Sofia Lindqvist about work, books, and what changed this year. These mid-year talks keep the friendship — and several projects — honest.",
+      "tag": "personal",
+      "people": [
+        "Sofia Lindqvist"
+      ]
+    },
+    {
+      "at": "2008-08-19",
+      "type": "finding",
+      "title": "Finding: learning analytics in practice (2008)",
+      "body": "Across this year's classes and projects, learning analytics worked best when pupils chose their own texts first. The pattern held in 5 of 7 groups observed.",
+      "tag": "shareable",
+      "people": [
+        "Sofia Lindqvist"
+      ]
+    },
+    {
+      "at": "2008-09-14",
+      "type": "health",
+      "title": "Health record (2008)",
+      "body": "Eye test after a term of headaches: reading glasses for the board and the book pile alike.",
+      "tag": "personal"
+    },
+    {
+      "at": "2008-10-05",
+      "type": "method",
+      "title": "Method note: learning analytics routine (2008)",
+      "body": "A repeatable routine for learning analytics: short reading bursts, paired talk, one written line to finish. Simple enough to survive a busy week.",
+      "tag": "shareable",
+      "people": [
+        "Marco Reyes"
+      ]
+    },
+    {
       "at": "2008-11-02",
       "type": "relationship",
       "title": "Book club with Lena",
@@ -81,10 +373,66 @@
       ]
     },
     {
+      "at": "2009-02-11",
+      "type": "document",
+      "title": "Certificate and letters file (2009)",
+      "body": "Filed this year's certificates, offer letters, and references together. Paper first, scanned to Drive the same evening.",
+      "tag": "personal",
+      "people": [
+        "Ana Reyes"
+      ],
+      "via": "Google Drive (simulated)"
+    },
+    {
+      "at": "2009-04-12",
+      "type": "research",
+      "title": "Reading notes on reading motivation (2009)",
+      "body": "Term-time reading on reading motivation: what the studies claim, what my classroom notes say, and where they disagree. Finished two key papers and argued with both.",
+      "tag": "personal",
+      "people": [
+        "Ana Reyes"
+      ],
+      "via": "Notion (simulated)"
+    },
+    {
       "at": "2009-06-15",
       "type": "finance",
       "title": "Loan payoff plan",
       "body": "Student loan payoff spreadsheet: seven years if nothing breaks. Reading personal-finance books at night and actually finishing them helps.",
+      "tag": "personal"
+    },
+    {
+      "at": "2009-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Omar Haddad (2009)",
+      "body": "Long conversation with Omar Haddad about work, books, and what changed this year. These mid-year talks keep the friendship — and several projects — honest.",
+      "tag": "personal",
+      "people": [
+        "Omar Haddad"
+      ]
+    },
+    {
+      "at": "2009-08-19",
+      "type": "finding",
+      "title": "Finding: reading motivation in practice (2009)",
+      "body": "Across this year's classes and projects, reading motivation worked best when pupils chose their own texts first. The pattern held in 6 of 5 groups observed.",
+      "tag": "shareable",
+      "people": [
+        "Omar Haddad"
+      ]
+    },
+    {
+      "at": "2009-09-14",
+      "type": "health",
+      "title": "Health record (2009)",
+      "body": "Vaccination record updated; flu jab at the school clinic with half the staff room.",
+      "tag": "personal"
+    },
+    {
+      "at": "2009-12-15",
+      "type": "goal-note",
+      "title": "Goals review (2009)",
+      "body": "Year-end goals review: read more widely than deeply for once, protect sleep, and keep one project small enough to finish.",
       "tag": "personal"
     },
     {
@@ -109,6 +457,26 @@
       ]
     },
     {
+      "at": "2010-04-12",
+      "type": "research",
+      "title": "Reading notes on note-taking habits (2010)",
+      "body": "Term-time reading on note-taking habits: what the studies claim, what my classroom notes say, and where they disagree. Finished two key papers and argued with both.",
+      "tag": "shareable",
+      "people": [
+        "Samira Khan"
+      ]
+    },
+    {
+      "at": "2010-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Kate Morgan (2010)",
+      "body": "Long conversation with Kate Morgan about work, books, and what changed this year. These mid-year talks keep the friendship — and several projects — honest.",
+      "tag": "personal",
+      "people": [
+        "Kate Morgan"
+      ]
+    },
+    {
       "at": "2010-06-22",
       "type": "document",
       "title": "Drive export: thesis chapter draft (2010)",
@@ -120,11 +488,39 @@
       ]
     },
     {
+      "at": "2010-08-19",
+      "type": "finding",
+      "title": "Finding: note-taking habits in practice (2010)",
+      "body": "Across this year's classes and projects, note-taking habits worked best when pupils chose their own texts first. The pattern held in 3 of 6 groups observed.",
+      "tag": "shareable",
+      "people": [
+        "Kate Morgan"
+      ],
+      "via": "Google Drive (simulated)"
+    },
+    {
+      "at": "2010-09-14",
+      "type": "health",
+      "title": "Health record (2010)",
+      "body": "Back strain from classroom furniture; physio exercises done mostly while reading.",
+      "tag": "personal"
+    },
+    {
       "at": "2010-09-19",
       "type": "goal-note",
       "title": "Pivot: learn data",
       "body": "Decided to pivot toward education data. Finished reading a statistics primer cover to cover. Nightschool starts January.",
       "tag": "personal"
+    },
+    {
+      "at": "2010-10-05",
+      "type": "method",
+      "title": "Method note: note-taking habits routine (2010)",
+      "body": "A repeatable routine for note-taking habits: short reading bursts, paired talk, one written line to finish. Simple enough to survive a busy week.",
+      "tag": "shareable",
+      "people": [
+        "Samira Khan"
+      ]
     },
     {
       "at": "2010-12-28",
@@ -147,6 +543,43 @@
       ]
     },
     {
+      "at": "2011-04-12",
+      "type": "research",
+      "title": "Reading notes on peer feedback (2011)",
+      "body": "Term-time reading on peer feedback: what the studies claim, what my classroom notes say, and where they disagree. Finished two key papers and argued with both.",
+      "tag": "personal",
+      "people": [
+        "Yuki Tanaka"
+      ]
+    },
+    {
+      "at": "2011-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Ben Whitaker (2011)",
+      "body": "Long conversation with Ben Whitaker about work, books, and what changed this year. These mid-year talks keep the friendship — and several projects — honest.",
+      "tag": "personal",
+      "people": [
+        "Ben Whitaker"
+      ]
+    },
+    {
+      "at": "2011-08-19",
+      "type": "finding",
+      "title": "Finding: peer feedback in practice (2011)",
+      "body": "Across this year's classes and projects, peer feedback worked best when pupils chose their own texts first. The pattern held in 4 of 7 groups observed.",
+      "tag": "shareable",
+      "people": [
+        "Ben Whitaker"
+      ]
+    },
+    {
+      "at": "2011-09-14",
+      "type": "health",
+      "title": "Health record (2011)",
+      "body": "Sleep study of one: marking after nine traded for morning pages. Rest improved within a month.",
+      "tag": "personal"
+    },
+    {
       "at": "2011-10-30",
       "type": "research",
       "title": "Reading logs study",
@@ -156,6 +589,13 @@
         "Lena Cruz",
         "Marco Reyes"
       ]
+    },
+    {
+      "at": "2011-12-15",
+      "type": "goal-note",
+      "title": "Goals review (2011)",
+      "body": "Year-end goals review: read more widely than deeply for once, protect sleep, and keep one project small enough to finish.",
+      "tag": "personal"
     },
     {
       "at": "2011-12-28",
@@ -168,6 +608,17 @@
       ]
     },
     {
+      "at": "2012-02-11",
+      "type": "document",
+      "title": "Certificate and letters file (2012)",
+      "body": "Filed this year's certificates, offer letters, and references together. Paper first, scanned to Drive the same evening.",
+      "tag": "personal",
+      "people": [
+        "David Okafor"
+      ],
+      "via": "Google Drive (simulated)"
+    },
+    {
       "at": "2012-02-14",
       "type": "relationship",
       "title": "Marco, properly",
@@ -175,6 +626,37 @@
       "tag": "personal",
       "people": [
         "Marco Reyes"
+      ]
+    },
+    {
+      "at": "2012-04-12",
+      "type": "research",
+      "title": "Reading notes on library programmes (2012)",
+      "body": "Term-time reading on library programmes: what the studies claim, what my classroom notes say, and where they disagree. Finished two key papers and argued with both.",
+      "tag": "shareable",
+      "people": [
+        "David Okafor"
+      ],
+      "via": "Notion (simulated)"
+    },
+    {
+      "at": "2012-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Ivy Chen (2012)",
+      "body": "Long conversation with Ivy Chen about work, books, and what changed this year. These mid-year talks keep the friendship — and several projects — honest.",
+      "tag": "personal",
+      "people": [
+        "Ivy Chen"
+      ]
+    },
+    {
+      "at": "2012-08-19",
+      "type": "finding",
+      "title": "Finding: library programmes in practice (2012)",
+      "body": "Across this year's classes and projects, library programmes worked best when pupils chose their own texts first. The pattern held in 5 of 5 groups observed.",
+      "tag": "shareable",
+      "people": [
+        "Ivy Chen"
       ]
     },
     {
@@ -196,6 +678,23 @@
       "via": "Gmail (simulated)",
       "people": [
         "Marco Reyes"
+      ]
+    },
+    {
+      "at": "2012-09-14",
+      "type": "health",
+      "title": "Health record (2012)",
+      "body": "Check-up and blood tests: iron low, everything else steady. Filed results with the school nurse letter.",
+      "tag": "personal"
+    },
+    {
+      "at": "2012-10-05",
+      "type": "method",
+      "title": "Method note: library programmes routine (2012)",
+      "body": "A repeatable routine for library programmes: short reading bursts, paired talk, one written line to finish. Simple enough to survive a busy week.",
+      "tag": "shareable",
+      "people": [
+        "David Okafor"
       ]
     },
     {
@@ -221,6 +720,26 @@
       ]
     },
     {
+      "at": "2013-04-12",
+      "type": "research",
+      "title": "Reading notes on discussion protocols (2013)",
+      "body": "Term-time reading on discussion protocols: what the studies claim, what my classroom notes say, and where they disagree. Finished two key papers and argued with both.",
+      "tag": "personal",
+      "people": [
+        "Grace Liu"
+      ]
+    },
+    {
+      "at": "2013-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Leo Fischer (2013)",
+      "body": "Long conversation with Leo Fischer about work, books, and what changed this year. These mid-year talks keep the friendship — and several projects — honest.",
+      "tag": "personal",
+      "people": [
+        "Leo Fischer"
+      ]
+    },
+    {
       "at": "2013-07-07",
       "type": "research",
       "title": "Edtech internship",
@@ -229,6 +748,30 @@
       "people": [
         "David Okafor"
       ]
+    },
+    {
+      "at": "2013-08-19",
+      "type": "finding",
+      "title": "Finding: discussion protocols in practice (2013)",
+      "body": "Across this year's classes and projects, discussion protocols worked best when pupils chose their own texts first. The pattern held in 6 of 6 groups observed.",
+      "tag": "shareable",
+      "people": [
+        "Leo Fischer"
+      ]
+    },
+    {
+      "at": "2013-09-14",
+      "type": "health",
+      "title": "Health record (2013)",
+      "body": "Running attempt: couch-to-5k finished in the park, slowly, with an audiobook for company.",
+      "tag": "personal"
+    },
+    {
+      "at": "2013-12-15",
+      "type": "goal-note",
+      "title": "Goals review (2013)",
+      "body": "Year-end goals review: read more widely than deeply for once, protect sleep, and keep one project small enough to finish.",
+      "tag": "personal"
     },
     {
       "at": "2013-12-28",
@@ -265,6 +808,54 @@
       ]
     },
     {
+      "at": "2014-04-12",
+      "type": "research",
+      "title": "Reading notes on formative assessment (2014)",
+      "body": "Term-time reading on formative assessment: what the studies claim, what my classroom notes say, and where they disagree. Finished two key papers and argued with both.",
+      "tag": "shareable",
+      "people": [
+        "Tom Becker"
+      ]
+    },
+    {
+      "at": "2014-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Ruth Adams (2014)",
+      "body": "Long conversation with Ruth Adams about work, books, and what changed this year. These mid-year talks keep the friendship — and several projects — honest.",
+      "tag": "personal",
+      "people": [
+        "Ruth Adams"
+      ]
+    },
+    {
+      "at": "2014-08-19",
+      "type": "finding",
+      "title": "Finding: formative assessment in practice (2014)",
+      "body": "Across this year's classes and projects, formative assessment worked best when pupils chose their own texts first. The pattern held in 3 of 7 groups observed.",
+      "tag": "shareable",
+      "people": [
+        "Ruth Adams"
+      ],
+      "via": "Google Drive (simulated)"
+    },
+    {
+      "at": "2014-09-14",
+      "type": "health",
+      "title": "Health record (2014)",
+      "body": "Dental check-up and one filling. Resolution to stop reading in the dentist's waiting room chair like it owes me money.",
+      "tag": "personal"
+    },
+    {
+      "at": "2014-10-05",
+      "type": "method",
+      "title": "Method note: formative assessment routine (2014)",
+      "body": "A repeatable routine for formative assessment: short reading bursts, paired talk, one written line to finish. Simple enough to survive a busy week.",
+      "tag": "shareable",
+      "people": [
+        "Tom Becker"
+      ]
+    },
+    {
       "at": "2014-10-18",
       "type": "finance",
       "title": "Freelance famine",
@@ -284,6 +875,28 @@
         "Priya Nair",
         "Ana Reyes"
       ]
+    },
+    {
+      "at": "2015-02-11",
+      "type": "document",
+      "title": "Certificate and letters file (2015)",
+      "body": "Filed this year's certificates, offer letters, and references together. Paper first, scanned to Drive the same evening.",
+      "tag": "personal",
+      "people": [
+        "Sofia Lindqvist"
+      ],
+      "via": "Google Drive (simulated)"
+    },
+    {
+      "at": "2015-04-12",
+      "type": "research",
+      "title": "Reading notes on reading stamina (2015)",
+      "body": "Term-time reading on reading stamina: what the studies claim, what my classroom notes say, and where they disagree. Finished two key papers and argued with both.",
+      "tag": "personal",
+      "people": [
+        "Sofia Lindqvist"
+      ],
+      "via": "Notion (simulated)"
     },
     {
       "at": "2015-05-23",
@@ -307,6 +920,33 @@
       "via": "Apple Health (simulated)"
     },
     {
+      "at": "2015-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Sarah Kim (2015)",
+      "body": "Long conversation with Sarah Kim about work, books, and what changed this year. These mid-year talks keep the friendship — and several projects — honest.",
+      "tag": "personal",
+      "people": [
+        "Sarah Kim"
+      ]
+    },
+    {
+      "at": "2015-08-19",
+      "type": "finding",
+      "title": "Finding: reading stamina in practice (2015)",
+      "body": "Across this year's classes and projects, reading stamina worked best when pupils chose their own texts first. The pattern held in 4 of 5 groups observed.",
+      "tag": "shareable",
+      "people": [
+        "Sarah Kim"
+      ]
+    },
+    {
+      "at": "2015-09-14",
+      "type": "health",
+      "title": "Health record (2015)",
+      "body": "First health export year: step records begin, averaging near 6,900 steps on teaching days.",
+      "tag": "personal"
+    },
+    {
       "at": "2015-11-09",
       "type": "skill",
       "title": "D3 and dashboards",
@@ -317,6 +957,13 @@
       ]
     },
     {
+      "at": "2015-12-15",
+      "type": "goal-note",
+      "title": "Goals review (2015)",
+      "body": "Year-end goals review: read more widely than deeply for once, protect sleep, and keep one project small enough to finish.",
+      "tag": "personal"
+    },
+    {
       "at": "2015-12-28",
       "type": "journal",
       "title": "Year-end reflection 2015",
@@ -324,6 +971,16 @@
       "tag": "personal",
       "people": [
         "Marco Reyes"
+      ]
+    },
+    {
+      "at": "2016-04-12",
+      "type": "research",
+      "title": "Reading notes on book choice (2016)",
+      "body": "Term-time reading on book choice: what the studies claim, what my classroom notes say, and where they disagree. Finished two key papers and argued with both.",
+      "tag": "shareable",
+      "people": [
+        "Omar Haddad"
       ]
     },
     {
@@ -337,6 +994,33 @@
       ]
     },
     {
+      "at": "2016-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Henry Park (2016)",
+      "body": "Long conversation with Henry Park about work, books, and what changed this year. These mid-year talks keep the friendship — and several projects — honest.",
+      "tag": "personal",
+      "people": [
+        "Henry Park"
+      ]
+    },
+    {
+      "at": "2016-08-19",
+      "type": "finding",
+      "title": "Finding: book choice in practice (2016)",
+      "body": "Across this year's classes and projects, book choice worked best when pupils chose their own texts first. The pattern held in 5 of 6 groups observed.",
+      "tag": "shareable",
+      "people": [
+        "Henry Park"
+      ]
+    },
+    {
+      "at": "2016-09-14",
+      "type": "health",
+      "title": "Health record (2016)",
+      "body": "Health export summary: steps steadier, sleep averaging 6h 44m. Screen marathons still the migraine trigger.",
+      "tag": "personal"
+    },
+    {
       "at": "2016-09-27",
       "type": "research",
       "title": "Interview craft",
@@ -345,6 +1029,16 @@
       "people": [
         "Nina Petrova",
         "Chris Doyle"
+      ]
+    },
+    {
+      "at": "2016-10-05",
+      "type": "method",
+      "title": "Method note: book choice routine (2016)",
+      "body": "A repeatable routine for book choice: short reading bursts, paired talk, one written line to finish. Simple enough to survive a busy week.",
+      "tag": "shareable",
+      "people": [
+        "Omar Haddad"
       ]
     },
     {
@@ -384,6 +1078,26 @@
       ]
     },
     {
+      "at": "2017-04-12",
+      "type": "research",
+      "title": "Reading notes on teacher inquiry (2017)",
+      "body": "Term-time reading on teacher inquiry: what the studies claim, what my classroom notes say, and where they disagree. Finished two key papers and argued with both.",
+      "tag": "personal",
+      "people": [
+        "Kate Morgan"
+      ]
+    },
+    {
+      "at": "2017-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Julia Ross (2017)",
+      "body": "Long conversation with Julia Ross about work, books, and what changed this year. These mid-year talks keep the friendship — and several projects — honest.",
+      "tag": "personal",
+      "people": [
+        "Julia Ross"
+      ]
+    },
+    {
       "at": "2017-08-14",
       "type": "journal",
       "title": "Laid off",
@@ -393,6 +1107,30 @@
         "Marco Reyes",
         "Ana Reyes"
       ]
+    },
+    {
+      "at": "2017-08-19",
+      "type": "finding",
+      "title": "Finding: teacher inquiry in practice (2017)",
+      "body": "Across this year's classes and projects, teacher inquiry worked best when pupils chose their own texts first. The pattern held in 6 of 7 groups observed.",
+      "tag": "shareable",
+      "people": [
+        "Julia Ross"
+      ]
+    },
+    {
+      "at": "2017-09-14",
+      "type": "health",
+      "title": "Health record (2017)",
+      "body": "Check-up: blood pressure steady, vitamin D low after winter. Recheck filed for spring.",
+      "tag": "personal"
+    },
+    {
+      "at": "2017-12-15",
+      "type": "goal-note",
+      "title": "Goals review (2017)",
+      "body": "Year-end goals review: read more widely than deeply for once, protect sleep, and keep one project small enough to finish.",
+      "tag": "personal"
     },
     {
       "at": "2017-12-28",
@@ -417,6 +1155,38 @@
       ]
     },
     {
+      "at": "2018-02-11",
+      "type": "document",
+      "title": "Certificate and letters file (2018)",
+      "body": "Filed this year's certificates, offer letters, and references together. Paper first, scanned to Drive the same evening.",
+      "tag": "personal",
+      "people": [
+        "Ben Whitaker"
+      ],
+      "via": "Google Drive (simulated)"
+    },
+    {
+      "at": "2018-04-12",
+      "type": "research",
+      "title": "Reading notes on collaborative reading (2018)",
+      "body": "Term-time reading on collaborative reading: what the studies claim, what my classroom notes say, and where they disagree. Finished two key papers and argued with both.",
+      "tag": "shareable",
+      "people": [
+        "Ben Whitaker"
+      ],
+      "via": "Notion (simulated)"
+    },
+    {
+      "at": "2018-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Emma Wilson (2018)",
+      "body": "Long conversation with Emma Wilson about work, books, and what changed this year. These mid-year talks keep the friendship — and several projects — honest.",
+      "tag": "personal",
+      "people": [
+        "Emma Wilson"
+      ]
+    },
+    {
       "at": "2018-06-30",
       "type": "finding",
       "title": "Parents read the room",
@@ -427,12 +1197,40 @@
       ]
     },
     {
+      "at": "2018-08-19",
+      "type": "finding",
+      "title": "Finding: collaborative reading in practice (2018)",
+      "body": "Across this year's classes and projects, collaborative reading worked best when pupils chose their own texts first. The pattern held in 3 of 5 groups observed.",
+      "tag": "shareable",
+      "people": [
+        "Emma Wilson"
+      ],
+      "via": "Google Drive (simulated)"
+    },
+    {
       "at": "2018-08-25",
       "type": "method",
       "title": "GitHub export: reading-notes template (2018)",
       "body": "Repo README for a personal reading-notes template: one question per book, margin annotations first, finished-date always recorded. Shared with two colleagues.",
       "tag": "shareable",
       "via": "GitHub (simulated)"
+    },
+    {
+      "at": "2018-09-14",
+      "type": "health",
+      "title": "Health record (2018)",
+      "body": "Swimming term: Sunday swims logged most weeks; sleep deepest on swim days.",
+      "tag": "personal"
+    },
+    {
+      "at": "2018-10-05",
+      "type": "method",
+      "title": "Method note: collaborative reading routine (2018)",
+      "body": "A repeatable routine for collaborative reading: short reading bursts, paired talk, one written line to finish. Simple enough to survive a busy week.",
+      "tag": "shareable",
+      "people": [
+        "Ben Whitaker"
+      ]
     },
     {
       "at": "2018-12-28",
@@ -446,6 +1244,54 @@
       ]
     },
     {
+      "at": "2019-01-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2019-01)",
+      "body": "# Salary — teaching and research roles\nAmount: 2500.00 · Category: Income · Date: 2019-01-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-01-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2019-01)",
+      "body": "# Rent — Northbank flat\nAmount: -880.00 · Category: Housing · Date: 2019-01-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-01-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2019-01)",
+      "body": "# Groceries — market and supermarket\nAmount: -390.00 · Category: Groceries · Date: 2019-01-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-02-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2019-02)",
+      "body": "# Salary — teaching and research roles\nAmount: 2500.00 · Category: Income · Date: 2019-02-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-02-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2019-02)",
+      "body": "# Rent — Northbank flat\nAmount: -880.00 · Category: Housing · Date: 2019-02-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-02-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2019-02)",
+      "body": "# Groceries — market and supermarket\nAmount: -427.00 · Category: Groceries · Date: 2019-02-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
       "at": "2019-02-17",
       "type": "relationship",
       "title": "LinkedIn export: Sofia Lindqvist connection (2019)",
@@ -457,6 +1303,30 @@
       ]
     },
     {
+      "at": "2019-03-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2019-03)",
+      "body": "# Salary — teaching and research roles\nAmount: 2500.00 · Category: Income · Date: 2019-03-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-03-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2019-03)",
+      "body": "# Rent — Northbank flat\nAmount: -880.00 · Category: Housing · Date: 2019-03-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-03-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2019-03)",
+      "body": "# Groceries — market and supermarket\nAmount: -464.00 · Category: Groceries · Date: 2019-03-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
       "at": "2019-03-21",
       "type": "method",
       "title": "Read-aloud research sprints",
@@ -466,6 +1336,203 @@
         "Yuki Tanaka",
         "Sarah Kim"
       ]
+    },
+    {
+      "at": "2019-04-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2019-04)",
+      "body": "# Salary — teaching and research roles\nAmount: 2500.00 · Category: Income · Date: 2019-04-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-04-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2019-04)",
+      "body": "# Rent — Northbank flat\nAmount: -880.00 · Category: Housing · Date: 2019-04-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-04-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2019-04)",
+      "body": "# Groceries — market and supermarket\nAmount: -411.00 · Category: Groceries · Date: 2019-04-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-04-12",
+      "type": "research",
+      "title": "Reading notes on classroom discussion (2019)",
+      "body": "Term-time reading on classroom discussion: what the studies claim, what my classroom notes say, and where they disagree. Finished two key papers and argued with both.",
+      "tag": "personal",
+      "people": [
+        "Ivy Chen"
+      ]
+    },
+    {
+      "at": "2019-05-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2019-05)",
+      "body": "# Salary — teaching and research roles\nAmount: 2500.00 · Category: Income · Date: 2019-05-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-05-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2019-05)",
+      "body": "# Rent — Northbank flat\nAmount: -880.00 · Category: Housing · Date: 2019-05-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-05-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2019-05)",
+      "body": "# Groceries — market and supermarket\nAmount: -448.00 · Category: Groceries · Date: 2019-05-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-06-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2019-06)",
+      "body": "# Salary — teaching and research roles\nAmount: 2500.00 · Category: Income · Date: 2019-06-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-06-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2019-06)",
+      "body": "# Rent — Northbank flat\nAmount: -880.00 · Category: Housing · Date: 2019-06-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-06-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2019-06)",
+      "body": "# Groceries — market and supermarket\nAmount: -395.00 · Category: Groceries · Date: 2019-06-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Chris Doyle (2019)",
+      "body": "Long conversation with Chris Doyle about work, books, and what changed this year. These mid-year talks keep the friendship — and several projects — honest.",
+      "tag": "personal",
+      "people": [
+        "Chris Doyle"
+      ]
+    },
+    {
+      "at": "2019-07-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2019-07)",
+      "body": "# Salary — teaching and research roles\nAmount: 2500.00 · Category: Income · Date: 2019-07-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-07-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2019-07)",
+      "body": "# Rent — Northbank flat\nAmount: -880.00 · Category: Housing · Date: 2019-07-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-07-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2019-07)",
+      "body": "# Groceries — market and supermarket\nAmount: -432.00 · Category: Groceries · Date: 2019-07-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-08-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2019-08)",
+      "body": "# Salary — teaching and research roles\nAmount: 2500.00 · Category: Income · Date: 2019-08-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-08-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2019-08)",
+      "body": "# Rent — Northbank flat\nAmount: -880.00 · Category: Housing · Date: 2019-08-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-08-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2019-08)",
+      "body": "# Groceries — market and supermarket\nAmount: -469.00 · Category: Groceries · Date: 2019-08-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-08-19",
+      "type": "finding",
+      "title": "Finding: classroom discussion in practice (2019)",
+      "body": "Across this year's classes and projects, classroom discussion worked best when pupils chose their own texts first. The pattern held in 4 of 6 groups observed.",
+      "tag": "shareable",
+      "people": [
+        "Chris Doyle"
+      ]
+    },
+    {
+      "at": "2019-09-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2019-09)",
+      "body": "# Salary — teaching and research roles\nAmount: 2560.00 · Category: Income · Date: 2019-09-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-09-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2019-09)",
+      "body": "# Rent — Northbank flat\nAmount: -880.00 · Category: Housing · Date: 2019-09-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-09-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2019-09)",
+      "body": "# Groceries — market and supermarket\nAmount: -416.00 · Category: Groceries · Date: 2019-09-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-09-14",
+      "type": "health",
+      "title": "Health record (2019)",
+      "body": "Health export summary: resting heart rate trending down as walks lengthened; sleep still under seven hours.",
+      "tag": "personal"
+    },
+    {
+      "at": "2019-10-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2019-10)",
+      "body": "# Salary — teaching and research roles\nAmount: 2560.00 · Category: Income · Date: 2019-10-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-10-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2019-10)",
+      "body": "# Rent — Northbank flat\nAmount: -880.00 · Category: Housing · Date: 2019-10-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
     },
     {
       "at": "2019-10-05",
@@ -480,6 +1547,69 @@
       ]
     },
     {
+      "at": "2019-10-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2019-10)",
+      "body": "# Groceries — market and supermarket\nAmount: -453.00 · Category: Groceries · Date: 2019-10-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-11-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2019-11)",
+      "body": "# Salary — teaching and research roles\nAmount: 2560.00 · Category: Income · Date: 2019-11-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-11-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2019-11)",
+      "body": "# Rent — Northbank flat\nAmount: -880.00 · Category: Housing · Date: 2019-11-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-11-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2019-11)",
+      "body": "# Groceries — market and supermarket\nAmount: -400.00 · Category: Groceries · Date: 2019-11-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-12-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2019-12)",
+      "body": "# Salary — teaching and research roles\nAmount: 2560.00 · Category: Income · Date: 2019-12-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-12-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2019-12)",
+      "body": "# Rent — Northbank flat\nAmount: -880.00 · Category: Housing · Date: 2019-12-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-12-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2019-12)",
+      "body": "# Groceries — market and supermarket\nAmount: -437.00 · Category: Groceries · Date: 2019-12-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-12-15",
+      "type": "goal-note",
+      "title": "Goals review (2019)",
+      "body": "Year-end goals review: read more widely than deeply for once, protect sleep, and keep one project small enough to finish.",
+      "tag": "personal"
+    },
+    {
       "at": "2019-12-28",
       "type": "journal",
       "title": "Year-end reflection 2019",
@@ -489,6 +1619,86 @@
         "Priya Nair",
         "Ana Reyes"
       ]
+    },
+    {
+      "at": "2020-01-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2020-01)",
+      "body": "# Salary — teaching and research roles\nAmount: 2720.00 · Category: Income · Date: 2020-01-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-01-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2020-01)",
+      "body": "# Rent — Northbank flat\nAmount: -935.00 · Category: Housing · Date: 2020-01-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-01-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2020-01)",
+      "body": "# Groceries — market and supermarket\nAmount: -483.00 · Category: Groceries · Date: 2020-01-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-02-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2020-02)",
+      "body": "# Salary — teaching and research roles\nAmount: 2720.00 · Category: Income · Date: 2020-02-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-02-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2020-02)",
+      "body": "# Rent — Northbank flat\nAmount: -935.00 · Category: Housing · Date: 2020-02-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-02-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2020-02)",
+      "body": "# Groceries — market and supermarket\nAmount: -430.00 · Category: Groceries · Date: 2020-02-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-03-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2020-03)",
+      "body": "# Salary — teaching and research roles\nAmount: 2720.00 · Category: Income · Date: 2020-03-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-03-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2020-03)",
+      "body": "# Rent — Northbank flat\nAmount: -935.00 · Category: Housing · Date: 2020-03-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-03-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2020-03)",
+      "body": "# Groceries — market and supermarket\nAmount: -467.00 · Category: Groceries · Date: 2020-03-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-04-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2020-04)",
+      "body": "# Salary — teaching and research roles\nAmount: 2720.00 · Category: Income · Date: 2020-04-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
     },
     {
       "at": "2020-04-02",
@@ -502,6 +1712,172 @@
       ]
     },
     {
+      "at": "2020-04-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2020-04)",
+      "body": "# Rent — Northbank flat\nAmount: -935.00 · Category: Housing · Date: 2020-04-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-04-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2020-04)",
+      "body": "# Groceries — market and supermarket\nAmount: -414.00 · Category: Groceries · Date: 2020-04-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-04-12",
+      "type": "research",
+      "title": "Reading notes on learning analytics (2020)",
+      "body": "Term-time reading on learning analytics: what the studies claim, what my classroom notes say, and where they disagree. Finished two key papers and argued with both.",
+      "tag": "shareable",
+      "people": [
+        "Leo Fischer"
+      ]
+    },
+    {
+      "at": "2020-05-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2020-05)",
+      "body": "# Salary — teaching and research roles\nAmount: 2720.00 · Category: Income · Date: 2020-05-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-05-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2020-05)",
+      "body": "# Rent — Northbank flat\nAmount: -935.00 · Category: Housing · Date: 2020-05-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-05-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2020-05)",
+      "body": "# Groceries — market and supermarket\nAmount: -451.00 · Category: Groceries · Date: 2020-05-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-06-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2020-06)",
+      "body": "# Salary — teaching and research roles\nAmount: 2720.00 · Category: Income · Date: 2020-06-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-06-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2020-06)",
+      "body": "# Rent — Northbank flat\nAmount: -935.00 · Category: Housing · Date: 2020-06-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-06-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2020-06)",
+      "body": "# Groceries — market and supermarket\nAmount: -488.00 · Category: Groceries · Date: 2020-06-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Diego Torres (2020)",
+      "body": "Long conversation with Diego Torres about work, books, and what changed this year. These mid-year talks keep the friendship — and several projects — honest.",
+      "tag": "personal",
+      "people": [
+        "Diego Torres"
+      ]
+    },
+    {
+      "at": "2020-07-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2020-07)",
+      "body": "# Salary — teaching and research roles\nAmount: 2720.00 · Category: Income · Date: 2020-07-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-07-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2020-07)",
+      "body": "# Rent — Northbank flat\nAmount: -935.00 · Category: Housing · Date: 2020-07-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-07-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2020-07)",
+      "body": "# Groceries — market and supermarket\nAmount: -435.00 · Category: Groceries · Date: 2020-07-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-08-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2020-08)",
+      "body": "# Salary — teaching and research roles\nAmount: 2720.00 · Category: Income · Date: 2020-08-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-08-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2020-08)",
+      "body": "# Rent — Northbank flat\nAmount: -935.00 · Category: Housing · Date: 2020-08-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-08-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2020-08)",
+      "body": "# Groceries — market and supermarket\nAmount: -472.00 · Category: Groceries · Date: 2020-08-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-08-19",
+      "type": "finding",
+      "title": "Finding: learning analytics in practice (2020)",
+      "body": "Across this year's classes and projects, learning analytics worked best when pupils chose their own texts first. The pattern held in 5 of 7 groups observed.",
+      "tag": "shareable",
+      "people": [
+        "Diego Torres"
+      ]
+    },
+    {
+      "at": "2020-09-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2020-09)",
+      "body": "# Salary — teaching and research roles\nAmount: 2780.00 · Category: Income · Date: 2020-09-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-09-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2020-09)",
+      "body": "# Rent — Northbank flat\nAmount: -935.00 · Category: Housing · Date: 2020-09-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-09-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2020-09)",
+      "body": "# Groceries — market and supermarket\nAmount: -419.00 · Category: Groceries · Date: 2020-09-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
       "at": "2020-09-13",
       "type": "health",
       "title": "Long walks, audiobooks",
@@ -512,12 +1888,101 @@
       ]
     },
     {
+      "at": "2020-09-14",
+      "type": "health",
+      "title": "Health record (2020)",
+      "body": "Lockdown year: home workouts, long walks, anxious sleep. Records show movement saved the routine.",
+      "tag": "personal"
+    },
+    {
+      "at": "2020-10-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2020-10)",
+      "body": "# Salary — teaching and research roles\nAmount: 2780.00 · Category: Income · Date: 2020-10-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
       "at": "2020-10-03",
       "type": "research",
       "title": "X export: bookmarked threads (2020)",
       "body": "Bookmarked threads on annotation practice and marginalia: saved twelve examples for the methods file. Public notes compound; drafts do not.",
       "tag": "personal",
       "via": "X (Twitter) (simulated)"
+    },
+    {
+      "at": "2020-10-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2020-10)",
+      "body": "# Rent — Northbank flat\nAmount: -935.00 · Category: Housing · Date: 2020-10-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-10-05",
+      "type": "method",
+      "title": "Method note: learning analytics routine (2020)",
+      "body": "A repeatable routine for learning analytics: short reading bursts, paired talk, one written line to finish. Simple enough to survive a busy week.",
+      "tag": "shareable",
+      "people": [
+        "Leo Fischer"
+      ]
+    },
+    {
+      "at": "2020-10-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2020-10)",
+      "body": "# Groceries — market and supermarket\nAmount: -456.00 · Category: Groceries · Date: 2020-10-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-11-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2020-11)",
+      "body": "# Salary — teaching and research roles\nAmount: 2780.00 · Category: Income · Date: 2020-11-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-11-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2020-11)",
+      "body": "# Rent — Northbank flat\nAmount: -935.00 · Category: Housing · Date: 2020-11-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-11-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2020-11)",
+      "body": "# Groceries — market and supermarket\nAmount: -403.00 · Category: Groceries · Date: 2020-11-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-12-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2020-12)",
+      "body": "# Salary — teaching and research roles\nAmount: 2780.00 · Category: Income · Date: 2020-12-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-12-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2020-12)",
+      "body": "# Rent — Northbank flat\nAmount: -935.00 · Category: Housing · Date: 2020-12-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-12-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2020-12)",
+      "body": "# Groceries — market and supermarket\nAmount: -440.00 · Category: Groceries · Date: 2020-12-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
     },
     {
       "at": "2020-12-28",
@@ -530,6 +1995,65 @@
       ]
     },
     {
+      "at": "2021-01-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2021-01)",
+      "body": "# Salary — teaching and research roles\nAmount: 2940.00 · Category: Income · Date: 2021-01-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-01-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2021-01)",
+      "body": "# Rent — Northbank flat\nAmount: -990.00 · Category: Housing · Date: 2021-01-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-01-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2021-01)",
+      "body": "# Groceries — market and supermarket\nAmount: -486.00 · Category: Groceries · Date: 2021-01-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-02-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2021-02)",
+      "body": "# Salary — teaching and research roles\nAmount: 2940.00 · Category: Income · Date: 2021-02-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-02-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2021-02)",
+      "body": "# Rent — Northbank flat\nAmount: -990.00 · Category: Housing · Date: 2021-02-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-02-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2021-02)",
+      "body": "# Groceries — market and supermarket\nAmount: -433.00 · Category: Groceries · Date: 2021-02-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-02-11",
+      "type": "document",
+      "title": "Certificate and letters file (2021)",
+      "body": "Filed this year's certificates, offer letters, and references together. Paper first, scanned to Drive the same evening.",
+      "tag": "personal",
+      "people": [
+        "Ruth Adams"
+      ],
+      "via": "Google Drive (simulated)"
+    },
+    {
       "at": "2021-02-27",
       "type": "skill",
       "title": "Fiction writing, badly",
@@ -538,6 +2062,89 @@
       "people": [
         "Leo Fischer"
       ]
+    },
+    {
+      "at": "2021-03-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2021-03)",
+      "body": "# Salary — teaching and research roles\nAmount: 2940.00 · Category: Income · Date: 2021-03-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-03-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2021-03)",
+      "body": "# Rent — Northbank flat\nAmount: -990.00 · Category: Housing · Date: 2021-03-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-03-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2021-03)",
+      "body": "# Groceries — market and supermarket\nAmount: -470.00 · Category: Groceries · Date: 2021-03-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-04-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2021-04)",
+      "body": "# Salary — teaching and research roles\nAmount: 2940.00 · Category: Income · Date: 2021-04-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-04-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2021-04)",
+      "body": "# Rent — Northbank flat\nAmount: -990.00 · Category: Housing · Date: 2021-04-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-04-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2021-04)",
+      "body": "# Groceries — market and supermarket\nAmount: -417.00 · Category: Groceries · Date: 2021-04-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-04-12",
+      "type": "research",
+      "title": "Reading notes on reading motivation (2021)",
+      "body": "Term-time reading on reading motivation: what the studies claim, what my classroom notes say, and where they disagree. Finished two key papers and argued with both.",
+      "tag": "personal",
+      "people": [
+        "Ruth Adams"
+      ],
+      "via": "Notion (simulated)"
+    },
+    {
+      "at": "2021-05-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2021-05)",
+      "body": "# Salary — teaching and research roles\nAmount: 2940.00 · Category: Income · Date: 2021-05-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-05-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2021-05)",
+      "body": "# Rent — Northbank flat\nAmount: -990.00 · Category: Housing · Date: 2021-05-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-05-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2021-05)",
+      "body": "# Groceries — market and supermarket\nAmount: -454.00 · Category: Groceries · Date: 2021-05-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
     },
     {
       "at": "2021-05-21",
@@ -551,6 +2158,88 @@
       ]
     },
     {
+      "at": "2021-06-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2021-06)",
+      "body": "# Salary — teaching and research roles\nAmount: 2940.00 · Category: Income · Date: 2021-06-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-06-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2021-06)",
+      "body": "# Rent — Northbank flat\nAmount: -990.00 · Category: Housing · Date: 2021-06-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-06-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2021-06)",
+      "body": "# Groceries — market and supermarket\nAmount: -491.00 · Category: Groceries · Date: 2021-06-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Nina Petrova (2021)",
+      "body": "Long conversation with Nina Petrova about work, books, and what changed this year. These mid-year talks keep the friendship — and several projects — honest.",
+      "tag": "personal",
+      "people": [
+        "Nina Petrova"
+      ]
+    },
+    {
+      "at": "2021-07-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2021-07)",
+      "body": "# Salary — teaching and research roles\nAmount: 2940.00 · Category: Income · Date: 2021-07-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-07-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2021-07)",
+      "body": "# Rent — Northbank flat\nAmount: -990.00 · Category: Housing · Date: 2021-07-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-07-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2021-07)",
+      "body": "# Groceries — market and supermarket\nAmount: -438.00 · Category: Groceries · Date: 2021-07-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-08-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2021-08)",
+      "body": "# Salary — teaching and research roles\nAmount: 2940.00 · Category: Income · Date: 2021-08-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-08-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2021-08)",
+      "body": "# Rent — Northbank flat\nAmount: -990.00 · Category: Housing · Date: 2021-08-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-08-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2021-08)",
+      "body": "# Groceries — market and supermarket\nAmount: -475.00 · Category: Groceries · Date: 2021-08-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
       "at": "2021-08-19",
       "type": "goal-note",
       "title": "Pivot: research lead",
@@ -561,6 +2250,126 @@
       ]
     },
     {
+      "at": "2021-08-19",
+      "type": "finding",
+      "title": "Finding: reading motivation in practice (2021)",
+      "body": "Across this year's classes and projects, reading motivation worked best when pupils chose their own texts first. The pattern held in 6 of 5 groups observed.",
+      "tag": "shareable",
+      "people": [
+        "Nina Petrova"
+      ]
+    },
+    {
+      "at": "2021-09-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2021-09)",
+      "body": "# Salary — teaching and research roles\nAmount: 3000.00 · Category: Income · Date: 2021-09-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-09-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2021-09)",
+      "body": "# Rent — Northbank flat\nAmount: -990.00 · Category: Housing · Date: 2021-09-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-09-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2021-09)",
+      "body": "# Groceries — market and supermarket\nAmount: -422.00 · Category: Groceries · Date: 2021-09-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-09-14",
+      "type": "health",
+      "title": "Health record (2021)",
+      "body": "Vaccination course completed; appointments logged with the export. Walks stayed daily.",
+      "tag": "personal"
+    },
+    {
+      "at": "2021-10-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2021-10)",
+      "body": "# Salary — teaching and research roles\nAmount: 3000.00 · Category: Income · Date: 2021-10-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-10-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2021-10)",
+      "body": "# Rent — Northbank flat\nAmount: -990.00 · Category: Housing · Date: 2021-10-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-10-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2021-10)",
+      "body": "# Groceries — market and supermarket\nAmount: -459.00 · Category: Groceries · Date: 2021-10-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-11-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2021-11)",
+      "body": "# Salary — teaching and research roles\nAmount: 3000.00 · Category: Income · Date: 2021-11-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-11-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2021-11)",
+      "body": "# Rent — Northbank flat\nAmount: -990.00 · Category: Housing · Date: 2021-11-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-11-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2021-11)",
+      "body": "# Groceries — market and supermarket\nAmount: -496.00 · Category: Groceries · Date: 2021-11-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-12-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2021-12)",
+      "body": "# Salary — teaching and research roles\nAmount: 3000.00 · Category: Income · Date: 2021-12-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-12-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2021-12)",
+      "body": "# Rent — Northbank flat\nAmount: -990.00 · Category: Housing · Date: 2021-12-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-12-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2021-12)",
+      "body": "# Groceries — market and supermarket\nAmount: -443.00 · Category: Groceries · Date: 2021-12-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-12-15",
+      "type": "goal-note",
+      "title": "Goals review (2021)",
+      "body": "Year-end goals review: read more widely than deeply for once, protect sleep, and keep one project small enough to finish.",
+      "tag": "personal"
+    },
+    {
       "at": "2021-12-28",
       "type": "journal",
       "title": "Year-end reflection 2021",
@@ -569,6 +2378,30 @@
       "people": [
         "Lena Cruz"
       ]
+    },
+    {
+      "at": "2022-01-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2022-01)",
+      "body": "# Salary — teaching and research roles\nAmount: 3160.00 · Category: Income · Date: 2022-01-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-01-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2022-01)",
+      "body": "# Rent — Northbank flat\nAmount: -1045.00 · Category: Housing · Date: 2022-01-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-01-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2022-01)",
+      "body": "# Groceries — market and supermarket\nAmount: -489.00 · Category: Groceries · Date: 2022-01-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
     },
     {
       "at": "2022-01-30",
@@ -582,6 +2415,54 @@
       ]
     },
     {
+      "at": "2022-02-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2022-02)",
+      "body": "# Salary — teaching and research roles\nAmount: 3160.00 · Category: Income · Date: 2022-02-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-02-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2022-02)",
+      "body": "# Rent — Northbank flat\nAmount: -1045.00 · Category: Housing · Date: 2022-02-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-02-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2022-02)",
+      "body": "# Groceries — market and supermarket\nAmount: -436.00 · Category: Groceries · Date: 2022-02-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-03-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2022-03)",
+      "body": "# Salary — teaching and research roles\nAmount: 3160.00 · Category: Income · Date: 2022-03-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-03-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2022-03)",
+      "body": "# Rent — Northbank flat\nAmount: -1045.00 · Category: Housing · Date: 2022-03-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-03-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2022-03)",
+      "body": "# Groceries — market and supermarket\nAmount: -473.00 · Category: Groceries · Date: 2022-03-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
       "at": "2022-03-15",
       "type": "research",
       "title": "Agency offer",
@@ -591,6 +2472,222 @@
         "Kate Morgan",
         "Ivy Chen"
       ]
+    },
+    {
+      "at": "2022-04-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2022-04)",
+      "body": "# Salary — teaching and research roles\nAmount: 3160.00 · Category: Income · Date: 2022-04-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-04-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2022-04)",
+      "body": "# Rent — Northbank flat\nAmount: -1045.00 · Category: Housing · Date: 2022-04-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-04-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2022-04)",
+      "body": "# Groceries — market and supermarket\nAmount: -420.00 · Category: Groceries · Date: 2022-04-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-04-12",
+      "type": "research",
+      "title": "Reading notes on note-taking habits (2022)",
+      "body": "Term-time reading on note-taking habits: what the studies claim, what my classroom notes say, and where they disagree. Finished two key papers and argued with both.",
+      "tag": "shareable",
+      "people": [
+        "Sarah Kim"
+      ]
+    },
+    {
+      "at": "2022-05-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2022-05)",
+      "body": "# Salary — teaching and research roles\nAmount: 3160.00 · Category: Income · Date: 2022-05-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-05-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2022-05)",
+      "body": "# Rent — Northbank flat\nAmount: -1045.00 · Category: Housing · Date: 2022-05-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-05-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2022-05)",
+      "body": "# Groceries — market and supermarket\nAmount: -457.00 · Category: Groceries · Date: 2022-05-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-06-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2022-06)",
+      "body": "# Salary — teaching and research roles\nAmount: 3160.00 · Category: Income · Date: 2022-06-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-06-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2022-06)",
+      "body": "# Rent — Northbank flat\nAmount: -1045.00 · Category: Housing · Date: 2022-06-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-06-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2022-06)",
+      "body": "# Groceries — market and supermarket\nAmount: -494.00 · Category: Groceries · Date: 2022-06-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Noel Grant (2022)",
+      "body": "Long conversation with Noel Grant about work, books, and what changed this year. These mid-year talks keep the friendship — and several projects — honest.",
+      "tag": "personal",
+      "people": [
+        "Noel Grant"
+      ]
+    },
+    {
+      "at": "2022-07-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2022-07)",
+      "body": "# Salary — teaching and research roles\nAmount: 3160.00 · Category: Income · Date: 2022-07-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-07-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2022-07)",
+      "body": "# Rent — Northbank flat\nAmount: -1045.00 · Category: Housing · Date: 2022-07-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-07-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2022-07)",
+      "body": "# Groceries — market and supermarket\nAmount: -441.00 · Category: Groceries · Date: 2022-07-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-08-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2022-08)",
+      "body": "# Salary — teaching and research roles\nAmount: 3160.00 · Category: Income · Date: 2022-08-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-08-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2022-08)",
+      "body": "# Rent — Northbank flat\nAmount: -1045.00 · Category: Housing · Date: 2022-08-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-08-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2022-08)",
+      "body": "# Groceries — market and supermarket\nAmount: -478.00 · Category: Groceries · Date: 2022-08-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-08-19",
+      "type": "finding",
+      "title": "Finding: note-taking habits in practice (2022)",
+      "body": "Across this year's classes and projects, note-taking habits worked best when pupils chose their own texts first. The pattern held in 3 of 6 groups observed.",
+      "tag": "shareable",
+      "people": [
+        "Noel Grant"
+      ],
+      "via": "Google Drive (simulated)"
+    },
+    {
+      "at": "2022-09-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2022-09)",
+      "body": "# Salary — teaching and research roles\nAmount: 3220.00 · Category: Income · Date: 2022-09-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-09-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2022-09)",
+      "body": "# Rent — Northbank flat\nAmount: -1045.00 · Category: Housing · Date: 2022-09-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-09-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2022-09)",
+      "body": "# Groceries — market and supermarket\nAmount: -425.00 · Category: Groceries · Date: 2022-09-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-09-14",
+      "type": "health",
+      "title": "Health record (2022)",
+      "body": "Check-up before the house move: blood pressure stable, strength work recommended and actually started.",
+      "tag": "personal"
+    },
+    {
+      "at": "2022-10-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2022-10)",
+      "body": "# Salary — teaching and research roles\nAmount: 3220.00 · Category: Income · Date: 2022-10-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-10-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2022-10)",
+      "body": "# Rent — Northbank flat\nAmount: -1045.00 · Category: Housing · Date: 2022-10-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-10-05",
+      "type": "method",
+      "title": "Method note: note-taking habits routine (2022)",
+      "body": "A repeatable routine for note-taking habits: short reading bursts, paired talk, one written line to finish. Simple enough to survive a busy week.",
+      "tag": "shareable",
+      "people": [
+        "Sarah Kim"
+      ]
+    },
+    {
+      "at": "2022-10-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2022-10)",
+      "body": "# Groceries — market and supermarket\nAmount: -462.00 · Category: Groceries · Date: 2022-10-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
     },
     {
       "at": "2022-10-22",
@@ -603,6 +2700,54 @@
       ]
     },
     {
+      "at": "2022-11-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2022-11)",
+      "body": "# Salary — teaching and research roles\nAmount: 3220.00 · Category: Income · Date: 2022-11-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-11-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2022-11)",
+      "body": "# Rent — Northbank flat\nAmount: -1045.00 · Category: Housing · Date: 2022-11-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-11-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2022-11)",
+      "body": "# Groceries — market and supermarket\nAmount: -499.00 · Category: Groceries · Date: 2022-11-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-12-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2022-12)",
+      "body": "# Salary — teaching and research roles\nAmount: 3220.00 · Category: Income · Date: 2022-12-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-12-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2022-12)",
+      "body": "# Rent — Northbank flat\nAmount: -1045.00 · Category: Housing · Date: 2022-12-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-12-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2022-12)",
+      "body": "# Groceries — market and supermarket\nAmount: -446.00 · Category: Groceries · Date: 2022-12-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
       "at": "2022-12-28",
       "type": "journal",
       "title": "Year-end reflection 2022",
@@ -611,6 +2756,119 @@
       "people": [
         "Marco Reyes",
         "Lena Cruz"
+      ]
+    },
+    {
+      "at": "2023-01-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2023-01)",
+      "body": "# Salary — teaching and research roles\nAmount: 3380.00 · Category: Income · Date: 2023-01-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-01-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2023-01)",
+      "body": "# Rent — Northbank flat\nAmount: -1100.00 · Category: Housing · Date: 2023-01-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-01-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2023-01)",
+      "body": "# Groceries — market and supermarket\nAmount: -492.00 · Category: Groceries · Date: 2023-01-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-02-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2023-02)",
+      "body": "# Salary — teaching and research roles\nAmount: 3380.00 · Category: Income · Date: 2023-02-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-02-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2023-02)",
+      "body": "# Rent — Northbank flat\nAmount: -1100.00 · Category: Housing · Date: 2023-02-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-02-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2023-02)",
+      "body": "# Groceries — market and supermarket\nAmount: -439.00 · Category: Groceries · Date: 2023-02-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-03-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2023-03)",
+      "body": "# Salary — teaching and research roles\nAmount: 3380.00 · Category: Income · Date: 2023-03-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-03-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2023-03)",
+      "body": "# Rent — Northbank flat\nAmount: -1100.00 · Category: Housing · Date: 2023-03-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-03-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2023-03)",
+      "body": "# Groceries — market and supermarket\nAmount: -476.00 · Category: Groceries · Date: 2023-03-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-03-14",
+      "type": "health",
+      "title": "Apple Health export summary (spring 2023)",
+      "body": "Health export for January to March 2023.\n- StepCount: 268 records, averaging 7,410 steps/day\n- SleepAnalysis: 84 records, averaging 6h 58m a night\n- RestingHeartRate: 62 records, averaging 63 bpm\nTeaching days show the steadiest walking pattern; weekends are quieter.",
+      "tag": "personal"
+    },
+    {
+      "at": "2023-04-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2023-04)",
+      "body": "# Salary — teaching and research roles\nAmount: 3380.00 · Category: Income · Date: 2023-04-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-04-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2023-04)",
+      "body": "# Rent — Northbank flat\nAmount: -1100.00 · Category: Housing · Date: 2023-04-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-04-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2023-04)",
+      "body": "# Groceries — market and supermarket\nAmount: -513.00 · Category: Groceries · Date: 2023-04-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-04-12",
+      "type": "research",
+      "title": "Reading notes on peer feedback (2023)",
+      "body": "Term-time reading on peer feedback: what the studies claim, what my classroom notes say, and where they disagree. Finished two key papers and argued with both.",
+      "tag": "personal",
+      "people": [
+        "Henry Park"
       ]
     },
     {
@@ -625,12 +2883,159 @@
       ]
     },
     {
+      "at": "2023-05-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2023-05)",
+      "body": "# Salary — teaching and research roles\nAmount: 3380.00 · Category: Income · Date: 2023-05-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-05-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2023-05)",
+      "body": "# Rent — Northbank flat\nAmount: -1100.00 · Category: Housing · Date: 2023-05-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-05-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2023-05)",
+      "body": "# Groceries — market and supermarket\nAmount: -460.00 · Category: Groceries · Date: 2023-05-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-06-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2023-06)",
+      "body": "# Salary — teaching and research roles\nAmount: 3380.00 · Category: Income · Date: 2023-06-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-06-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2023-06)",
+      "body": "# Rent — Northbank flat\nAmount: -1100.00 · Category: Housing · Date: 2023-06-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-06-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2023-06)",
+      "body": "# Groceries — market and supermarket\nAmount: -497.00 · Category: Groceries · Date: 2023-06-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Paul Novak (2023)",
+      "body": "Long conversation with Paul Novak about work, books, and what changed this year. These mid-year talks keep the friendship — and several projects — honest.",
+      "tag": "personal",
+      "people": [
+        "Paul Novak"
+      ]
+    },
+    {
+      "at": "2023-07-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2023-07)",
+      "body": "# Salary — teaching and research roles\nAmount: 3380.00 · Category: Income · Date: 2023-07-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-07-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2023-07)",
+      "body": "# Rent — Northbank flat\nAmount: -1100.00 · Category: Housing · Date: 2023-07-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-07-09",
+      "type": "health",
+      "title": "Sleep reset after term ended",
+      "body": "Two weeks of protected sleep after the school year: lights out before eleven, no marking after nine. Sleep felt deeper; morning walks came back on their own.",
+      "tag": "personal"
+    },
+    {
+      "at": "2023-07-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2023-07)",
+      "body": "# Groceries — market and supermarket\nAmount: -444.00 · Category: Groceries · Date: 2023-07-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
       "at": "2023-07-14",
       "type": "goal-note",
       "title": "Notion export: research leadership plan (2023)",
       "body": "Goal page: lead a small research team within two years, mentor junior researchers, publish the annotation method. Reviewed quarterly against the calendar.",
       "tag": "personal",
       "via": "Notion (simulated)"
+    },
+    {
+      "at": "2023-08-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2023-08)",
+      "body": "# Salary — teaching and research roles\nAmount: 3380.00 · Category: Income · Date: 2023-08-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-08-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2023-08)",
+      "body": "# Rent — Northbank flat\nAmount: -1100.00 · Category: Housing · Date: 2023-08-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-08-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2023-08)",
+      "body": "# Groceries — market and supermarket\nAmount: -481.00 · Category: Groceries · Date: 2023-08-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-08-19",
+      "type": "finding",
+      "title": "Finding: peer feedback in practice (2023)",
+      "body": "Across this year's classes and projects, peer feedback worked best when pupils chose their own texts first. The pattern held in 4 of 7 groups observed.",
+      "tag": "shareable",
+      "people": [
+        "Paul Novak"
+      ]
+    },
+    {
+      "at": "2023-09-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2023-09)",
+      "body": "# Salary — teaching and research roles\nAmount: 3440.00 · Category: Income · Date: 2023-09-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-09-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2023-09)",
+      "body": "# Rent — Northbank flat\nAmount: -1100.00 · Category: Housing · Date: 2023-09-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-09-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2023-09)",
+      "body": "# Groceries — market and supermarket\nAmount: -428.00 · Category: Groceries · Date: 2023-09-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
     },
     {
       "at": "2023-09-16",
@@ -646,6 +3051,92 @@
       ]
     },
     {
+      "at": "2023-10-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2023-10)",
+      "body": "# Salary — teaching and research roles\nAmount: 3440.00 · Category: Income · Date: 2023-10-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-10-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2023-10)",
+      "body": "# Rent — Northbank flat\nAmount: -1100.00 · Category: Housing · Date: 2023-10-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-10-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2023-10)",
+      "body": "# Groceries — market and supermarket\nAmount: -465.00 · Category: Groceries · Date: 2023-10-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-11-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2023-11)",
+      "body": "# Salary — teaching and research roles\nAmount: 3440.00 · Category: Income · Date: 2023-11-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-11-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2023-11)",
+      "body": "# Rent — Northbank flat\nAmount: -1100.00 · Category: Housing · Date: 2023-11-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-11-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2023-11)",
+      "body": "# Groceries — market and supermarket\nAmount: -502.00 · Category: Groceries · Date: 2023-11-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-11-21",
+      "type": "health",
+      "title": "Annual check-up and blood pressure",
+      "body": "Clinic appointment: blood pressure 118/76, routine lab results filed. Doctor noted the walking routine approvingly. Next check-up in twelve months.",
+      "tag": "personal"
+    },
+    {
+      "at": "2023-12-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2023-12)",
+      "body": "# Salary — teaching and research roles\nAmount: 3440.00 · Category: Income · Date: 2023-12-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-12-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2023-12)",
+      "body": "# Rent — Northbank flat\nAmount: -1100.00 · Category: Housing · Date: 2023-12-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-12-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2023-12)",
+      "body": "# Groceries — market and supermarket\nAmount: -449.00 · Category: Groceries · Date: 2023-12-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-12-15",
+      "type": "goal-note",
+      "title": "Goals review (2023)",
+      "body": "Year-end goals review: read more widely than deeply for once, protect sleep, and keep one project small enough to finish.",
+      "tag": "personal"
+    },
+    {
       "at": "2023-12-28",
       "type": "journal",
       "title": "Year-end reflection 2023",
@@ -655,6 +3146,61 @@
         "Mama Rosa",
         "Papa Joe"
       ]
+    },
+    {
+      "at": "2024-01-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2024-01)",
+      "body": "# Salary — teaching and research roles\nAmount: 3600.00 · Category: Income · Date: 2024-01-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-01-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2024-01)",
+      "body": "# Rent — Northbank flat\nAmount: -1155.00 · Category: Housing · Date: 2024-01-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-01-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2024-01)",
+      "body": "# Groceries — market and supermarket\nAmount: -495.00 · Category: Groceries · Date: 2024-01-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-02-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2024-02)",
+      "body": "# Salary — teaching and research roles\nAmount: 3600.00 · Category: Income · Date: 2024-02-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-02-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2024-02)",
+      "body": "# Rent — Northbank flat\nAmount: -1155.00 · Category: Housing · Date: 2024-02-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-02-06",
+      "type": "health",
+      "title": "Apple Health export summary (winter 2024)",
+      "body": "Health export for November 2023 to February 2024.\n- StepCount: 342 records, averaging 7,980 steps/day\n- SleepAnalysis: 108 records, averaging 7h 06m a night\n- RestingHeartRate: 74 records, averaging 62 bpm\n- Workouts: 18 records, mostly weekend walks\nSteps dipped in the darkest weeks, then recovered.",
+      "tag": "personal"
+    },
+    {
+      "at": "2024-02-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2024-02)",
+      "body": "# Groceries — market and supermarket\nAmount: -442.00 · Category: Groceries · Date: 2024-02-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
     },
     {
       "at": "2024-02-10",
@@ -669,11 +3215,235 @@
       ]
     },
     {
+      "at": "2024-02-11",
+      "type": "document",
+      "title": "Certificate and letters file (2024)",
+      "body": "Filed this year's certificates, offer letters, and references together. Paper first, scanned to Drive the same evening.",
+      "tag": "personal",
+      "people": [
+        "Julia Ross"
+      ],
+      "via": "Google Drive (simulated)"
+    },
+    {
+      "at": "2024-03-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2024-03)",
+      "body": "# Salary — teaching and research roles\nAmount: 3600.00 · Category: Income · Date: 2024-03-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-03-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2024-03)",
+      "body": "# Rent — Northbank flat\nAmount: -1155.00 · Category: Housing · Date: 2024-03-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-03-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2024-03)",
+      "body": "# Groceries — market and supermarket\nAmount: -479.00 · Category: Groceries · Date: 2024-03-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-04-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2024-04)",
+      "body": "# Salary — teaching and research roles\nAmount: 3600.00 · Category: Income · Date: 2024-04-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-04-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2024-04)",
+      "body": "# Rent — Northbank flat\nAmount: -1155.00 · Category: Housing · Date: 2024-04-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-04-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2024-04)",
+      "body": "# Groceries — market and supermarket\nAmount: -516.00 · Category: Groceries · Date: 2024-04-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-04-12",
+      "type": "research",
+      "title": "Reading notes on library programmes (2024)",
+      "body": "Term-time reading on library programmes: what the studies claim, what my classroom notes say, and where they disagree. Finished two key papers and argued with both.",
+      "tag": "shareable",
+      "people": [
+        "Julia Ross"
+      ],
+      "via": "Notion (simulated)"
+    },
+    {
+      "at": "2024-05-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2024-05)",
+      "body": "# Salary — teaching and research roles\nAmount: 3600.00 · Category: Income · Date: 2024-05-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-05-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2024-05)",
+      "body": "# Rent — Northbank flat\nAmount: -1155.00 · Category: Housing · Date: 2024-05-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-05-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2024-05)",
+      "body": "# Groceries — market and supermarket\nAmount: -463.00 · Category: Groceries · Date: 2024-05-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-05-17",
+      "type": "health",
+      "title": "Started strength training twice a week",
+      "body": "First month of strength workouts at the community gym: two short sessions a week, logged as workouts. Sleep improved on training days.",
+      "tag": "personal"
+    },
+    {
+      "at": "2024-06-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2024-06)",
+      "body": "# Salary — teaching and research roles\nAmount: 3600.00 · Category: Income · Date: 2024-06-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-06-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2024-06)",
+      "body": "# Rent — Northbank flat\nAmount: -1155.00 · Category: Housing · Date: 2024-06-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-06-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2024-06)",
+      "body": "# Groceries — market and supermarket\nAmount: -500.00 · Category: Groceries · Date: 2024-06-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Mama Rosa (2024)",
+      "body": "Long conversation with Mama Rosa about work, books, and what changed this year. These mid-year talks keep the friendship — and several projects — honest.",
+      "tag": "personal",
+      "people": [
+        "Mama Rosa"
+      ]
+    },
+    {
+      "at": "2024-07-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2024-07)",
+      "body": "# Salary — teaching and research roles\nAmount: 3600.00 · Category: Income · Date: 2024-07-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-07-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2024-07)",
+      "body": "# Rent — Northbank flat\nAmount: -1155.00 · Category: Housing · Date: 2024-07-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-07-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2024-07)",
+      "body": "# Groceries — market and supermarket\nAmount: -447.00 · Category: Groceries · Date: 2024-07-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-08-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2024-08)",
+      "body": "# Salary — teaching and research roles\nAmount: 3600.00 · Category: Income · Date: 2024-08-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-08-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2024-08)",
+      "body": "# Rent — Northbank flat\nAmount: -1155.00 · Category: Housing · Date: 2024-08-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-08-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2024-08)",
+      "body": "# Groceries — market and supermarket\nAmount: -484.00 · Category: Groceries · Date: 2024-08-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-08-19",
+      "type": "finding",
+      "title": "Finding: library programmes in practice (2024)",
+      "body": "Across this year's classes and projects, library programmes worked best when pupils chose their own texts first. The pattern held in 5 of 5 groups observed.",
+      "tag": "shareable",
+      "people": [
+        "Mama Rosa"
+      ]
+    },
+    {
+      "at": "2024-08-23",
+      "type": "health",
+      "title": "Flu vaccination",
+      "body": "Vaccination at the pharmacy clinic, appointment took ten minutes. Filed the record card with the health export.",
+      "tag": "personal"
+    },
+    {
       "at": "2024-08-31",
       "type": "finding",
       "title": "Grief and attention",
       "body": "Finding from my own notes: grief fragments attention for months. Reading in short chapters is a kindness, not a compromise.",
       "tag": "shareable"
+    },
+    {
+      "at": "2024-09-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2024-09)",
+      "body": "# Salary — teaching and research roles\nAmount: 3660.00 · Category: Income · Date: 2024-09-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-09-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2024-09)",
+      "body": "# Rent — Northbank flat\nAmount: -1155.00 · Category: Housing · Date: 2024-09-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-09-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2024-09)",
+      "body": "# Groceries — market and supermarket\nAmount: -521.00 · Category: Groceries · Date: 2024-09-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
     },
     {
       "at": "2024-09-19",
@@ -682,6 +3452,95 @@
       "body": "Clinic letter received by email: blood pressure stable, vitamin D low, recheck in six months. Filed with the health export the same day.",
       "tag": "personal",
       "via": "Gmail (simulated)"
+    },
+    {
+      "at": "2024-10-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2024-10)",
+      "body": "# Salary — teaching and research roles\nAmount: 3660.00 · Category: Income · Date: 2024-10-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-10-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2024-10)",
+      "body": "# Rent — Northbank flat\nAmount: -1155.00 · Category: Housing · Date: 2024-10-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-10-05",
+      "type": "method",
+      "title": "Method note: library programmes routine (2024)",
+      "body": "A repeatable routine for library programmes: short reading bursts, paired talk, one written line to finish. Simple enough to survive a busy week.",
+      "tag": "shareable",
+      "people": [
+        "Julia Ross"
+      ]
+    },
+    {
+      "at": "2024-10-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2024-10)",
+      "body": "# Groceries — market and supermarket\nAmount: -468.00 · Category: Groceries · Date: 2024-10-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-11-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2024-11)",
+      "body": "# Salary — teaching and research roles\nAmount: 3660.00 · Category: Income · Date: 2024-11-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-11-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2024-11)",
+      "body": "# Rent — Northbank flat\nAmount: -1155.00 · Category: Housing · Date: 2024-11-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-11-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2024-11)",
+      "body": "# Groceries — market and supermarket\nAmount: -505.00 · Category: Groceries · Date: 2024-11-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-11-30",
+      "type": "health",
+      "title": "Apple Health export summary (autumn 2024)",
+      "body": "Health export for September to November 2024.\n- StepCount: 356 records, averaging 8,360 steps/day\n- SleepAnalysis: 88 records, averaging 7h 12m a night\n- RestingHeartRate: 81 records, averaging 60 bpm\n- Workouts: 24 records, strength and walking\nThe strongest activity quarter since the export began.",
+      "tag": "personal"
+    },
+    {
+      "at": "2024-12-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2024-12)",
+      "body": "# Salary — teaching and research roles\nAmount: 3660.00 · Category: Income · Date: 2024-12-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-12-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2024-12)",
+      "body": "# Rent — Northbank flat\nAmount: -1155.00 · Category: Housing · Date: 2024-12-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-12-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2024-12)",
+      "body": "# Groceries — market and supermarket\nAmount: -452.00 · Category: Groceries · Date: 2024-12-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
     },
     {
       "at": "2024-12-28",
@@ -693,6 +3552,82 @@
         "Priya Nair",
         "Ana Reyes"
       ]
+    },
+    {
+      "at": "2025-01-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2025-01)",
+      "body": "# Salary — teaching and research roles\nAmount: 3820.00 · Category: Income · Date: 2025-01-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2025-01-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2025-01)",
+      "body": "# Rent — Northbank flat\nAmount: -1210.00 · Category: Housing · Date: 2025-01-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2025-01-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2025-01)",
+      "body": "# Groceries — market and supermarket\nAmount: -498.00 · Category: Groceries · Date: 2025-01-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2025-01-19",
+      "type": "health",
+      "title": "Dental check-up and clean",
+      "body": "Dental appointment: check-up and clean, no treatment needed. Next visit booked for January 2026.",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-02-01",
+      "type": "finance",
+      "title": "Salary — teaching and research roles (2025-02)",
+      "body": "# Salary — teaching and research roles\nAmount: 3820.00 · Category: Income · Date: 2025-02-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2025-02-03",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2025-02)",
+      "body": "# Rent — Northbank flat\nAmount: -1210.00 · Category: Housing · Date: 2025-02-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2025-02-09",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2025-02)",
+      "body": "# Groceries — market and supermarket\nAmount: -445.00 · Category: Groceries · Date: 2025-02-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2025-03-01",
+      "type": "finance",
+      "title": "Salary — learning-sciences research role (2025-03)",
+      "body": "# Salary — learning-sciences research role\nAmount: 4200.00 · Category: Income · Date: 2025-03-01",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-03-02",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2025-03)",
+      "body": "# Rent — Northbank flat\nAmount: -1250.00 · Category: Housing · Date: 2025-03-02",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-03-05",
+      "type": "finance",
+      "title": "Rail pass (2025-03)",
+      "body": "# Rail pass\nAmount: -110.00 · Category: Transport · Date: 2025-03-05",
+      "tag": "personal"
     },
     {
       "at": "2025-03-08",
@@ -715,6 +3650,456 @@
       "via": "Google Drive (simulated)"
     },
     {
+      "at": "2025-03-08",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2025-03)",
+      "body": "# Groceries — market and supermarket\nAmount: -482.00 · Category: Groceries · Date: 2025-03-08",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-03-10",
+      "type": "finance",
+      "title": "Internet — fibre (2025-03)",
+      "body": "# Internet — fibre\nAmount: -55.00 · Category: Utilities · Date: 2025-03-10",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-03-12",
+      "type": "finance",
+      "title": "Streaming subscription (2025-03)",
+      "body": "# Streaming subscription\nAmount: -15.00 · Category: Subscriptions · Date: 2025-03-12",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-03-18",
+      "type": "finance",
+      "title": "Dinner with reading group (2025-03)",
+      "body": "# Dinner with reading group\nAmount: -96.00 · Category: Dining · Date: 2025-03-18",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-03-20",
+      "type": "finance",
+      "title": "Bookshop (2025-03)",
+      "body": "# Bookshop\nAmount: -42.00 · Category: Books · Date: 2025-03-20",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-04-01",
+      "type": "finance",
+      "title": "Salary — learning-sciences research role (2025-04)",
+      "body": "# Salary — learning-sciences research role\nAmount: 4200.00 · Category: Income · Date: 2025-04-01",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-04-02",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2025-04)",
+      "body": "# Rent — Northbank flat\nAmount: -1250.00 · Category: Housing · Date: 2025-04-02",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-04-05",
+      "type": "finance",
+      "title": "Rail pass (2025-04)",
+      "body": "# Rail pass\nAmount: -110.00 · Category: Transport · Date: 2025-04-05",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-04-08",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2025-04)",
+      "body": "# Groceries — market and supermarket\nAmount: -498.00 · Category: Groceries · Date: 2025-04-08",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-04-10",
+      "type": "finance",
+      "title": "Internet — fibre (2025-04)",
+      "body": "# Internet — fibre\nAmount: -55.00 · Category: Utilities · Date: 2025-04-10",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-04-11",
+      "type": "health",
+      "title": "Blood test results — vitamin D",
+      "body": "Lab results letter: vitamin D low again after winter, everything else in range. Recheck in six months, filed with the clinic letter from 2024.",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-04-12",
+      "type": "finance",
+      "title": "Streaming subscription (2025-04)",
+      "body": "# Streaming subscription\nAmount: -15.00 · Category: Subscriptions · Date: 2025-04-12",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-04-12",
+      "type": "research",
+      "title": "Reading notes on discussion protocols (2025)",
+      "body": "Term-time reading on discussion protocols: what the studies claim, what my classroom notes say, and where they disagree. Finished two key papers and argued with both.",
+      "tag": "personal",
+      "people": [
+        "Emma Wilson"
+      ]
+    },
+    {
+      "at": "2025-04-20",
+      "type": "finance",
+      "title": "Bookshop (2025-04)",
+      "body": "# Bookshop\nAmount: -58.00 · Category: Books · Date: 2025-04-20",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-05-01",
+      "type": "finance",
+      "title": "Salary — learning-sciences research role (2025-05)",
+      "body": "# Salary — learning-sciences research role\nAmount: 4200.00 · Category: Income · Date: 2025-05-01",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-05-02",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2025-05)",
+      "body": "# Rent — Northbank flat\nAmount: -1250.00 · Category: Housing · Date: 2025-05-02",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-05-05",
+      "type": "finance",
+      "title": "Rail pass (2025-05)",
+      "body": "# Rail pass\nAmount: -110.00 · Category: Transport · Date: 2025-05-05",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-05-08",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2025-05)",
+      "body": "# Groceries — market and supermarket\nAmount: -471.00 · Category: Groceries · Date: 2025-05-08",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-05-10",
+      "type": "finance",
+      "title": "Internet — fibre (2025-05)",
+      "body": "# Internet — fibre\nAmount: -55.00 · Category: Utilities · Date: 2025-05-10",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-05-12",
+      "type": "finance",
+      "title": "Streaming subscription (2025-05)",
+      "body": "# Streaming subscription\nAmount: -15.00 · Category: Subscriptions · Date: 2025-05-12",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-05-18",
+      "type": "finance",
+      "title": "Dinner with reading group (2025-05)",
+      "body": "# Dinner with reading group\nAmount: -118.00 · Category: Dining · Date: 2025-05-18",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-05-20",
+      "type": "finance",
+      "title": "Bookshop (2025-05)",
+      "body": "# Bookshop\nAmount: -39.00 · Category: Books · Date: 2025-05-20",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-06-01",
+      "type": "finance",
+      "title": "Salary — learning-sciences research role (2025-06)",
+      "body": "# Salary — learning-sciences research role\nAmount: 4200.00 · Category: Income · Date: 2025-06-01",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-06-02",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2025-06)",
+      "body": "# Rent — Northbank flat\nAmount: -1250.00 · Category: Housing · Date: 2025-06-02",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-06-05",
+      "type": "finance",
+      "title": "Rail pass (2025-06)",
+      "body": "# Rail pass\nAmount: -110.00 · Category: Transport · Date: 2025-06-05",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-06-08",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2025-06)",
+      "body": "# Groceries — market and supermarket\nAmount: -512.00 · Category: Groceries · Date: 2025-06-08",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-06-10",
+      "type": "finance",
+      "title": "Internet — fibre (2025-06)",
+      "body": "# Internet — fibre\nAmount: -55.00 · Category: Utilities · Date: 2025-06-10",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-06-12",
+      "type": "finance",
+      "title": "Streaming subscription (2025-06)",
+      "body": "# Streaming subscription\nAmount: -15.00 · Category: Subscriptions · Date: 2025-06-12",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-06-18",
+      "type": "finance",
+      "title": "Dinner with reading group (2025-06)",
+      "body": "# Dinner with reading group\nAmount: -104.00 · Category: Dining · Date: 2025-06-18",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-06-20",
+      "type": "finance",
+      "title": "Bookshop (2025-06)",
+      "body": "# Bookshop\nAmount: -64.00 · Category: Books · Date: 2025-06-20",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Papa Joe (2025)",
+      "body": "Long conversation with Papa Joe about work, books, and what changed this year. These mid-year talks keep the friendship — and several projects — honest.",
+      "tag": "personal",
+      "people": [
+        "Papa Joe"
+      ]
+    },
+    {
+      "at": "2025-06-27",
+      "type": "health",
+      "title": "Apple Health export summary (summer 2025)",
+      "body": "Health export for April to June 2025.\n- StepCount: 371 records, averaging 8,720 steps/day\n- SleepAnalysis: 91 records, averaging 7h 18m a night\n- RestingHeartRate: 79 records, averaging 59 bpm\n- Workouts: 26 records, including six swims\nSwimming joined the rotation; sleep stayed steady through the busiest research month.",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-07-01",
+      "type": "finance",
+      "title": "Salary — learning-sciences research role (2025-07)",
+      "body": "# Salary — learning-sciences research role\nAmount: 4200.00 · Category: Income · Date: 2025-07-01",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-07-02",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2025-07)",
+      "body": "# Rent — Northbank flat\nAmount: -1250.00 · Category: Housing · Date: 2025-07-02",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-07-05",
+      "type": "finance",
+      "title": "Rail pass (2025-07)",
+      "body": "# Rail pass\nAmount: -110.00 · Category: Transport · Date: 2025-07-05",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-07-08",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2025-07)",
+      "body": "# Groceries — market and supermarket\nAmount: -526.00 · Category: Groceries · Date: 2025-07-08",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-07-10",
+      "type": "finance",
+      "title": "Internet — fibre (2025-07)",
+      "body": "# Internet — fibre\nAmount: -55.00 · Category: Utilities · Date: 2025-07-10",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-07-12",
+      "type": "finance",
+      "title": "Streaming subscription (2025-07)",
+      "body": "# Streaming subscription\nAmount: -15.00 · Category: Subscriptions · Date: 2025-07-12",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-07-20",
+      "type": "finance",
+      "title": "Bookshop (2025-07)",
+      "body": "# Bookshop\nAmount: -47.00 · Category: Books · Date: 2025-07-20",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-08-01",
+      "type": "finance",
+      "title": "Salary — learning-sciences research role (2025-08)",
+      "body": "# Salary — learning-sciences research role\nAmount: 4200.00 · Category: Income · Date: 2025-08-01",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-08-02",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2025-08)",
+      "body": "# Rent — Northbank flat\nAmount: -1250.00 · Category: Housing · Date: 2025-08-02",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-08-05",
+      "type": "finance",
+      "title": "Rail pass (2025-08)",
+      "body": "# Rail pass\nAmount: -110.00 · Category: Transport · Date: 2025-08-05",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-08-08",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2025-08)",
+      "body": "# Groceries — market and supermarket\nAmount: -505.00 · Category: Groceries · Date: 2025-08-08",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-08-10",
+      "type": "finance",
+      "title": "Internet — fibre (2025-08)",
+      "body": "# Internet — fibre\nAmount: -55.00 · Category: Utilities · Date: 2025-08-10",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-08-12",
+      "type": "finance",
+      "title": "Streaming subscription (2025-08)",
+      "body": "# Streaming subscription\nAmount: -15.00 · Category: Subscriptions · Date: 2025-08-12",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-08-18",
+      "type": "finance",
+      "title": "Dinner with reading group (2025-08)",
+      "body": "# Dinner with reading group\nAmount: -132.00 · Category: Dining · Date: 2025-08-18",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-08-19",
+      "type": "finding",
+      "title": "Finding: discussion protocols in practice (2025)",
+      "body": "Across this year's classes and projects, discussion protocols worked best when pupils chose their own texts first. The pattern held in 6 of 6 groups observed.",
+      "tag": "shareable",
+      "people": [
+        "Papa Joe"
+      ]
+    },
+    {
+      "at": "2025-08-20",
+      "type": "finance",
+      "title": "Bookshop (2025-08)",
+      "body": "# Bookshop\nAmount: -71.00 · Category: Books · Date: 2025-08-20",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-09-01",
+      "type": "finance",
+      "title": "Salary — learning-sciences research role (2025-09)",
+      "body": "# Salary — learning-sciences research role\nAmount: 4200.00 · Category: Income · Date: 2025-09-01",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-09-02",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2025-09)",
+      "body": "# Rent — Northbank flat\nAmount: -1250.00 · Category: Housing · Date: 2025-09-02",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-09-05",
+      "type": "finance",
+      "title": "Rail pass (2025-09)",
+      "body": "# Rail pass\nAmount: -110.00 · Category: Transport · Date: 2025-09-05",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-09-08",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2025-09)",
+      "body": "# Groceries — market and supermarket\nAmount: -534.00 · Category: Groceries · Date: 2025-09-08",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-09-10",
+      "type": "finance",
+      "title": "Internet — fibre (2025-09)",
+      "body": "# Internet — fibre\nAmount: -55.00 · Category: Utilities · Date: 2025-09-10",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-09-12",
+      "type": "finance",
+      "title": "Streaming subscription (2025-09)",
+      "body": "# Streaming subscription\nAmount: -15.00 · Category: Subscriptions · Date: 2025-09-12",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-09-15",
+      "type": "health",
+      "title": "Eye test and new reading glasses",
+      "body": "Eye test appointment: small prescription change for reading. New glasses ordered; the reading chair approves.",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-09-18",
+      "type": "finance",
+      "title": "Dinner with reading group (2025-09)",
+      "body": "# Dinner with reading group\nAmount: -121.00 · Category: Dining · Date: 2025-09-18",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-09-20",
+      "type": "finance",
+      "title": "Bookshop (2025-09)",
+      "body": "# Bookshop\nAmount: -52.00 · Category: Books · Date: 2025-09-20",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-10-01",
+      "type": "finance",
+      "title": "Salary — learning-sciences research role (2025-10)",
+      "body": "# Salary — learning-sciences research role\nAmount: 4200.00 · Category: Income · Date: 2025-10-01",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-10-02",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2025-10)",
+      "body": "# Rent — Northbank flat\nAmount: -1250.00 · Category: Housing · Date: 2025-10-02",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-10-05",
+      "type": "finance",
+      "title": "Rail pass (2025-10)",
+      "body": "# Rail pass\nAmount: -110.00 · Category: Transport · Date: 2025-10-05",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-10-08",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2025-10)",
+      "body": "# Groceries — market and supermarket\nAmount: -548.00 · Category: Groceries · Date: 2025-10-08",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-10-10",
+      "type": "finance",
+      "title": "Internet — fibre (2025-10)",
+      "body": "# Internet — fibre\nAmount: -55.00 · Category: Utilities · Date: 2025-10-10",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-10-12",
+      "type": "finance",
+      "title": "Streaming subscription (2025-10)",
+      "body": "# Streaming subscription\nAmount: -15.00 · Category: Subscriptions · Date: 2025-10-12",
+      "tag": "personal"
+    },
+    {
       "at": "2025-10-18",
       "type": "health",
       "title": "Strong at 43",
@@ -725,6 +4110,139 @@
       ]
     },
     {
+      "at": "2025-10-20",
+      "type": "finance",
+      "title": "Bookshop (2025-10)",
+      "body": "# Bookshop\nAmount: -44.00 · Category: Books · Date: 2025-10-20",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-11-01",
+      "type": "finance",
+      "title": "Salary — learning-sciences research role (2025-11)",
+      "body": "# Salary — learning-sciences research role\nAmount: 4200.00 · Category: Income · Date: 2025-11-01",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-11-02",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2025-11)",
+      "body": "# Rent — Northbank flat\nAmount: -1250.00 · Category: Housing · Date: 2025-11-02",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-11-05",
+      "type": "finance",
+      "title": "Rail pass (2025-11)",
+      "body": "# Rail pass\nAmount: -110.00 · Category: Transport · Date: 2025-11-05",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-11-08",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2025-11)",
+      "body": "# Groceries — market and supermarket\nAmount: -519.00 · Category: Groceries · Date: 2025-11-08",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-11-10",
+      "type": "finance",
+      "title": "Internet — fibre (2025-11)",
+      "body": "# Internet — fibre\nAmount: -55.00 · Category: Utilities · Date: 2025-11-10",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-11-12",
+      "type": "finance",
+      "title": "Streaming subscription (2025-11)",
+      "body": "# Streaming subscription\nAmount: -15.00 · Category: Subscriptions · Date: 2025-11-12",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-11-18",
+      "type": "finance",
+      "title": "Dinner with reading group (2025-11)",
+      "body": "# Dinner with reading group\nAmount: -140.00 · Category: Dining · Date: 2025-11-18",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-11-20",
+      "type": "finance",
+      "title": "Bookshop (2025-11)",
+      "body": "# Bookshop\nAmount: -66.00 · Category: Books · Date: 2025-11-20",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-12-01",
+      "type": "finance",
+      "title": "Salary — learning-sciences research role (2025-12)",
+      "body": "# Salary — learning-sciences research role\nAmount: 4200.00 · Category: Income · Date: 2025-12-01",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-12-02",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2025-12)",
+      "body": "# Rent — Northbank flat\nAmount: -1250.00 · Category: Housing · Date: 2025-12-02",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-12-05",
+      "type": "finance",
+      "title": "Rail pass (2025-12)",
+      "body": "# Rail pass\nAmount: -110.00 · Category: Transport · Date: 2025-12-05",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-12-08",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2025-12)",
+      "body": "# Groceries — market and supermarket\nAmount: -542.00 · Category: Groceries · Date: 2025-12-08",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-12-08",
+      "type": "health",
+      "title": "Apple Health export summary (winter 2025)",
+      "body": "Health export for October to December 2025.\n- StepCount: 348 records, averaging 8,410 steps/day\n- SleepAnalysis: 86 records, averaging 7h 09m a night\n- RestingHeartRate: 77 records, averaging 60 bpm\n- Workouts: 22 records, strength twice weekly\nA steady quarter: activity held even as the days shortened.",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-12-10",
+      "type": "finance",
+      "title": "Internet — fibre (2025-12)",
+      "body": "# Internet — fibre\nAmount: -55.00 · Category: Utilities · Date: 2025-12-10",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-12-12",
+      "type": "finance",
+      "title": "Streaming subscription (2025-12)",
+      "body": "# Streaming subscription\nAmount: -15.00 · Category: Subscriptions · Date: 2025-12-12",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-12-15",
+      "type": "goal-note",
+      "title": "Goals review (2025)",
+      "body": "Year-end goals review: read more widely than deeply for once, protect sleep, and keep one project small enough to finish.",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-12-18",
+      "type": "finance",
+      "title": "Dinner with reading group (2025-12)",
+      "body": "# Dinner with reading group\nAmount: -128.00 · Category: Dining · Date: 2025-12-18",
+      "tag": "personal"
+    },
+    {
+      "at": "2025-12-20",
+      "type": "finance",
+      "title": "Bookshop (2025-12)",
+      "body": "# Bookshop\nAmount: -59.00 · Category: Books · Date: 2025-12-20",
+      "tag": "personal"
+    },
+    {
       "at": "2025-12-28",
       "type": "journal",
       "title": "Year-end reflection 2025",
@@ -733,6 +4251,69 @@
       "people": [
         "Marco Reyes"
       ]
+    },
+    {
+      "at": "2026-01-01",
+      "type": "finance",
+      "title": "Salary — learning-sciences research role (2026-01)",
+      "body": "# Salary — learning-sciences research role\nAmount: 4200.00 · Category: Income · Date: 2026-01-01",
+      "tag": "personal"
+    },
+    {
+      "at": "2026-01-02",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2026-01)",
+      "body": "# Rent — Northbank flat\nAmount: -1250.00 · Category: Housing · Date: 2026-01-02",
+      "tag": "personal"
+    },
+    {
+      "at": "2026-01-05",
+      "type": "finance",
+      "title": "Rail pass (2026-01)",
+      "body": "# Rail pass\nAmount: -110.00 · Category: Transport · Date: 2026-01-05",
+      "tag": "personal"
+    },
+    {
+      "at": "2026-01-08",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2026-01)",
+      "body": "# Groceries — market and supermarket\nAmount: -557.00 · Category: Groceries · Date: 2026-01-08",
+      "tag": "personal"
+    },
+    {
+      "at": "2026-01-10",
+      "type": "finance",
+      "title": "Internet — fibre (2026-01)",
+      "body": "# Internet — fibre\nAmount: -55.00 · Category: Utilities · Date: 2026-01-10",
+      "tag": "personal"
+    },
+    {
+      "at": "2026-01-12",
+      "type": "finance",
+      "title": "Streaming subscription (2026-01)",
+      "body": "# Streaming subscription\nAmount: -15.00 · Category: Subscriptions · Date: 2026-01-12",
+      "tag": "personal"
+    },
+    {
+      "at": "2026-01-18",
+      "type": "finance",
+      "title": "Dinner with reading group (2026-01)",
+      "body": "# Dinner with reading group\nAmount: -112.00 · Category: Dining · Date: 2026-01-18",
+      "tag": "personal"
+    },
+    {
+      "at": "2026-01-20",
+      "type": "finance",
+      "title": "Bookshop (2026-01)",
+      "body": "# Bookshop\nAmount: -48.00 · Category: Books · Date: 2026-01-20",
+      "tag": "personal"
+    },
+    {
+      "at": "2026-01-24",
+      "type": "health",
+      "title": "Sleep through the grant deadline",
+      "body": "Deadline week survived without giving up sleep: seven hours most nights, walks kept. The export will show it, but the calendar already does.",
+      "tag": "personal"
     },
     {
       "at": "2026-01-25",
@@ -746,6 +4327,72 @@
       ]
     },
     {
+      "at": "2026-02-01",
+      "type": "finance",
+      "title": "Salary — learning-sciences research role (2026-02)",
+      "body": "# Salary — learning-sciences research role\nAmount: 4200.00 · Category: Income · Date: 2026-02-01",
+      "tag": "personal"
+    },
+    {
+      "at": "2026-02-02",
+      "type": "finance",
+      "title": "Rent — Northbank flat (2026-02)",
+      "body": "# Rent — Northbank flat\nAmount: -1250.00 · Category: Housing · Date: 2026-02-02",
+      "tag": "personal"
+    },
+    {
+      "at": "2026-02-05",
+      "type": "finance",
+      "title": "Rail pass (2026-02)",
+      "body": "# Rail pass\nAmount: -110.00 · Category: Transport · Date: 2026-02-05",
+      "tag": "personal"
+    },
+    {
+      "at": "2026-02-08",
+      "type": "finance",
+      "title": "Groceries — market and supermarket (2026-02)",
+      "body": "# Groceries — market and supermarket\nAmount: -563.00 · Category: Groceries · Date: 2026-02-08",
+      "tag": "personal"
+    },
+    {
+      "at": "2026-02-10",
+      "type": "finance",
+      "title": "Internet — fibre (2026-02)",
+      "body": "# Internet — fibre\nAmount: -55.00 · Category: Utilities · Date: 2026-02-10",
+      "tag": "personal"
+    },
+    {
+      "at": "2026-02-12",
+      "type": "finance",
+      "title": "Streaming subscription (2026-02)",
+      "body": "# Streaming subscription\nAmount: -15.00 · Category: Subscriptions · Date: 2026-02-12",
+      "tag": "personal"
+    },
+    {
+      "at": "2026-02-18",
+      "type": "finance",
+      "title": "Dinner with reading group (2026-02)",
+      "body": "# Dinner with reading group\nAmount: -148.00 · Category: Dining · Date: 2026-02-18",
+      "tag": "personal"
+    },
+    {
+      "at": "2026-02-20",
+      "type": "finance",
+      "title": "Bookshop (2026-02)",
+      "body": "# Bookshop\nAmount: -73.00 · Category: Books · Date: 2026-02-20",
+      "tag": "personal"
+    },
+    {
+      "at": "2026-04-12",
+      "type": "research",
+      "title": "Reading notes on formative assessment (2026)",
+      "body": "Term-time reading on formative assessment: what the studies claim, what my classroom notes say, and where they disagree. Finished two key papers and argued with both.",
+      "tag": "shareable",
+      "people": [
+        "Chris Doyle"
+      ]
+    },
+    {
       "at": "2026-04-25",
       "type": "journal",
       "title": "It threads together",
@@ -754,6 +4401,37 @@
       "people": [
         "Marco Reyes",
         "Lena Cruz"
+      ]
+    },
+    {
+      "at": "2026-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Aunt Clara (2026)",
+      "body": "Long conversation with Aunt Clara about work, books, and what changed this year. These mid-year talks keep the friendship — and several projects — honest.",
+      "tag": "personal",
+      "people": [
+        "Aunt Clara"
+      ]
+    },
+    {
+      "at": "2026-08-19",
+      "type": "finding",
+      "title": "Finding: formative assessment in practice (2026)",
+      "body": "Across this year's classes and projects, formative assessment worked best when pupils chose their own texts first. The pattern held in 3 of 7 groups observed.",
+      "tag": "shareable",
+      "people": [
+        "Aunt Clara"
+      ],
+      "via": "Google Drive (simulated)"
+    },
+    {
+      "at": "2026-10-05",
+      "type": "method",
+      "title": "Method note: formative assessment routine (2026)",
+      "body": "A repeatable routine for formative assessment: short reading bursts, paired talk, one written line to finish. Simple enough to survive a busy week.",
+      "tag": "shareable",
+      "people": [
+        "Chris Doyle"
       ]
     },
     {

@@ -4,6 +4,139 @@
   "tagline": "Two decades of care: aide, nurse, coordinator, and the Sunday table that held a whole family together.",
   "entries": [
     {
+      "at": "1998-10-04",
+      "type": "journal",
+      "title": "Looking after Abuela",
+      "body": "Weekends at Abuela's: cards, soup, and being trusted with the medicine box list. Care started before it had a name.",
+      "tag": "personal",
+      "people": [
+        "Mama Elena"
+      ]
+    },
+    {
+      "at": "1999-07-18",
+      "type": "relationship",
+      "title": "Sunday lunches begin",
+      "body": "The family Sunday table started the summer the cousins got too tall for the small chairs. It never really stopped.",
+      "tag": "personal",
+      "people": [
+        "Papa Miguel",
+        "Brother Luis"
+      ]
+    },
+    {
+      "at": "2000-05-21",
+      "type": "health",
+      "title": "First aid certificate",
+      "body": "School first-aid course: youngest certificate on the wall. Mostly bandages; entirely serious about it.",
+      "tag": "personal",
+      "people": [
+        "Mama Elena"
+      ]
+    },
+    {
+      "at": "2001-09-09",
+      "type": "skill",
+      "title": "Volunteering at the parish hall",
+      "body": "Saturday volunteering: teas, chairs, and listening properly. Learned that care is mostly attention, repeated.",
+      "tag": "personal",
+      "people": [
+        "Aunt Dolores"
+      ]
+    },
+    {
+      "at": "2002-04-28",
+      "type": "finance",
+      "title": "Church fete savings tin",
+      "body": "Ran the fete raffle and the savings tin with Papa Miguel. First lesson: other people's money gets two signatures.",
+      "tag": "personal",
+      "people": [
+        "Papa Miguel"
+      ]
+    },
+    {
+      "at": "2002-12-15",
+      "type": "document",
+      "title": "Nursing college prospectus",
+      "body": "Prospectus arrived with a folded corner already in it. Read the course pages until they went soft.",
+      "tag": "personal",
+      "people": [
+        "Mama Elena"
+      ]
+    },
+    {
+      "at": "2003-06-30",
+      "type": "journal",
+      "title": "Choosing nursing",
+      "body": "Chose nursing the way you choose family: not really a choice. Placement list pinned above the desk.",
+      "tag": "personal",
+      "people": [
+        "Brother Luis"
+      ]
+    },
+    {
+      "at": "2004-03-14",
+      "type": "health",
+      "title": "Night before first placement",
+      "body": "Barely slept before the first ward placement; ironed uniform twice. Sleep and I negotiated all training long.",
+      "tag": "personal",
+      "people": [
+        "Nurse Kim"
+      ]
+    },
+    {
+      "at": "2004-10-03",
+      "type": "document",
+      "title": "Placement offer letter",
+      "body": "Offer letter for the first hospital placement. Mama Elena read it aloud at the Sunday table.",
+      "tag": "personal",
+      "people": [
+        "Mama Elena"
+      ]
+    },
+    {
+      "at": "2005-05-22",
+      "type": "relationship",
+      "title": "The table grows",
+      "body": "Sunday lunches now seat twelve and two highchairs. Whoever is missing gets a plate described to them by phone.",
+      "tag": "personal",
+      "people": [
+        "Julia Sanz",
+        "Cousin Ana"
+      ]
+    },
+    {
+      "at": "2005-08-29",
+      "type": "finance",
+      "title": "First uniform and bus pass",
+      "body": "First wages from weekend care shifts: uniform, bus pass, and a contribution to the house tin.",
+      "tag": "personal",
+      "people": [
+        "Papa Miguel"
+      ]
+    },
+    {
+      "at": "2005-12-30",
+      "type": "journal",
+      "title": "Year-end reflection 2005",
+      "body": "Year 2005: student nurse, Sunday-table keeper. Care is the job and the home address.",
+      "tag": "personal",
+      "people": [
+        "Mama Elena"
+      ]
+    },
+    {
+      "at": "2006-02-11",
+      "type": "document",
+      "title": "Certificates and letters file (2006)",
+      "body": "Filed this year's certificates, registrations, and reference letters together. Paper first, scanned to Drive the same evening.",
+      "tag": "personal",
+      "people": [
+        "Andres Paz"
+      ],
+      "via": "Google Drive (simulated)"
+    },
+    {
       "at": "2006-02-12",
       "type": "journal",
       "title": "Care aide, first ward",
@@ -11,6 +144,55 @@
       "tag": "personal",
       "people": [
         "Nurse Kim"
+      ]
+    },
+    {
+      "at": "2006-04-12",
+      "type": "research",
+      "title": "Notes on care coordination (2006)",
+      "body": "Reading and course notes on care coordination: what the guidance claims, what the ward and the family table say, and where they disagree this year.",
+      "tag": "shareable",
+      "people": [
+        "Andres Paz"
+      ],
+      "via": "Notion (simulated)"
+    },
+    {
+      "at": "2006-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Grace Ade (2006)",
+      "body": "Long conversation with Grace Ade over the Sunday table about family, work, and what changed this year. These talks keep everyone — and several care plans — honest.",
+      "tag": "personal",
+      "people": [
+        "Grace Ade"
+      ]
+    },
+    {
+      "at": "2006-08-19",
+      "type": "finding",
+      "title": "Finding: care coordination in practice (2006)",
+      "body": "Across this year's wards and home visits, care coordination worked best when one named person held the list. The pattern held for 3 of 5 families followed.",
+      "tag": "shareable",
+      "people": [
+        "Grace Ade"
+      ],
+      "via": "Google Drive (simulated)"
+    },
+    {
+      "at": "2006-09-14",
+      "type": "health",
+      "title": "Health record (2006)",
+      "body": "First aide year: on my feet all shift, sleep grabbed when the ward allowed. Shoes mattered more than advice.",
+      "tag": "personal"
+    },
+    {
+      "at": "2006-10-05",
+      "type": "method",
+      "title": "Method note: care coordination routine (2006)",
+      "body": "A repeatable routine for care coordination: one list, one named holder, one honest update at the same time each week.",
+      "tag": "shareable",
+      "people": [
+        "Andres Paz"
       ]
     },
     {
@@ -22,6 +204,16 @@
       "people": [
         "Mama Elena",
         "Sister Carmen"
+      ]
+    },
+    {
+      "at": "2007-04-12",
+      "type": "research",
+      "title": "Notes on ward handovers (2007)",
+      "body": "Reading and course notes on ward handovers: what the guidance claims, what the ward and the family table say, and where they disagree this year.",
+      "tag": "personal",
+      "people": [
+        "Aunt Dolores"
       ]
     },
     {
@@ -38,6 +230,33 @@
       ]
     },
     {
+      "at": "2007-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Hugo Sanz (2007)",
+      "body": "Long conversation with Hugo Sanz over the Sunday table about family, work, and what changed this year. These talks keep everyone — and several care plans — honest.",
+      "tag": "personal",
+      "people": [
+        "Hugo Sanz"
+      ]
+    },
+    {
+      "at": "2007-08-19",
+      "type": "finding",
+      "title": "Finding: ward handovers in practice (2007)",
+      "body": "Across this year's wards and home visits, ward handovers worked best when one named person held the list. The pattern held for 4 of 6 families followed.",
+      "tag": "shareable",
+      "people": [
+        "Hugo Sanz"
+      ]
+    },
+    {
+      "at": "2007-09-14",
+      "type": "health",
+      "title": "Health record (2007)",
+      "body": "Check-up: all routine. Started walking to work when the rota allowed daylight.",
+      "tag": "personal"
+    },
+    {
       "at": "2007-09-16",
       "type": "document",
       "title": "Drive export: ward rota archive (2007)",
@@ -47,6 +266,13 @@
       "people": [
         "Mama Elena"
       ]
+    },
+    {
+      "at": "2007-12-15",
+      "type": "goal-note",
+      "title": "Goals review (2007)",
+      "body": "Year-end goals review: protect one day off in seven, keep the Sunday table, and write down what the family knows before it is needed.",
+      "tag": "personal"
     },
     {
       "at": "2007-12-28",
@@ -59,6 +285,16 @@
       ]
     },
     {
+      "at": "2008-04-12",
+      "type": "research",
+      "title": "Notes on family caregiving (2008)",
+      "body": "Reading and course notes on family caregiving: what the guidance claims, what the ward and the family table say, and where they disagree this year.",
+      "tag": "shareable",
+      "people": [
+        "Brother Luis"
+      ]
+    },
+    {
       "at": "2008-04-19",
       "type": "health",
       "title": "Back and lifting",
@@ -66,6 +302,43 @@
       "tag": "personal",
       "people": [
         "Dr Patel"
+      ]
+    },
+    {
+      "at": "2008-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Isabel Fuente (2008)",
+      "body": "Long conversation with Isabel Fuente over the Sunday table about family, work, and what changed this year. These talks keep everyone — and several care plans — honest.",
+      "tag": "personal",
+      "people": [
+        "Isabel Fuente"
+      ]
+    },
+    {
+      "at": "2008-08-19",
+      "type": "finding",
+      "title": "Finding: family caregiving in practice (2008)",
+      "body": "Across this year's wards and home visits, family caregiving worked best when one named person held the list. The pattern held for 5 of 7 families followed.",
+      "tag": "shareable",
+      "people": [
+        "Isabel Fuente"
+      ]
+    },
+    {
+      "at": "2008-09-14",
+      "type": "health",
+      "title": "Health record (2008)",
+      "body": "Vaccination record complete for ward work; flu jab with the team each autumn since.",
+      "tag": "personal"
+    },
+    {
+      "at": "2008-10-05",
+      "type": "method",
+      "title": "Method note: family caregiving routine (2008)",
+      "body": "A repeatable routine for family caregiving: one list, one named holder, one honest update at the same time each week.",
+      "tag": "shareable",
+      "people": [
+        "Brother Luis"
       ]
     },
     {
@@ -80,6 +353,28 @@
       ]
     },
     {
+      "at": "2009-02-11",
+      "type": "document",
+      "title": "Certificates and letters file (2009)",
+      "body": "Filed this year's certificates, registrations, and reference letters together. Paper first, scanned to Drive the same evening.",
+      "tag": "personal",
+      "people": [
+        "Clara Ortiz"
+      ],
+      "via": "Google Drive (simulated)"
+    },
+    {
+      "at": "2009-04-12",
+      "type": "research",
+      "title": "Notes on dementia care routines (2009)",
+      "body": "Reading and course notes on dementia care routines: what the guidance claims, what the ward and the family table say, and where they disagree this year.",
+      "tag": "personal",
+      "people": [
+        "Clara Ortiz"
+      ],
+      "via": "Notion (simulated)"
+    },
+    {
       "at": "2009-04-25",
       "type": "relationship",
       "title": "Gmail thread: Fatima Noor training (2009)",
@@ -91,6 +386,33 @@
       ]
     },
     {
+      "at": "2009-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Julia Sanz (2009)",
+      "body": "Long conversation with Julia Sanz over the Sunday table about family, work, and what changed this year. These talks keep everyone — and several care plans — honest.",
+      "tag": "personal",
+      "people": [
+        "Julia Sanz"
+      ]
+    },
+    {
+      "at": "2009-08-19",
+      "type": "finding",
+      "title": "Finding: dementia care routines in practice (2009)",
+      "body": "Across this year's wards and home visits, dementia care routines worked best when one named person held the list. The pattern held for 6 of 5 families followed.",
+      "tag": "shareable",
+      "people": [
+        "Julia Sanz"
+      ]
+    },
+    {
+      "at": "2009-09-14",
+      "type": "health",
+      "title": "Health record (2009)",
+      "body": "Back strain from lifting; manual-handling refresher and a promise kept mostly.",
+      "tag": "personal"
+    },
+    {
       "at": "2009-09-27",
       "type": "skill",
       "title": "Medication systems",
@@ -100,6 +422,13 @@
         "Nurse Kim",
         "Fatima Noor"
       ]
+    },
+    {
+      "at": "2009-12-15",
+      "type": "goal-note",
+      "title": "Goals review (2009)",
+      "body": "Year-end goals review: protect one day off in seven, keep the Sunday table, and write down what the family knows before it is needed.",
+      "tag": "personal"
     },
     {
       "at": "2009-12-28",
@@ -125,6 +454,54 @@
       ]
     },
     {
+      "at": "2010-04-12",
+      "type": "research",
+      "title": "Notes on community health visits (2010)",
+      "body": "Reading and course notes on community health visits: what the guidance claims, what the ward and the family table say, and where they disagree this year.",
+      "tag": "shareable",
+      "people": [
+        "Cousin Ana"
+      ]
+    },
+    {
+      "at": "2010-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Lena Mora (2010)",
+      "body": "Long conversation with Lena Mora over the Sunday table about family, work, and what changed this year. These talks keep everyone — and several care plans — honest.",
+      "tag": "personal",
+      "people": [
+        "Lena Mora"
+      ]
+    },
+    {
+      "at": "2010-08-19",
+      "type": "finding",
+      "title": "Finding: community health visits in practice (2010)",
+      "body": "Across this year's wards and home visits, community health visits worked best when one named person held the list. The pattern held for 3 of 6 families followed.",
+      "tag": "shareable",
+      "people": [
+        "Lena Mora"
+      ],
+      "via": "Google Drive (simulated)"
+    },
+    {
+      "at": "2010-09-14",
+      "type": "health",
+      "title": "Health record (2010)",
+      "body": "Eye test: reading glasses for charts and night-shift notes.",
+      "tag": "personal"
+    },
+    {
+      "at": "2010-10-05",
+      "type": "method",
+      "title": "Method note: community health visits routine (2010)",
+      "body": "A repeatable routine for community health visits: one list, one named holder, one honest update at the same time each week.",
+      "tag": "shareable",
+      "people": [
+        "Cousin Ana"
+      ]
+    },
+    {
       "at": "2010-12-28",
       "type": "journal",
       "title": "Year-end reflection 2010",
@@ -133,6 +510,16 @@
       "people": [
         "Mama Elena",
         "Papa Miguel"
+      ]
+    },
+    {
+      "at": "2011-04-12",
+      "type": "research",
+      "title": "Notes on medication lists (2011)",
+      "body": "Reading and course notes on medication lists: what the guidance claims, what the ward and the family table say, and where they disagree this year.",
+      "tag": "personal",
+      "people": [
+        "Dr Patel"
       ]
     },
     {
@@ -146,12 +533,46 @@
       ]
     },
     {
+      "at": "2011-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Mama Elena (2011)",
+      "body": "Long conversation with Mama Elena over the Sunday table about family, work, and what changed this year. These talks keep everyone — and several care plans — honest.",
+      "tag": "personal",
+      "people": [
+        "Mama Elena"
+      ]
+    },
+    {
       "at": "2011-08-08",
       "type": "health",
       "title": "Apple Health export summary (2011)",
       "body": "Health export: steps high on ward days (11k average), sleep short after late shifts. Sunday rest shows as the recovery anchor.",
       "tag": "personal",
       "via": "Apple Health (simulated)"
+    },
+    {
+      "at": "2011-08-19",
+      "type": "finding",
+      "title": "Finding: medication lists in practice (2011)",
+      "body": "Across this year's wards and home visits, medication lists worked best when one named person held the list. The pattern held for 4 of 7 families followed.",
+      "tag": "shareable",
+      "people": [
+        "Mama Elena"
+      ]
+    },
+    {
+      "at": "2011-09-14",
+      "type": "health",
+      "title": "Health record (2011)",
+      "body": "Sleep after nights: blackout curtains, phone in the kitchen. Rest improved within a month.",
+      "tag": "personal"
+    },
+    {
+      "at": "2011-12-15",
+      "type": "goal-note",
+      "title": "Goals review (2011)",
+      "body": "Year-end goals review: protect one day off in seven, keep the Sunday table, and write down what the family knows before it is needed.",
+      "tag": "personal"
     },
     {
       "at": "2011-12-28",
@@ -165,11 +586,70 @@
       ]
     },
     {
+      "at": "2012-02-11",
+      "type": "document",
+      "title": "Certificates and letters file (2012)",
+      "body": "Filed this year's certificates, registrations, and reference letters together. Paper first, scanned to Drive the same evening.",
+      "tag": "personal",
+      "people": [
+        "Fatima Noor"
+      ],
+      "via": "Google Drive (simulated)"
+    },
+    {
+      "at": "2012-04-12",
+      "type": "research",
+      "title": "Notes on end-of-life conversations (2012)",
+      "body": "Reading and course notes on end-of-life conversations: what the guidance claims, what the ward and the family table say, and where they disagree this year.",
+      "tag": "shareable",
+      "people": [
+        "Fatima Noor"
+      ],
+      "via": "Notion (simulated)"
+    },
+    {
+      "at": "2012-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Marta Leon (2012)",
+      "body": "Long conversation with Marta Leon over the Sunday table about family, work, and what changed this year. These talks keep everyone — and several care plans — honest.",
+      "tag": "personal",
+      "people": [
+        "Marta Leon"
+      ]
+    },
+    {
+      "at": "2012-08-19",
+      "type": "finding",
+      "title": "Finding: end-of-life conversations in practice (2012)",
+      "body": "Across this year's wards and home visits, end-of-life conversations worked best when one named person held the list. The pattern held for 5 of 5 families followed.",
+      "tag": "shareable",
+      "people": [
+        "Marta Leon"
+      ]
+    },
+    {
       "at": "2012-08-23",
       "type": "goal-note",
       "title": "Pivot: train properly",
       "body": "Decided to train as a nurse properly, nights and weekends. The ward taught me first; school will credential it.",
       "tag": "personal",
+      "people": [
+        "Fatima Noor"
+      ]
+    },
+    {
+      "at": "2012-09-14",
+      "type": "health",
+      "title": "Health record (2012)",
+      "body": "Check-up and blood tests: iron watched through the busy years, steady otherwise.",
+      "tag": "personal"
+    },
+    {
+      "at": "2012-10-05",
+      "type": "method",
+      "title": "Method note: end-of-life conversations routine (2012)",
+      "body": "A repeatable routine for end-of-life conversations: one list, one named holder, one honest update at the same time each week.",
+      "tag": "shareable",
       "people": [
         "Fatima Noor"
       ]
@@ -207,6 +687,50 @@
       ]
     },
     {
+      "at": "2013-04-12",
+      "type": "research",
+      "title": "Notes on carer respite (2013)",
+      "body": "Reading and course notes on carer respite: what the guidance claims, what the ward and the family table say, and where they disagree this year.",
+      "tag": "personal",
+      "people": [
+        "Grace Ade"
+      ]
+    },
+    {
+      "at": "2013-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Nephew Diego (2013)",
+      "body": "Long conversation with Nephew Diego over the Sunday table about family, work, and what changed this year. These talks keep everyone — and several care plans — honest.",
+      "tag": "personal",
+      "people": [
+        "Nephew Diego"
+      ]
+    },
+    {
+      "at": "2013-08-19",
+      "type": "finding",
+      "title": "Finding: carer respite in practice (2013)",
+      "body": "Across this year's wards and home visits, carer respite worked best when one named person held the list. The pattern held for 6 of 6 families followed.",
+      "tag": "shareable",
+      "people": [
+        "Nephew Diego"
+      ]
+    },
+    {
+      "at": "2013-09-14",
+      "type": "health",
+      "title": "Health record (2013)",
+      "body": "Walking group with the day-centre regulars; steps became the social prescription.",
+      "tag": "personal"
+    },
+    {
+      "at": "2013-12-15",
+      "type": "goal-note",
+      "title": "Goals review (2013)",
+      "body": "Year-end goals review: protect one day off in seven, keep the Sunday table, and write down what the family knows before it is needed.",
+      "tag": "personal"
+    },
+    {
       "at": "2013-12-28",
       "type": "journal",
       "title": "Year-end reflection 2013",
@@ -218,6 +742,26 @@
       ]
     },
     {
+      "at": "2014-04-12",
+      "type": "research",
+      "title": "Notes on hospital discharge planning (2014)",
+      "body": "Reading and course notes on hospital discharge planning: what the guidance claims, what the ward and the family table say, and where they disagree this year.",
+      "tag": "shareable",
+      "people": [
+        "Hugo Sanz"
+      ]
+    },
+    {
+      "at": "2014-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Niece Lucia (2014)",
+      "body": "Long conversation with Niece Lucia over the Sunday table about family, work, and what changed this year. These talks keep everyone — and several care plans — honest.",
+      "tag": "personal",
+      "people": [
+        "Niece Lucia"
+      ]
+    },
+    {
       "at": "2014-07-12",
       "type": "health",
       "title": "Burnout, recognised",
@@ -226,6 +770,34 @@
       "people": [
         "Mama Elena",
         "Sister Carmen"
+      ]
+    },
+    {
+      "at": "2014-08-19",
+      "type": "finding",
+      "title": "Finding: hospital discharge planning in practice (2014)",
+      "body": "Across this year's wards and home visits, hospital discharge planning worked best when one named person held the list. The pattern held for 3 of 7 families followed.",
+      "tag": "shareable",
+      "people": [
+        "Niece Lucia"
+      ],
+      "via": "Google Drive (simulated)"
+    },
+    {
+      "at": "2014-09-14",
+      "type": "health",
+      "title": "Health record (2014)",
+      "body": "Dental check-up and clean; the Sunday table sent leftovers as aftercare.",
+      "tag": "personal"
+    },
+    {
+      "at": "2014-10-05",
+      "type": "method",
+      "title": "Method note: hospital discharge planning routine (2014)",
+      "body": "A repeatable routine for hospital discharge planning: one list, one named holder, one honest update at the same time each week.",
+      "tag": "shareable",
+      "people": [
+        "Hugo Sanz"
       ]
     },
     {
@@ -253,6 +825,17 @@
       ]
     },
     {
+      "at": "2015-02-11",
+      "type": "document",
+      "title": "Certificates and letters file (2015)",
+      "body": "Filed this year's certificates, registrations, and reference letters together. Paper first, scanned to Drive the same evening.",
+      "tag": "personal",
+      "people": [
+        "Isabel Fuente"
+      ],
+      "via": "Google Drive (simulated)"
+    },
+    {
       "at": "2015-02-21",
       "type": "skill",
       "title": "Qualified nurse",
@@ -262,6 +845,51 @@
         "Dr Patel",
         "Nurse Kim"
       ]
+    },
+    {
+      "at": "2015-04-12",
+      "type": "research",
+      "title": "Notes on Sunday-table logistics (2015)",
+      "body": "Reading and course notes on Sunday-table logistics: what the guidance claims, what the ward and the family table say, and where they disagree this year.",
+      "tag": "personal",
+      "people": [
+        "Isabel Fuente"
+      ],
+      "via": "Notion (simulated)"
+    },
+    {
+      "at": "2015-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Nora Gil (2015)",
+      "body": "Long conversation with Nora Gil over the Sunday table about family, work, and what changed this year. These talks keep everyone — and several care plans — honest.",
+      "tag": "personal",
+      "people": [
+        "Nora Gil"
+      ]
+    },
+    {
+      "at": "2015-08-19",
+      "type": "finding",
+      "title": "Finding: Sunday-table logistics in practice (2015)",
+      "body": "Across this year's wards and home visits, Sunday-table logistics worked best when one named person held the list. The pattern held for 4 of 5 families followed.",
+      "tag": "shareable",
+      "people": [
+        "Nora Gil"
+      ]
+    },
+    {
+      "at": "2015-09-14",
+      "type": "health",
+      "title": "Health record (2015)",
+      "body": "First export year: step records begin — ward days pass 11,000 steps without trying.",
+      "tag": "personal"
+    },
+    {
+      "at": "2015-12-15",
+      "type": "goal-note",
+      "title": "Goals review (2015)",
+      "body": "Year-end goals review: protect one day off in seven, keep the Sunday table, and write down what the family knows before it is needed.",
+      "tag": "personal"
     },
     {
       "at": "2015-12-28",
@@ -286,6 +914,16 @@
       ]
     },
     {
+      "at": "2016-04-12",
+      "type": "research",
+      "title": "Notes on nurse mentoring (2016)",
+      "body": "Reading and course notes on nurse mentoring: what the guidance claims, what the ward and the family table say, and where they disagree this year.",
+      "tag": "shareable",
+      "people": [
+        "Julia Sanz"
+      ]
+    },
+    {
       "at": "2016-06-18",
       "type": "finding",
       "title": "Discharge fails families",
@@ -294,6 +932,43 @@
       "people": [
         "Dr Patel",
         "Sofia Reyes"
+      ]
+    },
+    {
+      "at": "2016-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Nurse Kim (2016)",
+      "body": "Long conversation with Nurse Kim over the Sunday table about family, work, and what changed this year. These talks keep everyone — and several care plans — honest.",
+      "tag": "personal",
+      "people": [
+        "Nurse Kim"
+      ]
+    },
+    {
+      "at": "2016-08-19",
+      "type": "finding",
+      "title": "Finding: nurse mentoring in practice (2016)",
+      "body": "Across this year's wards and home visits, nurse mentoring worked best when one named person held the list. The pattern held for 5 of 6 families followed.",
+      "tag": "shareable",
+      "people": [
+        "Nurse Kim"
+      ]
+    },
+    {
+      "at": "2016-09-14",
+      "type": "health",
+      "title": "Health record (2016)",
+      "body": "Health export summary: steps high, sleep averaging 6h 38m. Nights still visible in every dip.",
+      "tag": "personal"
+    },
+    {
+      "at": "2016-10-05",
+      "type": "method",
+      "title": "Method note: nurse mentoring routine (2016)",
+      "body": "A repeatable routine for nurse mentoring: one list, one named holder, one honest update at the same time each week.",
+      "tag": "shareable",
+      "people": [
+        "Julia Sanz"
       ]
     },
     {
@@ -319,12 +994,49 @@
       ]
     },
     {
+      "at": "2017-04-12",
+      "type": "research",
+      "title": "Notes on care records (2017)",
+      "body": "Reading and course notes on care records: what the guidance claims, what the ward and the family table say, and where they disagree this year.",
+      "tag": "personal",
+      "people": [
+        "Lena Mora"
+      ]
+    },
+    {
       "at": "2017-06-11",
       "type": "finding",
       "title": "Slack export: #care-coords thread (2017)",
       "body": "Coordinator thread: handovers with a one-line summary cut morning calls by half. Descriptive note shared with two other wards.",
       "tag": "shareable",
       "via": "Slack (simulated)"
+    },
+    {
+      "at": "2017-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Papa Miguel (2017)",
+      "body": "Long conversation with Papa Miguel over the Sunday table about family, work, and what changed this year. These talks keep everyone — and several care plans — honest.",
+      "tag": "personal",
+      "people": [
+        "Papa Miguel"
+      ]
+    },
+    {
+      "at": "2017-08-19",
+      "type": "finding",
+      "title": "Finding: care records in practice (2017)",
+      "body": "Across this year's wards and home visits, care records worked best when one named person held the list. The pattern held for 6 of 7 families followed.",
+      "tag": "shareable",
+      "people": [
+        "Papa Miguel"
+      ]
+    },
+    {
+      "at": "2017-09-14",
+      "type": "health",
+      "title": "Health record (2017)",
+      "body": "Check-up: blood pressure steady; the coordinator role means a chair, finally, some days.",
+      "tag": "personal"
     },
     {
       "at": "2017-11-05",
@@ -340,6 +1052,13 @@
       ]
     },
     {
+      "at": "2017-12-15",
+      "type": "goal-note",
+      "title": "Goals review (2017)",
+      "body": "Year-end goals review: protect one day off in seven, keep the Sunday table, and write down what the family knows before it is needed.",
+      "tag": "personal"
+    },
+    {
       "at": "2017-12-28",
       "type": "journal",
       "title": "Year-end reflection 2017",
@@ -348,6 +1067,28 @@
       "people": [
         "Fatima Noor"
       ]
+    },
+    {
+      "at": "2018-02-11",
+      "type": "document",
+      "title": "Certificates and letters file (2018)",
+      "body": "Filed this year's certificates, registrations, and reference letters together. Paper first, scanned to Drive the same evening.",
+      "tag": "personal",
+      "people": [
+        "Mama Elena"
+      ],
+      "via": "Google Drive (simulated)"
+    },
+    {
+      "at": "2018-04-12",
+      "type": "research",
+      "title": "Notes on care coordination (2018)",
+      "body": "Reading and course notes on care coordination: what the guidance claims, what the ward and the family table say, and where they disagree this year.",
+      "tag": "shareable",
+      "people": [
+        "Mama Elena"
+      ],
+      "via": "Notion (simulated)"
     },
     {
       "at": "2018-05-13",
@@ -362,6 +1103,34 @@
       ]
     },
     {
+      "at": "2018-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Peter Novak (2018)",
+      "body": "Long conversation with Peter Novak over the Sunday table about family, work, and what changed this year. These talks keep everyone — and several care plans — honest.",
+      "tag": "personal",
+      "people": [
+        "Peter Novak"
+      ]
+    },
+    {
+      "at": "2018-08-19",
+      "type": "finding",
+      "title": "Finding: care coordination in practice (2018)",
+      "body": "Across this year's wards and home visits, care coordination worked best when one named person held the list. The pattern held for 3 of 5 families followed.",
+      "tag": "shareable",
+      "people": [
+        "Peter Novak"
+      ],
+      "via": "Google Drive (simulated)"
+    },
+    {
+      "at": "2018-09-14",
+      "type": "health",
+      "title": "Health record (2018)",
+      "body": "Swimming with Niece Lucia on days off; sleep deepest after swim Sundays.",
+      "tag": "personal"
+    },
+    {
       "at": "2018-09-23",
       "type": "relationship",
       "title": "LinkedIn export: Dr Patel connection (2018)",
@@ -370,6 +1139,16 @@
       "via": "LinkedIn (simulated)",
       "people": [
         "Dr Patel"
+      ]
+    },
+    {
+      "at": "2018-10-05",
+      "type": "method",
+      "title": "Method note: care coordination routine (2018)",
+      "body": "A repeatable routine for care coordination: one list, one named holder, one honest update at the same time each week.",
+      "tag": "shareable",
+      "people": [
+        "Mama Elena"
       ]
     },
     {
@@ -384,6 +1163,94 @@
       ]
     },
     {
+      "at": "2019-01-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2019-01)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2050.00 · Category: Income · Date: 2019-01-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-01-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2019-01)",
+      "body": "# Rent — house share near the hospital\nAmount: -680.00 · Category: Housing · Date: 2019-01-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-01-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2019-01)",
+      "body": "# Groceries — market and Sunday table\nAmount: -430.00 · Category: Groceries · Date: 2019-01-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-02-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2019-02)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2050.00 · Category: Income · Date: 2019-02-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-02-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2019-02)",
+      "body": "# Rent — house share near the hospital\nAmount: -680.00 · Category: Housing · Date: 2019-02-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-02-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2019-02)",
+      "body": "# Groceries — market and Sunday table\nAmount: -471.00 · Category: Groceries · Date: 2019-02-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-03-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2019-03)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2050.00 · Category: Income · Date: 2019-03-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-03-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2019-03)",
+      "body": "# Rent — house share near the hospital\nAmount: -680.00 · Category: Housing · Date: 2019-03-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-03-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2019-03)",
+      "body": "# Groceries — market and Sunday table\nAmount: -512.00 · Category: Groceries · Date: 2019-03-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-04-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2019-04)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2050.00 · Category: Income · Date: 2019-04-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-04-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2019-04)",
+      "body": "# Rent — house share near the hospital\nAmount: -680.00 · Category: Housing · Date: 2019-04-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
       "at": "2019-04-07",
       "type": "research",
       "title": "Community care models",
@@ -393,6 +1260,40 @@
         "Isabel Fuente",
         "Ramon Vega"
       ]
+    },
+    {
+      "at": "2019-04-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2019-04)",
+      "body": "# Groceries — market and Sunday table\nAmount: -468.00 · Category: Groceries · Date: 2019-04-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-04-12",
+      "type": "research",
+      "title": "Notes on ward handovers (2019)",
+      "body": "Reading and course notes on ward handovers: what the guidance claims, what the ward and the family table say, and where they disagree this year.",
+      "tag": "personal",
+      "people": [
+        "Marta Leon"
+      ]
+    },
+    {
+      "at": "2019-05-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2019-05)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2050.00 · Category: Income · Date: 2019-05-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-05-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2019-05)",
+      "body": "# Rent — house share near the hospital\nAmount: -680.00 · Category: Housing · Date: 2019-05-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
     },
     {
       "at": "2019-05-05",
@@ -407,6 +1308,216 @@
       ]
     },
     {
+      "at": "2019-05-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2019-05)",
+      "body": "# Groceries — market and Sunday table\nAmount: -509.00 · Category: Groceries · Date: 2019-05-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-06-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2019-06)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2050.00 · Category: Income · Date: 2019-06-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-06-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2019-06)",
+      "body": "# Rent — house share near the hospital\nAmount: -680.00 · Category: Housing · Date: 2019-06-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-06-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2019-06)",
+      "body": "# Groceries — market and Sunday table\nAmount: -465.00 · Category: Groceries · Date: 2019-06-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Andres Paz (2019)",
+      "body": "Long conversation with Andres Paz over the Sunday table about family, work, and what changed this year. These talks keep everyone — and several care plans — honest.",
+      "tag": "personal",
+      "people": [
+        "Andres Paz"
+      ]
+    },
+    {
+      "at": "2019-07-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2019-07)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2050.00 · Category: Income · Date: 2019-07-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-07-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2019-07)",
+      "body": "# Rent — house share near the hospital\nAmount: -680.00 · Category: Housing · Date: 2019-07-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-07-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2019-07)",
+      "body": "# Groceries — market and Sunday table\nAmount: -506.00 · Category: Groceries · Date: 2019-07-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-08-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2019-08)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2050.00 · Category: Income · Date: 2019-08-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-08-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2019-08)",
+      "body": "# Rent — house share near the hospital\nAmount: -680.00 · Category: Housing · Date: 2019-08-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-08-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2019-08)",
+      "body": "# Groceries — market and Sunday table\nAmount: -462.00 · Category: Groceries · Date: 2019-08-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-08-19",
+      "type": "finding",
+      "title": "Finding: ward handovers in practice (2019)",
+      "body": "Across this year's wards and home visits, ward handovers worked best when one named person held the list. The pattern held for 4 of 6 families followed.",
+      "tag": "shareable",
+      "people": [
+        "Andres Paz"
+      ]
+    },
+    {
+      "at": "2019-09-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2019-09)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2050.00 · Category: Income · Date: 2019-09-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-09-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2019-09)",
+      "body": "# Rent — house share near the hospital\nAmount: -680.00 · Category: Housing · Date: 2019-09-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-09-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2019-09)",
+      "body": "# Groceries — market and Sunday table\nAmount: -503.00 · Category: Groceries · Date: 2019-09-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-09-14",
+      "type": "health",
+      "title": "Health record (2019)",
+      "body": "Health export summary: resting heart rate steady, sleep nearing seven hours on the new rota.",
+      "tag": "personal"
+    },
+    {
+      "at": "2019-10-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2019-10)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2130.00 · Category: Income · Date: 2019-10-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-10-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2019-10)",
+      "body": "# Rent — house share near the hospital\nAmount: -680.00 · Category: Housing · Date: 2019-10-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-10-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2019-10)",
+      "body": "# Groceries — market and Sunday table\nAmount: -459.00 · Category: Groceries · Date: 2019-10-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-11-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2019-11)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2130.00 · Category: Income · Date: 2019-11-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-11-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2019-11)",
+      "body": "# Rent — house share near the hospital\nAmount: -680.00 · Category: Housing · Date: 2019-11-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-11-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2019-11)",
+      "body": "# Groceries — market and Sunday table\nAmount: -500.00 · Category: Groceries · Date: 2019-11-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-12-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2019-12)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2130.00 · Category: Income · Date: 2019-12-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-12-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2019-12)",
+      "body": "# Rent — house share near the hospital\nAmount: -680.00 · Category: Housing · Date: 2019-12-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-12-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2019-12)",
+      "body": "# Groceries — market and Sunday table\nAmount: -456.00 · Category: Groceries · Date: 2019-12-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-12-15",
+      "type": "goal-note",
+      "title": "Goals review (2019)",
+      "body": "Year-end goals review: protect one day off in seven, keep the Sunday table, and write down what the family knows before it is needed.",
+      "tag": "personal"
+    },
+    {
       "at": "2019-12-28",
       "type": "journal",
       "title": "Year-end reflection 2019",
@@ -416,6 +1527,78 @@
         "Niece Lucia",
         "Nephew Diego"
       ]
+    },
+    {
+      "at": "2020-01-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2020-01)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2240.00 · Category: Income · Date: 2020-01-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-01-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2020-01)",
+      "body": "# Rent — house share near the hospital\nAmount: -720.00 · Category: Housing · Date: 2020-01-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-01-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2020-01)",
+      "body": "# Groceries — market and Sunday table\nAmount: -505.00 · Category: Groceries · Date: 2020-01-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-02-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2020-02)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2240.00 · Category: Income · Date: 2020-02-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-02-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2020-02)",
+      "body": "# Rent — house share near the hospital\nAmount: -720.00 · Category: Housing · Date: 2020-02-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-02-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2020-02)",
+      "body": "# Groceries — market and Sunday table\nAmount: -461.00 · Category: Groceries · Date: 2020-02-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-03-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2020-03)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2240.00 · Category: Income · Date: 2020-03-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-03-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2020-03)",
+      "body": "# Rent — house share near the hospital\nAmount: -720.00 · Category: Housing · Date: 2020-03-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-03-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2020-03)",
+      "body": "# Groceries — market and Sunday table\nAmount: -502.00 · Category: Groceries · Date: 2020-03-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
     },
     {
       "at": "2020-03-22",
@@ -441,6 +1624,269 @@
       ]
     },
     {
+      "at": "2020-04-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2020-04)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2240.00 · Category: Income · Date: 2020-04-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-04-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2020-04)",
+      "body": "# Rent — house share near the hospital\nAmount: -720.00 · Category: Housing · Date: 2020-04-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-04-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2020-04)",
+      "body": "# Groceries — market and Sunday table\nAmount: -458.00 · Category: Groceries · Date: 2020-04-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-04-12",
+      "type": "research",
+      "title": "Notes on family caregiving (2020)",
+      "body": "Reading and course notes on family caregiving: what the guidance claims, what the ward and the family table say, and where they disagree this year.",
+      "tag": "shareable",
+      "people": [
+        "Nephew Diego"
+      ]
+    },
+    {
+      "at": "2020-05-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2020-05)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2240.00 · Category: Income · Date: 2020-05-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-05-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2020-05)",
+      "body": "# Rent — house share near the hospital\nAmount: -720.00 · Category: Housing · Date: 2020-05-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-05-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2020-05)",
+      "body": "# Groceries — market and Sunday table\nAmount: -499.00 · Category: Groceries · Date: 2020-05-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-06-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2020-06)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2240.00 · Category: Income · Date: 2020-06-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-06-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2020-06)",
+      "body": "# Rent — house share near the hospital\nAmount: -720.00 · Category: Housing · Date: 2020-06-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-06-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2020-06)",
+      "body": "# Groceries — market and Sunday table\nAmount: -455.00 · Category: Groceries · Date: 2020-06-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Aunt Dolores (2020)",
+      "body": "Long conversation with Aunt Dolores over the Sunday table about family, work, and what changed this year. These talks keep everyone — and several care plans — honest.",
+      "tag": "personal",
+      "people": [
+        "Aunt Dolores"
+      ]
+    },
+    {
+      "at": "2020-07-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2020-07)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2240.00 · Category: Income · Date: 2020-07-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-07-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2020-07)",
+      "body": "# Rent — house share near the hospital\nAmount: -720.00 · Category: Housing · Date: 2020-07-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-07-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2020-07)",
+      "body": "# Groceries — market and Sunday table\nAmount: -496.00 · Category: Groceries · Date: 2020-07-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-08-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2020-08)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2240.00 · Category: Income · Date: 2020-08-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-08-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2020-08)",
+      "body": "# Rent — house share near the hospital\nAmount: -720.00 · Category: Housing · Date: 2020-08-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-08-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2020-08)",
+      "body": "# Groceries — market and Sunday table\nAmount: -452.00 · Category: Groceries · Date: 2020-08-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-08-19",
+      "type": "finding",
+      "title": "Finding: family caregiving in practice (2020)",
+      "body": "Across this year's wards and home visits, family caregiving worked best when one named person held the list. The pattern held for 5 of 7 families followed.",
+      "tag": "shareable",
+      "people": [
+        "Aunt Dolores"
+      ]
+    },
+    {
+      "at": "2020-09-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2020-09)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2240.00 · Category: Income · Date: 2020-09-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-09-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2020-09)",
+      "body": "# Rent — house share near the hospital\nAmount: -720.00 · Category: Housing · Date: 2020-09-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-09-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2020-09)",
+      "body": "# Groceries — market and Sunday table\nAmount: -493.00 · Category: Groceries · Date: 2020-09-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-09-14",
+      "type": "health",
+      "title": "Health record (2020)",
+      "body": "Pandemic year on the ward: movement constant, sleep fractured in spring. Records kept; so did the table, by phone.",
+      "tag": "personal"
+    },
+    {
+      "at": "2020-10-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2020-10)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2320.00 · Category: Income · Date: 2020-10-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-10-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2020-10)",
+      "body": "# Rent — house share near the hospital\nAmount: -720.00 · Category: Housing · Date: 2020-10-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-10-05",
+      "type": "method",
+      "title": "Method note: family caregiving routine (2020)",
+      "body": "A repeatable routine for family caregiving: one list, one named holder, one honest update at the same time each week.",
+      "tag": "shareable",
+      "people": [
+        "Nephew Diego"
+      ]
+    },
+    {
+      "at": "2020-10-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2020-10)",
+      "body": "# Groceries — market and Sunday table\nAmount: -449.00 · Category: Groceries · Date: 2020-10-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-11-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2020-11)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2320.00 · Category: Income · Date: 2020-11-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-11-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2020-11)",
+      "body": "# Rent — house share near the hospital\nAmount: -720.00 · Category: Housing · Date: 2020-11-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-11-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2020-11)",
+      "body": "# Groceries — market and Sunday table\nAmount: -490.00 · Category: Groceries · Date: 2020-11-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-12-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2020-12)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2320.00 · Category: Income · Date: 2020-12-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-12-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2020-12)",
+      "body": "# Rent — house share near the hospital\nAmount: -720.00 · Category: Housing · Date: 2020-12-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-12-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2020-12)",
+      "body": "# Groceries — market and Sunday table\nAmount: -446.00 · Category: Groceries · Date: 2020-12-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
       "at": "2020-12-24",
       "type": "health",
       "title": "My own scare",
@@ -464,6 +1910,172 @@
       ]
     },
     {
+      "at": "2021-01-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2021-01)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2430.00 · Category: Income · Date: 2021-01-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-01-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2021-01)",
+      "body": "# Rent — house share near the hospital\nAmount: -760.00 · Category: Housing · Date: 2021-01-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-01-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2021-01)",
+      "body": "# Groceries — market and Sunday table\nAmount: -495.00 · Category: Groceries · Date: 2021-01-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-02-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2021-02)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2430.00 · Category: Income · Date: 2021-02-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-02-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2021-02)",
+      "body": "# Rent — house share near the hospital\nAmount: -760.00 · Category: Housing · Date: 2021-02-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-02-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2021-02)",
+      "body": "# Groceries — market and Sunday table\nAmount: -451.00 · Category: Groceries · Date: 2021-02-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-02-11",
+      "type": "document",
+      "title": "Certificates and letters file (2021)",
+      "body": "Filed this year's certificates, registrations, and reference letters together. Paper first, scanned to Drive the same evening.",
+      "tag": "personal",
+      "people": [
+        "Niece Lucia"
+      ],
+      "via": "Google Drive (simulated)"
+    },
+    {
+      "at": "2021-03-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2021-03)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2430.00 · Category: Income · Date: 2021-03-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-03-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2021-03)",
+      "body": "# Rent — house share near the hospital\nAmount: -760.00 · Category: Housing · Date: 2021-03-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-03-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2021-03)",
+      "body": "# Groceries — market and Sunday table\nAmount: -492.00 · Category: Groceries · Date: 2021-03-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-04-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2021-04)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2430.00 · Category: Income · Date: 2021-04-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-04-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2021-04)",
+      "body": "# Rent — house share near the hospital\nAmount: -760.00 · Category: Housing · Date: 2021-04-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-04-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2021-04)",
+      "body": "# Groceries — market and Sunday table\nAmount: -448.00 · Category: Groceries · Date: 2021-04-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-04-12",
+      "type": "research",
+      "title": "Notes on dementia care routines (2021)",
+      "body": "Reading and course notes on dementia care routines: what the guidance claims, what the ward and the family table say, and where they disagree this year.",
+      "tag": "personal",
+      "people": [
+        "Niece Lucia"
+      ],
+      "via": "Notion (simulated)"
+    },
+    {
+      "at": "2021-05-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2021-05)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2430.00 · Category: Income · Date: 2021-05-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-05-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2021-05)",
+      "body": "# Rent — house share near the hospital\nAmount: -760.00 · Category: Housing · Date: 2021-05-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-05-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2021-05)",
+      "body": "# Groceries — market and Sunday table\nAmount: -489.00 · Category: Groceries · Date: 2021-05-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-06-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2021-06)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2430.00 · Category: Income · Date: 2021-06-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-06-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2021-06)",
+      "body": "# Rent — house share near the hospital\nAmount: -760.00 · Category: Housing · Date: 2021-06-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-06-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2021-06)",
+      "body": "# Groceries — market and Sunday table\nAmount: -530.00 · Category: Groceries · Date: 2021-06-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
       "at": "2021-06-15",
       "type": "goal-note",
       "title": "Pivot: coordination",
@@ -474,12 +2086,190 @@
       ]
     },
     {
+      "at": "2021-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Brother Luis (2021)",
+      "body": "Long conversation with Brother Luis over the Sunday table about family, work, and what changed this year. These talks keep everyone — and several care plans — honest.",
+      "tag": "personal",
+      "people": [
+        "Brother Luis"
+      ]
+    },
+    {
+      "at": "2021-07-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2021-07)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2430.00 · Category: Income · Date: 2021-07-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-07-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2021-07)",
+      "body": "# Rent — house share near the hospital\nAmount: -760.00 · Category: Housing · Date: 2021-07-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-07-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2021-07)",
+      "body": "# Groceries — market and Sunday table\nAmount: -486.00 · Category: Groceries · Date: 2021-07-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-08-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2021-08)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2430.00 · Category: Income · Date: 2021-08-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-08-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2021-08)",
+      "body": "# Rent — house share near the hospital\nAmount: -760.00 · Category: Housing · Date: 2021-08-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-08-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2021-08)",
+      "body": "# Groceries — market and Sunday table\nAmount: -527.00 · Category: Groceries · Date: 2021-08-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-08-19",
+      "type": "finding",
+      "title": "Finding: dementia care routines in practice (2021)",
+      "body": "Across this year's wards and home visits, dementia care routines worked best when one named person held the list. The pattern held for 6 of 5 families followed.",
+      "tag": "shareable",
+      "people": [
+        "Brother Luis"
+      ]
+    },
+    {
+      "at": "2021-09-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2021-09)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2430.00 · Category: Income · Date: 2021-09-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-09-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2021-09)",
+      "body": "# Rent — house share near the hospital\nAmount: -760.00 · Category: Housing · Date: 2021-09-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-09-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2021-09)",
+      "body": "# Groceries — market and Sunday table\nAmount: -483.00 · Category: Groceries · Date: 2021-09-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-09-14",
+      "type": "health",
+      "title": "Health record (2021)",
+      "body": "Vaccination course among the first at the hospital; appointments logged with the export.",
+      "tag": "personal"
+    },
+    {
+      "at": "2021-10-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2021-10)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2510.00 · Category: Income · Date: 2021-10-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-10-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2021-10)",
+      "body": "# Rent — house share near the hospital\nAmount: -760.00 · Category: Housing · Date: 2021-10-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-10-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2021-10)",
+      "body": "# Groceries — market and Sunday table\nAmount: -524.00 · Category: Groceries · Date: 2021-10-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
       "at": "2021-10-17",
       "type": "goal-note",
       "title": "Notion export: coordinator goals (2021)",
       "body": "Goal page: formalize the handover method, train four new coordinators, protect one rest day weekly. Reviewed at the Sunday table monthly.",
       "tag": "personal",
       "via": "Notion (simulated)"
+    },
+    {
+      "at": "2021-11-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2021-11)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2510.00 · Category: Income · Date: 2021-11-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-11-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2021-11)",
+      "body": "# Rent — house share near the hospital\nAmount: -760.00 · Category: Housing · Date: 2021-11-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-11-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2021-11)",
+      "body": "# Groceries — market and Sunday table\nAmount: -480.00 · Category: Groceries · Date: 2021-11-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-12-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2021-12)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2510.00 · Category: Income · Date: 2021-12-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-12-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2021-12)",
+      "body": "# Rent — house share near the hospital\nAmount: -760.00 · Category: Housing · Date: 2021-12-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-12-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2021-12)",
+      "body": "# Groceries — market and Sunday table\nAmount: -521.00 · Category: Groceries · Date: 2021-12-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-12-15",
+      "type": "goal-note",
+      "title": "Goals review (2021)",
+      "body": "Year-end goals review: protect one day off in seven, keep the Sunday table, and write down what the family knows before it is needed.",
+      "tag": "personal"
     },
     {
       "at": "2021-12-28",
@@ -491,6 +2281,46 @@
         "Mama Elena",
         "Sister Carmen"
       ]
+    },
+    {
+      "at": "2022-01-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2022-01)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2620.00 · Category: Income · Date: 2022-01-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-01-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2022-01)",
+      "body": "# Rent — house share near the hospital\nAmount: -800.00 · Category: Housing · Date: 2022-01-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-01-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2022-01)",
+      "body": "# Groceries — market and Sunday table\nAmount: -485.00 · Category: Groceries · Date: 2022-01-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-02-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2022-02)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2620.00 · Category: Income · Date: 2022-02-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-02-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2022-02)",
+      "body": "# Rent — house share near the hospital\nAmount: -800.00 · Category: Housing · Date: 2022-02-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
     },
     {
       "at": "2022-02-06",
@@ -505,6 +2335,154 @@
       ]
     },
     {
+      "at": "2022-02-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2022-02)",
+      "body": "# Groceries — market and Sunday table\nAmount: -526.00 · Category: Groceries · Date: 2022-02-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-03-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2022-03)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2620.00 · Category: Income · Date: 2022-03-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-03-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2022-03)",
+      "body": "# Rent — house share near the hospital\nAmount: -800.00 · Category: Housing · Date: 2022-03-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-03-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2022-03)",
+      "body": "# Groceries — market and Sunday table\nAmount: -482.00 · Category: Groceries · Date: 2022-03-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-04-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2022-04)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2620.00 · Category: Income · Date: 2022-04-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-04-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2022-04)",
+      "body": "# Rent — house share near the hospital\nAmount: -800.00 · Category: Housing · Date: 2022-04-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-04-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2022-04)",
+      "body": "# Groceries — market and Sunday table\nAmount: -523.00 · Category: Groceries · Date: 2022-04-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-04-12",
+      "type": "research",
+      "title": "Notes on community health visits (2022)",
+      "body": "Reading and course notes on community health visits: what the guidance claims, what the ward and the family table say, and where they disagree this year.",
+      "tag": "shareable",
+      "people": [
+        "Nora Gil"
+      ]
+    },
+    {
+      "at": "2022-05-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2022-05)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2620.00 · Category: Income · Date: 2022-05-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-05-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2022-05)",
+      "body": "# Rent — house share near the hospital\nAmount: -800.00 · Category: Housing · Date: 2022-05-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-05-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2022-05)",
+      "body": "# Groceries — market and Sunday table\nAmount: -479.00 · Category: Groceries · Date: 2022-05-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-06-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2022-06)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2620.00 · Category: Income · Date: 2022-06-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-06-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2022-06)",
+      "body": "# Rent — house share near the hospital\nAmount: -800.00 · Category: Housing · Date: 2022-06-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-06-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2022-06)",
+      "body": "# Groceries — market and Sunday table\nAmount: -520.00 · Category: Groceries · Date: 2022-06-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Clara Ortiz (2022)",
+      "body": "Long conversation with Clara Ortiz over the Sunday table about family, work, and what changed this year. These talks keep everyone — and several care plans — honest.",
+      "tag": "personal",
+      "people": [
+        "Clara Ortiz"
+      ]
+    },
+    {
+      "at": "2022-07-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2022-07)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2620.00 · Category: Income · Date: 2022-07-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-07-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2022-07)",
+      "body": "# Rent — house share near the hospital\nAmount: -800.00 · Category: Housing · Date: 2022-07-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-07-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2022-07)",
+      "body": "# Groceries — market and Sunday table\nAmount: -476.00 · Category: Groceries · Date: 2022-07-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
       "at": "2022-07-21",
       "type": "health",
       "title": "Gmail export: vaccination records (2022)",
@@ -515,6 +2493,106 @@
         "Mama Elena",
         "Papa Miguel"
       ]
+    },
+    {
+      "at": "2022-08-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2022-08)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2620.00 · Category: Income · Date: 2022-08-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-08-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2022-08)",
+      "body": "# Rent — house share near the hospital\nAmount: -800.00 · Category: Housing · Date: 2022-08-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-08-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2022-08)",
+      "body": "# Groceries — market and Sunday table\nAmount: -517.00 · Category: Groceries · Date: 2022-08-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-08-19",
+      "type": "finding",
+      "title": "Finding: community health visits in practice (2022)",
+      "body": "Across this year's wards and home visits, community health visits worked best when one named person held the list. The pattern held for 3 of 6 families followed.",
+      "tag": "shareable",
+      "people": [
+        "Clara Ortiz"
+      ],
+      "via": "Google Drive (simulated)"
+    },
+    {
+      "at": "2022-09-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2022-09)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2620.00 · Category: Income · Date: 2022-09-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-09-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2022-09)",
+      "body": "# Rent — house share near the hospital\nAmount: -800.00 · Category: Housing · Date: 2022-09-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-09-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2022-09)",
+      "body": "# Groceries — market and Sunday table\nAmount: -473.00 · Category: Groceries · Date: 2022-09-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-09-14",
+      "type": "health",
+      "title": "Health record (2022)",
+      "body": "Coordinator-year check-up: stress named, walking meetings with families adopted, blood pressure stable.",
+      "tag": "personal"
+    },
+    {
+      "at": "2022-10-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2022-10)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2700.00 · Category: Income · Date: 2022-10-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-10-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2022-10)",
+      "body": "# Rent — house share near the hospital\nAmount: -800.00 · Category: Housing · Date: 2022-10-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-10-05",
+      "type": "method",
+      "title": "Method note: community health visits routine (2022)",
+      "body": "A repeatable routine for community health visits: one list, one named holder, one honest update at the same time each week.",
+      "tag": "shareable",
+      "people": [
+        "Nora Gil"
+      ]
+    },
+    {
+      "at": "2022-10-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2022-10)",
+      "body": "# Groceries — market and Sunday table\nAmount: -514.00 · Category: Groceries · Date: 2022-10-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
     },
     {
       "at": "2022-10-30",
@@ -529,6 +2607,54 @@
       ]
     },
     {
+      "at": "2022-11-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2022-11)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2700.00 · Category: Income · Date: 2022-11-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-11-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2022-11)",
+      "body": "# Rent — house share near the hospital\nAmount: -800.00 · Category: Housing · Date: 2022-11-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-11-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2022-11)",
+      "body": "# Groceries — market and Sunday table\nAmount: -470.00 · Category: Groceries · Date: 2022-11-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-12-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2022-12)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2700.00 · Category: Income · Date: 2022-12-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-12-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2022-12)",
+      "body": "# Rent — house share near the hospital\nAmount: -800.00 · Category: Housing · Date: 2022-12-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-12-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2022-12)",
+      "body": "# Groceries — market and Sunday table\nAmount: -511.00 · Category: Groceries · Date: 2022-12-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
       "at": "2022-12-28",
       "type": "journal",
       "title": "Year-end reflection 2022",
@@ -539,12 +2665,142 @@
       ]
     },
     {
+      "at": "2023-01-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2023-01)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2810.00 · Category: Income · Date: 2023-01-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-01-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2023-01)",
+      "body": "# Rent — house share near the hospital\nAmount: -840.00 · Category: Housing · Date: 2023-01-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-01-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2023-01)",
+      "body": "# Groceries — market and Sunday table\nAmount: -475.00 · Category: Groceries · Date: 2023-01-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-02-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2023-02)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2810.00 · Category: Income · Date: 2023-02-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-02-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2023-02)",
+      "body": "# Rent — house share near the hospital\nAmount: -840.00 · Category: Housing · Date: 2023-02-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-02-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2023-02)",
+      "body": "# Groceries — market and Sunday table\nAmount: -516.00 · Category: Groceries · Date: 2023-02-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-03-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2023-03)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2810.00 · Category: Income · Date: 2023-03-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-03-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2023-03)",
+      "body": "# Rent — house share near the hospital\nAmount: -840.00 · Category: Housing · Date: 2023-03-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-03-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2023-03)",
+      "body": "# Groceries — market and Sunday table\nAmount: -472.00 · Category: Groceries · Date: 2023-03-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-04-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2023-04)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2810.00 · Category: Income · Date: 2023-04-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-04-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2023-04)",
+      "body": "# Rent — house share near the hospital\nAmount: -840.00 · Category: Housing · Date: 2023-04-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-04-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2023-04)",
+      "body": "# Groceries — market and Sunday table\nAmount: -513.00 · Category: Groceries · Date: 2023-04-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-04-12",
+      "type": "research",
+      "title": "Notes on medication lists (2023)",
+      "body": "Reading and course notes on medication lists: what the guidance claims, what the ward and the family table say, and where they disagree this year.",
+      "tag": "personal",
+      "people": [
+        "Nurse Kim"
+      ]
+    },
+    {
       "at": "2023-04-15",
       "type": "finding",
       "title": "X export: community table post (2023)",
       "body": "Posted about the Sunday table: twenty years, four generations, one rota. Replies asked for the handover template; shared the checklist publicly.",
       "tag": "shareable",
       "via": "X (Twitter) (simulated)"
+    },
+    {
+      "at": "2023-05-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2023-05)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2810.00 · Category: Income · Date: 2023-05-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-05-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2023-05)",
+      "body": "# Rent — house share near the hospital\nAmount: -840.00 · Category: Housing · Date: 2023-05-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-05-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2023-05)",
+      "body": "# Groceries — market and Sunday table\nAmount: -469.00 · Category: Groceries · Date: 2023-05-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
     },
     {
       "at": "2023-05-20",
@@ -559,6 +2815,201 @@
       ]
     },
     {
+      "at": "2023-06-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2023-06)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2810.00 · Category: Income · Date: 2023-06-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-06-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2023-06)",
+      "body": "# Rent — house share near the hospital\nAmount: -840.00 · Category: Housing · Date: 2023-06-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-06-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2023-06)",
+      "body": "# Groceries — market and Sunday table\nAmount: -510.00 · Category: Groceries · Date: 2023-06-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Cousin Ana (2023)",
+      "body": "Long conversation with Cousin Ana over the Sunday table about family, work, and what changed this year. These talks keep everyone — and several care plans — honest.",
+      "tag": "personal",
+      "people": [
+        "Cousin Ana"
+      ]
+    },
+    {
+      "at": "2023-07-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2023-07)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2810.00 · Category: Income · Date: 2023-07-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-07-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2023-07)",
+      "body": "# Rent — house share near the hospital\nAmount: -840.00 · Category: Housing · Date: 2023-07-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-07-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2023-07)",
+      "body": "# Groceries — market and Sunday table\nAmount: -466.00 · Category: Groceries · Date: 2023-07-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-08-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2023-08)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2810.00 · Category: Income · Date: 2023-08-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-08-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2023-08)",
+      "body": "# Rent — house share near the hospital\nAmount: -840.00 · Category: Housing · Date: 2023-08-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-08-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2023-08)",
+      "body": "# Groceries — market and Sunday table\nAmount: -507.00 · Category: Groceries · Date: 2023-08-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-08-19",
+      "type": "finding",
+      "title": "Finding: medication lists in practice (2023)",
+      "body": "Across this year's wards and home visits, medication lists worked best when one named person held the list. The pattern held for 4 of 7 families followed.",
+      "tag": "shareable",
+      "people": [
+        "Cousin Ana"
+      ]
+    },
+    {
+      "at": "2023-09-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2023-09)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2810.00 · Category: Income · Date: 2023-09-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-09-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2023-09)",
+      "body": "# Rent — house share near the hospital\nAmount: -840.00 · Category: Housing · Date: 2023-09-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-09-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2023-09)",
+      "body": "# Groceries — market and Sunday table\nAmount: -463.00 · Category: Groceries · Date: 2023-09-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-10-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2023-10)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2890.00 · Category: Income · Date: 2023-10-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-10-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2023-10)",
+      "body": "# Rent — house share near the hospital\nAmount: -840.00 · Category: Housing · Date: 2023-10-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-10-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2023-10)",
+      "body": "# Groceries — market and Sunday table\nAmount: -504.00 · Category: Groceries · Date: 2023-10-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-11-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2023-11)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2890.00 · Category: Income · Date: 2023-11-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-11-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2023-11)",
+      "body": "# Rent — house share near the hospital\nAmount: -840.00 · Category: Housing · Date: 2023-11-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-11-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2023-11)",
+      "body": "# Groceries — market and Sunday table\nAmount: -545.00 · Category: Groceries · Date: 2023-11-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-12-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2023-12)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 2890.00 · Category: Income · Date: 2023-12-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-12-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2023-12)",
+      "body": "# Rent — house share near the hospital\nAmount: -840.00 · Category: Housing · Date: 2023-12-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-12-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2023-12)",
+      "body": "# Groceries — market and Sunday table\nAmount: -501.00 · Category: Groceries · Date: 2023-12-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-12-15",
+      "type": "goal-note",
+      "title": "Goals review (2023)",
+      "body": "Year-end goals review: protect one day off in seven, keep the Sunday table, and write down what the family knows before it is needed.",
+      "tag": "personal"
+    },
+    {
       "at": "2023-12-28",
       "type": "journal",
       "title": "Year-end reflection 2023",
@@ -568,6 +3019,30 @@
         "Brother Luis",
         "Mama Elena"
       ]
+    },
+    {
+      "at": "2024-01-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2024-01)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 3000.00 · Category: Income · Date: 2024-01-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-01-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2024-01)",
+      "body": "# Rent — house share near the hospital\nAmount: -880.00 · Category: Housing · Date: 2024-01-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-01-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2024-01)",
+      "body": "# Groceries — market and Sunday table\nAmount: -550.00 · Category: Groceries · Date: 2024-01-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
     },
     {
       "at": "2024-01-14",
@@ -582,6 +3057,216 @@
       ]
     },
     {
+      "at": "2024-02-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2024-02)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 3000.00 · Category: Income · Date: 2024-02-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-02-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2024-02)",
+      "body": "# Rent — house share near the hospital\nAmount: -880.00 · Category: Housing · Date: 2024-02-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-02-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2024-02)",
+      "body": "# Groceries — market and Sunday table\nAmount: -506.00 · Category: Groceries · Date: 2024-02-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-02-11",
+      "type": "document",
+      "title": "Certificates and letters file (2024)",
+      "body": "Filed this year's certificates, registrations, and reference letters together. Paper first, scanned to Drive the same evening.",
+      "tag": "personal",
+      "people": [
+        "Papa Miguel"
+      ],
+      "via": "Google Drive (simulated)"
+    },
+    {
+      "at": "2024-03-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2024-03)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 3000.00 · Category: Income · Date: 2024-03-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-03-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2024-03)",
+      "body": "# Rent — house share near the hospital\nAmount: -880.00 · Category: Housing · Date: 2024-03-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-03-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2024-03)",
+      "body": "# Groceries — market and Sunday table\nAmount: -547.00 · Category: Groceries · Date: 2024-03-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-04-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2024-04)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 3000.00 · Category: Income · Date: 2024-04-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-04-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2024-04)",
+      "body": "# Rent — house share near the hospital\nAmount: -880.00 · Category: Housing · Date: 2024-04-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-04-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2024-04)",
+      "body": "# Groceries — market and Sunday table\nAmount: -503.00 · Category: Groceries · Date: 2024-04-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-04-12",
+      "type": "research",
+      "title": "Notes on end-of-life conversations (2024)",
+      "body": "Reading and course notes on end-of-life conversations: what the guidance claims, what the ward and the family table say, and where they disagree this year.",
+      "tag": "shareable",
+      "people": [
+        "Papa Miguel"
+      ],
+      "via": "Notion (simulated)"
+    },
+    {
+      "at": "2024-05-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2024-05)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 3000.00 · Category: Income · Date: 2024-05-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-05-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2024-05)",
+      "body": "# Rent — house share near the hospital\nAmount: -880.00 · Category: Housing · Date: 2024-05-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-05-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2024-05)",
+      "body": "# Groceries — market and Sunday table\nAmount: -544.00 · Category: Groceries · Date: 2024-05-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-06-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2024-06)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 3000.00 · Category: Income · Date: 2024-06-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-06-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2024-06)",
+      "body": "# Rent — house share near the hospital\nAmount: -880.00 · Category: Housing · Date: 2024-06-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-06-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2024-06)",
+      "body": "# Groceries — market and Sunday table\nAmount: -500.00 · Category: Groceries · Date: 2024-06-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Dr Patel (2024)",
+      "body": "Long conversation with Dr Patel over the Sunday table about family, work, and what changed this year. These talks keep everyone — and several care plans — honest.",
+      "tag": "personal",
+      "people": [
+        "Dr Patel"
+      ]
+    },
+    {
+      "at": "2024-07-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2024-07)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 3000.00 · Category: Income · Date: 2024-07-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-07-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2024-07)",
+      "body": "# Rent — house share near the hospital\nAmount: -880.00 · Category: Housing · Date: 2024-07-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-07-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2024-07)",
+      "body": "# Groceries — market and Sunday table\nAmount: -541.00 · Category: Groceries · Date: 2024-07-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-08-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2024-08)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 3000.00 · Category: Income · Date: 2024-08-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-08-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2024-08)",
+      "body": "# Rent — house share near the hospital\nAmount: -880.00 · Category: Housing · Date: 2024-08-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-08-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2024-08)",
+      "body": "# Groceries — market and Sunday table\nAmount: -497.00 · Category: Groceries · Date: 2024-08-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-08-19",
+      "type": "finding",
+      "title": "Finding: end-of-life conversations in practice (2024)",
+      "body": "Across this year's wards and home visits, end-of-life conversations worked best when one named person held the list. The pattern held for 5 of 5 families followed.",
+      "tag": "shareable",
+      "people": [
+        "Dr Patel"
+      ]
+    },
+    {
       "at": "2024-08-31",
       "type": "finance",
       "title": "Calendar export: care budget review (2024)",
@@ -591,6 +3276,22 @@
       "people": [
         "Brother Luis"
       ]
+    },
+    {
+      "at": "2024-09-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2024-09)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 3000.00 · Category: Income · Date: 2024-09-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-09-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2024-09)",
+      "body": "# Rent — house share near the hospital\nAmount: -880.00 · Category: Housing · Date: 2024-09-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
     },
     {
       "at": "2024-09-08",
@@ -604,6 +3305,96 @@
       ]
     },
     {
+      "at": "2024-09-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2024-09)",
+      "body": "# Groceries — market and Sunday table\nAmount: -538.00 · Category: Groceries · Date: 2024-09-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-10-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2024-10)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 3080.00 · Category: Income · Date: 2024-10-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-10-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2024-10)",
+      "body": "# Rent — house share near the hospital\nAmount: -880.00 · Category: Housing · Date: 2024-10-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-10-05",
+      "type": "method",
+      "title": "Method note: end-of-life conversations routine (2024)",
+      "body": "A repeatable routine for end-of-life conversations: one list, one named holder, one honest update at the same time each week.",
+      "tag": "shareable",
+      "people": [
+        "Papa Miguel"
+      ]
+    },
+    {
+      "at": "2024-10-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2024-10)",
+      "body": "# Groceries — market and Sunday table\nAmount: -494.00 · Category: Groceries · Date: 2024-10-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-11-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2024-11)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 3080.00 · Category: Income · Date: 2024-11-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-11-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2024-11)",
+      "body": "# Rent — house share near the hospital\nAmount: -880.00 · Category: Housing · Date: 2024-11-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-11-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2024-11)",
+      "body": "# Groceries — market and Sunday table\nAmount: -535.00 · Category: Groceries · Date: 2024-11-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-12-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2024-12)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 3080.00 · Category: Income · Date: 2024-12-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-12-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2024-12)",
+      "body": "# Rent — house share near the hospital\nAmount: -880.00 · Category: Housing · Date: 2024-12-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-12-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2024-12)",
+      "body": "# Groceries — market and Sunday table\nAmount: -491.00 · Category: Groceries · Date: 2024-12-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
       "at": "2024-12-28",
       "type": "journal",
       "title": "Year-end reflection 2024",
@@ -612,6 +3403,64 @@
       "people": [
         "Niece Lucia",
         "Nephew Diego"
+      ]
+    },
+    {
+      "at": "2025-01-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2025-01)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 3190.00 · Category: Income · Date: 2025-01-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2025-01-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2025-01)",
+      "body": "# Rent — house share near the hospital\nAmount: -920.00 · Category: Housing · Date: 2025-01-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2025-01-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2025-01)",
+      "body": "# Groceries — market and Sunday table\nAmount: -540.00 · Category: Groceries · Date: 2025-01-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2025-02-01",
+      "type": "finance",
+      "title": "Salary — nursing and coordination roles (2025-02)",
+      "body": "# Salary — nursing and coordination roles\nAmount: 3190.00 · Category: Income · Date: 2025-02-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2025-02-03",
+      "type": "finance",
+      "title": "Rent — house share near the hospital (2025-02)",
+      "body": "# Rent — house share near the hospital\nAmount: -920.00 · Category: Housing · Date: 2025-02-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2025-02-09",
+      "type": "finance",
+      "title": "Groceries — market and Sunday table (2025-02)",
+      "body": "# Groceries — market and Sunday table\nAmount: -496.00 · Category: Groceries · Date: 2025-02-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2025-04-12",
+      "type": "research",
+      "title": "Notes on carer respite (2025)",
+      "body": "Reading and course notes on carer respite: what the guidance claims, what the ward and the family table say, and where they disagree this year.",
+      "tag": "personal",
+      "people": [
+        "Peter Novak"
       ]
     },
     {
@@ -642,6 +3491,26 @@
       ]
     },
     {
+      "at": "2025-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Fatima Noor (2025)",
+      "body": "Long conversation with Fatima Noor over the Sunday table about family, work, and what changed this year. These talks keep everyone — and several care plans — honest.",
+      "tag": "personal",
+      "people": [
+        "Fatima Noor"
+      ]
+    },
+    {
+      "at": "2025-08-19",
+      "type": "finding",
+      "title": "Finding: carer respite in practice (2025)",
+      "body": "Across this year's wards and home visits, carer respite worked best when one named person held the list. The pattern held for 6 of 6 families followed.",
+      "tag": "shareable",
+      "people": [
+        "Fatima Noor"
+      ]
+    },
+    {
       "at": "2025-11-02",
       "type": "skill",
       "title": "Teaching coordination",
@@ -651,6 +3520,13 @@
         "Rosa Jr",
         "Lena Mora"
       ]
+    },
+    {
+      "at": "2025-12-15",
+      "type": "goal-note",
+      "title": "Goals review (2025)",
+      "body": "Year-end goals review: protect one day off in seven, keep the Sunday table, and write down what the family knows before it is needed.",
+      "tag": "personal"
     },
     {
       "at": "2025-12-28",
@@ -681,6 +3557,47 @@
         "Mama Elena",
         "Fatima Noor",
         "Sister Carmen"
+      ]
+    },
+    {
+      "at": "2026-04-12",
+      "type": "research",
+      "title": "Notes on hospital discharge planning (2026)",
+      "body": "Reading and course notes on hospital discharge planning: what the guidance claims, what the ward and the family table say, and where they disagree this year.",
+      "tag": "shareable",
+      "people": [
+        "Andres Paz"
+      ]
+    },
+    {
+      "at": "2026-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Grace Ade (2026)",
+      "body": "Long conversation with Grace Ade over the Sunday table about family, work, and what changed this year. These talks keep everyone — and several care plans — honest.",
+      "tag": "personal",
+      "people": [
+        "Grace Ade"
+      ]
+    },
+    {
+      "at": "2026-08-19",
+      "type": "finding",
+      "title": "Finding: hospital discharge planning in practice (2026)",
+      "body": "Across this year's wards and home visits, hospital discharge planning worked best when one named person held the list. The pattern held for 3 of 7 families followed.",
+      "tag": "shareable",
+      "people": [
+        "Grace Ade"
+      ],
+      "via": "Google Drive (simulated)"
+    },
+    {
+      "at": "2026-10-05",
+      "type": "method",
+      "title": "Method note: hospital discharge planning routine (2026)",
+      "body": "A repeatable routine for hospital discharge planning: one list, one named holder, one honest update at the same time each week.",
+      "tag": "shareable",
+      "people": [
+        "Andres Paz"
       ]
     },
     {

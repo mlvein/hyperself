@@ -38,4 +38,36 @@ for (const file of files) {
   assert.ok(peopleCounts.size >= 18, `${kb.id} has a wide network (${peopleCounts.size} people)`);
 }
 
+// Maya carries rich demo finance/health data so the Finance and Health
+// Path templates populate their detail views (statement transactions
+// with Amount/Category, health-export record lines).
+{
+  const maya = JSON.parse(fs.readFileSync(path.join(dir, 'maya.json'), 'utf8'));
+  const tx = maya.entries.filter((e) => e.type === 'finance' && /Amount:\s*-?[\d.]+/.test(e.body) && /Category:/.test(e.body));
+  const months = new Set(tx.map((e) => e.at.slice(0, 7)));
+  assert.ok(tx.length >= 80, `Maya finance transactions populate the Finance Path (${tx.length})`);
+  assert.ok(months.size >= 10, `Maya finance spans 10+ months of trend (${months.size})`);
+  const cats = new Set(tx.map((e) => e.body.match(/Category:\s*([^·\n]+)/)[1].trim()));
+  assert.ok(cats.size >= 6, `Maya finance covers 6+ categories (${[...cats].join(', ')})`);
+  const health = maya.entries.filter((e) => e.type === 'health');
+  const recordLines = health.flatMap((e) => e.body.split('\n')).filter((l) => /^- \w.*: \d+ records/.test(l.trim()));
+  assert.ok(health.length >= 15, `Maya health entries populate the Health Path (${health.length})`);
+  assert.ok(recordLines.length >= 8, `Maya health export record lines present (${recordLines.length})`);
+  // A lifetime's worth: 1998-2026, hundreds of entries across every type.
+  assert.ok(maya.entries.length >= 400, `Maya is a lifetime archive (${maya.entries.length} entries)`);
+  const mayaYears = new Set(maya.entries.map((e) => e.at.slice(0, 4)));
+  assert.ok(mayaYears.size >= 25, `Maya spans 25+ calendar years (${mayaYears.size})`);
+  assert.ok(maya.entries[0].at.startsWith('1998'), 'Maya archive starts in 1998 (school years)');
+  for (const id of ['daniel', 'rosa']) {
+    const kb = JSON.parse(fs.readFileSync(path.join(dir, `${id}.json`), 'utf8'));
+    assert.ok(kb.entries.length >= 400, `${id} is a lifetime archive (${kb.entries.length} entries)`);
+    const ys = new Set(kb.entries.map((e) => e.at.slice(0, 4)));
+    assert.ok(ys.size >= 25, `${id} spans 25+ calendar years (${ys.size})`);
+    assert.ok(kb.entries[0].at.startsWith('1998'), `${id} archive starts in 1998`);
+    const ftx = kb.entries.filter((e) => e.type === 'finance' && /Amount:/.test(e.body));
+    assert.ok(ftx.length >= 200, `${id} finance transactions populate Finance (${ftx.length})`);
+    assert.ok(kb.entries.filter((e) => e.type === 'health').length >= 20, `${id} health entries populate Health`);
+  }
+}
+
 console.log(`personas OK: ${files.length} personas, multi-year arcs, tag model holds`);

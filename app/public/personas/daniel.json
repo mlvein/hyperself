@@ -4,6 +4,137 @@
   "tagline": "Twenty years from night-shift support to founder: failed pivots, a famous unread library, and a good ending.",
   "entries": [
     {
+      "at": "1998-09-08",
+      "type": "journal",
+      "title": "First computer, second-hand",
+      "body": "A second-hand PC and a dial-up tone like a doorbell. Took it apart twice before I dared switch it on.",
+      "tag": "personal",
+      "people": [
+        "Dad Tom"
+      ]
+    },
+    {
+      "at": "1999-06-15",
+      "type": "skill",
+      "title": "Fixed the neighbours' PCs",
+      "body": "Word got around: the kid on the street fixes computers. Payment in cake, cables, and one memorable lasagne.",
+      "tag": "personal",
+      "people": [
+        "Mom Ana"
+      ]
+    },
+    {
+      "at": "2000-04-02",
+      "type": "health",
+      "title": "Glasses for the screen glare",
+      "body": "Eye test after headaches at the monitor: first glasses. The world, and the code, both got sharper.",
+      "tag": "personal",
+      "people": [
+        "Mom Ana"
+      ]
+    },
+    {
+      "at": "2001-08-19",
+      "type": "relationship",
+      "title": "LAN nights with Alex",
+      "body": "Summer of borrowed hubs and too-long cables with Alex Kim. We learned networking by breaking it nightly.",
+      "tag": "personal",
+      "people": [
+        "Alex Kim"
+      ]
+    },
+    {
+      "at": "2002-03-27",
+      "type": "finance",
+      "title": "Paper round and PC fund",
+      "body": "Paper round money into a jar labelled, without irony, 'RAM'. First lesson in saving for parts.",
+      "tag": "personal",
+      "people": [
+        "Dad Tom"
+      ]
+    },
+    {
+      "at": "2002-11-11",
+      "type": "document",
+      "title": "School IT prize letter",
+      "body": "Letter from school: prize for rebuilding the library PCs over half-term. Filed it like a first pay cheque.",
+      "tag": "personal",
+      "people": [
+        "Dad Tom"
+      ]
+    },
+    {
+      "at": "2003-07-04",
+      "type": "journal",
+      "title": "Decided: computers, somehow",
+      "body": "No clear plan, just certainty: work should involve machines and the people stuck with them.",
+      "tag": "personal",
+      "people": [
+        "Alex Kim"
+      ]
+    },
+    {
+      "at": "2004-05-16",
+      "type": "skill",
+      "title": "First script that saved an hour",
+      "body": "Wrote a tiny script to rename a term's worth of files. An hour saved; a vocation found.",
+      "tag": "personal",
+      "people": [
+        "June Park"
+      ]
+    },
+    {
+      "at": "2004-12-20",
+      "type": "health",
+      "title": "Night-owl term",
+      "body": "Sleep slid later all term: screens after midnight, mornings like weather. First lesson in what nights cost.",
+      "tag": "personal",
+      "people": [
+        "Mom Ana"
+      ]
+    },
+    {
+      "at": "2005-02-09",
+      "type": "finance",
+      "title": "Weekend repair jobs",
+      "body": "Weekend repair jobs for half the street. Kept a notebook of faults and fixes — my first ticket queue.",
+      "tag": "personal",
+      "people": [
+        "Alex Kim"
+      ]
+    },
+    {
+      "at": "2005-09-30",
+      "type": "document",
+      "title": "Support job offer letter",
+      "body": "Offer letter for a night-shift support role. Read it twice, bought an alarm clock the same day.",
+      "tag": "personal",
+      "people": [
+        "Mom Ana"
+      ]
+    },
+    {
+      "at": "2005-12-30",
+      "type": "journal",
+      "title": "Year-end reflection 2005",
+      "body": "Year 2005: school done, toolbox full, first real job waiting. The jar labelled RAM is empty and the PC is not.",
+      "tag": "personal",
+      "people": [
+        "Alex Kim"
+      ]
+    },
+    {
+      "at": "2006-02-11",
+      "type": "document",
+      "title": "Certificates and letters file (2006)",
+      "body": "Filed this year's certificates, contracts, and reference letters together. Paper first, scanned to Drive the same evening.",
+      "tag": "personal",
+      "people": [
+        "Alex Kim"
+      ],
+      "via": "Google Drive (simulated)"
+    },
+    {
       "at": "2006-04-10",
       "type": "journal",
       "title": "Call centre nights",
@@ -11,6 +142,55 @@
       "tag": "personal",
       "people": [
         "Ruth Diaz"
+      ]
+    },
+    {
+      "at": "2006-04-12",
+      "type": "research",
+      "title": "Notes on support ticket patterns (2006)",
+      "body": "Reading and forum notes on support ticket patterns: what practitioners claim, what our ticket queue says, and where they disagree this year.",
+      "tag": "shareable",
+      "people": [
+        "Alex Kim"
+      ],
+      "via": "Notion (simulated)"
+    },
+    {
+      "at": "2006-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Iris Wang (2006)",
+      "body": "Long call with Iris Wang about work, machines, and what changed this year. These mid-year talks keep the friendship — and several plans — honest.",
+      "tag": "personal",
+      "people": [
+        "Iris Wang"
+      ]
+    },
+    {
+      "at": "2006-08-19",
+      "type": "finding",
+      "title": "Finding: support ticket patterns in practice (2006)",
+      "body": "Across this year's queue, support ticket patterns worked best when the first reply solved one thing completely instead of three things partly. The pattern held in 3 of 5 busy months.",
+      "tag": "shareable",
+      "people": [
+        "Iris Wang"
+      ],
+      "via": "Google Drive (simulated)"
+    },
+    {
+      "at": "2006-09-14",
+      "type": "health",
+      "title": "Health record (2006)",
+      "body": "Night-shift year one: sleep in two blocks, sunglasses on the morning bus. The rota is the health record.",
+      "tag": "personal"
+    },
+    {
+      "at": "2006-10-05",
+      "type": "method",
+      "title": "Method note: support ticket patterns routine (2006)",
+      "body": "A repeatable routine for support ticket patterns: write it down once, script it the second time, teach it the third.",
+      "tag": "shareable",
+      "people": [
+        "Alex Kim"
       ]
     },
     {
@@ -31,12 +211,56 @@
       "tag": "personal"
     },
     {
+      "at": "2007-04-12",
+      "type": "research",
+      "title": "Notes on night-shift handovers (2007)",
+      "body": "Reading and forum notes on night-shift handovers: what practitioners claim, what our ticket queue says, and where they disagree this year.",
+      "tag": "personal",
+      "people": [
+        "Anna Kovac"
+      ]
+    },
+    {
       "at": "2007-05-11",
       "type": "research",
       "title": "Drive export: support macros doc (2007)",
       "body": "Night-shift macros collected in a doc: the ten replies that solved half the queue. Bought three more books on systems this month; the shelf is outpacing finishing again.",
       "tag": "personal",
       "via": "Google Drive (simulated)"
+    },
+    {
+      "at": "2007-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Jonas Berg (2007)",
+      "body": "Long call with Jonas Berg about work, machines, and what changed this year. These mid-year talks keep the friendship — and several plans — honest.",
+      "tag": "personal",
+      "people": [
+        "Jonas Berg"
+      ]
+    },
+    {
+      "at": "2007-08-19",
+      "type": "finding",
+      "title": "Finding: night-shift handovers in practice (2007)",
+      "body": "Across this year's queue, night-shift handovers worked best when the first reply solved one thing completely instead of three things partly. The pattern held in 4 of 6 busy months.",
+      "tag": "shareable",
+      "people": [
+        "Jonas Berg"
+      ]
+    },
+    {
+      "at": "2007-09-14",
+      "type": "health",
+      "title": "Health record (2007)",
+      "body": "Check-up: all routine. Started walking the long way home after shifts to see daylight on purpose.",
+      "tag": "personal"
+    },
+    {
+      "at": "2007-12-15",
+      "type": "goal-note",
+      "title": "Goals review (2007)",
+      "body": "Year-end goals review: automate one hated task, protect sleep after night shifts, and keep the library buying under control.",
+      "tag": "personal"
     },
     {
       "at": "2007-12-28",
@@ -50,6 +274,26 @@
       ]
     },
     {
+      "at": "2008-04-12",
+      "type": "research",
+      "title": "Notes on help documentation (2008)",
+      "body": "Reading and forum notes on help documentation: what practitioners claim, what our ticket queue says, and where they disagree this year.",
+      "tag": "shareable",
+      "people": [
+        "Elena Brooks"
+      ]
+    },
+    {
+      "at": "2008-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with June Park (2008)",
+      "body": "Long call with June Park about work, machines, and what changed this year. These mid-year talks keep the friendship — and several plans — honest.",
+      "tag": "personal",
+      "people": [
+        "June Park"
+      ]
+    },
+    {
       "at": "2008-08-08",
       "type": "skill",
       "title": "First scripts at work",
@@ -57,6 +301,33 @@
       "tag": "shareable",
       "people": [
         "Ken Watanabe"
+      ]
+    },
+    {
+      "at": "2008-08-19",
+      "type": "finding",
+      "title": "Finding: help documentation in practice (2008)",
+      "body": "Across this year's queue, help documentation worked best when the first reply solved one thing completely instead of three things partly. The pattern held in 5 of 7 busy months.",
+      "tag": "shareable",
+      "people": [
+        "June Park"
+      ]
+    },
+    {
+      "at": "2008-09-14",
+      "type": "health",
+      "title": "Health record (2008)",
+      "body": "Eye strain term: monitor breaks and a desk lamp; headaches eased within weeks.",
+      "tag": "personal"
+    },
+    {
+      "at": "2008-10-05",
+      "type": "method",
+      "title": "Method note: help documentation routine (2008)",
+      "body": "A repeatable routine for help documentation: write it down once, script it the second time, teach it the third.",
+      "tag": "shareable",
+      "people": [
+        "Elena Brooks"
       ]
     },
     {
@@ -71,6 +342,28 @@
       ]
     },
     {
+      "at": "2009-02-11",
+      "type": "document",
+      "title": "Certificates and letters file (2009)",
+      "body": "Filed this year's certificates, contracts, and reference letters together. Paper first, scanned to Drive the same evening.",
+      "tag": "personal",
+      "people": [
+        "Felix Wagner"
+      ],
+      "via": "Google Drive (simulated)"
+    },
+    {
+      "at": "2009-04-12",
+      "type": "research",
+      "title": "Notes on customer escalation (2009)",
+      "body": "Reading and forum notes on customer escalation: what practitioners claim, what our ticket queue says, and where they disagree this year.",
+      "tag": "personal",
+      "people": [
+        "Felix Wagner"
+      ],
+      "via": "Notion (simulated)"
+    },
+    {
       "at": "2009-05-30",
       "type": "journal",
       "title": "Pivot attempt one",
@@ -78,6 +371,16 @@
       "tag": "personal",
       "people": [
         "Sister Bea"
+      ]
+    },
+    {
+      "at": "2009-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Karl Jensen (2009)",
+      "body": "Long call with Karl Jensen about work, machines, and what changed this year. These mid-year talks keep the friendship — and several plans — honest.",
+      "tag": "personal",
+      "people": [
+        "Karl Jensen"
       ]
     },
     {
@@ -91,6 +394,30 @@
         "June Park",
         "Sam Ortiz"
       ]
+    },
+    {
+      "at": "2009-08-19",
+      "type": "finding",
+      "title": "Finding: customer escalation in practice (2009)",
+      "body": "Across this year's queue, customer escalation worked best when the first reply solved one thing completely instead of three things partly. The pattern held in 6 of 5 busy months.",
+      "tag": "shareable",
+      "people": [
+        "Karl Jensen"
+      ]
+    },
+    {
+      "at": "2009-09-14",
+      "type": "health",
+      "title": "Health record (2009)",
+      "body": "Vaccination record updated at the clinic; flu jab between night shifts.",
+      "tag": "personal"
+    },
+    {
+      "at": "2009-12-15",
+      "type": "goal-note",
+      "title": "Goals review (2009)",
+      "body": "Year-end goals review: automate one hated task, protect sleep after night shifts, and keep the library buying under control.",
+      "tag": "personal"
     },
     {
       "at": "2009-12-28",
@@ -114,6 +441,54 @@
       ]
     },
     {
+      "at": "2010-04-12",
+      "type": "research",
+      "title": "Notes on automation scripts (2010)",
+      "body": "Reading and forum notes on automation scripts: what practitioners claim, what our ticket queue says, and where they disagree this year.",
+      "tag": "shareable",
+      "people": [
+        "Grace Nolan"
+      ]
+    },
+    {
+      "at": "2010-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Ken Watanabe (2010)",
+      "body": "Long call with Ken Watanabe about work, machines, and what changed this year. These mid-year talks keep the friendship — and several plans — honest.",
+      "tag": "personal",
+      "people": [
+        "Ken Watanabe"
+      ]
+    },
+    {
+      "at": "2010-08-19",
+      "type": "finding",
+      "title": "Finding: automation scripts in practice (2010)",
+      "body": "Across this year's queue, automation scripts worked best when the first reply solved one thing completely instead of three things partly. The pattern held in 3 of 6 busy months.",
+      "tag": "shareable",
+      "people": [
+        "Ken Watanabe"
+      ],
+      "via": "Google Drive (simulated)"
+    },
+    {
+      "at": "2010-09-14",
+      "type": "health",
+      "title": "Health record (2010)",
+      "body": "Back twinges from the headset chair; a standing desk made from crates, then a real one.",
+      "tag": "personal"
+    },
+    {
+      "at": "2010-10-05",
+      "type": "method",
+      "title": "Method note: automation scripts routine (2010)",
+      "body": "A repeatable routine for automation scripts: write it down once, script it the second time, teach it the third.",
+      "tag": "shareable",
+      "people": [
+        "Grace Nolan"
+      ]
+    },
+    {
       "at": "2010-12-28",
       "type": "journal",
       "title": "Year-end reflection 2010",
@@ -133,6 +508,16 @@
       "via": "Google Drive (simulated)"
     },
     {
+      "at": "2011-04-12",
+      "type": "research",
+      "title": "Notes on onboarding guides (2011)",
+      "body": "Reading and forum notes on onboarding guides: what practitioners claim, what our ticket queue says, and where they disagree this year.",
+      "tag": "personal",
+      "people": [
+        "Hugo Perez"
+      ]
+    },
+    {
       "at": "2011-06-14",
       "type": "skill",
       "title": "Night school code",
@@ -141,6 +526,40 @@
       "people": [
         "Marta Silva"
       ]
+    },
+    {
+      "at": "2011-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Leo Park (2011)",
+      "body": "Long call with Leo Park about work, machines, and what changed this year. These mid-year talks keep the friendship — and several plans — honest.",
+      "tag": "personal",
+      "people": [
+        "Leo Park"
+      ]
+    },
+    {
+      "at": "2011-08-19",
+      "type": "finding",
+      "title": "Finding: onboarding guides in practice (2011)",
+      "body": "Across this year's queue, onboarding guides worked best when the first reply solved one thing completely instead of three things partly. The pattern held in 4 of 7 busy months.",
+      "tag": "shareable",
+      "people": [
+        "Leo Park"
+      ]
+    },
+    {
+      "at": "2011-09-14",
+      "type": "health",
+      "title": "Health record (2011)",
+      "body": "Sleep experiment: no tickets after midnight on days off. Rest improved; so did patience.",
+      "tag": "personal"
+    },
+    {
+      "at": "2011-12-15",
+      "type": "goal-note",
+      "title": "Goals review (2011)",
+      "body": "Year-end goals review: automate one hated task, protect sleep after night shifts, and keep the library buying under control.",
+      "tag": "personal"
     },
     {
       "at": "2011-12-28",
@@ -154,6 +573,17 @@
       ]
     },
     {
+      "at": "2012-02-11",
+      "type": "document",
+      "title": "Certificates and letters file (2012)",
+      "body": "Filed this year's certificates, contracts, and reference letters together. Paper first, scanned to Drive the same evening.",
+      "tag": "personal",
+      "people": [
+        "Ingrid Holm"
+      ],
+      "via": "Google Drive (simulated)"
+    },
+    {
       "at": "2012-03-19",
       "type": "relationship",
       "title": "Sister Bea, anchor",
@@ -163,6 +593,54 @@
         "Sister Bea",
         "Mom Ana",
         "Dad Tom"
+      ]
+    },
+    {
+      "at": "2012-04-12",
+      "type": "research",
+      "title": "Notes on incident reviews (2012)",
+      "body": "Reading and forum notes on incident reviews: what practitioners claim, what our ticket queue says, and where they disagree this year.",
+      "tag": "shareable",
+      "people": [
+        "Ingrid Holm"
+      ],
+      "via": "Notion (simulated)"
+    },
+    {
+      "at": "2012-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Lucy Grant (2012)",
+      "body": "Long call with Lucy Grant about work, machines, and what changed this year. These mid-year talks keep the friendship — and several plans — honest.",
+      "tag": "personal",
+      "people": [
+        "Lucy Grant"
+      ]
+    },
+    {
+      "at": "2012-08-19",
+      "type": "finding",
+      "title": "Finding: incident reviews in practice (2012)",
+      "body": "Across this year's queue, incident reviews worked best when the first reply solved one thing completely instead of three things partly. The pattern held in 5 of 5 busy months.",
+      "tag": "shareable",
+      "people": [
+        "Lucy Grant"
+      ]
+    },
+    {
+      "at": "2012-09-14",
+      "type": "health",
+      "title": "Health record (2012)",
+      "body": "Check-up and blood tests: cholesterol watched, everything else steady.",
+      "tag": "personal"
+    },
+    {
+      "at": "2012-10-05",
+      "type": "method",
+      "title": "Method note: incident reviews routine (2012)",
+      "body": "A repeatable routine for incident reviews: write it down once, script it the second time, teach it the third.",
+      "tag": "shareable",
+      "people": [
+        "Ingrid Holm"
       ]
     },
     {
@@ -185,6 +663,36 @@
       ]
     },
     {
+      "at": "2013-04-12",
+      "type": "research",
+      "title": "Notes on support metrics (2013)",
+      "body": "Reading and forum notes on support metrics: what practitioners claim, what our ticket queue says, and where they disagree this year.",
+      "tag": "personal",
+      "people": [
+        "Iris Wang"
+      ]
+    },
+    {
+      "at": "2013-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Marta Silva (2013)",
+      "body": "Long call with Marta Silva about work, machines, and what changed this year. These mid-year talks keep the friendship — and several plans — honest.",
+      "tag": "personal",
+      "people": [
+        "Marta Silva"
+      ]
+    },
+    {
+      "at": "2013-08-19",
+      "type": "finding",
+      "title": "Finding: support metrics in practice (2013)",
+      "body": "Across this year's queue, support metrics worked best when the first reply solved one thing completely instead of three things partly. The pattern held in 6 of 6 busy months.",
+      "tag": "shareable",
+      "people": [
+        "Marta Silva"
+      ]
+    },
+    {
       "at": "2013-09-01",
       "type": "journal",
       "title": "First dev job",
@@ -195,6 +703,20 @@
       ]
     },
     {
+      "at": "2013-09-14",
+      "type": "health",
+      "title": "Health record (2013)",
+      "body": "Couch-to-5k finished along the canal, headphones full of support podcasts.",
+      "tag": "personal"
+    },
+    {
+      "at": "2013-12-15",
+      "type": "goal-note",
+      "title": "Goals review (2013)",
+      "body": "Year-end goals review: automate one hated task, protect sleep after night shifts, and keep the library buying under control.",
+      "tag": "personal"
+    },
+    {
       "at": "2013-12-28",
       "type": "journal",
       "title": "Year-end reflection 2013",
@@ -203,6 +725,16 @@
       "people": [
         "Jonas Berg",
         "Karl Jensen"
+      ]
+    },
+    {
+      "at": "2014-04-12",
+      "type": "research",
+      "title": "Notes on remote diagnostics (2014)",
+      "body": "Reading and forum notes on remote diagnostics: what practitioners claim, what our ticket queue says, and where they disagree this year.",
+      "tag": "shareable",
+      "people": [
+        "Jonas Berg"
       ]
     },
     {
@@ -224,6 +756,44 @@
       ]
     },
     {
+      "at": "2014-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Mike Doyle (2014)",
+      "body": "Long call with Mike Doyle about work, machines, and what changed this year. These mid-year talks keep the friendship — and several plans — honest.",
+      "tag": "personal",
+      "people": [
+        "Mike Doyle"
+      ]
+    },
+    {
+      "at": "2014-08-19",
+      "type": "finding",
+      "title": "Finding: remote diagnostics in practice (2014)",
+      "body": "Across this year's queue, remote diagnostics worked best when the first reply solved one thing completely instead of three things partly. The pattern held in 3 of 7 busy months.",
+      "tag": "shareable",
+      "people": [
+        "Mike Doyle"
+      ],
+      "via": "Google Drive (simulated)"
+    },
+    {
+      "at": "2014-09-14",
+      "type": "health",
+      "title": "Health record (2014)",
+      "body": "Dental check-up and a crown. Paid in instalments, filed under founder tax: teeth.",
+      "tag": "personal"
+    },
+    {
+      "at": "2014-10-05",
+      "type": "method",
+      "title": "Method note: remote diagnostics routine (2014)",
+      "body": "A repeatable routine for remote diagnostics: write it down once, script it the second time, teach it the third.",
+      "tag": "shareable",
+      "people": [
+        "Jonas Berg"
+      ]
+    },
+    {
       "at": "2014-12-28",
       "type": "journal",
       "title": "Year-end reflection 2014",
@@ -232,6 +802,38 @@
       "people": [
         "Uncle Rick",
         "Paolo Rossi"
+      ]
+    },
+    {
+      "at": "2015-02-11",
+      "type": "document",
+      "title": "Certificates and letters file (2015)",
+      "body": "Filed this year's certificates, contracts, and reference letters together. Paper first, scanned to Drive the same evening.",
+      "tag": "personal",
+      "people": [
+        "June Park"
+      ],
+      "via": "Google Drive (simulated)"
+    },
+    {
+      "at": "2015-04-12",
+      "type": "research",
+      "title": "Notes on knowledge bases (2015)",
+      "body": "Reading and forum notes on knowledge bases: what practitioners claim, what our ticket queue says, and where they disagree this year.",
+      "tag": "personal",
+      "people": [
+        "June Park"
+      ],
+      "via": "Notion (simulated)"
+    },
+    {
+      "at": "2015-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Nadia Ali (2015)",
+      "body": "Long call with Nadia Ali about work, machines, and what changed this year. These mid-year talks keep the friendship — and several plans — honest.",
+      "tag": "personal",
+      "people": [
+        "Nadia Ali"
       ]
     },
     {
@@ -246,12 +848,36 @@
       ]
     },
     {
+      "at": "2015-08-19",
+      "type": "finding",
+      "title": "Finding: knowledge bases in practice (2015)",
+      "body": "Across this year's queue, knowledge bases worked best when the first reply solved one thing completely instead of three things partly. The pattern held in 4 of 5 busy months.",
+      "tag": "shareable",
+      "people": [
+        "Nadia Ali"
+      ]
+    },
+    {
+      "at": "2015-09-14",
+      "type": "health",
+      "title": "Health record (2015)",
+      "body": "First export year: step records begin, averaging 5,800 steps — nights are sedentary and it shows.",
+      "tag": "personal"
+    },
+    {
       "at": "2015-09-29",
       "type": "method",
       "title": "GitHub export: queue triage playbook (2015)",
       "body": "Open-sourced playbook from the repo: label first, reply second, escalate with a summary. Three teams forked it in the first month.",
       "tag": "shareable",
       "via": "GitHub (simulated)"
+    },
+    {
+      "at": "2015-12-15",
+      "type": "goal-note",
+      "title": "Goals review (2015)",
+      "body": "Year-end goals review: automate one hated task, protect sleep after night shifts, and keep the library buying under control.",
+      "tag": "personal"
     },
     {
       "at": "2015-12-28",
@@ -275,6 +901,16 @@
       ]
     },
     {
+      "at": "2016-04-12",
+      "type": "research",
+      "title": "Notes on founder lessons (2016)",
+      "body": "Reading and forum notes on founder lessons: what practitioners claim, what our ticket queue says, and where they disagree this year.",
+      "tag": "shareable",
+      "people": [
+        "Karl Jensen"
+      ]
+    },
+    {
       "at": "2016-04-14",
       "type": "finding",
       "title": "Slack export: #support-eng thread (2016)",
@@ -286,6 +922,43 @@
       ]
     },
     {
+      "at": "2016-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Owen Murphy (2016)",
+      "body": "Long call with Owen Murphy about work, machines, and what changed this year. These mid-year talks keep the friendship — and several plans — honest.",
+      "tag": "personal",
+      "people": [
+        "Owen Murphy"
+      ]
+    },
+    {
+      "at": "2016-08-19",
+      "type": "finding",
+      "title": "Finding: founder lessons in practice (2016)",
+      "body": "Across this year's queue, founder lessons worked best when the first reply solved one thing completely instead of three things partly. The pattern held in 5 of 6 busy months.",
+      "tag": "shareable",
+      "people": [
+        "Owen Murphy"
+      ]
+    },
+    {
+      "at": "2016-09-14",
+      "type": "health",
+      "title": "Health record (2016)",
+      "body": "Health export summary: steps up on office days, sleep averaging 6h 31m. Nights still audible in the data.",
+      "tag": "personal"
+    },
+    {
+      "at": "2016-10-05",
+      "type": "method",
+      "title": "Method note: founder lessons routine (2016)",
+      "body": "A repeatable routine for founder lessons: write it down once, script it the second time, teach it the third.",
+      "tag": "shareable",
+      "people": [
+        "Karl Jensen"
+      ]
+    },
+    {
       "at": "2016-12-28",
       "type": "journal",
       "title": "Year-end reflection 2016",
@@ -294,6 +967,43 @@
       "people": [
         "Sister Bea"
       ]
+    },
+    {
+      "at": "2017-04-12",
+      "type": "research",
+      "title": "Notes on hiring for support (2017)",
+      "body": "Reading and forum notes on hiring for support: what practitioners claim, what our ticket queue says, and where they disagree this year.",
+      "tag": "personal",
+      "people": [
+        "Ken Watanabe"
+      ]
+    },
+    {
+      "at": "2017-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Mom Ana (2017)",
+      "body": "Long call with Mom Ana about work, machines, and what changed this year. These mid-year talks keep the friendship — and several plans — honest.",
+      "tag": "personal",
+      "people": [
+        "Mom Ana"
+      ]
+    },
+    {
+      "at": "2017-08-19",
+      "type": "finding",
+      "title": "Finding: hiring for support in practice (2017)",
+      "body": "Across this year's queue, hiring for support worked best when the first reply solved one thing completely instead of three things partly. The pattern held in 6 of 7 busy months.",
+      "tag": "shareable",
+      "people": [
+        "Mom Ana"
+      ]
+    },
+    {
+      "at": "2017-09-14",
+      "type": "health",
+      "title": "Health record (2017)",
+      "body": "Check-up: blood pressure fine, vitamin D low. Daylight lamp joined the desk.",
+      "tag": "personal"
     },
     {
       "at": "2017-10-05",
@@ -317,6 +1027,13 @@
       ]
     },
     {
+      "at": "2017-12-15",
+      "type": "goal-note",
+      "title": "Goals review (2017)",
+      "body": "Year-end goals review: automate one hated task, protect sleep after night shifts, and keep the library buying under control.",
+      "tag": "personal"
+    },
+    {
       "at": "2017-12-28",
       "type": "journal",
       "title": "Year-end reflection 2017",
@@ -328,12 +1045,34 @@
       ]
     },
     {
+      "at": "2018-02-11",
+      "type": "document",
+      "title": "Certificates and letters file (2018)",
+      "body": "Filed this year's certificates, contracts, and reference letters together. Paper first, scanned to Drive the same evening.",
+      "tag": "personal",
+      "people": [
+        "Leo Park"
+      ],
+      "via": "Google Drive (simulated)"
+    },
+    {
       "at": "2018-03-21",
       "type": "research",
       "title": "X export: shelves thread (2018)",
       "body": "Posted the shelf photo thread: forty-one bought, nine finished. Replies called it a museum of intentions; the cartography of curiosity continues.",
       "tag": "personal",
       "via": "X (Twitter) (simulated)"
+    },
+    {
+      "at": "2018-04-12",
+      "type": "research",
+      "title": "Notes on support ticket patterns (2018)",
+      "body": "Reading and forum notes on support ticket patterns: what practitioners claim, what our ticket queue says, and where they disagree this year.",
+      "tag": "shareable",
+      "people": [
+        "Leo Park"
+      ],
+      "via": "Notion (simulated)"
     },
     {
       "at": "2018-05-16",
@@ -343,6 +1082,44 @@
       "tag": "personal",
       "people": [
         "June Park"
+      ]
+    },
+    {
+      "at": "2018-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Dad Tom (2018)",
+      "body": "Long call with Dad Tom about work, machines, and what changed this year. These mid-year talks keep the friendship — and several plans — honest.",
+      "tag": "personal",
+      "people": [
+        "Dad Tom"
+      ]
+    },
+    {
+      "at": "2018-08-19",
+      "type": "finding",
+      "title": "Finding: support ticket patterns in practice (2018)",
+      "body": "Across this year's queue, support ticket patterns worked best when the first reply solved one thing completely instead of three things partly. The pattern held in 3 of 5 busy months.",
+      "tag": "shareable",
+      "people": [
+        "Dad Tom"
+      ],
+      "via": "Google Drive (simulated)"
+    },
+    {
+      "at": "2018-09-14",
+      "type": "health",
+      "title": "Health record (2018)",
+      "body": "Swimming term before shifts; sleep deepest on swim weeks.",
+      "tag": "personal"
+    },
+    {
+      "at": "2018-10-05",
+      "type": "method",
+      "title": "Method note: support ticket patterns routine (2018)",
+      "body": "A repeatable routine for support ticket patterns: write it down once, script it the second time, teach it the third.",
+      "tag": "shareable",
+      "people": [
+        "Leo Park"
       ]
     },
     {
@@ -357,6 +1134,70 @@
       ]
     },
     {
+      "at": "2019-01-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2019-01)",
+      "body": "# Salary — support and product roles\nAmount: 1750.00 · Category: Income · Date: 2019-01-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-01-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2019-01)",
+      "body": "# Rent — Harborview flat\nAmount: -720.00 · Category: Housing · Date: 2019-01-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-01-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2019-01)",
+      "body": "# Groceries — supermarket and market\nAmount: -310.00 · Category: Groceries · Date: 2019-01-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-02-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2019-02)",
+      "body": "# Salary — support and product roles\nAmount: 1750.00 · Category: Income · Date: 2019-02-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-02-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2019-02)",
+      "body": "# Rent — Harborview flat\nAmount: -720.00 · Category: Housing · Date: 2019-02-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-02-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2019-02)",
+      "body": "# Groceries — supermarket and market\nAmount: -351.00 · Category: Groceries · Date: 2019-02-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-03-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2019-03)",
+      "body": "# Salary — support and product roles\nAmount: 1750.00 · Category: Income · Date: 2019-03-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-03-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2019-03)",
+      "body": "# Rent — Harborview flat\nAmount: -720.00 · Category: Housing · Date: 2019-03-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
       "at": "2019-03-04",
       "type": "journal",
       "title": "Startup incorporated",
@@ -366,6 +1207,130 @@
         "June Park",
         "Alex Kim"
       ]
+    },
+    {
+      "at": "2019-03-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2019-03)",
+      "body": "# Groceries — supermarket and market\nAmount: -392.00 · Category: Groceries · Date: 2019-03-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-04-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2019-04)",
+      "body": "# Salary — support and product roles\nAmount: 1750.00 · Category: Income · Date: 2019-04-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-04-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2019-04)",
+      "body": "# Rent — Harborview flat\nAmount: -720.00 · Category: Housing · Date: 2019-04-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-04-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2019-04)",
+      "body": "# Groceries — supermarket and market\nAmount: -348.00 · Category: Groceries · Date: 2019-04-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-04-12",
+      "type": "research",
+      "title": "Notes on night-shift handovers (2019)",
+      "body": "Reading and forum notes on night-shift handovers: what practitioners claim, what our ticket queue says, and where they disagree this year.",
+      "tag": "personal",
+      "people": [
+        "Lucy Grant"
+      ]
+    },
+    {
+      "at": "2019-05-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2019-05)",
+      "body": "# Salary — support and product roles\nAmount: 1750.00 · Category: Income · Date: 2019-05-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-05-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2019-05)",
+      "body": "# Rent — Harborview flat\nAmount: -720.00 · Category: Housing · Date: 2019-05-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-05-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2019-05)",
+      "body": "# Groceries — supermarket and market\nAmount: -389.00 · Category: Groceries · Date: 2019-05-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-06-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2019-06)",
+      "body": "# Salary — support and product roles\nAmount: 1750.00 · Category: Income · Date: 2019-06-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-06-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2019-06)",
+      "body": "# Rent — Harborview flat\nAmount: -720.00 · Category: Housing · Date: 2019-06-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-06-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2019-06)",
+      "body": "# Groceries — supermarket and market\nAmount: -345.00 · Category: Groceries · Date: 2019-06-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Alex Kim (2019)",
+      "body": "Long call with Alex Kim about work, machines, and what changed this year. These mid-year talks keep the friendship — and several plans — honest.",
+      "tag": "personal",
+      "people": [
+        "Alex Kim"
+      ]
+    },
+    {
+      "at": "2019-07-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2019-07)",
+      "body": "# Salary — support and product roles\nAmount: 1750.00 · Category: Income · Date: 2019-07-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-07-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2019-07)",
+      "body": "# Rent — Harborview flat\nAmount: -720.00 · Category: Housing · Date: 2019-07-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-07-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2019-07)",
+      "body": "# Groceries — supermarket and market\nAmount: -386.00 · Category: Groceries · Date: 2019-07-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
     },
     {
       "at": "2019-07-30",
@@ -380,6 +1345,119 @@
       ]
     },
     {
+      "at": "2019-08-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2019-08)",
+      "body": "# Salary — support and product roles\nAmount: 1750.00 · Category: Income · Date: 2019-08-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-08-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2019-08)",
+      "body": "# Rent — Harborview flat\nAmount: -720.00 · Category: Housing · Date: 2019-08-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-08-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2019-08)",
+      "body": "# Groceries — supermarket and market\nAmount: -342.00 · Category: Groceries · Date: 2019-08-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-08-19",
+      "type": "finding",
+      "title": "Finding: night-shift handovers in practice (2019)",
+      "body": "Across this year's queue, night-shift handovers worked best when the first reply solved one thing completely instead of three things partly. The pattern held in 4 of 6 busy months.",
+      "tag": "shareable",
+      "people": [
+        "Alex Kim"
+      ]
+    },
+    {
+      "at": "2019-09-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2019-09)",
+      "body": "# Salary — support and product roles\nAmount: 1750.00 · Category: Income · Date: 2019-09-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-09-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2019-09)",
+      "body": "# Rent — Harborview flat\nAmount: -720.00 · Category: Housing · Date: 2019-09-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-09-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2019-09)",
+      "body": "# Groceries — supermarket and market\nAmount: -383.00 · Category: Groceries · Date: 2019-09-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-09-14",
+      "type": "health",
+      "title": "Health record (2019)",
+      "body": "Health export summary: resting heart rate steadier since the rota changed; sleep nearing seven hours.",
+      "tag": "personal"
+    },
+    {
+      "at": "2019-10-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2019-10)",
+      "body": "# Salary — support and product roles\nAmount: 1830.00 · Category: Income · Date: 2019-10-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-10-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2019-10)",
+      "body": "# Rent — Harborview flat\nAmount: -720.00 · Category: Housing · Date: 2019-10-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-10-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2019-10)",
+      "body": "# Groceries — supermarket and market\nAmount: -339.00 · Category: Groceries · Date: 2019-10-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-11-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2019-11)",
+      "body": "# Salary — support and product roles\nAmount: 1830.00 · Category: Income · Date: 2019-11-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-11-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2019-11)",
+      "body": "# Rent — Harborview flat\nAmount: -720.00 · Category: Housing · Date: 2019-11-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-11-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2019-11)",
+      "body": "# Groceries — supermarket and market\nAmount: -380.00 · Category: Groceries · Date: 2019-11-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
       "at": "2019-11-20",
       "type": "finance",
       "title": "Runway v1",
@@ -390,6 +1468,37 @@
       ]
     },
     {
+      "at": "2019-12-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2019-12)",
+      "body": "# Salary — support and product roles\nAmount: 1830.00 · Category: Income · Date: 2019-12-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-12-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2019-12)",
+      "body": "# Rent — Harborview flat\nAmount: -720.00 · Category: Housing · Date: 2019-12-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-12-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2019-12)",
+      "body": "# Groceries — supermarket and market\nAmount: -336.00 · Category: Groceries · Date: 2019-12-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2019-12-15",
+      "type": "goal-note",
+      "title": "Goals review (2019)",
+      "body": "Year-end goals review: automate one hated task, protect sleep after night shifts, and keep the library buying under control.",
+      "tag": "personal"
+    },
+    {
       "at": "2019-12-28",
       "type": "journal",
       "title": "Year-end reflection 2019",
@@ -398,6 +1507,136 @@
       "people": [
         "Sam Ortiz"
       ]
+    },
+    {
+      "at": "2020-01-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2020-01)",
+      "body": "# Salary — support and product roles\nAmount: 2010.00 · Category: Income · Date: 2020-01-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-01-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2020-01)",
+      "body": "# Rent — Harborview flat\nAmount: -765.00 · Category: Housing · Date: 2020-01-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-01-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2020-01)",
+      "body": "# Groceries — supermarket and market\nAmount: -385.00 · Category: Groceries · Date: 2020-01-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-02-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2020-02)",
+      "body": "# Salary — support and product roles\nAmount: 2010.00 · Category: Income · Date: 2020-02-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-02-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2020-02)",
+      "body": "# Rent — Harborview flat\nAmount: -765.00 · Category: Housing · Date: 2020-02-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-02-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2020-02)",
+      "body": "# Groceries — supermarket and market\nAmount: -341.00 · Category: Groceries · Date: 2020-02-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-03-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2020-03)",
+      "body": "# Salary — support and product roles\nAmount: 2010.00 · Category: Income · Date: 2020-03-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-03-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2020-03)",
+      "body": "# Rent — Harborview flat\nAmount: -765.00 · Category: Housing · Date: 2020-03-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-03-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2020-03)",
+      "body": "# Groceries — supermarket and market\nAmount: -382.00 · Category: Groceries · Date: 2020-03-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-04-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2020-04)",
+      "body": "# Salary — support and product roles\nAmount: 2010.00 · Category: Income · Date: 2020-04-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-04-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2020-04)",
+      "body": "# Rent — Harborview flat\nAmount: -765.00 · Category: Housing · Date: 2020-04-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-04-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2020-04)",
+      "body": "# Groceries — supermarket and market\nAmount: -338.00 · Category: Groceries · Date: 2020-04-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-04-12",
+      "type": "research",
+      "title": "Notes on help documentation (2020)",
+      "body": "Reading and forum notes on help documentation: what practitioners claim, what our ticket queue says, and where they disagree this year.",
+      "tag": "shareable",
+      "people": [
+        "Marta Silva"
+      ]
+    },
+    {
+      "at": "2020-05-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2020-05)",
+      "body": "# Salary — support and product roles\nAmount: 2010.00 · Category: Income · Date: 2020-05-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-05-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2020-05)",
+      "body": "# Rent — Harborview flat\nAmount: -765.00 · Category: Housing · Date: 2020-05-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-05-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2020-05)",
+      "body": "# Groceries — supermarket and market\nAmount: -379.00 · Category: Groceries · Date: 2020-05-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
     },
     {
       "at": "2020-05-16",
@@ -411,6 +1650,30 @@
       ]
     },
     {
+      "at": "2020-06-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2020-06)",
+      "body": "# Salary — support and product roles\nAmount: 2010.00 · Category: Income · Date: 2020-06-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-06-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2020-06)",
+      "body": "# Rent — Harborview flat\nAmount: -765.00 · Category: Housing · Date: 2020-06-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-06-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2020-06)",
+      "body": "# Groceries — supermarket and market\nAmount: -335.00 · Category: Groceries · Date: 2020-06-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
       "at": "2020-06-18",
       "type": "health",
       "title": "Back, again",
@@ -419,6 +1682,187 @@
       "people": [
         "Alex Kim"
       ]
+    },
+    {
+      "at": "2020-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Anna Kovac (2020)",
+      "body": "Long call with Anna Kovac about work, machines, and what changed this year. These mid-year talks keep the friendship — and several plans — honest.",
+      "tag": "personal",
+      "people": [
+        "Anna Kovac"
+      ]
+    },
+    {
+      "at": "2020-07-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2020-07)",
+      "body": "# Salary — support and product roles\nAmount: 2010.00 · Category: Income · Date: 2020-07-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-07-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2020-07)",
+      "body": "# Rent — Harborview flat\nAmount: -765.00 · Category: Housing · Date: 2020-07-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-07-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2020-07)",
+      "body": "# Groceries — supermarket and market\nAmount: -376.00 · Category: Groceries · Date: 2020-07-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-08-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2020-08)",
+      "body": "# Salary — support and product roles\nAmount: 2010.00 · Category: Income · Date: 2020-08-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-08-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2020-08)",
+      "body": "# Rent — Harborview flat\nAmount: -765.00 · Category: Housing · Date: 2020-08-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-08-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2020-08)",
+      "body": "# Groceries — supermarket and market\nAmount: -332.00 · Category: Groceries · Date: 2020-08-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-08-19",
+      "type": "finding",
+      "title": "Finding: help documentation in practice (2020)",
+      "body": "Across this year's queue, help documentation worked best when the first reply solved one thing completely instead of three things partly. The pattern held in 5 of 7 busy months.",
+      "tag": "shareable",
+      "people": [
+        "Anna Kovac"
+      ]
+    },
+    {
+      "at": "2020-09-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2020-09)",
+      "body": "# Salary — support and product roles\nAmount: 2010.00 · Category: Income · Date: 2020-09-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-09-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2020-09)",
+      "body": "# Rent — Harborview flat\nAmount: -765.00 · Category: Housing · Date: 2020-09-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-09-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2020-09)",
+      "body": "# Groceries — supermarket and market\nAmount: -373.00 · Category: Groceries · Date: 2020-09-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-09-14",
+      "type": "health",
+      "title": "Health record (2020)",
+      "body": "Remote year: home desk, daily walks, anxious sleep in the spring. Movement kept the routine honest.",
+      "tag": "personal"
+    },
+    {
+      "at": "2020-10-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2020-10)",
+      "body": "# Salary — support and product roles\nAmount: 2090.00 · Category: Income · Date: 2020-10-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-10-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2020-10)",
+      "body": "# Rent — Harborview flat\nAmount: -765.00 · Category: Housing · Date: 2020-10-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-10-05",
+      "type": "method",
+      "title": "Method note: help documentation routine (2020)",
+      "body": "A repeatable routine for help documentation: write it down once, script it the second time, teach it the third.",
+      "tag": "shareable",
+      "people": [
+        "Marta Silva"
+      ]
+    },
+    {
+      "at": "2020-10-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2020-10)",
+      "body": "# Groceries — supermarket and market\nAmount: -329.00 · Category: Groceries · Date: 2020-10-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-11-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2020-11)",
+      "body": "# Salary — support and product roles\nAmount: 2090.00 · Category: Income · Date: 2020-11-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-11-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2020-11)",
+      "body": "# Rent — Harborview flat\nAmount: -765.00 · Category: Housing · Date: 2020-11-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-11-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2020-11)",
+      "body": "# Groceries — supermarket and market\nAmount: -370.00 · Category: Groceries · Date: 2020-11-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-12-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2020-12)",
+      "body": "# Salary — support and product roles\nAmount: 2090.00 · Category: Income · Date: 2020-12-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-12-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2020-12)",
+      "body": "# Rent — Harborview flat\nAmount: -765.00 · Category: Housing · Date: 2020-12-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2020-12-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2020-12)",
+      "body": "# Groceries — supermarket and market\nAmount: -326.00 · Category: Groceries · Date: 2020-12-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
     },
     {
       "at": "2020-12-28",
@@ -432,6 +1876,30 @@
       ]
     },
     {
+      "at": "2021-01-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2021-01)",
+      "body": "# Salary — support and product roles\nAmount: 2270.00 · Category: Income · Date: 2021-01-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-01-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2021-01)",
+      "body": "# Rent — Harborview flat\nAmount: -810.00 · Category: Housing · Date: 2021-01-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-01-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2021-01)",
+      "body": "# Groceries — supermarket and market\nAmount: -375.00 · Category: Groceries · Date: 2021-01-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
       "at": "2021-01-30",
       "type": "finding",
       "title": "Onboarding beats features",
@@ -443,12 +1911,246 @@
       ]
     },
     {
+      "at": "2021-02-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2021-02)",
+      "body": "# Salary — support and product roles\nAmount: 2270.00 · Category: Income · Date: 2021-02-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-02-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2021-02)",
+      "body": "# Rent — Harborview flat\nAmount: -810.00 · Category: Housing · Date: 2021-02-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-02-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2021-02)",
+      "body": "# Groceries — supermarket and market\nAmount: -331.00 · Category: Groceries · Date: 2021-02-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-02-11",
+      "type": "document",
+      "title": "Certificates and letters file (2021)",
+      "body": "Filed this year's certificates, contracts, and reference letters together. Paper first, scanned to Drive the same evening.",
+      "tag": "personal",
+      "people": [
+        "Mike Doyle"
+      ],
+      "via": "Google Drive (simulated)"
+    },
+    {
+      "at": "2021-03-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2021-03)",
+      "body": "# Salary — support and product roles\nAmount: 2270.00 · Category: Income · Date: 2021-03-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-03-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2021-03)",
+      "body": "# Rent — Harborview flat\nAmount: -810.00 · Category: Housing · Date: 2021-03-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-03-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2021-03)",
+      "body": "# Groceries — supermarket and market\nAmount: -372.00 · Category: Groceries · Date: 2021-03-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-04-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2021-04)",
+      "body": "# Salary — support and product roles\nAmount: 2270.00 · Category: Income · Date: 2021-04-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-04-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2021-04)",
+      "body": "# Rent — Harborview flat\nAmount: -810.00 · Category: Housing · Date: 2021-04-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-04-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2021-04)",
+      "body": "# Groceries — supermarket and market\nAmount: -328.00 · Category: Groceries · Date: 2021-04-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-04-12",
+      "type": "research",
+      "title": "Notes on customer escalation (2021)",
+      "body": "Reading and forum notes on customer escalation: what practitioners claim, what our ticket queue says, and where they disagree this year.",
+      "tag": "personal",
+      "people": [
+        "Mike Doyle"
+      ],
+      "via": "Notion (simulated)"
+    },
+    {
+      "at": "2021-05-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2021-05)",
+      "body": "# Salary — support and product roles\nAmount: 2270.00 · Category: Income · Date: 2021-05-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-05-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2021-05)",
+      "body": "# Rent — Harborview flat\nAmount: -810.00 · Category: Housing · Date: 2021-05-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-05-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2021-05)",
+      "body": "# Groceries — supermarket and market\nAmount: -369.00 · Category: Groceries · Date: 2021-05-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-06-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2021-06)",
+      "body": "# Salary — support and product roles\nAmount: 2270.00 · Category: Income · Date: 2021-06-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-06-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2021-06)",
+      "body": "# Rent — Harborview flat\nAmount: -810.00 · Category: Housing · Date: 2021-06-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-06-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2021-06)",
+      "body": "# Groceries — supermarket and market\nAmount: -410.00 · Category: Groceries · Date: 2021-06-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Elena Brooks (2021)",
+      "body": "Long call with Elena Brooks about work, machines, and what changed this year. These mid-year talks keep the friendship — and several plans — honest.",
+      "tag": "personal",
+      "people": [
+        "Elena Brooks"
+      ]
+    },
+    {
+      "at": "2021-07-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2021-07)",
+      "body": "# Salary — support and product roles\nAmount: 2270.00 · Category: Income · Date: 2021-07-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-07-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2021-07)",
+      "body": "# Rent — Harborview flat\nAmount: -810.00 · Category: Housing · Date: 2021-07-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-07-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2021-07)",
+      "body": "# Groceries — supermarket and market\nAmount: -366.00 · Category: Groceries · Date: 2021-07-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-08-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2021-08)",
+      "body": "# Salary — support and product roles\nAmount: 2270.00 · Category: Income · Date: 2021-08-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-08-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2021-08)",
+      "body": "# Rent — Harborview flat\nAmount: -810.00 · Category: Housing · Date: 2021-08-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-08-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2021-08)",
+      "body": "# Groceries — supermarket and market\nAmount: -407.00 · Category: Groceries · Date: 2021-08-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-08-19",
+      "type": "finding",
+      "title": "Finding: customer escalation in practice (2021)",
+      "body": "Across this year's queue, customer escalation worked best when the first reply solved one thing completely instead of three things partly. The pattern held in 6 of 5 busy months.",
+      "tag": "shareable",
+      "people": [
+        "Elena Brooks"
+      ]
+    },
+    {
       "at": "2021-08-27",
       "type": "goal-note",
       "title": "Notion export: founder thesis (2021)",
       "body": "Goal page in Notion: quit the support ladder, build the queue tool shops ask for, sell to ten teams before hiring. Pivot notes from three failed attempts attached.",
       "tag": "personal",
       "via": "Notion (simulated)"
+    },
+    {
+      "at": "2021-09-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2021-09)",
+      "body": "# Salary — support and product roles\nAmount: 2270.00 · Category: Income · Date: 2021-09-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-09-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2021-09)",
+      "body": "# Rent — Harborview flat\nAmount: -810.00 · Category: Housing · Date: 2021-09-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-09-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2021-09)",
+      "body": "# Groceries — supermarket and market\nAmount: -363.00 · Category: Groceries · Date: 2021-09-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
     },
     {
       "at": "2021-09-14",
@@ -459,6 +2161,92 @@
       "people": [
         "June Park"
       ]
+    },
+    {
+      "at": "2021-09-14",
+      "type": "health",
+      "title": "Health record (2021)",
+      "body": "Vaccination course completed; appointments logged with the export.",
+      "tag": "personal"
+    },
+    {
+      "at": "2021-10-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2021-10)",
+      "body": "# Salary — support and product roles\nAmount: 2350.00 · Category: Income · Date: 2021-10-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-10-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2021-10)",
+      "body": "# Rent — Harborview flat\nAmount: -810.00 · Category: Housing · Date: 2021-10-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-10-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2021-10)",
+      "body": "# Groceries — supermarket and market\nAmount: -404.00 · Category: Groceries · Date: 2021-10-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-11-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2021-11)",
+      "body": "# Salary — support and product roles\nAmount: 2350.00 · Category: Income · Date: 2021-11-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-11-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2021-11)",
+      "body": "# Rent — Harborview flat\nAmount: -810.00 · Category: Housing · Date: 2021-11-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-11-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2021-11)",
+      "body": "# Groceries — supermarket and market\nAmount: -360.00 · Category: Groceries · Date: 2021-11-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-12-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2021-12)",
+      "body": "# Salary — support and product roles\nAmount: 2350.00 · Category: Income · Date: 2021-12-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-12-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2021-12)",
+      "body": "# Rent — Harborview flat\nAmount: -810.00 · Category: Housing · Date: 2021-12-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-12-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2021-12)",
+      "body": "# Groceries — supermarket and market\nAmount: -401.00 · Category: Groceries · Date: 2021-12-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2021-12-15",
+      "type": "goal-note",
+      "title": "Goals review (2021)",
+      "body": "Year-end goals review: automate one hated task, protect sleep after night shifts, and keep the library buying under control.",
+      "tag": "personal"
     },
     {
       "at": "2021-12-28",
@@ -472,12 +2260,142 @@
       ]
     },
     {
+      "at": "2022-01-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2022-01)",
+      "body": "# Salary — support and product roles\nAmount: 2530.00 · Category: Income · Date: 2022-01-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-01-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2022-01)",
+      "body": "# Rent — Harborview flat\nAmount: -855.00 · Category: Housing · Date: 2022-01-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-01-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2022-01)",
+      "body": "# Groceries — supermarket and market\nAmount: -365.00 · Category: Groceries · Date: 2022-01-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-02-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2022-02)",
+      "body": "# Salary — support and product roles\nAmount: 2530.00 · Category: Income · Date: 2022-02-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-02-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2022-02)",
+      "body": "# Rent — Harborview flat\nAmount: -855.00 · Category: Housing · Date: 2022-02-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-02-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2022-02)",
+      "body": "# Groceries — supermarket and market\nAmount: -406.00 · Category: Groceries · Date: 2022-02-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-03-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2022-03)",
+      "body": "# Salary — support and product roles\nAmount: 2530.00 · Category: Income · Date: 2022-03-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-03-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2022-03)",
+      "body": "# Rent — Harborview flat\nAmount: -855.00 · Category: Housing · Date: 2022-03-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-03-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2022-03)",
+      "body": "# Groceries — supermarket and market\nAmount: -362.00 · Category: Groceries · Date: 2022-03-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-04-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2022-04)",
+      "body": "# Salary — support and product roles\nAmount: 2530.00 · Category: Income · Date: 2022-04-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-04-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2022-04)",
+      "body": "# Rent — Harborview flat\nAmount: -855.00 · Category: Housing · Date: 2022-04-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
       "at": "2022-04-09",
       "type": "finance",
       "title": "Gmail export: first investor update (2022)",
       "body": "Investor update sent by email: two paying teams, churn zero, runway fourteen months. The museum shelf finally has a finished shelf beside it.",
       "tag": "personal",
       "via": "Gmail (simulated)"
+    },
+    {
+      "at": "2022-04-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2022-04)",
+      "body": "# Groceries — supermarket and market\nAmount: -403.00 · Category: Groceries · Date: 2022-04-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-04-12",
+      "type": "research",
+      "title": "Notes on automation scripts (2022)",
+      "body": "Reading and forum notes on automation scripts: what practitioners claim, what our ticket queue says, and where they disagree this year.",
+      "tag": "shareable",
+      "people": [
+        "Nadia Ali"
+      ]
+    },
+    {
+      "at": "2022-05-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2022-05)",
+      "body": "# Salary — support and product roles\nAmount: 2530.00 · Category: Income · Date: 2022-05-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-05-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2022-05)",
+      "body": "# Rent — Harborview flat\nAmount: -855.00 · Category: Housing · Date: 2022-05-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-05-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2022-05)",
+      "body": "# Groceries — supermarket and market\nAmount: -359.00 · Category: Groceries · Date: 2022-05-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
     },
     {
       "at": "2022-05-20",
@@ -488,6 +2406,188 @@
       "people": [
         "June Park"
       ]
+    },
+    {
+      "at": "2022-06-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2022-06)",
+      "body": "# Salary — support and product roles\nAmount: 2530.00 · Category: Income · Date: 2022-06-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-06-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2022-06)",
+      "body": "# Rent — Harborview flat\nAmount: -855.00 · Category: Housing · Date: 2022-06-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-06-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2022-06)",
+      "body": "# Groceries — supermarket and market\nAmount: -400.00 · Category: Groceries · Date: 2022-06-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Felix Wagner (2022)",
+      "body": "Long call with Felix Wagner about work, machines, and what changed this year. These mid-year talks keep the friendship — and several plans — honest.",
+      "tag": "personal",
+      "people": [
+        "Felix Wagner"
+      ]
+    },
+    {
+      "at": "2022-07-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2022-07)",
+      "body": "# Salary — support and product roles\nAmount: 2530.00 · Category: Income · Date: 2022-07-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-07-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2022-07)",
+      "body": "# Rent — Harborview flat\nAmount: -855.00 · Category: Housing · Date: 2022-07-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-07-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2022-07)",
+      "body": "# Groceries — supermarket and market\nAmount: -356.00 · Category: Groceries · Date: 2022-07-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-08-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2022-08)",
+      "body": "# Salary — support and product roles\nAmount: 2530.00 · Category: Income · Date: 2022-08-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-08-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2022-08)",
+      "body": "# Rent — Harborview flat\nAmount: -855.00 · Category: Housing · Date: 2022-08-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-08-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2022-08)",
+      "body": "# Groceries — supermarket and market\nAmount: -397.00 · Category: Groceries · Date: 2022-08-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-08-19",
+      "type": "finding",
+      "title": "Finding: automation scripts in practice (2022)",
+      "body": "Across this year's queue, automation scripts worked best when the first reply solved one thing completely instead of three things partly. The pattern held in 3 of 6 busy months.",
+      "tag": "shareable",
+      "people": [
+        "Felix Wagner"
+      ],
+      "via": "Google Drive (simulated)"
+    },
+    {
+      "at": "2022-09-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2022-09)",
+      "body": "# Salary — support and product roles\nAmount: 2530.00 · Category: Income · Date: 2022-09-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-09-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2022-09)",
+      "body": "# Rent — Harborview flat\nAmount: -855.00 · Category: Housing · Date: 2022-09-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-09-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2022-09)",
+      "body": "# Groceries — supermarket and market\nAmount: -353.00 · Category: Groceries · Date: 2022-09-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-09-14",
+      "type": "health",
+      "title": "Health record (2022)",
+      "body": "Founder-year check-up: stress named, walking meetings adopted, blood pressure stable.",
+      "tag": "personal"
+    },
+    {
+      "at": "2022-10-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2022-10)",
+      "body": "# Salary — support and product roles\nAmount: 2610.00 · Category: Income · Date: 2022-10-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-10-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2022-10)",
+      "body": "# Rent — Harborview flat\nAmount: -855.00 · Category: Housing · Date: 2022-10-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-10-05",
+      "type": "method",
+      "title": "Method note: automation scripts routine (2022)",
+      "body": "A repeatable routine for automation scripts: write it down once, script it the second time, teach it the third.",
+      "tag": "shareable",
+      "people": [
+        "Nadia Ali"
+      ]
+    },
+    {
+      "at": "2022-10-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2022-10)",
+      "body": "# Groceries — supermarket and market\nAmount: -394.00 · Category: Groceries · Date: 2022-10-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-11-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2022-11)",
+      "body": "# Salary — support and product roles\nAmount: 2610.00 · Category: Income · Date: 2022-11-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-11-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2022-11)",
+      "body": "# Rent — Harborview flat\nAmount: -855.00 · Category: Housing · Date: 2022-11-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-11-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2022-11)",
+      "body": "# Groceries — supermarket and market\nAmount: -350.00 · Category: Groceries · Date: 2022-11-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
     },
     {
       "at": "2022-12-01",
@@ -501,6 +2601,30 @@
       ]
     },
     {
+      "at": "2022-12-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2022-12)",
+      "body": "# Salary — support and product roles\nAmount: 2610.00 · Category: Income · Date: 2022-12-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-12-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2022-12)",
+      "body": "# Rent — Harborview flat\nAmount: -855.00 · Category: Housing · Date: 2022-12-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2022-12-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2022-12)",
+      "body": "# Groceries — supermarket and market\nAmount: -391.00 · Category: Groceries · Date: 2022-12-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
       "at": "2022-12-28",
       "type": "journal",
       "title": "Year-end reflection 2022",
@@ -509,6 +2633,112 @@
       "people": [
         "Hugo Perez",
         "Iris Wang"
+      ]
+    },
+    {
+      "at": "2023-01-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2023-01)",
+      "body": "# Salary — support and product roles\nAmount: 2790.00 · Category: Income · Date: 2023-01-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-01-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2023-01)",
+      "body": "# Rent — Harborview flat\nAmount: -900.00 · Category: Housing · Date: 2023-01-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-01-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2023-01)",
+      "body": "# Groceries — supermarket and market\nAmount: -355.00 · Category: Groceries · Date: 2023-01-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-02-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2023-02)",
+      "body": "# Salary — support and product roles\nAmount: 2790.00 · Category: Income · Date: 2023-02-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-02-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2023-02)",
+      "body": "# Rent — Harborview flat\nAmount: -900.00 · Category: Housing · Date: 2023-02-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-02-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2023-02)",
+      "body": "# Groceries — supermarket and market\nAmount: -396.00 · Category: Groceries · Date: 2023-02-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-03-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2023-03)",
+      "body": "# Salary — support and product roles\nAmount: 2790.00 · Category: Income · Date: 2023-03-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-03-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2023-03)",
+      "body": "# Rent — Harborview flat\nAmount: -900.00 · Category: Housing · Date: 2023-03-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-03-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2023-03)",
+      "body": "# Groceries — supermarket and market\nAmount: -352.00 · Category: Groceries · Date: 2023-03-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-04-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2023-04)",
+      "body": "# Salary — support and product roles\nAmount: 2790.00 · Category: Income · Date: 2023-04-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-04-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2023-04)",
+      "body": "# Rent — Harborview flat\nAmount: -900.00 · Category: Housing · Date: 2023-04-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-04-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2023-04)",
+      "body": "# Groceries — supermarket and market\nAmount: -393.00 · Category: Groceries · Date: 2023-04-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-04-12",
+      "type": "research",
+      "title": "Notes on onboarding guides (2023)",
+      "body": "Reading and forum notes on onboarding guides: what practitioners claim, what our ticket queue says, and where they disagree this year.",
+      "tag": "personal",
+      "people": [
+        "Owen Murphy"
       ]
     },
     {
@@ -522,6 +2752,162 @@
       ]
     },
     {
+      "at": "2023-05-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2023-05)",
+      "body": "# Salary — support and product roles\nAmount: 2790.00 · Category: Income · Date: 2023-05-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-05-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2023-05)",
+      "body": "# Rent — Harborview flat\nAmount: -900.00 · Category: Housing · Date: 2023-05-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-05-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2023-05)",
+      "body": "# Groceries — supermarket and market\nAmount: -349.00 · Category: Groceries · Date: 2023-05-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-06-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2023-06)",
+      "body": "# Salary — support and product roles\nAmount: 2790.00 · Category: Income · Date: 2023-06-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-06-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2023-06)",
+      "body": "# Rent — Harborview flat\nAmount: -900.00 · Category: Housing · Date: 2023-06-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-06-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2023-06)",
+      "body": "# Groceries — supermarket and market\nAmount: -390.00 · Category: Groceries · Date: 2023-06-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Grace Nolan (2023)",
+      "body": "Long call with Grace Nolan about work, machines, and what changed this year. These mid-year talks keep the friendship — and several plans — honest.",
+      "tag": "personal",
+      "people": [
+        "Grace Nolan"
+      ]
+    },
+    {
+      "at": "2023-07-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2023-07)",
+      "body": "# Salary — support and product roles\nAmount: 2790.00 · Category: Income · Date: 2023-07-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-07-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2023-07)",
+      "body": "# Rent — Harborview flat\nAmount: -900.00 · Category: Housing · Date: 2023-07-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-07-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2023-07)",
+      "body": "# Groceries — supermarket and market\nAmount: -346.00 · Category: Groceries · Date: 2023-07-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-08-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2023-08)",
+      "body": "# Salary — support and product roles\nAmount: 2790.00 · Category: Income · Date: 2023-08-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-08-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2023-08)",
+      "body": "# Rent — Harborview flat\nAmount: -900.00 · Category: Housing · Date: 2023-08-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-08-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2023-08)",
+      "body": "# Groceries — supermarket and market\nAmount: -387.00 · Category: Groceries · Date: 2023-08-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-08-19",
+      "type": "finding",
+      "title": "Finding: onboarding guides in practice (2023)",
+      "body": "Across this year's queue, onboarding guides worked best when the first reply solved one thing completely instead of three things partly. The pattern held in 4 of 7 busy months.",
+      "tag": "shareable",
+      "people": [
+        "Grace Nolan"
+      ]
+    },
+    {
+      "at": "2023-09-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2023-09)",
+      "body": "# Salary — support and product roles\nAmount: 2790.00 · Category: Income · Date: 2023-09-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-09-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2023-09)",
+      "body": "# Rent — Harborview flat\nAmount: -900.00 · Category: Housing · Date: 2023-09-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-09-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2023-09)",
+      "body": "# Groceries — supermarket and market\nAmount: -343.00 · Category: Groceries · Date: 2023-09-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-10-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2023-10)",
+      "body": "# Salary — support and product roles\nAmount: 2870.00 · Category: Income · Date: 2023-10-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-10-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2023-10)",
+      "body": "# Rent — Harborview flat\nAmount: -900.00 · Category: Housing · Date: 2023-10-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
       "at": "2023-10-09",
       "type": "health",
       "title": "Sleep is the roadmap",
@@ -532,12 +2918,75 @@
       ]
     },
     {
+      "at": "2023-10-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2023-10)",
+      "body": "# Groceries — supermarket and market\nAmount: -384.00 · Category: Groceries · Date: 2023-10-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-11-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2023-11)",
+      "body": "# Salary — support and product roles\nAmount: 2870.00 · Category: Income · Date: 2023-11-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-11-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2023-11)",
+      "body": "# Rent — Harborview flat\nAmount: -900.00 · Category: Housing · Date: 2023-11-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-11-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2023-11)",
+      "body": "# Groceries — supermarket and market\nAmount: -425.00 · Category: Groceries · Date: 2023-11-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
       "at": "2023-11-18",
       "type": "health",
       "title": "Apple Health export summary (2023)",
       "body": "Health export: sleep back to 7h10m as a founder with no night shifts; morning runs three times a week. The pivot shows in the data first.",
       "tag": "personal",
       "via": "Apple Health (simulated)"
+    },
+    {
+      "at": "2023-12-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2023-12)",
+      "body": "# Salary — support and product roles\nAmount: 2870.00 · Category: Income · Date: 2023-12-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-12-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2023-12)",
+      "body": "# Rent — Harborview flat\nAmount: -900.00 · Category: Housing · Date: 2023-12-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-12-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2023-12)",
+      "body": "# Groceries — supermarket and market\nAmount: -381.00 · Category: Groceries · Date: 2023-12-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2023-12-15",
+      "type": "goal-note",
+      "title": "Goals review (2023)",
+      "body": "Year-end goals review: automate one hated task, protect sleep after night shifts, and keep the library buying under control.",
+      "tag": "personal"
     },
     {
       "at": "2023-12-28",
@@ -551,6 +3000,89 @@
       ]
     },
     {
+      "at": "2024-01-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2024-01)",
+      "body": "# Salary — support and product roles\nAmount: 3050.00 · Category: Income · Date: 2024-01-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-01-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2024-01)",
+      "body": "# Rent — Harborview flat\nAmount: -945.00 · Category: Housing · Date: 2024-01-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-01-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2024-01)",
+      "body": "# Groceries — supermarket and market\nAmount: -430.00 · Category: Groceries · Date: 2024-01-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-02-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2024-02)",
+      "body": "# Salary — support and product roles\nAmount: 3050.00 · Category: Income · Date: 2024-02-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-02-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2024-02)",
+      "body": "# Rent — Harborview flat\nAmount: -945.00 · Category: Housing · Date: 2024-02-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-02-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2024-02)",
+      "body": "# Groceries — supermarket and market\nAmount: -386.00 · Category: Groceries · Date: 2024-02-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-02-11",
+      "type": "document",
+      "title": "Certificates and letters file (2024)",
+      "body": "Filed this year's certificates, contracts, and reference letters together. Paper first, scanned to Drive the same evening.",
+      "tag": "personal",
+      "people": [
+        "Mom Ana"
+      ],
+      "via": "Google Drive (simulated)"
+    },
+    {
+      "at": "2024-03-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2024-03)",
+      "body": "# Salary — support and product roles\nAmount: 3050.00 · Category: Income · Date: 2024-03-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-03-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2024-03)",
+      "body": "# Rent — Harborview flat\nAmount: -945.00 · Category: Housing · Date: 2024-03-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-03-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2024-03)",
+      "body": "# Groceries — supermarket and market\nAmount: -427.00 · Category: Groceries · Date: 2024-03-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
       "at": "2024-03-25",
       "type": "research",
       "title": "Enterprise no",
@@ -561,12 +3093,187 @@
       ]
     },
     {
+      "at": "2024-04-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2024-04)",
+      "body": "# Salary — support and product roles\nAmount: 3050.00 · Category: Income · Date: 2024-04-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-04-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2024-04)",
+      "body": "# Rent — Harborview flat\nAmount: -945.00 · Category: Housing · Date: 2024-04-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-04-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2024-04)",
+      "body": "# Groceries — supermarket and market\nAmount: -383.00 · Category: Groceries · Date: 2024-04-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-04-12",
+      "type": "research",
+      "title": "Notes on incident reviews (2024)",
+      "body": "Reading and forum notes on incident reviews: what practitioners claim, what our ticket queue says, and where they disagree this year.",
+      "tag": "shareable",
+      "people": [
+        "Mom Ana"
+      ],
+      "via": "Notion (simulated)"
+    },
+    {
+      "at": "2024-05-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2024-05)",
+      "body": "# Salary — support and product roles\nAmount: 3050.00 · Category: Income · Date: 2024-05-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-05-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2024-05)",
+      "body": "# Rent — Harborview flat\nAmount: -945.00 · Category: Housing · Date: 2024-05-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-05-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2024-05)",
+      "body": "# Groceries — supermarket and market\nAmount: -424.00 · Category: Groceries · Date: 2024-05-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-06-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2024-06)",
+      "body": "# Salary — support and product roles\nAmount: 3050.00 · Category: Income · Date: 2024-06-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-06-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2024-06)",
+      "body": "# Rent — Harborview flat\nAmount: -945.00 · Category: Housing · Date: 2024-06-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-06-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2024-06)",
+      "body": "# Groceries — supermarket and market\nAmount: -380.00 · Category: Groceries · Date: 2024-06-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Hugo Perez (2024)",
+      "body": "Long call with Hugo Perez about work, machines, and what changed this year. These mid-year talks keep the friendship — and several plans — honest.",
+      "tag": "personal",
+      "people": [
+        "Hugo Perez"
+      ]
+    },
+    {
       "at": "2024-06-25",
       "type": "finding",
       "title": "Drive export: hiring lessons (2024)",
       "body": "Findings doc: hire for writing samples, not interviews. The playbook chapter on triage became the onboarding week-one read.",
       "tag": "shareable",
       "via": "Google Drive (simulated)"
+    },
+    {
+      "at": "2024-07-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2024-07)",
+      "body": "# Salary — support and product roles\nAmount: 3050.00 · Category: Income · Date: 2024-07-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-07-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2024-07)",
+      "body": "# Rent — Harborview flat\nAmount: -945.00 · Category: Housing · Date: 2024-07-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-07-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2024-07)",
+      "body": "# Groceries — supermarket and market\nAmount: -421.00 · Category: Groceries · Date: 2024-07-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-08-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2024-08)",
+      "body": "# Salary — support and product roles\nAmount: 3050.00 · Category: Income · Date: 2024-08-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-08-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2024-08)",
+      "body": "# Rent — Harborview flat\nAmount: -945.00 · Category: Housing · Date: 2024-08-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-08-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2024-08)",
+      "body": "# Groceries — supermarket and market\nAmount: -377.00 · Category: Groceries · Date: 2024-08-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-08-19",
+      "type": "finding",
+      "title": "Finding: incident reviews in practice (2024)",
+      "body": "Across this year's queue, incident reviews worked best when the first reply solved one thing completely instead of three things partly. The pattern held in 5 of 5 busy months.",
+      "tag": "shareable",
+      "people": [
+        "Hugo Perez"
+      ]
+    },
+    {
+      "at": "2024-09-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2024-09)",
+      "body": "# Salary — support and product roles\nAmount: 3050.00 · Category: Income · Date: 2024-09-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-09-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2024-09)",
+      "body": "# Rent — Harborview flat\nAmount: -945.00 · Category: Housing · Date: 2024-09-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-09-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2024-09)",
+      "body": "# Groceries — supermarket and market\nAmount: -418.00 · Category: Groceries · Date: 2024-09-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
     },
     {
       "at": "2024-09-19",
@@ -580,6 +3287,88 @@
       ]
     },
     {
+      "at": "2024-10-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2024-10)",
+      "body": "# Salary — support and product roles\nAmount: 3130.00 · Category: Income · Date: 2024-10-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-10-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2024-10)",
+      "body": "# Rent — Harborview flat\nAmount: -945.00 · Category: Housing · Date: 2024-10-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-10-05",
+      "type": "method",
+      "title": "Method note: incident reviews routine (2024)",
+      "body": "A repeatable routine for incident reviews: write it down once, script it the second time, teach it the third.",
+      "tag": "shareable",
+      "people": [
+        "Mom Ana"
+      ]
+    },
+    {
+      "at": "2024-10-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2024-10)",
+      "body": "# Groceries — supermarket and market\nAmount: -374.00 · Category: Groceries · Date: 2024-10-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-11-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2024-11)",
+      "body": "# Salary — support and product roles\nAmount: 3130.00 · Category: Income · Date: 2024-11-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-11-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2024-11)",
+      "body": "# Rent — Harborview flat\nAmount: -945.00 · Category: Housing · Date: 2024-11-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-11-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2024-11)",
+      "body": "# Groceries — supermarket and market\nAmount: -415.00 · Category: Groceries · Date: 2024-11-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-12-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2024-12)",
+      "body": "# Salary — support and product roles\nAmount: 3130.00 · Category: Income · Date: 2024-12-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-12-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2024-12)",
+      "body": "# Rent — Harborview flat\nAmount: -945.00 · Category: Housing · Date: 2024-12-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2024-12-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2024-12)",
+      "body": "# Groceries — supermarket and market\nAmount: -371.00 · Category: Groceries · Date: 2024-12-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
       "at": "2024-12-28",
       "type": "journal",
       "title": "Year-end reflection 2024",
@@ -591,6 +3380,54 @@
       ]
     },
     {
+      "at": "2025-01-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2025-01)",
+      "body": "# Salary — support and product roles\nAmount: 3310.00 · Category: Income · Date: 2025-01-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2025-01-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2025-01)",
+      "body": "# Rent — Harborview flat\nAmount: -990.00 · Category: Housing · Date: 2025-01-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2025-01-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2025-01)",
+      "body": "# Groceries — supermarket and market\nAmount: -420.00 · Category: Groceries · Date: 2025-01-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2025-02-01",
+      "type": "finance",
+      "title": "Salary — support and product roles (2025-02)",
+      "body": "# Salary — support and product roles\nAmount: 3310.00 · Category: Income · Date: 2025-02-01",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2025-02-03",
+      "type": "finance",
+      "title": "Rent — Harborview flat (2025-02)",
+      "body": "# Rent — Harborview flat\nAmount: -990.00 · Category: Housing · Date: 2025-02-03",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
+      "at": "2025-02-09",
+      "type": "finance",
+      "title": "Groceries — supermarket and market (2025-02)",
+      "body": "# Groceries — supermarket and market\nAmount: -376.00 · Category: Groceries · Date: 2025-02-09",
+      "tag": "personal",
+      "via": "Bank statement (simulated)"
+    },
+    {
       "at": "2025-02-14",
       "type": "method",
       "title": "Kill criteria early",
@@ -599,6 +3436,26 @@
       "people": [
         "June Park",
         "Anna Kovac"
+      ]
+    },
+    {
+      "at": "2025-04-12",
+      "type": "research",
+      "title": "Notes on support metrics (2025)",
+      "body": "Reading and forum notes on support metrics: what practitioners claim, what our ticket queue says, and where they disagree this year.",
+      "tag": "personal",
+      "people": [
+        "Dad Tom"
+      ]
+    },
+    {
+      "at": "2025-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Ingrid Holm (2025)",
+      "body": "Long call with Ingrid Holm about work, machines, and what changed this year. These mid-year talks keep the friendship — and several plans — honest.",
+      "tag": "personal",
+      "people": [
+        "Ingrid Holm"
       ]
     },
     {
@@ -614,6 +3471,16 @@
       ]
     },
     {
+      "at": "2025-08-19",
+      "type": "finding",
+      "title": "Finding: support metrics in practice (2025)",
+      "body": "Across this year's queue, support metrics worked best when the first reply solved one thing completely instead of three things partly. The pattern held in 6 of 6 busy months.",
+      "tag": "shareable",
+      "people": [
+        "Ingrid Holm"
+      ]
+    },
+    {
       "at": "2025-09-13",
       "type": "journal",
       "title": "Calendar export: sister call Sundays (2025)",
@@ -623,6 +3490,13 @@
       "people": [
         "Sister Bea"
       ]
+    },
+    {
+      "at": "2025-12-15",
+      "type": "goal-note",
+      "title": "Goals review (2025)",
+      "body": "Year-end goals review: automate one hated task, protect sleep after night shifts, and keep the library buying under control.",
+      "tag": "personal"
     },
     {
       "at": "2025-12-28",
@@ -647,6 +3521,16 @@
       ]
     },
     {
+      "at": "2026-04-12",
+      "type": "research",
+      "title": "Notes on remote diagnostics (2026)",
+      "body": "Reading and forum notes on remote diagnostics: what practitioners claim, what our ticket queue says, and where they disagree this year.",
+      "tag": "shareable",
+      "people": [
+        "Alex Kim"
+      ]
+    },
+    {
       "at": "2026-05-20",
       "type": "journal",
       "title": "Twenty years of shelves",
@@ -656,6 +3540,37 @@
         "June Park",
         "Sister Bea",
         "Mom Ana"
+      ]
+    },
+    {
+      "at": "2026-06-21",
+      "type": "relationship",
+      "title": "Mid-year catch-up with Iris Wang (2026)",
+      "body": "Long call with Iris Wang about work, machines, and what changed this year. These mid-year talks keep the friendship — and several plans — honest.",
+      "tag": "personal",
+      "people": [
+        "Iris Wang"
+      ]
+    },
+    {
+      "at": "2026-08-19",
+      "type": "finding",
+      "title": "Finding: remote diagnostics in practice (2026)",
+      "body": "Across this year's queue, remote diagnostics worked best when the first reply solved one thing completely instead of three things partly. The pattern held in 3 of 7 busy months.",
+      "tag": "shareable",
+      "people": [
+        "Iris Wang"
+      ],
+      "via": "Google Drive (simulated)"
+    },
+    {
+      "at": "2026-10-05",
+      "type": "method",
+      "title": "Method note: remote diagnostics routine (2026)",
+      "body": "A repeatable routine for remote diagnostics: write it down once, script it the second time, teach it the third.",
+      "tag": "shareable",
+      "people": [
+        "Alex Kim"
       ]
     },
     {
