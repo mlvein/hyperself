@@ -268,7 +268,7 @@ document.getElementById('languageSelect')?.addEventListener('change', (ev) => {
 
 function renderGreeting(): void {
   const profile = getProfile();
-  el('userGreeting').textContent = profile ? `for ${profile.name}` : '';
+  el('userGreeting').textContent = profile ? `Hello, ${profile.name}` : '';
 }
 
 // --- Knowledgebase synthesis + growth (raw entries are never listed) ---
@@ -335,6 +335,7 @@ function renderProfileCard(blurb: string): void {
         .join('')
     : '<span class="hint">No archetypes yet — add more knowledge.</span>';
   const name = getProfile()?.name ?? '';
+  el('profileName').textContent = name;
   const pills = el('archetypePills');
   if (archetypes.length && !pills.querySelector('.archetype-note')) {
     pills.insertAdjacentHTML(
@@ -390,9 +391,9 @@ function renderSynthesisCards(_overviewBody = ''): void {
         <div class="budget-bar" aria-hidden="true"><span style="width:${arch.strength}%"></span></div>
         <p class="meta">Watch for: ${escapeHtml(arch.watchFor)}</p>
         <div class="row" style="margin-top:0.5rem">
-          <button type="button" class="small" data-archetype-action="confirm" data-archetype-id="${arch.id}">${arch.confirmed ? 'Confirmed' : 'Confirm'}</button>
-          <button type="button" class="small" data-archetype-action="rename" data-archetype-id="${arch.id}">Rename</button>
-          <button type="button" class="small" data-archetype-action="dismiss" data-archetype-id="${arch.id}">Not me</button>
+          <button type="button" class="small secondary" data-archetype-action="confirm" data-archetype-id="${arch.id}">${arch.confirmed ? 'Confirmed' : 'Confirm'}</button>
+          <button type="button" class="small secondary" data-archetype-action="rename" data-archetype-id="${arch.id}">Rename</button>
+          <button type="button" class="small secondary" data-archetype-action="dismiss" data-archetype-id="${arch.id}">Not me</button>
           ${template ? `<button type="button" class="small" data-archetype-path="${arch.id}">Start a Path from this archetype</button>` : ''}
         </div>
       </article>`;
@@ -3046,6 +3047,14 @@ void Promise.all([hydrateStore(), hydrateVectors()]).then(() => {
 // --- Vault gate: nothing renders user data until unlock ---
 let pendingVaultKey: CryptoKey | null = null;
 
+function setLockBusy(busy: boolean): void {
+  el('lockLoading').hidden = !busy;
+  el('lockOverlay').setAttribute('aria-busy', String(busy));
+  for (const id of ['lockUnlockBtn', 'lockBioBtn', 'lockEnrollBioBtn']) {
+    (el(id) as HTMLButtonElement).disabled = busy;
+  }
+}
+
 function finishUnlock(): void {
   el('lockOverlay').hidden = true;
   renderAll();
@@ -3078,6 +3087,7 @@ el('lockUnlockBtn').addEventListener('click', () => {
     return;
   }
   void (async () => {
+    setLockBusy(true);
     try {
       if (!hasVault()) {
         if (pin !== el<HTMLInputElement>('lockPinConfirm').value) {
@@ -3098,23 +3108,28 @@ el('lockUnlockBtn').addEventListener('click', () => {
       finishUnlock();
     } catch (err) {
       error.textContent = err instanceof Error ? err.message : 'Unlock failed.';
+    } finally {
+      setLockBusy(false);
     }
   })();
 });
 
 el('lockEnrollBioBtn').addEventListener('click', () => {
   if (!pendingVaultKey) return;
+  setLockBusy(true);
   void enrollBiometric(pendingVaultKey)
     .then(() => finishUnlock())
     .catch((err: unknown) => {
       el('lockError').textContent =
         (err instanceof Error ? err.message : 'Biometric enrollment failed.') + ' Continuing with PIN.';
       finishUnlock();
-    });
+    })
+    .finally(() => setLockBusy(false));
 });
 
 el('lockBioBtn').addEventListener('click', () => {
   el('lockError').textContent = '';
+  setLockBusy(true);
   void unlockWithBiometric()
     .then(async (key) => {
       await activateVault(key);
@@ -3122,7 +3137,8 @@ el('lockBioBtn').addEventListener('click', () => {
     })
     .catch((err: unknown) => {
       el('lockError').textContent = err instanceof Error ? err.message : 'Biometric unlock failed. Use your PIN.';
-    });
+    })
+    .finally(() => setLockBusy(false));
 });
 
 // --- Offline proof: register the service worker + live offline badge ---

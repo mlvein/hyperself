@@ -13,19 +13,21 @@
     <div class="app-shell">
     <aside class="sidebar" id="sidebar">
       <div class="brand">
-        <img src="/assets/hyperself/artwork/hyperself-wordmark.svg" width="104" height="32" alt="Hyperself" />
-        <span id="userGreeting" class="hint"></span>
+        <img src="/assets/hyperself/icons/brand-signature.svg" width="180" height="42" alt="Hyperself" />
+      </div>
+      <div class="user-block">
+        <span id="userGreeting" class="user-greeting"></span>
         <span id="offlineBadge" class="badge-offline" hidden>Offline · on-device</span>
       </div>
       <nav class="tabs sidebar-nav" aria-label="Main menu">
-        <button type="button" data-view="knowledge" class="active"><span data-i18n="nav.knowledge">Knowledgebase</span></button>
-        <button type="button" data-view="timeline"><span data-i18n="sub.timeline">Timeline</span></button>
-        <button type="button" data-view="paths"><span data-i18n="nav.paths">Paths</span> <span id="pathsBadge" class="badge" hidden>0</span></button>
-        <button type="button" data-view="legacy"><span data-i18n="nav.legacy">Legacy</span></button>
+        <button type="button" data-view="knowledge" class="active"><img src="/assets/hyperself/icons/brand-knowledgebase.svg" width="24" height="24" alt="" /><span data-i18n="nav.knowledge">Knowledgebase</span></button>
+        <button type="button" data-view="timeline"><img src="/assets/hyperself/icons/brand-timeline.svg" width="24" height="24" alt="" /><span data-i18n="sub.timeline">Timeline</span></button>
+        <button type="button" data-view="paths"><img src="/assets/hyperself/icons/brand-paths.svg" width="24" height="24" alt="" /><span data-i18n="nav.paths">Paths</span> <span id="pathsBadge" class="badge" hidden>0</span></button>
+        <button type="button" data-view="legacy"><img src="/assets/hyperself/icons/brand-legacy.svg" width="24" height="24" alt="" /><span data-i18n="nav.legacy">Legacy</span></button>
       </nav>
       <div class="sidebar-footer">
-        <button type="button" id="guideNavBtn" data-view="guide"><span data-i18n="nav.guide">Guide</span></button>
-        <button type="button" id="settingsNavBtn" data-view="settings"><span data-i18n="nav.settings">Settings</span></button>
+        <button type="button" id="guideNavBtn" data-view="guide"><img src="/assets/hyperself/icons/brand-guide.svg" width="24" height="24" alt="" /><span data-i18n="nav.guide">Guide</span></button>
+        <button type="button" id="settingsNavBtn" data-view="settings"><img src="/assets/hyperself/icons/brand-settings.svg" width="24" height="24" alt="" /><span data-i18n="nav.settings">Settings</span></button>
       </div>
     </aside>
 
@@ -88,6 +90,7 @@
                 <p id="profilePhotoNote" class="hint" aria-live="polite"></p>
               </div>
               <div class="profile-main">
+                <h2 id="profileName" class="profile-name"></h2>
                 <div id="archetypePills" class="tagrow" aria-label="Archetypes"></div>
                 <p id="profileBlurb" class="profile-blurb">Your archetypes and story will appear here as Hyperself synthesizes your knowledge.</p>
                 <p id="synthesisStatus" class="hint" aria-live="polite"></p>
@@ -505,8 +508,13 @@ OLLAMA_ORIGINS=http://localhost:5173 ollama serve</pre>
     </div>
 
     <div id="lockOverlay" class="overlay" hidden>
-      <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="lockTitle">
+      <div class="dialog lock-dialog" role="dialog" aria-modal="true" aria-labelledby="lockTitle">
+        <img class="lock-wordmark" src="/assets/hyperself/artwork/hyperself-wordmark.svg" width="240" height="98" alt="Hyperself" />
         <h2 id="lockTitle">Unlock Hyperself</h2>
+        <div id="lockLoading" class="lock-loading" hidden role="status" aria-label="Unlocking">
+          <img src="/assets/hyperself/artwork/hyperself-icon-anim-reveal.svg" width="96" height="103" alt="" />
+          <p class="hint">Unlocking…</p>
+        </div>
         <p id="lockHint" class="hint">Your knowledge is encrypted on this device.</p>
         <label id="lockPinLabel">PIN <input id="lockPin" type="password" inputmode="numeric" autocomplete="current-password" /></label>
         <label id="lockPinConfirmLabel" hidden>Confirm PIN <input id="lockPinConfirm" type="password" inputmode="numeric" autocomplete="new-password" /></label>

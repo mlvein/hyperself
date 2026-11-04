@@ -38,7 +38,7 @@ States: every async action shows working → labeled result. No silent failures;
 
 ## Visual system (implemented in `app/src/styles.css`)
 
-Figma light-mode navy/lavender system per `figmadesign.md` §3: navy `#05006d` primary text/controls, white surface, `#f8f7fb` wash, `#585875` secondary text, `#d2d1e5` borders, lavender `#a59acb` accents; green only for shareable/success, red for destructive/high findings, amber for warnings. Type: Momo Trust Display (headings/brand) + Inter (body), falling back to the system stack until self-hosted font files land under `app/public/assets/hyperself/fonts/`. Geometry: 76px header, 860px content column, 20px card padding, 8px card radius, 6px input/button radius, 37px buttons, 41px inputs, solid navy modal scrims. No gradients, no glow, no emoji icons (exported SVGs under `app/public/assets/hyperself/`).
+Figma light-mode navy/lavender system per `figmadesign.md` §3: navy `#05006d` primary text/controls, white surface, `#f8f7fb` wash, `#585875` secondary text, `#d2d1e5` borders, lavender `#a59acb` accents; green only for shareable/success, red for destructive/high findings, amber for warnings. Type: Funnel Display Bold (headings/brand, 18/21/24/26px, 0.02em tracking on titles) + Inter (body), falling back to the system stack until self-hosted font files land under `app/public/assets/hyperself/fonts/`. Geometry: 76px header, 860px content column, 20px card padding, 8px card radius, 6px input/button radius, 37px buttons, 41px inputs, solid navy modal scrims. No gradients, no glow, no emoji icons (exported SVGs under `app/public/assets/hyperself/`).
 
 ## Figma handoff
 
