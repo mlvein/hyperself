@@ -1,12 +1,16 @@
-// Local embeddings (Transformers.js). Vectors are computed on-device and
-// persisted in OPFS keyed by entry id (localStorage fallback/migration
+// Local embeddings from a Meta model. Vectors are computed by the Meta
+// Llama model served on this device (the same local server as synthesis)
+// and persisted in OPFS keyed by entry id (localStorage fallback/migration
 // source); they inherit the entry's tag boundary by never leaving the
-// browser. The model download is the only network touch, no user data.
+// device. When no Meta model server is reachable, embedding fails and
+// search degrades to keyword-only — no non-Meta embedding model is used.
 
-export const EMBEDDING_MODEL_ID = 'Xenova/all-MiniLM-L6-v2';
-export const EMBEDDING_DIMS = 384;
+import { loadGlimmerConfig } from './engine';
 
-const VECTOR_KEY = 'hyperself.vectors.v1';
+export const EMBEDDING_MODEL_ID = 'llama3.2:3b';
+export const EMBEDDING_DIMS = 3072;
+
+const VECTOR_KEY = 'hyperself.vectors.v2';
 
 export function cosineSimilarity(a: ArrayLike<number>, b: ArrayLike<number>): number {
   const n = Math.min(a.length, b.length);
@@ -104,42 +108,24 @@ export function dropVector(entryId: string): void {
   }
 }
 
-type Extractor = (
-  text: string,
-  opts: { pooling: 'mean'; normalize: boolean },
-) => Promise<{ tolist(): number[][] }>;
+type FetchFn = (input: string, init?: RequestInit) => Promise<Response>;
 
-interface TransformersModule {
-  pipeline(
-    task: string,
-    model: string,
-    opts?: { device?: string; dtype?: string },
-  ): Promise<Extractor>;
-}
+const defaultFetch: FetchFn = (input, init) => fetch(input, init);
 
-let extractorPromise: Promise<Extractor> | null = null;
-
-async function loadExtractor(): Promise<Extractor> {
-  if (!extractorPromise) {
-    extractorPromise = (async () => {
-      const mod = (await import('@huggingface/transformers')) as unknown as TransformersModule;
-      try {
-        return await mod.pipeline('feature-extraction', EMBEDDING_MODEL_ID, {
-          device: 'webgpu',
-        });
-      } catch {
-        return mod.pipeline('feature-extraction', EMBEDDING_MODEL_ID, { dtype: 'q8' });
-      }
-    })();
-  }
-  return extractorPromise;
-}
-
-export async function embedText(text: string): Promise<number[]> {
-  const extractor = await loadExtractor();
-  const output = await extractor(text.slice(0, 4000), { pooling: 'mean', normalize: true });
-  const rows = output.tolist();
-  const vector = rows[0] ?? [];
+export async function embedText(text: string, fetchFn: FetchFn = defaultFetch): Promise<number[]> {
+  const cfg = loadGlimmerConfig();
+  const res = await fetchFn(`${cfg.endpoint}/embeddings`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ model: EMBEDDING_MODEL_ID, input: text.slice(0, 4000) }),
+  });
+  if (!res.ok) throw new Error(`Meta embedding model returned HTTP ${res.status}`);
+  const data = (await res.json()) as {
+    data?: Array<{ embedding?: number[] }>;
+    embedding?: number[];
+    embeddings?: number[][];
+  };
+  const vector = data.data?.[0]?.embedding ?? data.embedding ?? data.embeddings?.[0] ?? [];
   if (vector.length !== EMBEDDING_DIMS) {
     throw new Error(`Unexpected embedding size: ${vector.length}`);
   }

@@ -82,4 +82,20 @@ const flipped = runKnowledgeSearch('layout', [keywordHit, semanticHit], TODAY, {
 assert.equal(flipped.entries[0].id, semanticHit.id, 'semantic boost outranks keyword-only');
 
 store.clearAll();
+
+// --- embedText talks only to the local Meta model server ---
+void (async () => {
+  let seen = null;
+  const vector = await emb.embedText('hello', async (url, init) => {
+    seen = { url, body: JSON.parse(init.body) };
+    return { ok: true, json: async () => ({ data: [{ embedding: new Array(emb.EMBEDDING_DIMS).fill(0.1) }] }) };
+  }).catch((err) => { throw err; });
+  assert.equal(vector.length, emb.EMBEDDING_DIMS, 'Meta embedding vector returned');
+  assert.equal(seen.body.model, 'llama3.2:3b', 'embeddings come from Meta Llama');
+  assert.ok(seen.url.endsWith('/embeddings'), 'embeddings endpoint on the local server');
+  assert.equal(emb.EMBEDDING_MODEL_ID, 'llama3.2:3b', 'embedding model id is a Meta model');
+  await assert.rejects(() => emb.embedText('x', async () => ({ ok: false, status: 503, json: async () => ({}) })), /HTTP 503/, 'no Meta server fails closed to keyword search');
+  console.log('embeddings meta OK: Llama embeddings via local Meta server, fail-closed');
+})();
+
 console.log('embeddings OK: cosine, persistence, status flow, hybrid ranking');

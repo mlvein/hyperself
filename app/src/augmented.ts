@@ -10,7 +10,12 @@ import type { Entry } from './types';
 
 export const AUGMENTED_KIND = 'hyperself-augmented-paths';
 export const AUGMENTED_VERSION = 1;
-export const ALLOWED_HOSTS = ['api.baseten.co'];
+export const ALLOWED_HOSTS = ['api.meta.ai'];
+
+/** Augmented Paths call Meta models only (Muse Spark/Wonder family). */
+export function isMetaAugmentedModel(model: string): boolean {
+  return /muse-(spark|wonder)/i.test(model);
+}
 export const MAX_ASK_LENGTH = 120;
 
 const CONSENT_KEY = 'hyperself.augmented.consent.v1';
@@ -217,8 +222,8 @@ export interface AugmentedConfig {
 }
 
 export const DEFAULT_AUGMENTED_CONFIG: AugmentedConfig = {
-  endpoint: 'https://api.baseten.co/v1',
-  model: 'muse-spark',
+  endpoint: 'https://api.meta.ai/v1',
+  model: 'muse-spark-1.1',
 };
 
 type FetchFn = (input: string, init?: RequestInit) => Promise<Response>;
@@ -236,8 +241,11 @@ export async function sendAugmented(
   assertDerivedOnly(profile);
   const apiKey = getAugmentedKey();
   if (!apiKey) throw new StoreError('Add your provider API key first (Augmented Paths, Step 1).');
-  if (!isAllowedHost(cfg.endpoint) && !hasConsent(cfg.endpoint)) {
-    throw new StoreError(`Destination ${hostOf(cfg.endpoint)} is not allowlisted — confirm it in the consent sheet first.`);
+  if (!isAllowedHost(cfg.endpoint)) {
+    throw new StoreError(`Destination ${hostOf(cfg.endpoint)} is not the Meta Model API — Augmented Paths only call Meta models. Nothing was sent.`);
+  }
+  if (!isMetaAugmentedModel(cfg.model)) {
+    throw new StoreError(`Model ${cfg.model} is not a Meta model — Augmented Paths only call Meta models. Nothing was sent.`);
   }
   const payloadBytes = JSON.stringify(profile);
   const res = await fetchFn(`${cfg.endpoint.replace(/\/+$/, '')}/chat/completions`, {

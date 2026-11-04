@@ -62,14 +62,15 @@ const {
   assert.ok(!isAugmentableAsk('who has gone quiet?'), 'relationship ask not eligible in v1');
 
   // Hosts + consent + key lifecycle
-  assert.ok(isAllowedHost('https://api.baseten.co/v1'), 'baseten allowlisted');
+  assert.ok(isAllowedHost('https://api.meta.ai/v1'), 'Meta Model API allowlisted');
+  assert.ok(!isAllowedHost('https://api.baseten.co/v1'), 'non-Meta hosts are not allowlisted');
   assert.ok(!isAllowedHost('https://evil.example/v1'), 'unknown host not allowlisted');
   assert.equal(getAugmentedKey(), null, 'no key initially');
   setAugmentedKey('sk-test-123', true);
   assert.equal(getAugmentedKey(), 'sk-test-123', 'session key available');
   assert.ok(![...mem.values()].some((v) => v.includes('sk-test-123')), 'key never in localStorage');
-  recordConsent('https://api.baseten.co/v1');
-  assert.ok(hasConsent('https://api.baseten.co/v1'), 'consent recorded');
+  recordConsent('https://api.meta.ai/v1');
+  assert.ok(hasConsent('https://api.meta.ai/v1'), 'consent recorded');
 
   // Send: fake fetch captures the exact bytes; sent payload == profile JSON
   let sentBody = null;
@@ -77,7 +78,7 @@ const {
     sentBody = JSON.parse(init.body);
     return { ok: true, json: async () => ({ choices: [{ message: { content: 'Your sequenced learning path…' } }] }) };
   };
-  const { text, payloadBytes } = await sendAugmented(profile, { endpoint: 'https://api.baseten.co/v1', model: 'muse-spark' }, fakeFetch);
+  const { text, payloadBytes } = await sendAugmented(profile, { endpoint: 'https://api.meta.ai/v1', model: 'muse-spark-1.1' }, fakeFetch);
   assert.ok(text.includes('learning path'), 'reply returned');
   assert.equal(sentBody.messages[1].content, payloadBytes, 'sent bytes equal the previewed profile');
   assert.equal(payloadBytes, JSON.stringify(profile), 'payload is exactly the derived profile');
@@ -87,8 +88,12 @@ const {
   // Fail closed: no key, and unconsented custom host
   revokeAugmented();
   assert.equal(getAugmentedKey(), null, 'revoke forgets the key');
-  assert.equal(hasConsent('https://api.baseten.co/v1'), false, 'revoke clears consent');
-  await assert.rejects(() => sendAugmented(profile, { endpoint: 'https://api.baseten.co/v1', model: 'm' }, fakeFetch), /API key/, 'no key fails closed');
+  assert.equal(hasConsent('https://api.meta.ai/v1'), false, 'revoke clears consent');
+  await assert.rejects(() => sendAugmented(profile, { endpoint: 'https://api.meta.ai/v1', model: 'muse-spark-1.1' }, fakeFetch), /API key/, 'no key fails closed');
+  setAugmentedKey('[REDACTED]', true);
+  await assert.rejects(() => sendAugmented(profile, { endpoint: 'https://api.baseten.co/v1', model: 'muse-spark-1.1' }, fakeFetch), /Meta Model API/, 'non-Meta host refused even with consent and key');
+  await assert.rejects(() => sendAugmented(profile, { endpoint: 'https://api.meta.ai/v1', model: 'gpt-4o' }, fakeFetch), /not a Meta model/, 'non-Meta model refused');
+  revokeAugmented();
 
   console.log('augmented OK: derived-only, platform labels, fail-closed, consent + BYO key');
 })().catch((err) => { console.error(err); process.exit(1); });

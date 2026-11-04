@@ -11,14 +11,14 @@ Status: PM approved (post-demo scope) and Security approved with conditions, 202
 1. Archetype labels sent are platform labels only; user-renamed (custom) labels are never sent.
 2. Skill names sent are platform lexicon names only; user-created skill names are excluded in v1.
 3. The BYO provider key is never persisted in plaintext localStorage: session-memory by default; when the vault is active it may be stored sealed in the vault. The key never enters packs or backups (backups export the database only — keep it that way).
-4. v1 destinations are allowlisted (`api.baseten.co`); any other host requires an explicit per-host confirmation showing the hostname in the consent sheet.
+4. v1's only destination is the Meta Model API (`api.meta.ai`, Muse Spark); any other host or any non-Meta model is refused outright — there is no custom-endpoint path.
 5. `request.ask` stays capped at 120 chars of plain text (validator-enforced).
 6. Consent revocation deletes consent records and the stored key (the kill switch); removing the key disables the tier entirely.
 7. Augmented outputs are stored as personal data, excluded from packs and shareable contexts. (Inclusion in the user's own encrypted backup is acceptable.)
 
 ## Goal (PM)
 
-A paid, opt-in tier inside Paths: frontier online models reason over how the user learns, researches, and works — sequencing learning paths and research strategies fitted to the user's actual patterns. It exists because a local 30B (or 3B on laptops) cannot match frontier reasoning, and some users will pay for that gap.
+A paid, opt-in tier inside Paths: Meta's Muse Spark online model reasons over how the user learns, researches, and works — sequencing learning paths and research strategies fitted to the user's actual patterns. It exists because a local 30B (or 3B on laptops) cannot match frontier reasoning, and some users will pay for that gap.
 
 Demo beat it serves: none for the current demo. This is the first post-demo monetization design; it must not destabilize the local demo story.
 
@@ -60,7 +60,7 @@ Rules:
 
 1. User opens a saved Path (or starts an ask) and chooses **Augment this Path** (paid tier, visibly distinct from local Expound).
 2. The app builds the DLP locally and shows a **consent sheet**: the exact JSON, a plain-language summary of each field, the destination host, and the model. Send / Cancel. First send per destination always shows the sheet; a "remember for this destination" option may skip it later, revocable in the same card.
-3. The browser calls the provider directly with the **user's own API key** (BYO key, stored only in local device storage, never in the vault export or packs). v1 target: Baseten (Spark-class models); the endpoint is OpenAI-compatible, matching the existing local-server client shape.
+3. The browser calls the provider directly with the **user's own API key** (BYO key, stored only in local device storage, never in the vault export or packs). v1 target: the Meta Model API (Muse Spark); the endpoint is OpenAI-compatible, matching the existing local-server client shape.
 4. The reply renders inside the Path, badged **Augmented · inference**, with the model name and date. It is stored locally as personal data attached to the Path — never shareable, never in packs, excluded from backup only by the user's normal backup choice.
 5. Any failure (no key, provider error, validator rejection) fails closed with a plain message. Local Expound remains available and unchanged.
 
@@ -88,7 +88,7 @@ Forbidden, still:
 - Golden: with no key or an unreachable provider, Augmented fails closed and local Expound still works.
 - Golden: the consent sheet shows the exact bytes that are then sent (hash equality in test).
 - Golden: augmented output renders with the inference badge and never appears in a pack export or shareable context.
-- Live tier (manual, pre-release): one real Baseten call with a fixture persona produces a learning-path reply judged for groundedness against the DLP only.
+- Live tier (manual, pre-release): one real Meta Model API (Muse Spark) call with a fixture persona produces a learning-path reply judged for groundedness against the DLP only.
 
 ## Risks & open decisions
 

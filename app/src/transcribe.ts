@@ -1,7 +1,9 @@
 // Audio transcription: recordings become searchable text entries.
-// Runs fully on-device with Transformers.js Whisper (one-time model
-// download, then offline). Browser-only APIs live inside functions so
-// this module also loads under the Node test harness.
+// Runs fully on-device with Meta's wav2vec 2.0 speech model
+// (facebook/wav2vec2-base-960h weights, ONNX port via Transformers.js;
+// one-time model download, then offline). Browser-only APIs live inside
+// functions so this module also loads under the Node test harness.
+export const ASR_MODEL_ID = 'Xenova/wav2vec2-base-960h';
 export const AUDIO_EXTENSIONS = ['mp3', 'wav', 'm4a', 'aac', 'ogg', 'oga', 'webm', 'flac', 'opus'];
 
 export function isAudioFilename(name: string): boolean {
@@ -26,7 +28,7 @@ async function loadPipeline(onProgress?: (text: string) => void): Promise<AsrPip
       const mod = (await import('@huggingface/transformers')) as unknown as {
         pipeline: (task: string, model: string) => Promise<AsrPipeline>;
       };
-      return mod.pipeline('automatic-speech-recognition', 'Xenova/whisper-tiny.en');
+      return mod.pipeline('automatic-speech-recognition', ASR_MODEL_ID);
     })();
   }
   return pipelinePromise;

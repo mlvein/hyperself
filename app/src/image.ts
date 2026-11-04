@@ -1,6 +1,11 @@
 // Image import: photos/scans become searchable text entries, dated from
-// EXIF when present. OCR runs on-device (Tesseract, one-time language
-// download, then offline). EXIF parsing is pure and unit-tested.
+// EXIF when present. OCR runs on-device with Muse Glimmer (Meta's
+// multimodal open-weight model) served by the local model server — the
+// image is sent only to this device. With no Meta server running, OCR
+// returns no text and the import still lands, dated from EXIF.
+// EXIF parsing is pure and unit-tested.
+
+import { isMetaModel, loadGlimmerConfig } from './engine';
 export const IMAGE_EXTENSIONS = ['jpg', 'jpeg', 'png', 'webp', 'gif', 'bmp', 'tif', 'tiff', 'heic', 'heif', 'avif'];
 
 export function isImageFilename(name: string): boolean {
@@ -97,29 +102,61 @@ function parseTiffDate(view: DataView, tiffStart: number): string | null {
   return null;
 }
 
-interface OcrWorker {
-  recognize: (image: Blob) => Promise<{ data: { text: string } }>;
-  terminate: () => Promise<void>;
-}
+type FetchFn = (input: string, init?: RequestInit) => Promise<Response>;
 
-let workerPromise: Promise<OcrWorker> | null = null;
+const defaultFetch: FetchFn = (input, init) => fetch(input, init);
 
-async function loadWorker(onProgress?: (text: string) => void): Promise<OcrWorker> {
-  if (!workerPromise) {
-    workerPromise = (async () => {
-      onProgress?.('Loading OCR engine on-device (one-time download)…');
-      const mod = (await import('tesseract.js')) as unknown as {
-        createWorker: (lang: string) => Promise<OcrWorker>;
-      };
-      return mod.createWorker('eng');
-    })();
+async function blobToDataUrl(blob: Blob): Promise<string> {
+  const bytes = new Uint8Array(await blob.arrayBuffer());
+  let binary = '';
+  const CHUNK = 8192;
+  for (let i = 0; i < bytes.length; i += CHUNK) {
+    binary += String.fromCharCode(...bytes.subarray(i, i + CHUNK));
   }
-  return workerPromise;
+  return `data:${blob.type || 'image/jpeg'};base64,${btoa(binary)}`;
 }
 
-export async function ocrImageBlob(blob: Blob, onProgress?: (text: string) => void): Promise<string> {
-  const worker = await loadWorker(onProgress);
-  onProgress?.('Reading text from image on-device…');
-  const { data } = await worker.recognize(blob);
-  return data.text.trim();
+/**
+ * OCR via the local Meta model. Any failure (server off, non-Meta model
+ * configured, empty reply) resolves to '' so image import never breaks;
+ * the caller records "no readable text" and keeps the EXIF date.
+ */
+export async function ocrImageBlob(
+  blob: Blob,
+  onProgress?: (text: string) => void,
+  fetchFn: FetchFn = defaultFetch,
+): Promise<string> {
+  const cfg = loadGlimmerConfig();
+  if (!isMetaModel(cfg.model)) return '';
+  try {
+    onProgress?.('Reading text from image on-device with Muse Glimmer…');
+    const dataUrl = await blobToDataUrl(blob);
+    const res = await fetchFn(`${cfg.endpoint}/chat/completions`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: cfg.model,
+        messages: [
+          {
+            role: 'user',
+            content: [
+              { type: 'text', text: 'Transcribe all visible text in this image exactly. Return only the transcribed text, or nothing if there is no text.' },
+              { type: 'image_url', image_url: { url: dataUrl } },
+            ],
+          },
+        ],
+        temperature: 0,
+        max_tokens: 1000,
+      }),
+    });
+    if (!res.ok) return '';
+    const data = (await res.json()) as {
+      choices?: Array<{ message?: { content?: string | Array<{ text?: string }> } }>;
+    };
+    const content = data.choices?.[0]?.message?.content ?? '';
+    const text = typeof content === 'string' ? content : content.map((part) => part.text ?? '').join('');
+    return text.trim();
+  } catch {
+    return '';
+  }
 }

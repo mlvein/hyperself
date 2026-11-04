@@ -30,7 +30,7 @@ A note on words: locally, Paths and synthesis read across *all* the knowledge yo
 
 ## Augmented Paths (optional, online)
 
-For deeper reasoning about how you learn, research, and work, a Path can be augmented by a frontier online model. This is optional, paid-tier by design, and off until you use it.
+For deeper reasoning about how you learn, research, and work, a Path can be augmented by Meta's Muse Spark online model (Meta Model API). This is optional, paid-tier by design, and off until you use it.
 
 Hyperself first builds a derived pattern profile: confirmed archetype labels, skill counts from the platform lexicon, and reading/research pattern labels. It never includes entries, names, dates, or text. You preview the exact payload, approve it for that one destination (the provider endpoint allowlist is enforced), and supply your own provider key, held for the session only. Revoke consent and forget the key at any time from the Path. The profile describes your patterns; it is minimized, not anonymous — the consent sheet says so before anything is sent.
 
@@ -44,7 +44,7 @@ The vault itself is AES-GCM encrypted storage unlocked by PIN, with optional bio
 
 ## Local models
 
-Synthesis drafts come from a model served on this device, over an OpenAI-compatible localhost endpoint (Ollama, llama.cpp, or vLLM). A light tier (llama3.2:3b, about 2 GB) suits laptops and smaller machines; a deep tier (Muse Glimmer 30B, Meta's open-weight model) needs roughly 24 GB or more of RAM. The app auto-connects when the server appears; choose endpoint and model in Settings (sidebar, bottom), and Synthesis shows which model is active. With no server running, drafts fall back to templated local synthesis and every other feature works regardless. Embeddings (MiniLM) and transcription (Whisper) run in-browser, also on-device.
+Synthesis drafts come from a model served on this device, over an OpenAI-compatible localhost endpoint (Ollama, llama.cpp, or vLLM). A light tier (llama3.2:3b, about 2 GB) suits laptops and smaller machines; a deep tier (Muse Glimmer 30B, Meta's open-weight model) needs roughly 24 GB or more of RAM. The app auto-connects when the server appears; choose endpoint and model in Settings (sidebar, bottom), and Synthesis shows which model is active. With no server running, drafts fall back to templated local synthesis and every other feature works regardless. Embeddings come from Meta Llama (llama3.2:3b) on that same local server, transcription runs Meta's wav2vec 2.0 in-browser, and image OCR runs through Muse Glimmer on the local server. Every model Hyperself calls at runtime is a Meta model: non-Meta model names are refused by the engine allowlist, and Augmented Paths accept only the Meta Model API.
 
 ## Legacy
 

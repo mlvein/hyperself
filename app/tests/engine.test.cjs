@@ -25,6 +25,7 @@ const {
   loadGlimmerConfig,
   pickEngineKind,
   pickServedModel,
+  isMetaModel,
   probeGlimmer,
   readChatStream,
   saveGlimmerConfig,
@@ -92,7 +93,11 @@ function sseResponse(chunks) {
   // tiers: model choice follows hardware reality, server decides availability
   assert.equal(tierForModel('muse-glimmer'), 'deep');
   assert.equal(tierForModel('llama3.2:3b'), 'light');
-  assert.equal(tierForModel('some-custom-thing'), 'custom');
+  assert.equal(tierForModel('some-custom-thing'), 'non-meta');
+  assert.ok(isMetaModel('muse-glimmer') && isMetaModel('llama3.2:3b') && isMetaModel('meta-llama/Llama-4'), 'Meta models pass the allowlist');
+  assert.ok(!isMetaModel('qwen3:8b') && !isMetaModel('gpt-4o') && !isMetaModel('some-custom-thing'), 'non-Meta models fail the allowlist');
+  assert.equal(pickServedModel('muse-glimmer', ['qwen3:8b']), '', 'a server with no Meta model offers nothing to call');
+  assert.equal(pickServedModel('qwen3:8b', ['qwen3:8b', 'llama3.2:3b']), 'llama3.2:3b', 'non-Meta served models are invisible to the picker');
   assert.equal(pickServedModel('muse-glimmer', ['llama3.2:3b']), 'llama3.2:3b', 'falls to the served light model');
   assert.equal(pickServedModel('llama3.2:3b', ['muse-glimmer', 'llama3.2:3b']), 'llama3.2:3b', 'configured model wins when served');
   assert.equal(pickServedModel('x', []), 'x', 'empty list keeps configured');
@@ -133,7 +138,7 @@ function sseResponse(chunks) {
   assert.ok(JSON.stringify(sentBody.messages).includes('Teardown checklist'), 'context entries are in the prompt');
 
   // non-streamed JSON fallback (servers that ignore stream)
-  const jsonEngine = new GlimmerEngine({ endpoint: 'http://x/v1', model: 'm' }, async () => ({
+  const jsonEngine = new GlimmerEngine({ endpoint: 'http://x/v1', model: 'llama3.2:3b' }, async () => ({
     ok: true,
     headers: { get: () => 'application/json' },
     body: null,
@@ -147,9 +152,12 @@ function sseResponse(chunks) {
   }), 'x', 'readChatStream handles JSON');
 
   // server down / HTTP error / empty reply → stub fallback, never throws
-  const down = new GlimmerEngine({ endpoint: 'http://x/v1', model: 'm' }, async () => { throw new Error('down'); });
+  const down = new GlimmerEngine({ endpoint: 'http://x/v1', model: 'llama3.2:3b' }, async () => { throw new Error('down'); });
   assert.ok((await down.draft('teardown', ctx)).includes('Teardown checklist'), 'network failure falls back to stub');
-  const httpErr = new GlimmerEngine({ endpoint: 'http://x/v1', model: 'm' }, async () => ({ ok: false, headers: { get: () => '' }, body: null, json: async () => ({}) }));
+  const httpErr = new GlimmerEngine({ endpoint: 'http://x/v1', model: 'llama3.2:3b' }, async () => ({ ok: false, headers: { get: () => '' }, body: null, json: async () => ({}) }));
+  const nonMeta = new GlimmerEngine({ endpoint: 'http://x/v1', model: 'qwen3:8b' }, async () => { throw new Error('must never be called'); });
+  assert.ok((await nonMeta.draft('teardown', ctx)).includes('Teardown checklist'), 'non-Meta model is never called; stub answers instead');
+  assert.equal(saveGlimmerConfig({ endpoint: 'http://localhost:11434/v1', model: 'qwen3:8b' }).model, 'muse-glimmer', 'saving a non-Meta model coerces to the Meta default');
   assert.ok((await httpErr.draft('teardown', ctx)).includes('Teardown checklist'), 'HTTP error falls back to stub');
   assert.ok((await glimmer.draft('q', [])).includes('no matching entries'), 'empty context short-circuits to stub');
 

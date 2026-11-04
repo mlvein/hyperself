@@ -23,13 +23,13 @@ ollama pull muse-glimmer
 OLLAMA_ORIGINS=http://localhost:5173 ollama serve
 ```
 
-The app probes the endpoint at load and auto-connects when the server appears (`src/engine.ts`: `ReconnectingEngine`); endpoint/model are configurable in Settings → “Local model — on this device” (sidebar, bottom) and persist locally; Synthesis shows the active model with a link to Settings. With no server, `StubEngine` produces templated drafts from retrieved entries. In-browser Transformers.js still handles MiniLM embeddings and Whisper transcription.
+The app probes the endpoint at load and auto-connects when the server appears (`src/engine.ts`: `ReconnectingEngine`); endpoint/model are configurable in Settings → “Local model — on this device” (sidebar, bottom) and persist locally; Synthesis shows the active model with a link to Settings. With no server, `StubEngine` produces templated drafts from retrieved entries. Embeddings come from Meta Llama (`llama3.2:3b`) on that same local server; transcription runs Meta's wav2vec 2.0 in-browser via Transformers.js, and image OCR runs through Muse Glimmer vision on the local server. Every model called at runtime is a Meta model — the engine allowlist (`isMetaModel`) refuses anything else.
 
 ## What's real
 
 - IA: sidebar navigation — Knowledgebase (Synthesis + Network + Import & Connect + Security) · Paths (Insights, Suggested Paths, Templates, History, Security) · Legacy (packs) · Settings at the sidebar bottom (local model, privacy shortcuts, interface language: English / Español for UI chrome — entries are never translated)
 - Ingestion-only Library: uploads, simulated connections, and persona files feed entries; the user curates tags (`personal` default; journal/health/finance/relationship/document can never be shareable) — no manual journaling
-- Formats: MD/TXT/CSV (bank statements, review-then-import), PDF text layer, DOCX, RTF, JSON, HTML (incl. Apple Journal), ICS, VCF; audio via on-device Whisper; images via Tesseract OCR + EXIF dating; folder sync with hash dedupe
+- Formats: MD/TXT/CSV (bank statements, review-then-import), PDF text layer, DOCX, RTF, JSON, HTML (incl. Apple Journal), ICS, VCF; audio via on-device Meta wav2vec 2.0; images via Muse Glimmer OCR + EXIF dating; folder sync with hash dedupe
 - Vault (`src/vault.ts`): AES-GCM sealed storage, PIN (PBKDF2) unwrap, optional WebAuthn PRF biometrics
 - Vulnerability layer (`src/security.ts`): local-only heuristic scan per entry with severity pills, summary card, and export confirm guard
 - Router (`src/router.ts`): task routing + `scrubForCloud` (fail-closed) for shareable pack tasks. Online reasoning exists only as Augmented Paths (`src/augmented.ts`, derived profile + BYO key); the former caller-less cloud plan generator was removed

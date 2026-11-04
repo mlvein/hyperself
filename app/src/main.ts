@@ -2269,7 +2269,7 @@ el('augPreviewBtn').addEventListener('click', () => {
     el('augConsent').hidden = false;
     status.textContent = isAllowedHost(endpoint)
       ? 'Review the exact payload, then send.'
-      : `Note: ${hostOf(endpoint)} is not on the allowlist — sending records your explicit consent for this host.`;
+      : `Note: ${hostOf(endpoint)} is not the Meta Model API — Augmented Paths only call Meta models, so Send will refuse this destination.`;
   } catch (err) {
     status.textContent = err instanceof StoreError ? err.message : 'Could not build the derived profile.';
   }
@@ -3126,7 +3126,7 @@ el('sub-timeline').addEventListener('click', (ev) => {
 });
 
 // Microphone input: records on-device, transcribes with the local
-// Whisper pipeline, and appends text to the target field. Nothing is
+// Meta wav2vec 2.0 pipeline, and appends text to the target field. Nothing is
 // uploaded; browsers without mic support get a plain explanation.
 
 function setMicNote(text: string): void {

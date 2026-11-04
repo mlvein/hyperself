@@ -26,18 +26,29 @@ OLLAMA_ORIGINS=http://localhost:5173 ollama serve
 
 The app connects automatically; choose the model in Settings (sidebar, bottom). With no server running, drafts fall back to templated local text and every other feature works. Demo personas (Maya, Daniel, Rosa — fictional, two decades each) load with Ctrl/Cmd+Shift+D.
 
+## Every runtime model is a Meta model
+
+Hyperself only ever calls Meta models at runtime — Muse Code was used to write the code, never as the app's brain:
+
+- **Synthesis, search answers, pack Q&A, image OCR** — Muse Glimmer (deep) or Llama 3.2 (light), Meta open weights served on your device.
+- **Embeddings** — Meta Llama (`llama3.2:3b`) on that same local server. No server, no embeddings: search degrades to keyword-only rather than calling a non-Meta model.
+- **Voice transcription** — Meta's wav2vec 2.0, in-browser.
+- **Augmented Paths (the one online feature)** — Muse Spark through the Meta Model API, over a derived pattern profile only.
+
+This is enforced in code, not just documented: the engine allowlist refuses any non-Meta model a server offers or a user configures, and Augmented Paths refuse any destination other than `api.meta.ai` and any non-Muse model.
+
 ## What it does
 
 - **Synthesis** — a profile with archetypes you can confirm, rename, or reject, and an essence written on-device from everything you brought.
 - **Network** — a full-width graph with you at the center; click a person (or the center circle, for your own timeline) for shared history and private notes.
 - **Import & Connect** — documents, statements, audio, images, folders, and per-service export guides for when an account can't link. Everything is parsed on your device.
 - **Paths** — Finance, Health, Relationship Rhythms, Reading Life, and Paths saved from your own searches. Suggested only when your data supports them; descriptive only, never advice.
-- **Augmented Paths** — optional online depth over a derived pattern profile you preview and approve. Never entries, names, or text.
+- **Augmented Paths** — optional online depth from Meta's Muse Spark (Meta Model API) over a derived pattern profile you preview and approve. Never entries, names, or text.
 - **Legacy** — hash-verified packs of shareable entries only, plus an encrypted whole-archive backup only you can open.
 
 ## Privacy in one paragraph
 
-Every entry is `personal` or `shareable`. Personal entries never leave the device, and sensitive kinds can never be shared at all. The vault is encrypted (PIN, optional biometrics), the core loop works offline, and the only online feature — Augmented Paths — sends a minimized pattern profile, only after you approve the exact payload, with your own provider key. Details: [guide](docs/GUIDE.md).
+Every entry is `personal` or `shareable`. Personal entries never leave the device, and sensitive kinds can never be shared at all. The vault is encrypted (PIN, optional biometrics), the core loop works offline, and the only online feature — Augmented Paths — sends a minimized pattern profile to Meta's Muse Spark via the Meta Model API, only after you approve the exact payload, with your own Meta API key. Details: [guide](docs/GUIDE.md).
 
 ## How Hyperself is different
 

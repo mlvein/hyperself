@@ -33,20 +33,28 @@ export const DEFAULT_GLIMMER_CONFIG: GlimmerConfig = {
 export const LIGHT_MODEL = 'llama3.2:3b';
 export const DEEP_MODEL = 'muse-glimmer';
 
-export type ModelTier = 'light' | 'deep' | 'custom';
+/** Every model Hyperself calls at runtime is a Meta model. This is the
+ * single allowlist gate: Muse (Glimmer/Spark/Wonder) and Llama family
+ * ids pass; anything else is never called, however it was configured. */
+export function isMetaModel(model: string): boolean {
+  const m = model.toLowerCase();
+  return /muse-(glimmer|spark|wonder)/.test(m) || /(^|[/:_-])llama/.test(m) || m.includes('meta-llama');
+}
+
+export type ModelTier = 'light' | 'deep' | 'non-meta';
 
 export function tierForModel(model: string): ModelTier {
+  if (!isMetaModel(model)) return 'non-meta';
   const m = model.toLowerCase();
   if (m.includes('muse-glimmer') || /(^|[:\-_])(30b|32b|70b)/.test(m)) return 'deep';
-  if (/(^|[:\-_])(1b|3b|4b|7b|8b)/.test(m) || m.includes('mini') || m.includes('small')) return 'light';
-  return 'custom';
+  return 'light';
 }
 
 export function tierLabel(model: string): string {
   const tier = tierForModel(model);
   if (tier === 'deep') return 'deep tier (needs ~24 GB+ RAM)';
   if (tier === 'light') return 'light tier (laptops & smaller machines)';
-  return 'custom model';
+  return 'not a Meta model — never called';
 }
 
 /** Model ids the local server reports, best-effort (Ollama/OpenAI shape). */
@@ -78,13 +86,19 @@ export async function fetchModelList(
   }
 }
 
-/** Prefer the configured model; else deep if served, else light, else first. */
+/**
+ * Prefer the configured Meta model; else the served deep Meta model, else
+ * the served light Meta model. Non-Meta served models are invisible here.
+ * Returns '' when the server offers models but none of them is a Meta model.
+ */
 export function pickServedModel(configured: string, served: string[]): string {
   if (!served.length) return configured;
-  if (served.includes(configured)) return configured;
-  if (served.includes(DEEP_MODEL)) return DEEP_MODEL;
-  if (served.includes(LIGHT_MODEL)) return LIGHT_MODEL;
-  return served[0];
+  const meta = served.filter(isMetaModel);
+  if (!meta.length) return '';
+  if (meta.includes(configured)) return configured;
+  if (meta.includes(DEEP_MODEL)) return DEEP_MODEL;
+  if (meta.includes(LIGHT_MODEL)) return LIGHT_MODEL;
+  return meta[0];
 }
 
 const GLIMMER_KEY = 'hyperself.glimmer.v1';
@@ -96,7 +110,7 @@ export function loadGlimmerConfig(): GlimmerConfig {
     const parsed = JSON.parse(raw) as Partial<GlimmerConfig>;
     return {
       endpoint: typeof parsed.endpoint === 'string' && parsed.endpoint.trim() ? parsed.endpoint.trim().replace(/\/+$/, '') : DEFAULT_GLIMMER_CONFIG.endpoint,
-      model: typeof parsed.model === 'string' && parsed.model.trim() ? parsed.model.trim() : DEFAULT_GLIMMER_CONFIG.model,
+      model: typeof parsed.model === 'string' && isMetaModel(parsed.model.trim()) ? parsed.model.trim() : DEFAULT_GLIMMER_CONFIG.model,
     };
   } catch {
     return { ...DEFAULT_GLIMMER_CONFIG };
@@ -106,7 +120,7 @@ export function loadGlimmerConfig(): GlimmerConfig {
 export function saveGlimmerConfig(cfg: GlimmerConfig): GlimmerConfig {
   const clean: GlimmerConfig = {
     endpoint: cfg.endpoint.trim().replace(/\/+$/, '') || DEFAULT_GLIMMER_CONFIG.endpoint,
-    model: cfg.model.trim() || DEFAULT_GLIMMER_CONFIG.model,
+    model: cfg.model.trim() && isMetaModel(cfg.model.trim()) ? cfg.model.trim() : DEFAULT_GLIMMER_CONFIG.model,
   };
   try {
     localStorage.setItem(GLIMMER_KEY, JSON.stringify(clean));
@@ -256,6 +270,7 @@ export class GlimmerEngine implements LocalEngine {
   }
 
   async draft(query: string, context: Entry[]): Promise<string> {
+    if (!isMetaModel(this.cfg.model)) return this.fallback.draft(query, context);
     if (context.length === 0) return this.fallback.draft(query, context);
     try {
       const controller = new AbortController();
@@ -360,6 +375,14 @@ export async function initLocalEngine(): Promise<{ engine: LocalEngine; notice: 
   }
   const served = await fetchModelList(configured);
   const picked = pickServedModel(configured.model, served);
+  if (!picked || !isMetaModel(picked)) {
+    return {
+      engine: new ReconnectingEngine(configured, defaultFetch, { initiallyConnected: false }),
+      notice:
+        'Local model server is running but offers no Meta model — using templated local drafts. ' +
+        'Hyperself only calls Meta models (Muse Glimmer or Llama); serve one and the next synthesis will connect on its own.',
+    };
+  }
   const cfg: GlimmerConfig = { ...configured, model: picked };
   const note = picked === configured.model ? '' : ` Using ${picked} (the server does not offer ${configured.model}).`;
   return {

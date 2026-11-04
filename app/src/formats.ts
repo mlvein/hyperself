@@ -300,7 +300,7 @@ export function needsOcrFallback(text: string): boolean {
 
 /**
  * Scanned-PDF fallback: render pages to images and OCR them on-device
- * (Tesseract via image.ts). Capped pages keep a huge scan from wedging
+ * (Muse Glimmer vision via image.ts). Capped pages keep a huge scan from wedging
  * the tab; the cap is reported through onProgress.
  */
 export async function pdfToOcrText(

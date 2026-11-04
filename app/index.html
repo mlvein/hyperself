@@ -271,7 +271,7 @@
             <p class="hint">Pinned Paths live in the sidebar under Paths. Unpin from Your Paths to remove one.</p>
             <div class="card" id="augmentedCard" hidden>
               <h2>Augmented Path <span class="meta">paid · online · optional</span></h2>
-              <p class="hint">Frontier online reasoning over how you learn and research. Only a derived pattern profile is sent — counts and pattern labels, no entries, names, or text — only when you approve the exact payload. This profile describes your patterns; it is minimized, not anonymous.</p>
+              <p class="hint">Online reasoning by a Meta model (Muse Spark, via the Meta Model API) over how you learn and research. Only a derived pattern profile is sent — counts and pattern labels, no entries, names, or text — only when you approve the exact payload. This profile describes your patterns; it is minimized, not anonymous.</p>
               <div class="row">
                 <label>Provider endpoint
                   <input type="text" id="augEndpoint" size="30" spellcheck="false" />
@@ -369,7 +369,7 @@
         </div>
         <div class="card">
           <h2>Augmented Paths (optional, online)</h2>
-          <p>For deeper reasoning about how you learn, research, and work, a Path can be augmented by a frontier online model. This is optional and off until you use it. Hyperself first builds a derived pattern profile — archetype labels, skill counts, and reading/research pattern labels. It never includes entries, names, or text. You preview the exact payload, approve it for that one destination, and supply your own provider key, which is kept for the session only. You can revoke consent and forget the key at any time from the Path.</p>
+          <p>For deeper reasoning about how you learn, research, and work, a Path can be augmented by Meta's Muse Spark online model. This is optional and off until you use it. Hyperself first builds a derived pattern profile — archetype labels, skill counts, and reading/research pattern labels. It never includes entries, names, or text. You preview the exact payload, approve it for that one destination, and supply your own provider key, which is kept for the session only. You can revoke consent and forget the key at any time from the Path.</p>
         </div>
         <div class="card">
           <h2>Privacy: two tags govern everything</h2>
@@ -392,7 +392,7 @@
       <section id="view-settings" hidden aria-label="Settings">
         <div class="card">
           <h2 data-i18n="settings.model">Local model — on this device</h2>
-          <p class="hint">Synthesis runs on a model served on this device (Ollama, llama.cpp, or vLLM). Light tier (a 3B model, about 2 GB) suits laptops and smaller machines; deep tier (Muse Glimmer 30B) needs roughly 24 GB+ of RAM. The app only ever calls the endpoint below on this machine — no data leaves this device. If the server is off, templated local drafts are used instead.</p>
+          <p class="hint">Every model Hyperself calls is a Meta model. Synthesis runs on a Meta model served on this device (Muse Glimmer or Llama, via Ollama, llama.cpp, or vLLM); embeddings and image reading use that same Meta server, voice uses Meta's wav2vec 2.0 on-device, and the one online feature calls Muse Spark through the Meta Model API. Light tier (a 3B model, about 2 GB) suits laptops and smaller machines; deep tier (Muse Glimmer 30B) needs roughly 24 GB+ of RAM. The app only ever calls the endpoint below on this machine — no data leaves this device. If the server is off, templated local drafts are used instead.</p>
           <div class="row">
             <button type="button" id="glimmerTierLight" class="small">Use light — llama3.2:3b (laptops)</button>
             <button type="button" id="glimmerTierDeep" class="small">Use deep — Muse Glimmer (24 GB+ RAM)</button>

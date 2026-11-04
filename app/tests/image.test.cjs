@@ -1,6 +1,6 @@
 // Focused test: image imports — EXIF dating + OCR ingest + people tags.
 const assert = require('node:assert/strict');
-const { parseExifDate, isImageFilename } = require('../.test-compiled/image.js');
+const { parseExifDate, isImageFilename, ocrImageBlob } = require('../.test-compiled/image.js');
 const { ingestDoc } = require('../.test-compiled/ingest.js');
 
 const mem = new Map();
@@ -58,5 +58,21 @@ const entry = db.entries.find((e) => e.source_label === 'reunion.jpg');
 assert.ok(entry, 'image entry stored');
 assert.ok(entry.created_at.startsWith('2015-06-07'), 'entry dated from EXIF, not today');
 assert.deepEqual(entry.people, ['Priya Nair'], 'person tagged for the network');
+
+// OCR calls Muse Glimmer (Meta) on the local server, never a non-Meta engine.
+void (async () => {
+  let seen = null;
+  const text = await ocrImageBlob(new Blob(['fake-jpeg'], { type: 'image/jpeg' }), undefined, async (url, init) => {
+    seen = { url, body: JSON.parse(init.body) };
+    return { ok: true, json: async () => ({ choices: [{ message: { content: 'Reunion lunch menu' } }] }) };
+  });
+  assert.equal(text, 'Reunion lunch menu', 'Glimmer OCR text returned');
+  assert.equal(seen.body.model, 'muse-glimmer', 'OCR model is Meta Muse Glimmer');
+  assert.ok(JSON.stringify(seen.body.messages).includes('image_url'), 'image sent to the local Meta model');
+  assert.ok(seen.url.endsWith('/chat/completions'), 'OCR stays on the local server endpoint');
+  const down = await ocrImageBlob(new Blob(['x'], { type: 'image/jpeg' }), undefined, async () => ({ ok: false, status: 503, json: async () => ({}) }));
+  assert.equal(down, '', 'no Meta server means no OCR text, import still proceeds');
+  console.log('image ocr OK: Muse Glimmer vision OCR, fail-soft');
+})();
 
 console.log('image OK: EXIF date, OCR ingest, people tagging');

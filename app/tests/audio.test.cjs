@@ -1,6 +1,8 @@
 // Focused test: audio imports become searchable transcripts.
 const assert = require('node:assert/strict');
-const { isAudioFilename } = require('../.test-compiled/transcribe.js');
+const { isAudioFilename, ASR_MODEL_ID } = require('../.test-compiled/transcribe.js');
+assert.ok(/wav2vec2/.test(ASR_MODEL_ID), 'transcription uses Meta wav2vec 2.0 weights');
+assert.ok(!/whisper/i.test(ASR_MODEL_ID), 'transcription no longer uses Whisper');
 const { isAudioEntry, hasAudioIntent, runKnowledgeSearch } = require('../.test-compiled/search.js');
 const { ingestDoc } = require('../.test-compiled/ingest.js');
 

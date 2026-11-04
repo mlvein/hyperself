@@ -6,7 +6,7 @@ Target: 180 seconds wall-clock, ~230 spoken words — the rest is clicks, loads,
 ## Before you walk on (not timed)
 
 - Production build (`npm run build && npm run preview`), not `npm run dev`.
-- Load the preview once **online**: let the service worker install (`hyperself-v19`), load Maya once so `personas/maya.json` is cached, and pre-warm Whisper assets.
+- Load the preview once **online**: let the service worker install (`hyperself-v19`), load Maya once so `personas/maya.json` is cached, and pre-warm wav2vec 2.0 assets. Start the local Meta model server (Ollama with `muse-glimmer` or `llama3.2:3b`) and confirm Settings shows it connected — every model called at runtime is a Meta model, and the demo must show a live one.
 - Vault created on this browser profile, PIN + biometrics both enrolled.
 - `demo/demo-statement.csv` one click away. Notifications and sleep off. Backup recording playing-ready.
 
@@ -22,7 +22,7 @@ Target: 180 seconds wall-clock, ~230 spoken words — the rest is clicks, loads,
 
 **On screen:** Vault lock screen → unlock with fingerprint.
 
-> "My archive is encrypted on this device, and my fingerprint unwraps it. There's no account and no server holding my data. So there's nothing to breach."
+> "My archive is encrypted on this device, and my fingerprint unwraps it. There's no account and no server holding my data. So there's nothing to breach. And the model that will read it is Meta's Muse Glimmer, running right here on this machine — every model Hyperself calls is a Meta model."
 
 *Fallback, say it while doing it:* "And where biometrics aren't available, a PIN unwraps the same vault."
 
@@ -71,7 +71,7 @@ Stop. Do not add a roadmap slide to the spoken close; hold it for Q&A.
 ## Fallbacks (rehearse out loud)
 
 - **Biometrics stall** → PIN line above, keep moving. The encryption point stands.
-- **Local model cold or absent** → say nothing. Budgeting and Paths are rule-based; Synthesis falling back to templated local text is still on-device and still true.
+- **Local model cold or absent** → Budgeting and Paths are rule-based, so keep moving — but know the fallback demos no runtime model call. Prevention beats this fallback: warm Glimmer before the talk and check Settings shows it connected.
 - **Maya not cached offline** → skip Beat 5's load, narrate over the Budgeting Path and close 20 seconds early. Never troubleshoot on stage.
 - **Total stage failure** → switch to the backup recording and narrate over it.
 
