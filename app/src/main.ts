@@ -264,13 +264,6 @@ document.getElementById('languageSelect')?.addEventListener('change', (ev) => {
   mountSearch(searchTargetFor(currentView));
 });
 
-// --- Header greeting ---
-
-function renderGreeting(): void {
-  const profile = getProfile();
-  el('userGreeting').textContent = profile ? `Hello, ${profile.name}` : '';
-}
-
 // --- Knowledgebase synthesis + growth (raw entries are never listed) ---
 
 function currentAnalysis() {
@@ -2094,7 +2087,6 @@ function obSaveName(): void {
   const value = input?.value.trim() ?? '';
   if (value) {
     setProfile(value);
-    renderGreeting();
   }
 }
 
@@ -2234,7 +2226,6 @@ function renderAll(): void {
   renderLibrary();
   void indexPending(true);
   renderNetwork();
-  renderGreeting();
   renderSecurity();
   renderPaths();
   renderPacks();

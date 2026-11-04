@@ -32,6 +32,8 @@ assert.ok(html.includes('id="subnavBar"'), 'submenu strip is back at the top of 
 assert.ok(html.indexOf('id="subnavBar"') < html.indexOf('<main>'), 'submenu strip sits above the main view');
 const aside = slice('<aside', '</aside>');
 assert.ok(!aside.includes('data-sub='), 'submenus no longer live in the sidebar');
+assert.ok(!aside.includes('userGreeting'), 'sidebar has no Hello,[name] greeting');
+assert.ok(!main.includes('renderGreeting'), 'greeting renderer removed');
 assert.ok(html.includes('data-sub="security" class="subnav-action'), 'Security sits at the right end of the submenu');
 assert.ok(html.includes('id="sidebar"'), 'sidebar id wired for the delegated subnav listener');
 
