@@ -19,7 +19,9 @@
         <span id="offlineBadge" class="badge-offline" hidden>Offline · on-device</span>
       </div>
       <nav class="tabs sidebar-nav" aria-label="Main menu">
-        <button type="button" data-view="knowledge" class="active"><img src="/assets/hyperself/icons/brand-knowledgebase.svg" width="24" height="24" alt="" /><span data-i18n="nav.knowledge">Knowledgebase</span></button>
+        <button type="button" data-view="knowledge" data-sub-link="library" class="active"><img src="/assets/hyperself/icons/brand-knowledgebase.svg" width="24" height="24" alt="" /><span data-i18n="nav.knowledge">Knowledgebase</span></button>
+        <button type="button" data-view="knowledge" data-sub-link="network"><img src="/assets/hyperself/icons/route.svg" width="24" height="24" alt="" /><span data-i18n="sub.network">Network</span></button>
+        <button type="button" data-view="knowledge" data-sub-link="import"><img src="/assets/hyperself/icons/link.svg" width="24" height="24" alt="" /><span data-i18n="sub.import">Import &amp; Connect</span></button>
         <button type="button" data-view="timeline"><img src="/assets/hyperself/icons/brand-timeline.svg" width="24" height="24" alt="" /><span data-i18n="sub.timeline">Timeline</span></button>
         <button type="button" data-view="paths"><img src="/assets/hyperself/icons/brand-paths.svg" width="24" height="24" alt="" /><span data-i18n="nav.paths">Paths</span> <span id="pathsBadge" class="badge" hidden>0</span></button>
         <button type="button" data-view="legacy"><img src="/assets/hyperself/icons/brand-legacy.svg" width="24" height="24" alt="" /><span data-i18n="nav.legacy">Legacy</span></button>
@@ -34,8 +36,7 @@
     <div id="subnavBar" class="submenu-strip">
       <div id="subnav-knowledge" class="subnav" role="tablist" aria-label="Knowledgebase sections">
         <button type="button" data-sub="library" class="active"><span data-i18n="sub.synthesis">Synthesis</span></button>
-        <button type="button" data-sub="network"><span data-i18n="sub.network">Network</span></button>
-        <button type="button" data-sub="import"><span data-i18n="sub.import">Import &amp; Connect</span></button>
+        <button type="button" data-sub="archetypes"><span data-i18n="sub.archetypes">Archetypes</span> <span id="archetypesBadge" class="badge" hidden>0</span></button>
         <button type="button" data-sub="security" class="subnav-action sec-tab">
           <img src="/assets/hyperself/icons/shield-check.svg" width="18" height="18" alt="" />
           <span data-i18n="sub.security">Security</span> <span id="secBadge" class="badge" hidden>0</span>
@@ -100,9 +101,18 @@
               </div>
             </div>
             <p class="hint model-status-line"><span data-i18n="synth.model">Local model:</span> <span id="synthesisModelLabel">checking…</span> <button type="button" id="openSettingsBtn" class="linklike" data-i18n="synth.change">Change in Settings</button></p>
+            <div id="synthesisTimelineCard" class="card synth-timeline-card" role="button" tabindex="0" aria-label="Open Timeline">
+              <h3>Timeline overview</h3>
+              <div id="synthesisTimeline"></div>
+              <p class="hint">Open Timeline →</p>
+            </div>
             <div id="synthesisCards" class="list"></div>
             <p class="hint">Looking for something specific? Ask in the search bar above.</p>
           </div>
+        </div>
+
+        <div id="sub-archetypes" hidden>
+          <div id="archetypeCards" class="list"></div>
         </div>
 
         <div id="sub-security" hidden>

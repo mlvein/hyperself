@@ -34,6 +34,21 @@ const aside = slice('<aside', '</aside>');
 assert.ok(!aside.includes('data-sub='), 'submenus no longer live in the sidebar');
 assert.ok(!aside.includes('userGreeting'), 'sidebar has no Hello,[name] greeting');
 assert.ok(!main.includes('renderGreeting'), 'greeting renderer removed');
+assert.ok(aside.includes('data-sub-link="network"'), 'Network lives in the sidebar');
+assert.ok(aside.includes('data-sub-link="import"'), 'Import & Connect lives in the sidebar');
+{
+  const kbStrip = html.slice(html.indexOf('id="subnav-knowledge"'), html.indexOf('id="subnav-paths"'));
+  assert.ok(!kbStrip.includes('data-sub="network"'), 'Network left the Knowledgebase strip');
+  assert.ok(!kbStrip.includes('data-sub="import"'), 'Import & Connect left the Knowledgebase strip');
+  assert.ok(kbStrip.includes('data-sub="archetypes"'), 'Archetypes tab beside Synthesis');
+  assert.ok(kbStrip.includes('id="archetypesBadge"'), 'archetype count badge beside the label');
+}
+assert.ok(html.includes('id="sub-archetypes"'), 'archetypes pane present');
+assert.ok(html.includes('id="archetypeCards"'), 'archetype cards container present');
+assert.ok(main.includes("archetypes: 'sub-archetypes'"), 'archetypes pane wired in SUB_PANES');
+assert.ok(html.includes('id="synthesisTimeline"'), 'Synthesis timeline overview present');
+assert.ok(main.includes('renderSynthesisTimelineOverview'), 'Synthesis timeline overview rendered');
+assert.ok(main.includes("showView('timeline')"), 'overview opens the Timeline view');
 assert.ok(html.includes('data-sub="security" class="subnav-action'), 'Security sits at the right end of the submenu');
 assert.ok(html.includes('id="sidebar"'), 'sidebar id wired for the delegated subnav listener');
 

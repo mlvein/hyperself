@@ -618,6 +618,11 @@ button:disabled { opacity: 0.45; cursor: default; }
 .search-hit p { margin: 0.35rem 0 0; }
 
 .archetype-card { border-color: var(--line); }
+.synth-timeline-card { cursor: pointer; margin-bottom: 16px; }
+.synth-timeline-card:hover { border-color: var(--ink); }
+.synth-timeline-card h3 { margin: 0 0 8px; }
+#synthesisTimeline svg { width: 100%; height: auto; display: block; }
+.arch-detail-row { display: grid; grid-template-columns: 110px 1fr 44px; gap: 8px; align-items: center; font-size: 13px; margin: 4px 0; }
 .badge-offline {
   font-size: 12px; line-height: 1.5; border-radius: 999px; padding: 3px 8px;
   border: none; background: var(--status-info-background); color: var(--text-secondary); font-weight: 400;

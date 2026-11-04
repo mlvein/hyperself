@@ -224,12 +224,23 @@ function searchTargetFor(view: string): string {
   return view === 'knowledge' && !el('sub-network').hidden ? 'network' : view;
 }
 
+let knowledgeSub = 'library';
+
+function syncSidebarActive(): void {
+  document.querySelectorAll('.sidebar-nav button').forEach((b) => {
+    const btn = b as HTMLElement;
+    const sub = btn.dataset.subLink;
+    const active = sub
+      ? currentView === 'knowledge' && (sub === 'library' ? knowledgeSub === 'library' || knowledgeSub === 'security' : knowledgeSub === sub)
+      : btn.dataset.view === currentView;
+    btn.classList.toggle('active', active);
+  });
+}
+
 function showView(view: string): void {
   currentView = view;
   mountSearch(searchTargetFor(view));
-  document
-    .querySelectorAll('.tabs button')
-    .forEach((b) => b.classList.toggle('active', (b as HTMLElement).dataset.view === view));
+  syncSidebarActive();
   el('settingsNavBtn').classList.toggle('active', view === 'settings');
   el('guideNavBtn').classList.toggle('active', view === 'guide');
   for (const section of document.querySelectorAll('main > section')) {
@@ -242,7 +253,10 @@ function showView(view: string): void {
 }
 
 document.querySelectorAll<HTMLButtonElement>('.tabs button').forEach((btn) => {
-  btn.addEventListener('click', () => showView(btn.dataset.view ?? 'knowledge'));
+  btn.addEventListener('click', () => {
+    showView(btn.dataset.view ?? 'knowledge');
+    if (btn.dataset.subLink) showSub('knowledge', btn.dataset.subLink);
+  });
 });
 el('settingsNavBtn').addEventListener('click', () => showView('settings'));
 el('guideNavBtn').addEventListener('click', () => showView('guide'));
@@ -373,15 +387,20 @@ function renderSynthesisCards(_overviewBody = ''): void {
   void _overviewBody;
   const a = currentAnalysis();
   const cards = buildSynthesisCards(listEntries(), a);
-  const archetypeCards = visibleArchetypes()
+  const available = visibleArchetypes(8);
+  const badge = el('archetypesBadge');
+  badge.hidden = available.length === 0;
+  badge.textContent = String(available.length);
+  const archetypeCards = available
     .map((arch) => {
       const template = templateForArchetype(arch.id);
       return `<article class="item archetype-card" data-archetype-card="${arch.id}">
         <header><h3>${escapeHtml(arch.label)}</h3><span class="archetype-pill">${arch.confirmed ? 'Confirmed archetype' : 'Archetype'}</span></header>
         <p>${escapeHtml(arch.meaning)}</p>
         <p class="meta">Why this fits: ${escapeHtml(arch.evidence)}.</p>
-        <p class="meta">Strength ${arch.strength}/100 · Confidence ${arch.confidence}/100 · Trend: ${escapeHtml(arch.trend)}</p>
-        <div class="budget-bar" aria-hidden="true"><span style="width:${arch.strength}%"></span></div>
+        <div class="arch-detail-row"><span>Strength</span><span class="budget-bar" aria-hidden="true"><span style="width:${arch.strength}%"></span></span><strong>${arch.strength}/100</strong></div>
+        <div class="arch-detail-row"><span>Confidence</span><span class="budget-bar" aria-hidden="true"><span style="width:${arch.confidence}%"></span></span><strong>${arch.confidence}/100</strong></div>
+        <p class="meta">Trend: ${escapeHtml(arch.trend)} · Signal score ${arch.score}</p>
         <p class="meta">Watch for: ${escapeHtml(arch.watchFor)}</p>
         <div class="row" style="margin-top:0.5rem">
           <button type="button" class="small secondary" data-archetype-action="confirm" data-archetype-id="${arch.id}">${arch.confirmed ? 'Confirmed' : 'Confirm'}</button>
@@ -396,9 +415,10 @@ function renderSynthesisCards(_overviewBody = ''): void {
   const timelineCard = eras.length > 1
     ? `<article class="item"><header><h3>How your archetypes changed</h3></header>${eras.map((era) => `<p class="meta"><strong>${escapeHtml(era.label)}:</strong> ${applyArchetypePreferences(era.archetypes, getArchetypePreferences()).map((a) => escapeHtml(a.label)).join(' · ') || 'Patterns forming'}</p>`).join('')}</article>`
     : '';
+  el('archetypeCards').innerHTML = available.length
+    ? timelineCard + archetypeCards
+    : '<div class="card"><h2>No archetypes yet</h2><p class="hint">Add more knowledge in Import &amp; Connect and patterns will appear here.</p></div>';
   el('synthesisCards').innerHTML =
-    timelineCard +
-    archetypeCards +
     cards
       .map(
         (c) => `<article class="item">
@@ -1296,7 +1316,7 @@ el('searchResults').addEventListener('click', (ev) => {
 
 // --- Archetype agency + archetype-seeded Paths ---
 
-el('synthesisCards').addEventListener('click', (ev) => {
+el('archetypeCards').addEventListener('click', (ev) => {
   const pathBtn = (ev.target as HTMLElement).closest('button[data-archetype-path]') as HTMLButtonElement | null;
   if (pathBtn) {
     const archetypeId = pathBtn.getAttribute('data-archetype-path') ?? '';
@@ -2243,6 +2263,51 @@ let timelineZoom: TimelineGranularity | null = null;
 let currentGranularity: TimelineGranularity = 'month';
 let currentTags: TimelineTag[] = [];
 
+/** Simplified D3 timeline on Synthesis: same periods/colors as the
+ * Timeline tab at a glance. The whole card opens Timeline. */
+function renderSynthesisTimelineOverview(entries: Entry[]): void {
+  const card = el('synthesisTimelineCard');
+  const host = el('synthesisTimeline');
+  const tl = buildTimeline(entries);
+  card.hidden = tl.periods.length === 0;
+  if (!tl.periods.length) {
+    host.innerHTML = '';
+    return;
+  }
+  const spikeStarts = new Set(tl.tags.filter((t) => t.kind === 'spike').map((t) => t.from));
+  const width = 820;
+  const height = 110;
+  const max = Math.max(1, ...tl.periods.map((p) => p.total));
+  const barW = width / tl.periods.length;
+  host.innerHTML = '';
+  const s = d3.select(host).append('svg')
+    .attr('viewBox', `0 0 ${width} ${height}`)
+    .attr('role', 'img')
+    .attr('aria-label', 'Timeline overview');
+  s.selectAll('rect')
+    .data(tl.periods)
+    .join('rect')
+    .attr('x', (_p, i) => i * barW + 1)
+    .attr('y', (p) => height - 18 - (p.total / max) * (height - 26))
+    .attr('width', Math.max(1, barW - 2))
+    .attr('height', (p) => Math.max(1, (p.total / max) * (height - 26)))
+    .attr('fill', (p) => (p.total === 0 ? '#f8f7fb' : spikeStarts.has(p.start) ? '#ffc508' : '#a59acb'));
+  s.append('text')
+    .attr('x', 0)
+    .attr('y', height - 4)
+    .attr('font-size', '11px')
+    .attr('fill', '#585875')
+    .text(`${tl.periods[0].label} – ${tl.periods[tl.periods.length - 1].label}`);
+}
+
+el('synthesisTimelineCard').addEventListener('click', () => showView('timeline'));
+el('synthesisTimelineCard').addEventListener('keydown', (ev) => {
+  if (ev.key === 'Enter' || ev.key === ' ') {
+    ev.preventDefault();
+    showView('timeline');
+  }
+});
+
 /** D3 bar chart over timeline periods: axis component below, counts
  * scaled, horizontally scrollable, click a bar to inspect the period. */
 function renderTimelineChart(tl: ReturnType<typeof buildTimeline>, entries: Entry[]): void {
@@ -2337,6 +2402,7 @@ function renderTimelineChart(tl: ReturnType<typeof buildTimeline>, entries: Entr
 
 function renderTimeline(): void {
   const entries = listEntries();
+  renderSynthesisTimelineOverview(entries);
   const tl = buildTimeline(entries, timelineZoom ?? undefined);
   currentGaps = tl.gaps;
   currentTags = tl.tags;
@@ -2624,7 +2690,7 @@ el('sub-timeline').addEventListener('click', (ev) => {
 // --- Submenus (strip at the top of the main view) ---
 
 const SUB_PANES: Record<string, Record<string, string>> = {
-  knowledge: { library: 'sub-library', network: 'sub-network', import: 'sub-import', security: 'sub-security' },
+  knowledge: { library: 'sub-library', archetypes: 'sub-archetypes', network: 'sub-network', import: 'sub-import', security: 'sub-security' },
   paths: { insights: 'sub-insights', templates: 'sub-templates', history: 'sub-history', security: 'sub-security-paths', path: 'sub-path-detail' },
   legacy: { export: 'sub-export' },
 };
@@ -2641,7 +2707,11 @@ function showSub(view: string, name: string, pathId?: string): void {
   for (const [key, id] of Object.entries(panes)) {
     el(id).hidden = key !== name;
   }
-  if (view === 'knowledge') mountSearch(name === 'network' ? 'network' : 'knowledge');
+  if (view === 'knowledge') {
+    knowledgeSub = name;
+    syncSidebarActive();
+    mountSearch(name === 'network' ? 'network' : 'knowledge');
+  }
 }
 
 el('subnavBar').addEventListener('click', (ev) => {
