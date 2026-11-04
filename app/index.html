@@ -192,25 +192,29 @@
       <section id="view-timeline" hidden aria-label="Timeline">
         <div class="view-search" data-search-slot="timeline"></div>
         <div id="sub-timeline">
+          <h2 class="timeline-title">Timeline</h2>
+          <div class="row tl-mode-row" role="tablist" aria-label="Timeline view">
+            <button type="button" class="tl-mode active" data-timeline-mode="summary">Summarized</button>
+            <button type="button" class="tl-mode secondary" data-timeline-mode="uploaded">Uploaded data</button>
+          </div>
+          <p id="timelineMeta" class="hint timeline-caption"></p>
+          <p id="timelineUploadedCaption" class="hint timeline-caption" hidden>Each mark is one uploaded entry, ordered by its source date. Scroll horizontally for more.</p>
           <div class="card timeline-card">
-            <div class="row" role="tablist" aria-label="Timeline view">
-              <button type="button" class="small tl-mode active" data-timeline-mode="summary">Summarized</button>
-              <button type="button" class="small tl-mode" data-timeline-mode="uploaded">Uploaded data</button>
-              <span id="timelineMeta" class="hint"></span>
-            </div>
             <div class="timeline-stage">
               <div class="timeline-overlay">
                 <span id="timelineTypeFilters" class="tl-filter-row"></span>
                 <span class="tl-zoom">
-                  <button type="button" id="tlZoomOut" class="small" aria-label="Zoom out">−</button>
+                  <button type="button" id="tlZoomOut" class="small secondary" aria-label="Zoom out">−</button>
                   <span id="tlZoomLabel" class="hint">Months</span>
-                  <button type="button" id="tlZoomIn" class="small" aria-label="Zoom in">+</button>
+                  <button type="button" id="tlZoomIn" class="small secondary" aria-label="Zoom in">+</button>
                 </span>
               </div>
               <div class="timeline-scroll">
                 <div id="timelineChart"></div>
               </div>
             </div>
+            <p class="timeline-legend"><span class="tl-met-dot" aria-hidden="true"></span> First meeting · select a dot’s period for details ⓘ</p>
+            <p id="timelineRange" class="hint timeline-caption"></p>
             <div id="timelineTags" class="timeline-tags"></div>
             <div id="timelineUploaded" hidden></div>
           </div>
@@ -479,9 +483,11 @@ OLLAMA_ORIGINS=http://localhost:5173 ollama serve</pre>
 
     <div id="timelineModal" class="overlay" hidden>
       <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="timelineModalTitle">
-        <h2 id="timelineModalTitle">Timeline</h2>
+        <div class="drawer-header">
+          <h2 id="timelineModalTitle">Timeline</h2>
+          <button type="button" id="timelineModalClose" class="secondary">× Close</button>
+        </div>
         <div id="timelineModalBody"></div>
-        <p><button type="button" id="timelineModalClose" class="linklike">Close</button></p>
       </div>
     </div>
 

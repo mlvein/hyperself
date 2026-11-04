@@ -2258,7 +2258,7 @@ function renderTimelineChart(tl: ReturnType<typeof buildTimeline>, entries: Entr
   const host = el('timelineChart');
   host.innerHTML = '';
   if (!tl.periods.length) {
-    host.innerHTML = '<p class="hint">Nothing to chart yet — import knowledge in Import &amp; Connect.</p>';
+    host.innerHTML = '<div class="tl-empty"><h3>Your timeline starts with your knowledge</h3><p>Import a document, image or recording with a date to begin exploring your archive.</p><p class="hint">No entries yet. Patterns and analysis will appear only when there is enough material.</p><button type="button" data-timeline-import="1">Import &amp; Connect</button></div>';
     return;
   }
   const valueOf = (p: (typeof tl.periods)[number]): number =>
@@ -2298,8 +2298,8 @@ function renderTimelineChart(tl: ReturnType<typeof buildTimeline>, entries: Entr
     .attr('transform', `translate(0,${innerHeight})`)
     .call(xAxis)
     .selectAll('text')
-    .attr('transform', 'rotate(-32)')
-    .style('text-anchor', 'end');
+    .style('text-anchor', 'middle')
+    .attr('font-size', '11px');
   g.append('g').call(d3.axisLeft(y).ticks(5).tickSizeOuter(0));
   g.selectAll('rect.tl-bar')
     .data(tl.periods)
@@ -2309,7 +2309,7 @@ function renderTimelineChart(tl: ReturnType<typeof buildTimeline>, entries: Entr
     .attr('y', (p) => y(valueOf(p)))
     .attr('width', x.bandwidth())
     .attr('height', (p) => innerHeight - y(valueOf(p)))
-    .attr('fill', (p) => (gapKeys.has(p.key) && p.total === 0 ? '#ebebf3' : spikeStarts.has(p.start) ? '#ffc508' : '#05006d'))
+    .attr('fill', (p) => (gapKeys.has(p.key) && p.total === 0 ? '#f8f7fb' : spikeStarts.has(p.start) ? '#ffc508' : '#a59acb'))
     .attr('stroke', (p) => (p.key === selectedPeriodKey ? '#05006d' : 'none'))
     .attr('stroke-width', (p) => (p.key === selectedPeriodKey ? 2.5 : 0))
     .style('opacity', (p) => (!timelineTagFilter || taggedKeys.has(p.key) ? 1 : 0.22))
@@ -2327,19 +2327,19 @@ function renderTimelineChart(tl: ReturnType<typeof buildTimeline>, entries: Entr
     .attr('x', (p) => (x(p.key) ?? 0) + x.bandwidth() / 2)
     .attr('y', (p) => y(valueOf(p)) - 4)
     .attr('text-anchor', 'middle')
-    .attr('font-size', '10px')
+    .attr('font-size', '11px')
     .text((p) => valueOf(p));
   g.append('g')
     .attr('class', 'tl-grid')
     .call(d3.axisLeft(y).ticks(5).tickSize(-innerWidth).tickFormat(() => ''))
     .selectAll('line')
-    .attr('stroke', '#ebebf3');
+    .attr('stroke', '#d2d1e5');
   g.selectAll('circle.tl-met')
     .data(tl.periods.filter((p) => p.peopleMet.length))
     .join('circle')
     .attr('class', 'tl-met')
     .attr('cx', (p) => (x(p.key) ?? 0) + x.bandwidth() / 2)
-    .attr('cy', (p) => Math.max(6, y(valueOf(p)) - 8))
+    .attr('cy', innerHeight - 5)
     .attr('r', 3.5)
     .attr('fill', '#1f4d30');
 }
@@ -2354,26 +2354,38 @@ function renderTimeline(): void {
   el('tlZoomLabel').textContent = `${tl.granularity === 'day' ? 'Days' : tl.granularity === 'month' ? 'Months' : tl.granularity === 'quarter' ? 'Quarters' : 'Years'}${timelineZoom ? '' : ' (auto)'}`;
   (el('tlZoomIn') as HTMLButtonElement).disabled = levelIdx >= GRANULARITY_LEVELS.length - 1;
   (el('tlZoomOut') as HTMLButtonElement).disabled = levelIdx <= 0;
-  el('timelineMeta').textContent = entries.length
-    ? `${entries.length} entries · by ${tl.granularity} · gaps flagged at ${tl.gapThresholdMonths}+ silent months · scroll sideways, click a period`
-    : 'No entries yet.';
-  // Type filter toggles: All plus every type actually present.
+  const granLabel = tl.granularity === 'day' ? 'Days' : tl.granularity === 'month' ? 'Months' : tl.granularity === 'quarter' ? 'Quarters' : 'Years';
+  el('timelineMeta').textContent = !entries.length
+    ? 'No entries yet.'
+    : tl.granularity === 'year'
+      ? 'Years is the widest view · zoom out is disabled. Years → Quarters → Months → Days'
+      : tl.granularity === 'day' && tl.periods.length >= 1200
+        ? '1,200-period limit reached. Zoom in is disabled; scroll to explore days or zoom out to Months.'
+        : `${granLabel} view. Years → Quarters → Months → Days`;
+  const firstPeriod = tl.periods[0];
+  const lastPeriod = tl.periods[tl.periods.length - 1];
+  el('timelineRange').textContent = firstPeriod && lastPeriod
+    ? `${firstPeriod.label}–${lastPeriod.label} · scroll horizontally to explore your archive`
+    : '';
+  el('timelineUploadedCaption').hidden = timelineMode !== 'uploaded';
+  // Type + kind filter pills float over the chart (Figma overlay bar).
   const types = [...new Set(entries.map((e) => e.type))].sort();
   if (timelineTypeFilter !== 'all' && !types.includes(timelineTypeFilter as Entry['type'])) timelineTypeFilter = 'all';
-  el('timelineTypeFilters').innerHTML = ['all', ...types]
-    .map(
-      (t) => `<button type="button" class="small tl-filter ${timelineTypeFilter === t ? 'active' : ''}" data-type-filter="${t}">${t === 'all' ? 'All types' : escapeHtml(t)}</button>`,
-    )
-    .join('');
-  // Analysis tags double as filter toggles.
   const kinds = [...new Set(tl.tags.map((t) => t.kind))].filter((kind) => kind !== 'people');
+  el('timelineTypeFilters').innerHTML =
+    ['all', ...types]
+      .map(
+        (t) => `<button type="button" class="tl-filter ${timelineTypeFilter === t ? 'active' : ''}" data-type-filter="${t}">${timelineTypeFilter === t && t !== 'all' ? '✓ ' : ''}${t === 'all' ? 'All types' : escapeHtml(t)}</button>`,
+      )
+      .join('') +
+    kinds
+      .map(
+        (k) => `<button type="button" class="tl-filter tl-kind-filter ${timelineTagFilter === k ? 'active' : ''}" data-tag-filter="${k}">${timelineTagFilter === k ? '✓ ' : ''}${escapeHtml(k)}</button>`,
+      )
+      .join('');
+  // Analysis tags below the chart open their drawer.
   el('timelineTags').innerHTML = tl.tags.length
-    ? kinds
-        .map(
-          (k) => `<button type="button" class="tl-tag tl-tag-${k} ${timelineTagFilter === k ? 'active' : ''}" data-tag-filter="${k}">${k}</button>`,
-        )
-        .join('') +
-      tl.tags
+    ? tl.tags
         .map((t, i) => ({ t, i }))
         .filter(({ t }) => t.kind !== 'people' && (!timelineTagFilter || t.kind === timelineTagFilter))
         .map(({ t, i }) => `<button type="button" class="tl-tag tl-tag-${t.kind}" data-tag-open="${i}" title="${escapeHtml(t.detail)}">${escapeHtml(t.label)}</button>`)
@@ -2385,7 +2397,7 @@ function renderTimeline(): void {
     .filter((e) => timelineTypeFilter === 'all' || e.type === timelineTypeFilter)
     .filter((e) => !selected || (e.created_at >= selected.start && e.created_at < selected.end))
     .slice()
-    .sort((a, b) => b.created_at.localeCompare(a.created_at));
+    .sort((a, b) => a.created_at.localeCompare(b.created_at));
   el('timelineUploaded').innerHTML = sorted.length
     ? sorted
         .map(
@@ -2406,13 +2418,15 @@ let modalGapRange: { from: string; to: string; label: string } | null = null;
 
 function gapMemoryForm(from: string, to: string): string {
   const mid = new Date((Date.parse(from) + Date.parse(to)) / 2).toISOString().slice(0, 10);
-  return `<h3 class="ov-sub">Add a memory from then</h3>
-    <div class="row"><label>Date <input type="date" id="modalGapDate" value="${mid}" /></label></div>
-    <textarea id="modalGapBody" rows="3" placeholder="What do you remember? Type it, or use the microphone."></textarea>
+  return `<h3>Want to add a memory from this time?</h3>
+    <label>Date within this gap <input type="date" id="modalGapDate" value="${mid}" /></label>
+    <label>Your memory <textarea id="modalGapBody" rows="3" placeholder="What do you remember? Type it, or use the microphone."></textarea></label>
     <div class="row">
-      <button type="button" class="small" data-mic-for="modalGapBody">Use microphone</button>
-      <button type="button" data-modal-gap-save="1">Add memory</button>
+      <button type="button" data-modal-gap-save="1">Save memory</button>
+      <button type="button" class="secondary" data-mic-for="modalGapBody">Use microphone</button>
     </div>
+    <p><span class="tag-personal">personal</span></p>
+    <p class="hint">Personal by default. Adding a memory does not approve it for sharing.</p>
     <p id="micNote" class="hint" aria-live="polite"></p>`;
 }
 
@@ -2526,6 +2540,11 @@ el('tlZoomOut').addEventListener('click', () => {
 });
 
 el('sub-timeline').addEventListener('click', (ev) => {
+  if ((ev.target as HTMLElement).closest('[data-timeline-import]')) {
+    showView('knowledge');
+    showSub('knowledge', 'import');
+    return;
+  }
   const openBtn = (ev.target as HTMLElement).closest<HTMLElement>('[data-tag-open]');
   if (openBtn) {
     const tag = currentTags[Number(openBtn.dataset.tagOpen)];
