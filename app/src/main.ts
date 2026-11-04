@@ -63,7 +63,7 @@ import { docxToText, extensionOf, healthXmlToText, jsonToText, mboxToText, needs
 import { EXPORT_GUIDES } from './guides';
 import { isAudioFilename, isAudioMime, transcribeAudioBlob } from './transcribe';
 import { fileToProfilePhoto, isImageFilename, isImageMime, ocrImageBlob, parseExifDate } from './image';
-import { budgetInsights, looksLikePdfStatement, monthlyTotals, parsePdfStatement, parseStatement, recurringCosts, summarizeTransactions, transactionsFromEntries, type StatementParse } from './budget';
+import { FINANCE_GROUP_KEYS, budgetInsights, cumulativeNetByMonth, financeBreakdown, financeGroupKey, groupFinance, looksLikePdfStatement, monthlyCategorySeries, monthlyTotals, parsePdfStatement, parseStatement, recurringCosts, summarizeTransactions, transactionsFromEntries, type FinanceGroupKey, type StatementParse, type Transaction } from './budget';
 import { PATH_TEMPLATES, availablePathCount, healthSummary, isBudgetingQuery, isHealthQuery, readingLifeSummary, relationshipRhythms, suggestTemplates, templateById, templateForArchetype, templateReadiness, visibleSuggestedTemplates } from './templates';
 import {
   biometricAvailable,
@@ -1849,6 +1849,231 @@ function renderSavedPaths(): void {
     .join('');
 }
 
+let financeGroup1: FinanceGroupKey = 'Month';
+let financeGroup2: FinanceGroupKey = 'Category';
+
+const FINANCE_SERIES_COLORS = ['#05006d', '#1f4d30', '#b07d10', '#c4142e', '#2f7d6b', '#8a5a2b', '#4a6fa5', '#7a5b1e'];
+const FINANCE_MONEY = (n: number): string => `${n < 0 ? '-' : ''}${Math.abs(n).toFixed(2)}`;
+
+function financeTooltip(host: HTMLElement): d3.Selection<HTMLDivElement, unknown, null, undefined> {
+  let tip = d3.select(host).select<HTMLDivElement>('div.fin-tip');
+  if (tip.empty()) {
+    tip = d3.select(host).append('div').attr('class', 'fin-tip').attr('hidden', true) as d3.Selection<HTMLDivElement, unknown, null, undefined>;
+  }
+  return tip;
+}
+
+function showFinanceTooltip(host: HTMLElement, event: MouseEvent, html: string): void {
+  const tip = financeTooltip(host);
+  const [x, y] = d3.pointer(event, host);
+  tip.attr('hidden', null).html(html)
+    .style('left', `${Math.min(x + 14, Math.max(0, host.clientWidth - 250))}px`)
+    .style('top', `${Math.max(0, y - 10)}px`);
+}
+
+function hideFinanceTooltip(host: HTMLElement): void {
+  financeTooltip(host).attr('hidden', true);
+}
+
+function financeGroupMembers(tx: Transaction[], key: FinanceGroupKey, groupKey: string, topN = 8): Transaction[] {
+  if (groupKey !== 'Others') return tx.filter((t) => financeGroupKey(t, key) === groupKey);
+  const kept = new Set(groupFinance(tx, key, topN).filter((g) => g.key !== 'Others').map((g) => g.key));
+  return tx.filter((t) => !kept.has(financeGroupKey(t, key)));
+}
+
+function drawFinanceOverview(host: HTMLElement, tx: Transaction[]): void {
+  const container = el('finOverview');
+  const groups = groupFinance(tx, financeGroup1, 8);
+  const width = Math.max(320, container.clientWidth || 680);
+  const height = 320;
+  const margin = { top: 18, right: 12, bottom: 52, left: 52 };
+  const innerW = width - margin.left - margin.right;
+  const innerH = height - margin.top - margin.bottom;
+  const duration = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 500;
+  const x = d3.scaleBand<string>().domain(groups.map((g) => g.key)).range([0, innerW]).padding(0.28);
+  const values = groups.flatMap((g) => [g.received, -g.spent, g.net]);
+  const y = d3.scaleLinear().domain([Math.min(0, ...values), Math.max(0, ...values)]).nice().range([innerH, 0]);
+  const svg = d3.select(container).append('svg')
+    .attr('width', width).attr('height', height)
+    .attr('role', 'img')
+    .attr('aria-label', `Received, spent and net grouped by ${financeGroup1.toLowerCase()}`);
+  const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
+  g.append('g').attr('class', 'fin-grid').call(d3.axisLeft(y).ticks(5).tickSize(-innerW).tickFormat(() => ''))
+    .selectAll('line').attr('stroke', '#d2d1e5');
+  g.append('g').call(d3.axisLeft(y).ticks(5).tickFormat((v) => FINANCE_MONEY(Number(v))).tickSizeOuter(0));
+  g.append('g').attr('transform', `translate(0,${innerH})`).call(d3.axisBottom(x).tickSizeOuter(0))
+    .selectAll('text').attr('font-size', '11px')
+    .attr('transform', groups.length > 6 ? 'rotate(-24)' : null)
+    .style('text-anchor', groups.length > 6 ? 'end' : 'middle')
+    .text((k) => (String(k).length > 16 ? `${String(k).slice(0, 15)}…` : String(k)));
+  g.append('line').attr('class', 'fin-zero').attr('x1', 0).attr('x2', innerW).attr('y1', y(0)).attr('y2', y(0));
+  const metrics: Array<{ id: string; label: string; color: string; value: (grp: (typeof groups)[number]) => number }> = [
+    { id: 'received', label: 'Received', color: '#1f4d30', value: (grp) => grp.received },
+    { id: 'spent', label: 'Spent', color: '#c4142e', value: (grp) => -grp.spent },
+    { id: 'net', label: 'Net', color: '#05006d', value: (grp) => grp.net },
+  ];
+  const barW = x.bandwidth() / metrics.length;
+  metrics.forEach((metric, mi) => {
+    g.selectAll(`rect.fin-bar-${metric.id}`)
+      .data(groups)
+      .join('rect')
+      .attr('class', `fin-bar fin-bar-${metric.id}`)
+      .attr('x', (grp) => (x(grp.key) ?? 0) + mi * barW + 1)
+      .attr('width', Math.max(2, barW - 2))
+      .attr('rx', 2)
+      .attr('fill', metric.color)
+      .attr('y', y(0)).attr('height', 0)
+      .on('mousemove', (event: MouseEvent, grp) => {
+        g.selectAll('rect.fin-bar').style('opacity', 0.28);
+        g.selectAll(`rect.fin-bar-${metric.id}`).style('opacity', 1);
+        const members = financeGroupMembers(tx, financeGroup1, grp.key);
+        const rows = financeBreakdown(members, financeGroup2, 6)
+          .map((b) => `<div class="fin-tip-row"><span>${escapeHtml(b.key)}</span><strong>${FINANCE_MONEY(b.net)}</strong></div>`)
+          .join('');
+        showFinanceTooltip(host, event,
+          `<strong>${escapeHtml(grp.key)} · ${metric.label} ${FINANCE_MONEY(metric.value(grp))}</strong>`
+          + `<div class="fin-tip-row"><span>Received</span><strong>${FINANCE_MONEY(grp.received)}</strong></div>`
+          + `<div class="fin-tip-row"><span>Spent</span><strong>${FINANCE_MONEY(grp.spent)}</strong></div>`
+          + `<div class="fin-tip-row"><span>Net</span><strong>${FINANCE_MONEY(grp.net)}</strong></div>`
+          + (rows ? `<div class="fin-tip-sub">By ${escapeHtml(financeGroup2.toLowerCase())}</div>${rows}` : ''));
+      })
+      .on('mouseleave', () => { g.selectAll('rect.fin-bar').style('opacity', 1); hideFinanceTooltip(host); })
+      .transition().duration(duration)
+      .attr('y', (grp) => y(Math.max(0, metric.value(grp))))
+      .attr('height', (grp) => Math.abs(y(0) - y(metric.value(grp))));
+  });
+}
+
+function drawFinanceEvolution(host: HTMLElement, tx: Transaction[]): void {
+  const container = el('finEvolution');
+  const { months, series } = monthlyCategorySeries(tx, 6);
+  if (months.length < 2 || series.length === 0) {
+    container.innerHTML = '<p class="hint">Not enough months yet — import statements covering two or more months to see spending evolve by category.</p>';
+    return;
+  }
+  const width = Math.max(320, container.clientWidth || 680);
+  const height = 300;
+  const margin = { top: 16, right: 14, bottom: 42, left: 52 };
+  const innerW = width - margin.left - margin.right;
+  const innerH = height - margin.top - margin.bottom;
+  const duration = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 500;
+  const color = d3.scaleOrdinal<string, string>().domain(series.map((s) => s.category)).range(FINANCE_SERIES_COLORS);
+  const x = d3.scaleBand<string>().domain(months).range([0, innerW]).padding(0.2);
+  const y = d3.scaleLinear().domain([0, Math.max(1, ...series.flatMap((s) => s.values))]).nice().range([innerH, 0]);
+  const svg = d3.select(container).append('svg')
+    .attr('width', width).attr('height', height)
+    .attr('role', 'img').attr('aria-label', 'Monthly spending evolution by category');
+  const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
+  g.append('g').attr('class', 'fin-grid').call(d3.axisLeft(y).ticks(5).tickSize(-innerW).tickFormat(() => ''))
+    .selectAll('line').attr('stroke', '#d2d1e5');
+  g.append('g').call(d3.axisLeft(y).ticks(5).tickFormat((v) => FINANCE_MONEY(Number(v))).tickSizeOuter(0));
+  const tickEvery = Math.max(1, Math.ceil(months.length / Math.max(4, Math.floor(innerW / 72))));
+  g.append('g').attr('transform', `translate(0,${innerH})`)
+    .call(d3.axisBottom(x).tickValues(months.filter((_, i) => i % tickEvery === 0)).tickSizeOuter(0))
+    .selectAll('text').attr('font-size', '11px');
+  const line = d3.line<number>()
+    .x((_, i) => (x(months[i]) ?? 0) + x.bandwidth() / 2)
+    .y((v) => y(v))
+    .curve(d3.curveMonotoneX);
+  const legend = d3.select(el('finEvolutionLegend'));
+  const setActive = (category: string | null): void => {
+    g.selectAll('path.fin-line').style('stroke-opacity', (d) => (category === null || (d as (typeof series)[number]).category === category ? 1 : 0.12));
+    g.selectAll('circle.fin-dot').style('opacity', (d) => (category === null || (d as { category: string }).category === category ? 1 : 0.12));
+    legend.selectAll('button').classed('active', function () { return category !== null && (this as HTMLButtonElement).dataset.category === category; });
+  };
+  legend.selectAll('button')
+    .data(series)
+    .join('button')
+    .attr('type', 'button').attr('class', 'fin-legend-chip').attr('data-category', (s) => s.category)
+    .html((s) => `<span class="fin-swatch" style="background:${color(s.category)}"></span>${escapeHtml(s.category)} · ${FINANCE_MONEY(s.total)}`)
+    .on('mouseenter', (_, s) => setActive(s.category))
+    .on('mouseleave', () => setActive(null))
+    .on('focus', (_, s) => setActive(s.category))
+    .on('blur', () => setActive(null));
+  for (const s of series) {
+    g.append('path').datum(s).attr('class', 'fin-line')
+      .attr('fill', 'none').attr('stroke', color(s.category)).attr('stroke-width', 2.5)
+      .attr('d', line(s.values))
+      .attr('stroke-dasharray', function () { const len = (this as SVGPathElement).getTotalLength(); return `${len} ${len}`; })
+      .attr('stroke-dashoffset', function () { return (this as SVGPathElement).getTotalLength(); })
+      .transition().duration(duration).attr('stroke-dashoffset', 0);
+    g.selectAll(`circle.fin-dot-${series.indexOf(s)}`)
+      .data(s.values.map((value, i) => ({ category: s.category, month: months[i], value })))
+      .join('circle')
+      .attr('class', 'fin-dot')
+      .attr('cx', (d) => (x(d.month) ?? 0) + x.bandwidth() / 2)
+      .attr('cy', (d) => y(d.value))
+      .attr('r', 4).attr('fill', color(s.category)).attr('stroke', '#fff').attr('stroke-width', 1.5)
+      .on('mousemove', (event: MouseEvent, d) => {
+        setActive(d.category);
+        d3.select(event.currentTarget as SVGCircleElement).attr('r', 7);
+        showFinanceTooltip(host, event, `<strong>${escapeHtml(d.category)}</strong><div class="fin-tip-row"><span>${escapeHtml(d.month)}</span><strong>${FINANCE_MONEY(d.value)} spent</strong></div>`);
+      })
+      .on('mouseleave', (event: MouseEvent) => {
+        setActive(null);
+        d3.select(event.currentTarget as SVGCircleElement).attr('r', 4);
+        hideFinanceTooltip(host);
+      });
+  }
+}
+
+function drawFinanceCumulative(host: HTMLElement, tx: Transaction[]): void {
+  const container = el('finCumulative');
+  const points = cumulativeNetByMonth(tx);
+  if (points.length < 2) {
+    container.innerHTML = '<p class="hint">Not enough months yet for a cumulative net line.</p>';
+    return;
+  }
+  const width = Math.max(320, container.clientWidth || 680);
+  const height = 240;
+  const margin = { top: 16, right: 56, bottom: 42, left: 52 };
+  const innerW = width - margin.left - margin.right;
+  const innerH = height - margin.top - margin.bottom;
+  const duration = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 500;
+  const x = d3.scaleBand<string>().domain(points.map((p) => p.month)).range([0, innerW]).padding(0.2);
+  const y = d3.scaleLinear()
+    .domain([Math.min(0, ...points.map((p) => p.cumulative)), Math.max(0, ...points.map((p) => p.cumulative))]).nice()
+    .range([innerH, 0]);
+  const svg = d3.select(container).append('svg')
+    .attr('width', width).attr('height', height)
+    .attr('role', 'img').attr('aria-label', 'Cumulative net across months');
+  const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
+  g.append('g').attr('class', 'fin-grid').call(d3.axisLeft(y).ticks(5).tickSize(-innerW).tickFormat(() => ''))
+    .selectAll('line').attr('stroke', '#d2d1e5');
+  g.append('g').call(d3.axisLeft(y).ticks(5).tickFormat((v) => FINANCE_MONEY(Number(v))).tickSizeOuter(0));
+  const tickEvery = Math.max(1, Math.ceil(points.length / Math.max(4, Math.floor(innerW / 72))));
+  g.append('g').attr('transform', `translate(0,${innerH})`)
+    .call(d3.axisBottom(x).tickValues(points.filter((_, i) => i % tickEvery === 0).map((p) => p.month)).tickSizeOuter(0))
+    .selectAll('text').attr('font-size', '11px');
+  g.append('line').attr('class', 'fin-zero').attr('x1', 0).attr('x2', innerW).attr('y1', y(0)).attr('y2', y(0));
+  const area = d3.area<(typeof points)[number]>()
+    .x((p) => (x(p.month) ?? 0) + x.bandwidth() / 2).y0(y(0)).y1((p) => y(p.cumulative)).curve(d3.curveMonotoneX);
+  const line = d3.line<(typeof points)[number]>()
+    .x((p) => (x(p.month) ?? 0) + x.bandwidth() / 2).y((p) => y(p.cumulative)).curve(d3.curveMonotoneX);
+  g.append('path').datum(points).attr('class', 'fin-area').attr('fill', '#05006d').attr('fill-opacity', 0.1).attr('d', area);
+  g.append('path').datum(points).attr('class', 'fin-cum-line').attr('fill', 'none').attr('stroke', '#05006d').attr('stroke-width', 2.5).attr('d', line)
+    .attr('stroke-dasharray', function () { const len = (this as SVGPathElement).getTotalLength(); return `${len} ${len}`; })
+    .attr('stroke-dashoffset', function () { return (this as SVGPathElement).getTotalLength(); })
+    .transition().duration(duration).attr('stroke-dashoffset', 0);
+  g.selectAll('circle.fin-cum-dot')
+    .data(points)
+    .join('circle')
+    .attr('class', 'fin-cum-dot')
+    .attr('cx', (p) => (x(p.month) ?? 0) + x.bandwidth() / 2).attr('cy', (p) => y(p.cumulative))
+    .attr('r', 4).attr('fill', '#05006d').attr('stroke', '#fff').attr('stroke-width', 1.5)
+    .on('mousemove', (event: MouseEvent, p) => {
+      d3.select(event.currentTarget as SVGCircleElement).attr('r', 7);
+      showFinanceTooltip(host, event,
+        `<strong>${escapeHtml(p.month)}</strong><div class="fin-tip-row"><span>Net this month</span><strong>${FINANCE_MONEY(p.net)}</strong></div><div class="fin-tip-row"><span>Cumulative net</span><strong>${FINANCE_MONEY(p.cumulative)}</strong></div>`);
+    })
+    .on('mouseleave', (event: MouseEvent) => { d3.select(event.currentTarget as SVGCircleElement).attr('r', 4); hideFinanceTooltip(host); });
+  const last = points[points.length - 1];
+  g.append('text').attr('class', 'fin-end-label')
+    .attr('x', (x(last.month) ?? 0) + x.bandwidth() / 2 + 8).attr('y', y(last.cumulative))
+    .attr('dominant-baseline', 'middle').attr('font-size', '12px').attr('font-weight', '700')
+    .text(FINANCE_MONEY(last.cumulative));
+}
+
 function renderBudgetDetail(pathId: string): void {
   const host = el('budgetDetail');
   const path = listSavedPaths().find((x) => x.id === pathId);
@@ -1882,14 +2107,42 @@ function renderBudgetDetail(pathId: string): void {
     )
     .join('');
   const insights = budgetInsights(tx).map((i) => `<p>• ${escapeHtml(i)}</p>`).join('');
-  host.innerHTML = `<article class="item hero-card">
+  const options = (selected: FinanceGroupKey): string => FINANCE_GROUP_KEYS
+    .map((k) => `<option value="${k}"${k === selected ? ' selected' : ''}>${k}</option>`).join('');
+  host.innerHTML = `<article class="item hero-card fin-card">
     <header><h3>${escapeHtml(path.name)} — your money, clearly</h3></header>
     <p>Spent ${summary.spent.toFixed(2)} · Received ${summary.received.toFixed(2)} · Net ${(summary.received - summary.spent).toFixed(2)} across ${tx.length} transactions (${escapeHtml(tx[0].date)} to ${escapeHtml(tx[tx.length - 1].date)}).</p>
-    <h3 class="ov-sub">Spending by category</h3>${cats}
-    <h3 class="ov-sub">Monthly trend</h3>${trend || '<p class="hint">Not enough months yet.</p>'}
+    <div class="fin-controls">
+      <label>Group by <select id="finGroup1">${options(financeGroup1)}</select></label>
+      <label>Then by <select id="finGroup2">${options(financeGroup2)}</select></label>
+      <span class="fin-legend"><span><i style="background:#1f4d30"></i>Received</span><span><i style="background:#c4142e"></i>Spent</span><span><i style="background:#05006d"></i>Net</span></span>
+    </div>
+    <h3 class="ov-sub">Overview — received, spent and net</h3>
+    <div id="finOverview" class="fin-chart"></div>
+    <p class="hint">Hover any bar for its breakdown. Spent is plotted below zero so in, out and net compare at a glance.</p>
+    <h3 class="ov-sub">Evolution — spending by category over time</h3>
+    <div id="finEvolutionLegend" class="fin-legend-chips"></div>
+    <div id="finEvolution" class="fin-chart"></div>
+    <h3 class="ov-sub">Cumulative net</h3>
+    <div id="finCumulative" class="fin-chart"></div>
+    <details class="fin-data-list"><summary>Data as list</summary>
+      <h3 class="ov-sub">Spending by category</h3>${cats}
+      <h3 class="ov-sub">Monthly trend</h3>${trend || '<p class="hint">Not enough months yet.</p>'}
+    </details>
     ${recurring ? `<h3 class="ov-sub">Recurring costs</h3>${recurring}` : ''}
     <h3 class="ov-sub">What stands out</h3>${insights}
   </article>`;
+  el<HTMLSelectElement>('finGroup1').addEventListener('change', (event) => {
+    financeGroup1 = (event.target as HTMLSelectElement).value as FinanceGroupKey;
+    renderBudgetDetail(pathId);
+  });
+  el<HTMLSelectElement>('finGroup2').addEventListener('change', (event) => {
+    financeGroup2 = (event.target as HTMLSelectElement).value as FinanceGroupKey;
+    renderBudgetDetail(pathId);
+  });
+  drawFinanceOverview(host, tx);
+  drawFinanceEvolution(host, tx);
+  drawFinanceCumulative(host, tx);
 }
 
 

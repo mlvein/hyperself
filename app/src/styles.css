@@ -673,5 +673,42 @@ button:disabled { opacity: 0.45; cursor: default; }
 .budget-bar { height: 8px; background: var(--wash); border: none; border-radius: 4px; overflow: hidden; }
 .budget-bar > span { display: block; height: 100%; background: var(--surface-strong); }
 .budget-bar.trend > span { background: var(--text-warning); }
+.fin-card { position: relative; }
+.fin-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1rem; margin: 0.75rem 0 0.25rem; }
+.fin-controls label { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.88rem; font-weight: 600; }
+.fin-controls select { width: auto; }
+.fin-legend { display: inline-flex; gap: 0.8rem; font-size: 0.82rem; color: var(--muted); }
+.fin-legend span { display: inline-flex; align-items: center; gap: 0.3rem; }
+.fin-legend i { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
+.fin-chart { width: 100%; overflow-x: auto; }
+.fin-chart svg { display: block; max-width: 100%; }
+.fin-chart text { fill: var(--ink); }
+.fin-chart .domain, .fin-chart .tick line { stroke: var(--line); }
+.fin-grid line { stroke: var(--line); }
+.fin-grid path { stroke: none; }
+.fin-zero { stroke: var(--text-secondary); stroke-width: 1.2; }
+.fin-bar { cursor: pointer; }
+.fin-end-label { fill: var(--ink); }
+.fin-legend-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.25rem 0 0.4rem; }
+.fin-legend-chip {
+  display: inline-flex; align-items: center; gap: 0.35rem; width: auto;
+  padding: 3px 9px; border-radius: 999px; font-size: 0.8rem; font-weight: 400;
+}
+.fin-legend-chip.active { border-color: var(--ink); font-weight: 700; }
+.fin-swatch { width: 10px; height: 10px; border-radius: 50%; flex: none; }
+.fin-tip {
+  position: absolute; z-index: 6; width: 236px; pointer-events: none;
+  background: var(--surface-default); border: 1px solid var(--line); border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(5, 0, 109, 0.14); padding: 0.6rem 0.7rem; font-size: 0.82rem;
+}
+.fin-tip[hidden] { display: none; }
+.fin-tip-row { display: flex; justify-content: space-between; gap: 1rem; margin-top: 0.2rem; }
+.fin-tip-row span { color: var(--muted); overflow-wrap: anywhere; }
+.fin-tip-sub { margin-top: 0.45rem; font-weight: 700; }
+.fin-data-list { margin-top: 0.75rem; }
+.fin-data-list summary { cursor: pointer; font-weight: 600; margin-bottom: 0.4rem; }
+@media (prefers-reduced-motion: reduce) {
+  .fin-bar, .fin-line, .fin-cum-line { transition: none; }
+}
 .check-row { display: flex; align-items: center; gap: 0.4rem; font-weight: 400; }
 .check-row input[type="checkbox"] { width: auto; margin: 0; }

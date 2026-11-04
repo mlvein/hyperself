@@ -24,8 +24,9 @@ export const PATH_TEMPLATES: PathTemplate[] = [
     neededData: ['Bank statement (CSV) — Import & Connect → Upload documents'],
     suggestedQuery: 'where does my money go?',
     scaffold: [
-      'Spending by category',
-      'Money in vs money out',
+      'Received, spent and net grouped your way (month, weekday, category, merchant)',
+      'Spending evolution by category over time',
+      'Cumulative net across months',
       'Largest recurring costs',
       'Descriptive insights (no prescriptive advice)',
     ],

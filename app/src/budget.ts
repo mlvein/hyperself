@@ -296,6 +296,137 @@ export function recurringCosts(transactions: Transaction[], minCount = 2): Recur
     .map(({ description, category, count, average, total }) => ({ description, category, count, average, total }));
 }
 
+// --- Finance Path chart data (adapted from luism6n/finances-app's
+// Overview/Evolution grouping idea: group by one key, break down by a
+// second, keep the tail as "Others"). Pure and store-free; D3 rendering
+// lives in main.ts. Descriptive only — sums, never advice.
+
+export type FinanceGroupKey = 'Month' | 'Weekday' | 'Category' | 'Description';
+
+export const FINANCE_GROUP_KEYS: FinanceGroupKey[] = ['Month', 'Weekday', 'Category', 'Description'];
+
+const WEEKDAY_ORDER = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+const WEEKDAY_LABELS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+export function financeGroupKey(t: Transaction, key: FinanceGroupKey): string {
+  if (key === 'Month') return t.date.slice(0, 7);
+  if (key === 'Category') return t.category || 'Other';
+  if (key === 'Description') return t.description || 'Other';
+  // Weekday: parse at local noon so the calendar day never shifts by timezone.
+  const day = new Date(`${t.date}T12:00:00`).getDay();
+  return Number.isNaN(day) ? 'Other' : WEEKDAY_LABELS[day];
+}
+
+export interface FinanceGroup {
+  key: string;
+  spent: number;
+  received: number;
+  net: number;
+  count: number;
+}
+
+const round2 = (n: number): number => Math.round(n * 100) / 100;
+
+function bucketize(transactions: Transaction[], key: FinanceGroupKey): Map<string, FinanceGroup> {
+  const map = new Map<string, FinanceGroup>();
+  for (const t of transactions) {
+    const k = financeGroupKey(t, key);
+    const row = map.get(k) ?? { key: k, spent: 0, received: 0, net: 0, count: 0 };
+    if (t.amount < 0) row.spent += -t.amount;
+    else row.received += t.amount;
+    row.count += 1;
+    map.set(k, row);
+  }
+  for (const row of map.values()) {
+    row.spent = round2(row.spent);
+    row.received = round2(row.received);
+    row.net = round2(row.received - row.spent);
+  }
+  return map;
+}
+
+/**
+ * Groups for the Overview chart. Month stays chronological and Weekday
+ * stays Mon–Sun; Category/Description rank by money moved and fold the
+ * tail into a single "Others" group (kept last) so the chart stays legible.
+ */
+export function groupFinance(transactions: Transaction[], key: FinanceGroupKey, topN = 8): FinanceGroup[] {
+  const groups = [...bucketize(transactions, key).values()];
+  if (key === 'Month') return groups.sort((a, b) => (a.key < b.key ? -1 : 1));
+  if (key === 'Weekday') {
+    return groups.sort((a, b) => WEEKDAY_ORDER.indexOf(a.key) - WEEKDAY_ORDER.indexOf(b.key));
+  }
+  const ranked = groups.sort((a, b) => b.spent + b.received - (a.spent + a.received) || a.key.localeCompare(b.key));
+  if (ranked.length <= topN) return ranked;
+  const kept = ranked.slice(0, Math.max(1, topN - 1));
+  const rest = ranked.slice(kept.length);
+  kept.push({
+    key: 'Others',
+    spent: round2(rest.reduce((s, g) => s + g.spent, 0)),
+    received: round2(rest.reduce((s, g) => s + g.received, 0)),
+    net: round2(rest.reduce((s, g) => s + g.net, 0)),
+    count: rest.reduce((s, g) => s + g.count, 0),
+  });
+  return kept;
+}
+
+/** Sub-group breakdown shown in the Overview tooltip ("then by" key). */
+export function financeBreakdown(transactions: Transaction[], key: FinanceGroupKey, topN = 6): FinanceGroup[] {
+  return groupFinance(transactions, key, topN);
+}
+
+export interface CategoryMonthSeries {
+  months: string[];
+  series: Array<{ category: string; total: number; values: number[] }>;
+}
+
+/** Spending per month for each top category — the Evolution chart series. */
+export function monthlyCategorySeries(transactions: Transaction[], topN = 6): CategoryMonthSeries {
+  const months = monthlyTotals(transactions).map((m) => m.month);
+  const monthIndex = new Map(months.map((m, i) => [m, i]));
+  const totals = new Map<string, number>();
+  for (const t of transactions) {
+    if (t.amount < 0) totals.set(t.category, (totals.get(t.category) ?? 0) + -t.amount);
+  }
+  const ranked = [...totals.entries()].sort((a, b) => b[1] - a[1]).map(([c]) => c);
+  const kept = ranked.slice(0, topN);
+  const hasOthers = ranked.length > kept.length;
+  const categories = hasOthers ? [...kept, 'Others'] : kept;
+  const values = new Map(categories.map((c) => [c, new Array<number>(months.length).fill(0)]));
+  for (const t of transactions) {
+    if (t.amount >= 0) continue;
+    const idx = monthIndex.get(t.date.slice(0, 7));
+    if (idx === undefined) continue;
+    const cat = kept.includes(t.category) ? t.category : 'Others';
+    const row = values.get(cat);
+    if (row) row[idx] = round2(row[idx] + -t.amount);
+  }
+  return {
+    months,
+    series: categories.map((category) => ({
+      category,
+      total: round2(totals.get(category) ?? (values.get(category) ?? []).reduce((s, v) => s + v, 0)),
+      values: values.get(category) ?? [],
+    })),
+  };
+}
+
+export interface CumulativeNetPoint {
+  month: string;
+  net: number;
+  cumulative: number;
+}
+
+/** Running net (received − spent) across months — the balance-trajectory chart. */
+export function cumulativeNetByMonth(transactions: Transaction[]): CumulativeNetPoint[] {
+  let running = 0;
+  return monthlyTotals(transactions).map((m) => {
+    const net = round2(m.received - m.spent);
+    running = round2(running + net);
+    return { month: m.month, net, cumulative: running };
+  });
+}
+
 /** Descriptive insights only — patterns, never prescriptive advice. */
 export function budgetInsights(transactions: Transaction[]): string[] {
   const insights: string[] = [];
