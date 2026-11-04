@@ -308,6 +308,17 @@ export const FINANCE_GROUP_KEYS: FinanceGroupKey[] = ['Month', 'Weekday', 'Categ
 const WEEKDAY_ORDER = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 const WEEKDAY_LABELS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
+/**
+ * Category filter for the Finance charts. An empty selection keeps every
+ * transaction; otherwise only selected categories remain. Every chart reads
+ * through this so the whole Path stays consistent with the filters.
+ */
+export function filterFinanceByCategories(transactions: Transaction[], selected: string[]): Transaction[] {
+  if (selected.length === 0) return transactions;
+  const wanted = new Set(selected);
+  return transactions.filter((t) => wanted.has(t.category));
+}
+
 export function financeGroupKey(t: Transaction, key: FinanceGroupKey): string {
   if (key === 'Month') return t.date.slice(0, 7);
   if (key === 'Category') return t.category || 'Other';

@@ -63,7 +63,7 @@ import { docxToText, extensionOf, healthXmlToText, jsonToText, mboxToText, needs
 import { EXPORT_GUIDES } from './guides';
 import { isAudioFilename, isAudioMime, transcribeAudioBlob } from './transcribe';
 import { fileToProfilePhoto, isImageFilename, isImageMime, ocrImageBlob, parseExifDate } from './image';
-import { FINANCE_GROUP_KEYS, budgetInsights, cumulativeNetByMonth, financeBreakdown, financeGroupKey, groupFinance, looksLikePdfStatement, monthlyCategorySeries, monthlyTotals, parsePdfStatement, parseStatement, recurringCosts, summarizeTransactions, transactionsFromEntries, type FinanceGroupKey, type StatementParse, type Transaction } from './budget';
+import { FINANCE_GROUP_KEYS, budgetInsights, cumulativeNetByMonth, filterFinanceByCategories, financeBreakdown, financeGroupKey, groupFinance, looksLikePdfStatement, monthlyCategorySeries, monthlyTotals, parsePdfStatement, parseStatement, recurringCosts, summarizeTransactions, transactionsFromEntries, type FinanceGroupKey, type StatementParse, type Transaction } from './budget';
 import { PATH_TEMPLATES, availablePathCount, healthSummary, isBudgetingQuery, isHealthQuery, readingLifeSummary, relationshipRhythms, suggestTemplates, templateById, templateForArchetype, templateReadiness, visibleSuggestedTemplates } from './templates';
 import {
   biometricAvailable,
@@ -1851,23 +1851,35 @@ function renderSavedPaths(): void {
 
 let financeGroup1: FinanceGroupKey = 'Month';
 let financeGroup2: FinanceGroupKey = 'Category';
+let financeCategories: string[] = [];
+let financeMetricsOn: Record<'received' | 'spent' | 'net', boolean> = { received: true, spent: true, net: true };
+
+function financeFilteredTx(tx: Transaction[]): Transaction[] {
+  return filterFinanceByCategories(tx, financeCategories);
+}
 
 const FINANCE_SERIES_COLORS = ['#05006d', '#1f4d30', '#b07d10', '#c4142e', '#2f7d6b', '#8a5a2b', '#4a6fa5', '#7a5b1e'];
 const FINANCE_MONEY = (n: number): string => `${n < 0 ? '-' : ''}${Math.abs(n).toFixed(2)}`;
 
+function financeTipHost(host: HTMLElement): HTMLElement {
+  return host.querySelector<HTMLElement>('.fin-card') ?? host;
+}
+
 function financeTooltip(host: HTMLElement): d3.Selection<HTMLDivElement, unknown, null, undefined> {
-  let tip = d3.select(host).select<HTMLDivElement>('div.fin-tip');
+  const card = financeTipHost(host);
+  let tip = d3.select(card).select<HTMLDivElement>('div.fin-tip');
   if (tip.empty()) {
-    tip = d3.select(host).append('div').attr('class', 'fin-tip').attr('hidden', true) as d3.Selection<HTMLDivElement, unknown, null, undefined>;
+    tip = d3.select(card).append('div').attr('class', 'fin-tip').attr('hidden', true) as d3.Selection<HTMLDivElement, unknown, null, undefined>;
   }
   return tip;
 }
 
 function showFinanceTooltip(host: HTMLElement, event: MouseEvent, html: string): void {
   const tip = financeTooltip(host);
-  const [x, y] = d3.pointer(event, host);
+  const card = financeTipHost(host);
+  const [x, y] = d3.pointer(event, card);
   tip.attr('hidden', null).html(html)
-    .style('left', `${Math.min(x + 14, Math.max(0, host.clientWidth - 250))}px`)
+    .style('left', `${Math.min(x + 14, Math.max(0, card.clientWidth - 250))}px`)
     .style('top', `${Math.max(0, y - 10)}px`);
 }
 
@@ -1884,10 +1896,15 @@ function financeGroupMembers(tx: Transaction[], key: FinanceGroupKey, groupKey: 
 function drawFinanceOverview(host: HTMLElement, tx: Transaction[]): void {
   const container = el('finOverview');
   const groups = groupFinance(tx, financeGroup1, 8);
-  const width = Math.max(320, container.clientWidth || 680);
+  if (groups.length === 0) {
+    container.innerHTML = '<p class="hint">No transactions match these filters.</p>';
+    return;
+  }
+  const scroller = el('finOverviewScroll');
   const height = 320;
   const margin = { top: 18, right: 12, bottom: 52, left: 52 };
-  const innerW = width - margin.left - margin.right;
+  const innerW = Math.max((scroller.clientWidth || 680) - margin.left - margin.right, groups.length * 120);
+  const width = innerW + margin.left + margin.right;
   const innerH = height - margin.top - margin.bottom;
   const duration = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 500;
   const x = d3.scaleBand<string>().domain(groups.map((g) => g.key)).range([0, innerW]).padding(0.28);
@@ -1907,11 +1924,17 @@ function drawFinanceOverview(host: HTMLElement, tx: Transaction[]): void {
     .style('text-anchor', groups.length > 6 ? 'end' : 'middle')
     .text((k) => (String(k).length > 16 ? `${String(k).slice(0, 15)}…` : String(k)));
   g.append('line').attr('class', 'fin-zero').attr('x1', 0).attr('x2', innerW).attr('y1', y(0)).attr('y2', y(0));
-  const metrics: Array<{ id: string; label: string; color: string; value: (grp: (typeof groups)[number]) => number }> = [
+  type FinanceMetric = { id: keyof typeof financeMetricsOn; label: string; color: string; value: (grp: (typeof groups)[number]) => number };
+  const allMetrics: FinanceMetric[] = [
     { id: 'received', label: 'Received', color: '#1f4d30', value: (grp) => grp.received },
     { id: 'spent', label: 'Spent', color: '#c4142e', value: (grp) => -grp.spent },
     { id: 'net', label: 'Net', color: '#05006d', value: (grp) => grp.net },
   ];
+  const metrics = allMetrics.filter((m) => financeMetricsOn[m.id]);
+  if (metrics.length === 0) {
+    container.innerHTML = '<p class="hint">All metrics are hidden — toggle Received, Spent or Net back on.</p>';
+    return;
+  }
   const barW = x.bandwidth() / metrics.length;
   metrics.forEach((metric, mi) => {
     g.selectAll(`rect.fin-bar-${metric.id}`)
@@ -1951,10 +1974,11 @@ function drawFinanceEvolution(host: HTMLElement, tx: Transaction[]): void {
     container.innerHTML = '<p class="hint">Not enough months yet — import statements covering two or more months to see spending evolve by category.</p>';
     return;
   }
-  const width = Math.max(320, container.clientWidth || 680);
+  const evoScroller = el('finEvolutionScroll');
   const height = 300;
   const margin = { top: 16, right: 14, bottom: 42, left: 52 };
-  const innerW = width - margin.left - margin.right;
+  const innerW = Math.max((evoScroller.clientWidth || 680) - margin.left - margin.right, months.length * 72);
+  const width = innerW + margin.left + margin.right;
   const innerH = height - margin.top - margin.bottom;
   const duration = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 500;
   const color = d3.scaleOrdinal<string, string>().domain(series.map((s) => s.category)).range(FINANCE_SERIES_COLORS);
@@ -2024,10 +2048,11 @@ function drawFinanceCumulative(host: HTMLElement, tx: Transaction[]): void {
     container.innerHTML = '<p class="hint">Not enough months yet for a cumulative net line.</p>';
     return;
   }
-  const width = Math.max(320, container.clientWidth || 680);
+  const cumScroller = el('finCumulativeScroll');
   const height = 240;
   const margin = { top: 16, right: 56, bottom: 42, left: 52 };
-  const innerW = width - margin.left - margin.right;
+  const innerW = Math.max((cumScroller.clientWidth || 680) - margin.left - margin.right, points.length * 80);
+  const width = innerW + margin.left + margin.right;
   const innerH = height - margin.top - margin.bottom;
   const duration = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 500;
   const x = d3.scaleBand<string>().domain(points.map((p) => p.month)).range([0, innerW]).padding(0.2);
@@ -2109,22 +2134,31 @@ function renderBudgetDetail(pathId: string): void {
   const insights = budgetInsights(tx).map((i) => `<p>• ${escapeHtml(i)}</p>`).join('');
   const options = (selected: FinanceGroupKey): string => FINANCE_GROUP_KEYS
     .map((k) => `<option value="${k}"${k === selected ? ' selected' : ''}>${k}</option>`).join('');
-  host.innerHTML = `<article class="item hero-card fin-card">
+  const allCats = summary.byCategory.map((c) => c.category);
+  const catChips = [`<button type="button" class="tl-filter${financeCategories.length === 0 ? ' active' : ''}" data-fin-cat="__all">All</button>`]
+    .concat(allCats.map((c) => `<button type="button" class="tl-filter${financeCategories.includes(c) ? ' active' : ''}" data-fin-cat="${escapeHtml(c)}">${financeCategories.includes(c) ? '✓ ' : ''}${escapeHtml(c)}</button>`))
+    .join('');
+  const metricChip = (id: 'received' | 'spent' | 'net', label: string, color: string): string =>
+    `<button type="button" class="tl-filter${financeMetricsOn[id] ? ' active' : ''}" data-fin-metric="${id}"><i class="fin-chip-dot" style="background:${color}"></i>${label}</button>`;
+  const ftx = financeFilteredTx(tx);
+  host.innerHTML = `<article class="item hero-card fin-card finance-card">
     <header><h3>${escapeHtml(path.name)} — your money, clearly</h3></header>
     <p>Spent ${summary.spent.toFixed(2)} · Received ${summary.received.toFixed(2)} · Net ${(summary.received - summary.spent).toFixed(2)} across ${tx.length} transactions (${escapeHtml(tx[0].date)} to ${escapeHtml(tx[tx.length - 1].date)}).</p>
     <div class="fin-controls">
       <label>Group by <select id="finGroup1">${options(financeGroup1)}</select></label>
       <label>Then by <select id="finGroup2">${options(financeGroup2)}</select></label>
-      <span class="fin-legend"><span><i style="background:#1f4d30"></i>Received</span><span><i style="background:#c4142e"></i>Spent</span><span><i style="background:#05006d"></i>Net</span></span>
     </div>
+    <div class="fin-filter-row" aria-label="Metric filters">${metricChip('received', 'Received', '#1f4d30')}${metricChip('spent', 'Spent', '#c4142e')}${metricChip('net', 'Net', '#05006d')}</div>
+    <div class="fin-filter-row" aria-label="Category filters"><span class="fin-filter-label">Categories</span>${catChips}</div>
+    ${ftx.length === 0 ? '<p class="hint">No transactions match these filters — clear a category to see the charts again.</p>' : ''}
     <h3 class="ov-sub">Overview — received, spent and net</h3>
-    <div id="finOverview" class="fin-chart"></div>
-    <p class="hint">Hover any bar for its breakdown. Spent is plotted below zero so in, out and net compare at a glance.</p>
+    <div class="fin-scroll" id="finOverviewScroll"><div id="finOverview" class="fin-chart"></div></div>
+    <p class="hint">Scroll sideways when the chart runs wide. Hover any bar for its breakdown. Spent is plotted below zero so in, out and net compare at a glance.</p>
     <h3 class="ov-sub">Evolution — spending by category over time</h3>
     <div id="finEvolutionLegend" class="fin-legend-chips"></div>
-    <div id="finEvolution" class="fin-chart"></div>
+    <div class="fin-scroll" id="finEvolutionScroll"><div id="finEvolution" class="fin-chart"></div></div>
     <h3 class="ov-sub">Cumulative net</h3>
-    <div id="finCumulative" class="fin-chart"></div>
+    <div class="fin-scroll" id="finCumulativeScroll"><div id="finCumulative" class="fin-chart"></div></div>
     <details class="fin-data-list"><summary>Data as list</summary>
       <h3 class="ov-sub">Spending by category</h3>${cats}
       <h3 class="ov-sub">Monthly trend</h3>${trend || '<p class="hint">Not enough months yet.</p>'}
@@ -2140,9 +2174,26 @@ function renderBudgetDetail(pathId: string): void {
     financeGroup2 = (event.target as HTMLSelectElement).value as FinanceGroupKey;
     renderBudgetDetail(pathId);
   });
-  drawFinanceOverview(host, tx);
-  drawFinanceEvolution(host, tx);
-  drawFinanceCumulative(host, tx);
+  host.querySelectorAll<HTMLButtonElement>('[data-fin-cat]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const cat = btn.dataset.finCat ?? '';
+      if (cat === '__all') financeCategories = [];
+      else if (financeCategories.includes(cat)) financeCategories = financeCategories.filter((c) => c !== cat);
+      else financeCategories = [...financeCategories, cat];
+      renderBudgetDetail(pathId);
+    });
+  });
+  host.querySelectorAll<HTMLButtonElement>('[data-fin-metric]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.finMetric as 'received' | 'spent' | 'net';
+      financeMetricsOn = { ...financeMetricsOn, [id]: !financeMetricsOn[id] };
+      renderBudgetDetail(pathId);
+    });
+  });
+  if (ftx.length === 0) return;
+  drawFinanceOverview(host, ftx);
+  drawFinanceEvolution(host, ftx);
+  drawFinanceCumulative(host, ftx);
 }
 
 

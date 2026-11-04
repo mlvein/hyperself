@@ -1,80 +1,152 @@
-# Hyperself — 3-Minute Demo Script (DRAFT)
+# Hyperself — 3-Minute Commercial Script
 
-Status: draft for review. The rehearsed 4-minute version remains in [DEMO_SCRIPT.md](DEMO_SCRIPT.md) until this cut passes 3 full rehearsals.
-Target: 180 seconds wall-clock, ~230 spoken words — the rest is clicks, loads, and pauses where the screen does the talking. One story only: **offline statement → private Path → a lifetime understood.**
+A voiceover script for a 3-minute commercial, not a stage demo. One calm voice, speaking like she's remembering — never selling. The product appears the way good products do in films: quietly, through what it changes. Timings leave room for breath; ellipses and line breaks are pauses, not punctuation.
 
-## Before you walk on (not timed)
+**Voice:** a calm, intelligent woman. Warm, unhurried, certain. Read at about 130 words a minute. Lower energy on nouns that matter — *archive, years, people, privately* — and let the technology words pass at normal weight; the feelings carry the film.
 
-- Production build (`npm run build && npm run preview`), not `npm run dev`.
-- Load the preview once **online**: let the service worker install (`hyperself-v19`), load Maya once so `personas/maya.json` is cached, and pre-warm wav2vec 2.0 assets. Start the local Meta model server (Ollama with `muse-glimmer` or `llama3.2:3b`) and confirm Settings shows it connected — every model called at runtime is a Meta model, and the demo must show a live one.
-- Vault created on this browser profile, PIN + biometrics both enrolled.
-- `demo/demo-statement.csv` one click away. Notifications and sleep off. Backup recording playing-ready.
+**Models named, and only these:** Muse Glimmer and Muse Spark. **Hook source:** the [README](../README.md) promise at the open, answered at the close.
 
----
+## Shoot this first (not timed)
 
-### Beat 1 — The promise (0:00–0:20)
-
-**On screen:** Installed PWA icon. Open Hyperself, turn **airplane mode on live**. The sidebar shows **Offline · on-device**.
-
-> "This is Hyperself — your life's archive, understood privately. Everything you're about to see works with the network completely off. Nothing I show you leaves this device."
-
-### Beat 2 — Unlock (0:20–0:45)
-
-**On screen:** Vault lock screen → unlock with fingerprint.
-
-> "My archive is encrypted on this device, and my fingerprint unwraps it. There's no account and no server holding my data. So there's nothing to breach. And the model that will read it is Meta's Muse Glimmer, running right here on this machine — every model Hyperself calls is a Meta model."
-
-*Fallback, say it while doing it:* "And where biometrics aren't available, a PIN unwraps the same vault."
-
-### Beat 3 — Knowledge in (0:45–1:20)
-
-**On screen:** Import & Connect → **Upload documents** → pick `demo/demo-statement.csv`. Land on the **parse-review step** and pause.
-
-> "On a plane, I drop in a bank statement. Hyperself reads it right here: eighteen of eighteen transactions, categorised — and if a row had failed, it would tell me honestly. Nothing imports until I confirm."
-
-**On screen:** Click **Confirm import**.
-
-### Beat 4 — Ask becomes a Path (1:20–2:00)
-
-**On screen:** In the search bar ask **"where does my money go?"**, then click **Save as Path**. Open **Paths → Budgeting**: totals, category bars, monthly trend, recurring costs (Rent 3×, Netflix 3×), "What stands out."
-
-> "An ask isn't a one-off answer. It becomes a Path — a living view that updates as I add data. Spent, received, what's recurring, what stands out. And notice what it never does: it never tells me what to cut. It shows me my money clearly. The decisions stay mine."
-
-### Beat 5 — A lifetime, understood (2:00–2:40)
-
-**On screen:** Load **Maya** from demo controls (Ctrl/Cmd+Shift+D) → **Synthesis**, then **Network**.
-
-> "That's one statement. Now imagine twenty-eight years of it. This is Maya — a lifetime of documents, journals and records, all on-device. Hyperself sees who she has been, who she is, and the paths to what's next. This graph is her people, with her at the centre. Every one of these entries is tagged: personal never leaves this device — only what she chooses to share ever can."
-
-**On screen:** Hover a person, click centre circle briefly if it lands cleanly. Do not open drawers you cannot close in 5 seconds.
-
-### Close (2:40–3:00)
-
-**On screen:** Return to the sidebar. **Offline · on-device** badge visible.
-
-> "Private by architecture, not by policy. Encrypted on my device, unlocked by my fingerprint, useful with the network off. That's Hyperself."
-
-Stop. Do not add a roadmap slide to the spoken close; hold it for Q&A.
+- Production build (`npm run build && npm run preview`), recorded at 1440×900 or larger.
+- Muse Glimmer running and warm on this machine (`ollama pull muse-glimmer`, `ollama serve`), confirmed connected in Settings. The commercial's promise is a live Meta model transforming real uploads — never narrate around a fallback.
+- Your stage uploads in one folder: `demo/demo-statement.csv`, one document, one photograph, one short recording. Nothing personal. Anything that looks like a life must be provably fictional.
+- Vault created, fingerprint enrolled, airplane mode ready to toggle on camera. Service worker installed (`hyperself-v19`) from one online load.
+- Record the voice separately from the screen, then cut picture to her pauses — not the other way round.
 
 ---
 
-## What was cut from the 4-minute version, and why
+### 0:00–0:18 — The box of everything
 
-| Cut | Why it survives the cut |
+**Picture:** A hand opening a drawer of paper. Statements, a journal, loose photographs. Then the same things — glowing, weightless — settling into one quiet screen.
+
+> Somewhere, there's a drawer.
+>
+> Old statements. Journals. Photographs of people you love, in years that feel like other lives.
+>
+> Your scattered life archive… understood.
+
+### 0:18–0:42 — Everything comes home
+
+**Picture:** A fingerprint on the lock. The vault opens like a door. Inside Import & Connect, the statement, the document, the photograph, the recording arrive — one after another, unhurried. The parse-review holds for a beat.
+
+> Hyperself brings it home.
+>
+> Decades of documents, statements, journals, and photos — together, in one encrypted place, on your device.
+>
+> No account. No cloud holding your years. Just your fingerprint… and it's open.
+>
+> It reads what you give it, carefully. Eighteen transactions of eighteen — and it shows you, before anything is kept.
+
+### 0:42–1:08 — The machine that reads a life
+
+**Picture:** The Knowledgebase filling, softly. Then Synthesis: the profile forming, archetype pills appearing one by one. She taps *Confirm* on one. The model line reads: Muse Glimmer — on this device.
+
+> Then something gentle happens.
+>
+> Muse Glimmer — Meta's model, living quietly inside this machine — reads across everything you've kept… and tells you your own story back.
+>
+> Who you have been. Who you are. What you're reaching for.
+>
+> These patterns it sees in you? Yours to confirm. Yours to rename. Yours to refuse.
+>
+> And through it all — not one word of you ever left this room.
+
+### 1:08–1:28 — Time, made visible
+
+**Picture:** Timeline at years, breathing wider; zoom drifts to quarters, to months. A busy spike opens. A long, quiet gap — and inside it, a small invitation.
+
+> It remembers in order, too.
+>
+> Years become a landscape — the loud seasons, the quiet ones, the day each person first appears.
+>
+> And where the record goes silent for a while… it simply asks: *what do you remember from then?*
+
+### 1:28–1:48 — The people in the margins
+
+**Picture:** Network. You, at the centre. Names orbiting slowly. A click — one person's drawer, shared years unfolding. Back to the whole, turning.
+
+> Because a life was never lived alone.
+>
+> Everyone your archive has ever mentioned gathers here — around you.
+>
+> How long it's been. What you've shared. Who has quietly drifted.
+>
+> Seen clearly. Held gently. Never scored.
+
+### 1:48–2:12 — Questions that stay with you
+
+**Picture:** The question forms slowly in the search bar — *where does my money go?* Save as Path. Finance opens across the whole screen: the bars settle, a filter lifts away, the line of the years draws itself.
+
+> Some answers deserve to stay.
+>
+> Ask where your money goes… and it becomes a Path — yours to return to, as your life keeps arriving.
+>
+> In. Out. What remains. The shape of your years, spending by spending.
+>
+> It never arrives uninvited. And it describes, honestly — it never tells you what to do.
+
+### 2:12–2:34 — What you choose to pass on
+
+**Picture:** Legacy. The shareable pack sealing itself, a small check of light — verified. Elsewhere, a question answered from the pack alone. Then the single online door: the consent sheet, exact words visible, Muse Spark — and the reply arriving.
+
+> And one day, what you've learned can travel — without you ever losing it.
+>
+> A Legacy: the parts of your knowledge you *choose* to share, sealed and verified. The personal parts… cannot follow. They're not built to.
+>
+> When you want a deeper mind, there's one door — and you hold the key. Muse Spark sees a pattern, never your pages. Never your names.
+
+### 2:34–2:50 — The promise underneath
+
+**Picture:** Two quiet lines. *Personal. Shareable.* The offline badge. The model, at rest on the device.
+
+> That's the whole promise, really.
+>
+> Muse Glimmer thinks with your life, where your life lives. Muse Spark thinks further — only over what you hand it.
+>
+> Two Meta models. Zero uploads.
+
+### 2:50–3:00 — Close
+
+**Picture:** Black, almost. The wordmark breathes in. Under it, one line, small and still: *Private. Offline. Never uploaded.*
+
+> Your life's archive, understood… privately.
+>
+> Hyperself.
+
+---
+
+## Voice direction, beat by beat
+
+| Beat | Delivery |
 |---|---|
-| Install beat as its own step | Folded into Beat 1; the icon is shown, not explained |
-| Synthesis archetype deep-dive | One line in Beat 5; archetype pills stay visible on screen |
-| Legacy pack export/import | One clause in Beat 5 ("only what she chooses to share"); demo it in Q&A |
-| Security-scan beat | Dropped; keep as Q&A backup if a judge asks about imports |
-| Suggested Paths / Templates | Dropped; Budgeting carries the Paths story alone |
+| The box of everything | Almost a whisper. Nostalgic, not sad. *Understood* lands soft and final |
+| Everything comes home | Warmer. A small smile on "and it's open" |
+| The machine that reads a life | Wonder, kept quiet. Slowest beat in the film |
+| Time, made visible | Tender. The question is read as if she's asking it for you |
+| The people in the margins | Affection first. *Never scored* — protective, a little firm |
+| Questions that stay with you | Steady, practical warmth. Money without judgment |
+| What you choose to pass on | Legacy spoken like inheritance. *You hold the key* — unhurried |
+| The promise underneath | Matter-of-fact. Trust stated plainly beats trust performed |
+| Close | Two full beats of silence after *Hyperself*. Do not fill them |
 
-## Fallbacks (rehearse out loud)
+## Coverage check
 
-- **Biometrics stall** → PIN line above, keep moving. The encryption point stands.
-- **Local model cold or absent** → Budgeting and Paths are rule-based, so keep moving — but know the fallback demos no runtime model call. Prevention beats this fallback: warm Glimmer before the talk and check Settings shows it connected.
-- **Maya not cached offline** → skip Beat 5's load, narrate over the Budgeting Path and close 20 seconds early. Never troubleshoot on stage.
-- **Total stage failure** → switch to the backup recording and narrate over it.
+| Surface | Beat |
+|---|---|
+| Import & Connect (statement, document, photo, recording) | Everything comes home |
+| Knowledgebase + Synthesis + archetypes | The machine that reads a life |
+| Muse Glimmer (on-device transformation) | The machine that reads a life; The promise underneath |
+| Timeline | Time, made visible |
+| Network | The people in the margins |
+| Paths (save-as-Path, full-width Finance, filters, suggestions) | Questions that stay with you |
+| Legacy packs + encrypted backup | What you choose to pass on |
+| Augmented Paths + Muse Spark (Meta Model API) | What you choose to pass on |
+| Vault, personal/shareable, offline, Meta-only models | Every beat carries one; named plainly at The promise underneath |
 
-## Rehearsal gate
+## Notes for the read
 
-Run this exact cut 3 times on the exact demo build. Any failure = fix or cut that beat, then restart the count. See the airplane-mode checklist in [DEMO_SCRIPT.md](DEMO_SCRIPT.md).
+- Ellipses are half-second pauses. A line break alone is a breath. Nothing in this script should ever sound rushed.
+- "Eighteen of eighteen" — if the take's data shows different numbers, re-record the line. The voice never describes what the screen isn't showing.
+- *Personal* and *shareable* are the only jargon words spoken, and the film shows what they mean before it names them.
+- If a take runs long, let Timeline and Network share one continuous picture under both voiceovers. Never trim the hook, the Glimmer beat, or the last eight seconds.

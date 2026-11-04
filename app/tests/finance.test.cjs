@@ -8,6 +8,7 @@ const path = require('node:path');
 const {
   FINANCE_GROUP_KEYS,
   financeGroupKey,
+  filterFinanceByCategories,
   groupFinance,
   financeBreakdown,
   monthlyCategorySeries,
@@ -77,6 +78,17 @@ assert.equal(financeGroupKey({ ...tx[0], date: '2024-01-01' }, 'Weekday'), 'Mon'
   console.log('finance evolution OK: per-month category series with Others');
 }
 
+// Category filter: empty selection keeps everything; otherwise only matches.
+{
+  assert.deepEqual(filterFinanceByCategories(tx, []), tx, 'empty filter keeps all');
+  assert.ok(filterFinanceByCategories(tx, ['Housing']).every((t) => t.category === 'Housing'), 'only selected categories remain');
+  assert.equal(filterFinanceByCategories(tx, ['Housing']).length, 2, 'filter preserves every matching transaction');
+  assert.deepEqual(filterFinanceByCategories(tx, ['Nope']), [], 'unknown category matches nothing');
+  const filtered = filterFinanceByCategories(tx, ['Housing', 'Groceries']);
+  assert.deepEqual(cumulativeNetByMonth(filtered).map((p) => p.cumulative), [-950, -1920], 'charts downstream of the filter stay consistent');
+  console.log('finance filter OK: category filter feeds every chart');
+}
+
 // Cumulative net: running received-minus-spent across months.
 {
   const points = cumulativeNetByMonth(tx);
@@ -106,6 +118,13 @@ assert.equal(financeGroupKey({ ...tx[0], date: '2024-01-01' }, 'Weekday'), 'Mon'
     assert.ok(main.includes(marker), `finance chart wiring present: ${marker}`);
   }
   assert.ok(main.includes('financeBreakdown'), 'overview tooltip breaks down by the then-by key');
+  for (const marker of [
+    'finance-card', 'fin-scroll', 'data-fin-cat', 'data-fin-metric',
+    'filterFinanceByCategories', 'finOverviewScroll',
+  ]) {
+    assert.ok(main.includes(marker) || css.includes(marker), `finance full-width/filter wiring present: ${marker}`);
+  }
+  console.log('finance layout OK: full-width scrollable view with filters');
   assert.ok(css.includes('.fin-tip') && css.includes('.fin-legend-chip') && css.includes('.fin-zero'), 'finance chart styles present');
   console.log('finance wiring OK: three D3 charts, group controls, tooltip, list fallback');
 }
